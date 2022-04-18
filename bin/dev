@@ -1,0 +1,31 @@
+#!/bin/zsh
+COMMAND=$1
+
+
+startServices () {
+  echo "Starting services"
+  docker-compose build --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g)
+  docker-compose up -d
+  echo "Done."
+}
+
+stopServices () {
+  echo "Stopping iCuisine services"
+  docker-compose down
+}
+
+case "$COMMAND" in
+[uU][pP] )
+  startServices
+  ;;
+[dD][oO][wW][nN] )
+  stopServices
+  ;;
+exec )
+  docker-compose exec $2 $3
+  ;;
+*)
+  echo "No command recognized. "
+  echo "Possible commands: [up, down]"
+  ;;
+esac
