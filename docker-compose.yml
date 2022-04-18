@@ -2,12 +2,14 @@ version: '3'
 
 services:
   appwrite-util:
+    container_name: appwrite-util
     build:
       context: './setup'
       dockerfile: 'setup.dockerfile'
+    stdin_open: true
+    tty: true
     depends_on:
       - appwrite
-
   traefik:
     image: traefik:2.5
     container_name: appwrite-traefik
