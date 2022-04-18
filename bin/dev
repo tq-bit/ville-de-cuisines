@@ -1,31 +1,40 @@
 #!/bin/zsh
 COMMAND=$1
 
+install() {
+  echo "Installing appwrite cli ..."
+  npm install -g appwrite-cli
 
-startServices () {
+  echo "Logging in to API ..."
+  appwrite login
+}
+
+# Commando functions
+startServices() {
   echo "Starting services"
-  docker-compose build --build-arg USER_ID=$(id -u) --build-arg GROUP_ID=$(id -g)
   docker-compose up -d
   echo "Done."
 }
 
-stopServices () {
+stopServices() {
   echo "Stopping iCuisine services"
   docker-compose down
 }
 
+# Commando execution
 case "$COMMAND" in
-[uU][pP] )
+
+up)
   startServices
   ;;
-[dD][oO][wW][nN] )
+down)
   stopServices
   ;;
-exec )
-  docker-compose exec $2 $3
+[iI]*)
+  install
   ;;
 *)
   echo "No command recognized. "
-  echo "Possible commands: [up, down]"
+  echo "Possible commands: [up, down, login, i(nstall)]"
   ;;
 esac
