@@ -1,0 +1,279 @@
+{
+    "projectId": "625d3c9e792ba7d16f25",
+    "projectName": "icuisine",
+    "collections": [
+        {
+            "$id": "625d3dbd6d3d310cd0ae",
+            "$read": [
+                "role:all"
+            ],
+            "$write": [
+                "role:all"
+            ],
+            "name": "ingredients",
+            "enabled": true,
+            "permission": "collection",
+            "attributes": [
+                {
+                    "key": "name",
+                    "type": "string",
+                    "status": "available",
+                    "required": true,
+                    "array": false,
+                    "size": 255,
+                    "default": null
+                },
+                {
+                    "key": "calories",
+                    "type": "integer",
+                    "status": "available",
+                    "required": true,
+                    "array": false,
+                    "min": -9223372036854776000,
+                    "max": 9223372036854776000,
+                    "default": null
+                },
+                {
+                    "key": "quantity_unit",
+                    "type": "string",
+                    "status": "available",
+                    "required": true,
+                    "array": false,
+                    "elements": [
+                        "l",
+                        "g",
+                        "pc",
+                        "tsp",
+                        "tbsp"
+                    ],
+                    "format": "enum",
+                    "default": null
+                },
+                {
+                    "key": "quantity",
+                    "type": "integer",
+                    "status": "available",
+                    "required": true,
+                    "array": false,
+                    "min": -9223372036854776000,
+                    "max": 9223372036854776000,
+                    "default": null
+                }
+            ],
+            "indexes": [
+                {
+                    "key": "search_by_name",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": [
+                        "name"
+                    ],
+                    "orders": [
+                        "ASC"
+                    ]
+                },
+                {
+                    "key": "search_by_calories",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": [
+                        "calories"
+                    ],
+                    "orders": [
+                        "DESC"
+                    ]
+                }
+            ]
+        },
+        {
+            "$id": "625d4675ce288a1398b2",
+            "$read": [],
+            "$write": [],
+            "name": "recipes",
+            "enabled": true,
+            "permission": "document",
+            "attributes": [
+                {
+                    "key": "name",
+                    "type": "string",
+                    "status": "available",
+                    "required": true,
+                    "array": false,
+                    "size": 255,
+                    "default": null
+                },
+                {
+                    "key": "description",
+                    "type": "string",
+                    "status": "available",
+                    "required": false,
+                    "array": false,
+                    "size": 255,
+                    "default": null
+                },
+                {
+                    "key": "steps",
+                    "type": "string",
+                    "status": "available",
+                    "required": true,
+                    "array": true,
+                    "size": 255,
+                    "default": null
+                },
+                {
+                    "key": "ingredients",
+                    "type": "string",
+                    "status": "available",
+                    "required": true,
+                    "array": true,
+                    "size": 255,
+                    "default": null
+                },
+                {
+                    "key": "original",
+                    "type": "boolean",
+                    "status": "available",
+                    "required": true,
+                    "array": false,
+                    "default": null
+                },
+                {
+                    "key": "username",
+                    "type": "string",
+                    "status": "available",
+                    "required": true,
+                    "array": false,
+                    "size": 255,
+                    "default": null
+                },
+                {
+                    "key": "tags",
+                    "type": "string",
+                    "status": "available",
+                    "required": false,
+                    "array": true,
+                    "size": 255,
+                    "default": null
+                }
+            ],
+            "indexes": [
+                {
+                    "key": "search_by_name_description",
+                    "type": "fulltext",
+                    "status": "available",
+                    "attributes": [
+                        "name",
+                        "description"
+                    ],
+                    "orders": [
+                        "ASC",
+                        "ASC"
+                    ]
+                }
+            ]
+        },
+        {
+            "$id": "625d483a10f5de955b29",
+            "$read": [],
+            "$write": [],
+            "name": "users",
+            "enabled": true,
+            "permission": "collection",
+            "attributes": [
+                {
+                    "key": "name",
+                    "type": "string",
+                    "status": "available",
+                    "required": true,
+                    "array": false,
+                    "size": 255,
+                    "default": null
+                },
+                {
+                    "key": "bio",
+                    "type": "string",
+                    "status": "available",
+                    "required": false,
+                    "array": false,
+                    "size": 255,
+                    "default": "404 bio not found"
+                },
+                {
+                    "key": "facebook",
+                    "type": "string",
+                    "status": "available",
+                    "required": false,
+                    "array": false,
+                    "format": "url",
+                    "default": null
+                },
+                {
+                    "key": "instagram",
+                    "type": "string",
+                    "status": "available",
+                    "required": false,
+                    "array": false,
+                    "format": "url",
+                    "default": null
+                },
+                {
+                    "key": "youtube",
+                    "type": "string",
+                    "status": "available",
+                    "required": false,
+                    "array": false,
+                    "format": "url",
+                    "default": null
+                }
+            ],
+            "indexes": []
+        },
+        {
+            "$id": "625d5401d338cc0529e1",
+            "$read": [
+                "role:all"
+            ],
+            "$write": [
+                "role:all"
+            ],
+            "name": "follows",
+            "enabled": true,
+            "permission": "collection",
+            "attributes": [
+                {
+                    "key": "entity_type",
+                    "type": "string",
+                    "status": "available",
+                    "required": false,
+                    "array": false,
+                    "elements": [
+                        "user",
+                        "recipe",
+                        "ingredients"
+                    ],
+                    "format": "enum",
+                    "default": null
+                },
+                {
+                    "key": "followed_by",
+                    "type": "string",
+                    "status": "available",
+                    "required": false,
+                    "array": true,
+                    "size": 255,
+                    "default": null
+                },
+                {
+                    "key": "entity_id",
+                    "type": "string",
+                    "status": "available",
+                    "required": true,
+                    "array": false,
+                    "size": 255,
+                    "default": null
+                }
+            ],
+            "indexes": []
+        }
+    ]
+}

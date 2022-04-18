@@ -7,6 +7,9 @@ install() {
 
   echo "Logging in to API ..."
   appwrite login
+
+  echo "Initializing Project"
+  appwrite init --all
 }
 
 # Commando functions
@@ -21,7 +24,7 @@ stopServices() {
   docker-compose down
 }
 
-# Commando execution
+# Command execution
 case "$COMMAND" in
 
 up)
