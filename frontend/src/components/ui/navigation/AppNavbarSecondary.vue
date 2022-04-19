@@ -14,16 +14,16 @@ defineProps<{
 		class="flex"
 		:class="{ 'flex-col': direction === 'vertical', 'flex-row': direction === 'horizontal' }"
 	>
-		<router-link class="navbar__item" v-if="isUserLoggedIn" to="/profile">
+		<router-link class="navbar__item md:ml-6" v-if="isUserLoggedIn" to="/profile">
 			<div class="h-6 w-6 mr-1"><i-user></i-user></div>
 			Profile
 		</router-link>
 
-		<router-link class="navbar__item" v-if="!isUserLoggedIn" to="/signup">
+		<router-link class="navbar__item md:ml-6" v-if="!isUserLoggedIn" to="/signup">
 			<div class="h-6 w-6 mr-1"><i-new-user></i-new-user></div>
 			Signup
 		</router-link>
-		<router-link class="navbar__item" v-if="!isUserLoggedIn" to="/login">
+		<router-link class="navbar__item md:ml-6" v-if="!isUserLoggedIn" to="/login">
 			<div class="h-6 w-6 mr-1"><i-login></i-login></div>
 			Login
 		</router-link>

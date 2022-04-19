@@ -7,7 +7,7 @@ body {
 }
 
 .navbar__item {
-	@apply my-3 mx-3 text-lg text-center w-full font-semibold flex justify-center items-center;
+	@apply my-3 text-lg text-center w-full font-semibold flex justify-center items-center;
 }
 
 /* Animations */

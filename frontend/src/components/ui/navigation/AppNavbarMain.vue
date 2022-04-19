@@ -33,7 +33,7 @@ const navigationItems: AppNavigationItem[] = [
 		>
 			<li v-for="navigationItem in navigationItems">
 				<router-link
-					class="navbar__item"
+					class="navbar__item mr-6"
 					v-if="navigationItem.requiresLogin === false || navigationItem.requiresLogin === isUserLoggedIn"
 					:to="navigationItem.path"
 				>
