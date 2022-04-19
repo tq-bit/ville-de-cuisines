@@ -1,6 +1,25 @@
 version: '3'
 
 services:
+  frontend:
+      # build: ./vite-login-app
+    build:
+      context: ./frontend
+      dockerfile: fe.dev.dockerfile
+
+    # volumes are only relevant for development
+    volumes:
+      - ./frontend:/frontend
+
+    ports:
+      - '3000:3000'
+    expose:
+      - '3000'
+    depends_on:
+      - backend
+    stdin_open: true
+    tty: true
+
   traefik:
     image: traefik:2.5
     container_name: appwrite-traefik
