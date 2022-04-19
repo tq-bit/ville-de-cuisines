@@ -1,14 +1,8 @@
-import {
-	createRouter,
-	createWebHistory,
-	RouterOptions,
-	RouteLocationNormalized,
-} from 'vue-router';
+import { createRouter, createWebHistory, RouterOptions, RouteLocationNormalized } from 'vue-router';
 import Home from './pages/Home.vue';
 export interface AppNavigationItem {
 	name: string;
 	requiresLogin: boolean;
-	isInternalPath: boolean;
 	path?: string;
 	fn?: Function;
 }
@@ -31,36 +25,30 @@ export const navigation: AppNavigationItem[] = [
 		path: '/',
 		name: 'Home',
 		requiresLogin: false,
-		isInternalPath: true,
 	},
 	{
 		path: '/login',
 		name: 'Login',
 		requiresLogin: false,
-		isInternalPath: true,
 	},
 	{
 		path: '/signup',
 		name: 'Signup',
 		requiresLogin: false,
-		isInternalPath: true,
 	},
 	{
 		path: '/profile',
 		name: 'Profile',
 		requiresLogin: true,
-		isInternalPath: true,
 	},
 	{
 		path: '/about',
 		name: 'About',
 		requiresLogin: false,
-		isInternalPath: true,
 	},
 	{
 		name: 'Logout',
 		requiresLogin: true,
-		isInternalPath: false,
 	},
 ];
 
