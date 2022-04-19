@@ -1,47 +1,50 @@
 <script setup lang="ts">
+import { computed, useSlots } from 'vue';
+
 withDefaults(
-  defineProps<{
-    labelPrefix?: string;
-    label?: string;
-    placeholder?: string
-    modelValue?: string | number;
-    error?: string;
-    required?: boolean;
-    requiredSign?: string;
-    variant?: 'default' | 'chat';
-  }>(),
-  {
-    required: false,
-    requiredSign: '*',
-    variant: 'default',
-  }
+	defineProps<{
+		labelPrefix?: string;
+		label?: string;
+		placeholder?: string;
+		modelValue?: string | number;
+		error?: string;
+		required?: boolean;
+		requiredSign?: string;
+	}>(),
+	{
+		required: false,
+		requiredSign: '*',
+	}
 );
+const slots = useSlots();
+
+const hasIconSlot = computed(() => !!slots.icon)
 
 const emit = defineEmits<{
-  (event: 'update:modelValue', chatText: string): void;
+	(event: 'update:modelValue', chatText: string): void;
+  (event: 'click-icon'): void;
 }>();
 
 const onInput = (ev: Event) => emit('update:modelValue', (ev.target as HTMLInputElement).value);
 </script>
 
 <template>
-  <div>
-    <label v-if="label" class="font-semibold block mb-2">
-      {{ label }}
-      <span class="text-red-500" v-if="required">{{ requiredSign }}</span>
-    </label>
-    <!-- @ts-ignore -->
-    <input
-      class="h-full bg-transparent outline-none p-2"
-      :class="{
-        'text-gray-900 dark:text-gray-100 w-full border-b transition-all border-gray-600 focus:border-violet-600 focus:dark:border-violet-400 dark:border-gray-400 ':
-          variant === 'default',
-      }"
+	<div class="relative mb-4">
+		<label v-if="label" class="font-semibold block mb-1 text-green-600">
+			{{ label }}
+			<span class="text-red-500" v-if="required">{{ requiredSign }}</span>
+		</label>
+
+		<span @click="emit('click-icon')" tabindex="1" v-if="hasIconSlot" class="h-8 w-8 m-2 rounded-full text-green-600 absolute"><slot name="icon" /></span>
+
+		<input
+			class="h-12 outline-none rounded-full text-gray-900 bg-gray-100 dark:bg-gray-800 dark:text-gray-200 px-6 py-4 w-full transition-all border-2 border-green-600 focus:bg-white focus:dark:bg-gray-200 focus:dark:text-gray-800"
+			:class="{ 'pl-12': hasIconSlot }"
       v-bind="$attrs"
-      @input="onInput"
-      :value="modelValue"
-      :required="required"
-      :placeholder="labelPrefix ? labelPrefix + label?.toLowerCase() : label || $attrs.placeholder as string"
-    />
-  </div>
+			@input="onInput"
+			:value="modelValue"
+			:required="required"
+			:placeholder="labelPrefix ? labelPrefix + label?.toLowerCase() : label || $attrs.placeholder as string"
+		/>
+	</div>
 </template>
