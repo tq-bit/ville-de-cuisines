@@ -15,7 +15,7 @@ install() {
 # Commando functions
 startServices() {
   echo "Starting services"
-  docker-compose up -d
+  docker-compose up --build
   echo "Done."
 }
 

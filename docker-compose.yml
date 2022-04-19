@@ -1,8 +1,7 @@
-version: '3'
+version: '3.8'
 
 services:
   frontend:
-      # build: ./vite-login-app
     build:
       context: ./frontend
       dockerfile: fe.dev.dockerfile
@@ -15,8 +14,6 @@ services:
       - '3000:3000'
     expose:
       - '3000'
-    depends_on:
-      - backend
     stdin_open: true
     tty: true
 
