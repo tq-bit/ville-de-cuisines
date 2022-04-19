@@ -1,24 +1,13 @@
 <script lang="ts" setup>
-import { computed } from 'vue';
 import { AppNavigationItem, navigation } from '../../router';
 import { useRouter } from 'vue-router';
 import iClose from '../icons/iClose.vue';
-import useSession from '../../store/session';
 
-const { token } = useSession();
 const router = useRouter();
 
 const emit = defineEmits(['toggleSidebar']);
 withDefaults(defineProps<{ show: boolean }>(), {
   show: false,
-});
-
-const activeNavigation = computed(() => {
-  const hasActiveSession = token.value !== '';
-  if (hasActiveSession) {
-    return navigation.filter((nav) => nav.requiresLogin === true);
-  }
-  return navigation.filter((nav) => nav.requiresLogin === false);
 });
 
 const onClick = (route: AppNavigationItem): void => {
@@ -46,7 +35,7 @@ const onClick = (route: AppNavigationItem): void => {
       </header>
       <main class="flex flex-col">
         <button
-          v-for="route in activeNavigation"
+          v-for="route in navigation"
           :key="route?.name"
           @click="onClick(route)"
           class="my-3 text-lg text-center w-full font-semibold"
