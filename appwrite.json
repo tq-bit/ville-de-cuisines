@@ -1,5 +1,5 @@
 {
-    "projectId": "625d3c9e792ba7d16f25",
+    "projectId": "625ea6425efdf4cc9a46",
     "projectName": "icuisine",
     "collections": [
         {
@@ -29,8 +29,8 @@
                     "status": "available",
                     "required": true,
                     "array": false,
-                    "min": -9223372036854776000,
-                    "max": 9223372036854776000,
+                    "min": 0,
+                    "max": 9999999999,
                     "default": null
                 },
                 {
@@ -55,8 +55,8 @@
                     "status": "available",
                     "required": true,
                     "array": false,
-                    "min": -9223372036854776000,
-                    "max": 9223372036854776000,
+                    "min": 0,
+                    "max": 9999999999,
                     "default": null
                 }
             ],

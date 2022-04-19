@@ -1,6 +1,18 @@
 #!/bin/zsh
 COMMAND=$1
 
+startAppwrite() {
+  docker run --rm -it \
+    --volume /var/run/docker.sock:/var/run/docker.sock \
+    --volume "$(pwd)"/appwrite:/usr/src/code/appwrite:rw \
+    --entrypoint="install" \
+    appwrite/appwrite:0.13.4
+}
+
+startFrontend() {
+  docker-compose up --build
+}
+
 install() {
   echo "Installing appwrite cli ..."
   npm install -g appwrite-cli
@@ -13,22 +25,24 @@ install() {
 }
 
 # Commando functions
-startServices() {
-  echo "Starting services"
-  docker-compose up --build
-  echo "Done."
+initServices() {
+  echo "Setting up appwrite for the first time"
+  startAppwrite
+  install
+  startFrontend
 }
 
 stopServices() {
   echo "Stopping iCuisine services"
   docker-compose down
+  docker-compose down -f appwrite/docker-compose.yml
 }
 
 # Command execution
 case "$COMMAND" in
 
 up)
-  startServices
+  initServices
   ;;
 down)
   stopServices
