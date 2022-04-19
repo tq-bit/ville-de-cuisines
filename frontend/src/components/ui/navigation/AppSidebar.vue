@@ -16,6 +16,7 @@ const isUserLoggedIn = ref<boolean>(true);
 			v-if="show"
 			class="fixed top-0 left-0 w-screen h-screen z-10 px-4 pt-20 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-50"
 		>
+			<slot name="search" v-if="isUserLoggedIn" />
 			<section class="md:hidden block">
 				<app-navbar-main direction="vertical" :is-user-logged-in="isUserLoggedIn"></app-navbar-main>
 			</section>
