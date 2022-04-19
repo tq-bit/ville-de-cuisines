@@ -15,7 +15,6 @@ const togglePasswordInputType = () => {
 
 <template>
 	<app-container page>
-		<app-theme-button> </app-theme-button>
 		<app-input label="Please ne">
 			<template v-slot:icon>
 				<i-user></i-user>

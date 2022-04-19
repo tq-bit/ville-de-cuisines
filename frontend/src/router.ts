@@ -20,38 +20,6 @@ export interface AppNavigationItem {
 // 	}
 // };
 
-export const navigation: AppNavigationItem[] = [
-	{
-		path: '/',
-		name: 'Home',
-		requiresLogin: false,
-	},
-	{
-		path: '/login',
-		name: 'Login',
-		requiresLogin: false,
-	},
-	{
-		path: '/signup',
-		name: 'Signup',
-		requiresLogin: false,
-	},
-	{
-		path: '/profile',
-		name: 'Profile',
-		requiresLogin: true,
-	},
-	{
-		path: '/about',
-		name: 'About',
-		requiresLogin: false,
-	},
-	{
-		name: 'Logout',
-		requiresLogin: true,
-	},
-];
-
 export const routes: RouterOptions['routes'] = [
 	{
 		path: '/',
