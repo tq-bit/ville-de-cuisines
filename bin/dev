@@ -35,7 +35,7 @@ initServices() {
 stopServices() {
   echo "Stopping iCuisine services"
   docker-compose down
-  docker-compose down -f appwrite/docker-compose.yml
+  docker-compose --file appwrite/docker-compose.yml down
 }
 
 # Command execution
