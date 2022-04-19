@@ -1,15 +1,10 @@
-import { validate } from 'vee-validate';
 import {
 	createRouter,
 	createWebHistory,
 	RouterOptions,
-	NavigationGuardWithThis,
 	RouteLocationNormalized,
 } from 'vue-router';
 import Home from './pages/Home.vue';
-import useSession from './store/session';
-
-const { logout, validateLocalUserState } = useSession();
 export interface AppNavigationItem {
 	name: string;
 	requiresLogin: boolean;
@@ -18,18 +13,18 @@ export interface AppNavigationItem {
 	fn?: Function;
 }
 
-const verifyUserState = async (
-	to: RouteLocationNormalized,
-	from: RouteLocationNormalized,
-	next: any
-) => {
-	const [response, error] = await validateLocalUserState();
-	if (error) {
-		next('/login');
-	} else {
-		next();
-	}
-};
+// const verifyUserState = async (
+// 	to: RouteLocationNormalized,
+// 	from: RouteLocationNormalized,
+// 	next: any
+// ) => {
+// 	const [response, error] = await validateLocalUserState();
+// 	if (error) {
+// 		next('/login');
+// 	} else {
+// 		next();
+// 	}
+// };
 
 export const navigation: AppNavigationItem[] = [
 	{
@@ -66,7 +61,6 @@ export const navigation: AppNavigationItem[] = [
 		name: 'Logout',
 		requiresLogin: true,
 		isInternalPath: false,
-		fn: logout,
 	},
 ];
 
