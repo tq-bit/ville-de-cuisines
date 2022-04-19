@@ -33,9 +33,19 @@ export const routes: RouterOptions['routes'] = [
 		path: '/signup',
 		component: () => import('./pages/Signup.vue'),
 	},
+
 	{
 		path: '/profile',
 		component: () => import('./pages/Profile.vue'),
+	},
+
+	{
+		path: '/my-follows',
+		component: () => import('./pages/MyFollows.vue'),
+	},
+	{
+		path: '/my-kitchen',
+		component: () => import('./pages/MyKitchen.vue'),
 	},
 
 	{
