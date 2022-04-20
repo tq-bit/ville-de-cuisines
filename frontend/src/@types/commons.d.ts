@@ -1,11 +1,16 @@
 import { AppwriteException } from 'appwrite';
 
-export type AlertVariant = 'info' | 'error' | 'success' | 'warning';
+export type AlertVariant = 'info' | 'error' | 'success'
 
 export interface AppUserLoginPayload {
 	email: string;
 	password: string;
 	username?: string;
+}
+
+export interface AppServerErrorResponse {
+	message: string;
+	code: number
 }
 
 export type AppUserForm = 'login' | 'signup';
