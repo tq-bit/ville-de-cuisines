@@ -2,12 +2,18 @@
 import AppButton from '../components/form/AppButton.vue';
 import useSessionStore from '../store/sessionStore';
 import { useRouter } from 'vue-router';
+import useGlobalAlert from '../use/globalAlert';
 
 const { account, sessionId, isUserLoggedIn, destroyServerSession } = useSessionStore();
+const { triggerGlobalAlert } = useGlobalAlert();
 const router = useRouter();
 
 const logout = async () => {
 	await destroyServerSession();
+	triggerGlobalAlert({
+		message: 'You have been logged out',
+		variant: 'success',
+	});
 	router.push({ path: '/' });
 };
 </script>

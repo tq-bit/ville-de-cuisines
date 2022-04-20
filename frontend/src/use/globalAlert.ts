@@ -9,30 +9,30 @@ export interface AlertComposableConfig {
 
 let variantState = ref<AlertVariant>('info');
 let messageState = ref('');
-let showAppAlertState = ref(false);
+let showGlobalAlertState = ref(false);
 let timeoutHandler = ref<number | null>(null);
 
-export default function useAppAlert() {
+export default function useGlobalAlert() {
   const variant = computed(() => variantState.value);
   const message = computed(() => messageState.value);
-  const showAppAlert = computed(() => showAppAlertState.value);
+  const showGlobalAlert = computed(() => showGlobalAlertState.value);
 
   const setAlertConfig = ({ variant, message }: AlertComposableConfig) => {
     variantState.value = variant || 'info';
     messageState.value = message;
   };
 
-  const triggerAppAlert = (payload: AlertComposableConfig, timeout: number = 3500) => {
-    showAppAlertState.value = true;
+  const triggerGlobalAlert = (payload: AlertComposableConfig, timeout: number = 3500) => {
+    showGlobalAlertState.value = true;
     setAlertConfig(payload);
 
     if (timeoutHandler.value) {
       clearTimeout(timeoutHandler.value);
     }
     timeoutHandler.value = setTimeout(() => {
-      showAppAlertState.value = false;
+      showGlobalAlertState.value = false;
     }, timeout);
   };
 
-  return { triggerAppAlert, showAppAlert, message, variant };
+  return { triggerGlobalAlert, showGlobalAlert, message, variant };
 }

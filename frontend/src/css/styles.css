@@ -24,12 +24,12 @@ body {
 }
 
 /* Fade from top */
-.fade-from-top-enter-active,
-.fade-from-top-leave-active {
+.fade-from-bottom-enter-active,
+.fade-from-bottom-leave-active {
 	transition: all 0.5s ease;
 }
-.fade-from-top-enter-from,
-.fade-from-top-leave-to {
+.fade-from-bottom-enter-from,
+.fade-from-bottom-leave-to {
 	opacity: 0;
 	transform: translateY(-30px);
 }

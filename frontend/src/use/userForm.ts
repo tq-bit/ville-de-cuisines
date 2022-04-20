@@ -17,7 +17,7 @@ export default function handleUserForm(type: AppUserForm) {
 	const { handleSubmit } = useForm({
 		validationSchema: formValidationSchema,
 	});
-	const { triggerAppAlert } = useAppAlert();
+	const { triggerGlobalAlert } = useAppAlert();
 
 	const { value: email } = useField('email') as FieldContext<string>;
 	const { value: username } = useField('username') as FieldContext<string>;
@@ -42,7 +42,7 @@ export default function handleUserForm(type: AppUserForm) {
 				code: error.code,
 			};
 		} else {
-			triggerAppAlert({ message: 'Login successful', variant: 'success' });
+			triggerGlobalAlert({ message: 'Login successful', variant: 'success' });
 		}
 	};
 	const handleUserSignup = async ({ email, username, password }: AppUserLoginPayload) => {
@@ -57,7 +57,7 @@ export default function handleUserForm(type: AppUserForm) {
 			};
 		} else {
 			await login({ email, password });
-			triggerAppAlert({ message: 'Signup successful', variant: 'success' });
+			triggerGlobalAlert({ message: 'Signup successful', variant: 'success' });
 		}
 	};
 
