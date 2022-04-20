@@ -15,25 +15,6 @@
             "permission": "collection",
             "attributes": [
                 {
-                    "key": "name",
-                    "type": "string",
-                    "status": "available",
-                    "required": true,
-                    "array": false,
-                    "size": 255,
-                    "default": null
-                },
-                {
-                    "key": "calories",
-                    "type": "integer",
-                    "status": "available",
-                    "required": true,
-                    "array": false,
-                    "min": 0,
-                    "max": 9999999999,
-                    "default": null
-                },
-                {
                     "key": "quantity_unit",
                     "type": "string",
                     "status": "available",
@@ -50,7 +31,26 @@
                     "default": null
                 },
                 {
+                    "key": "name",
+                    "type": "string",
+                    "status": "available",
+                    "required": true,
+                    "array": false,
+                    "size": 255,
+                    "default": null
+                },
+                {
                     "key": "quantity",
+                    "type": "integer",
+                    "status": "available",
+                    "required": true,
+                    "array": false,
+                    "min": 0,
+                    "max": 9999999999,
+                    "default": null
+                },
+                {
+                    "key": "calories",
                     "type": "integer",
                     "status": "available",
                     "required": true,
@@ -62,17 +62,6 @@
             ],
             "indexes": [
                 {
-                    "key": "search_by_name",
-                    "type": "key",
-                    "status": "available",
-                    "attributes": [
-                        "name"
-                    ],
-                    "orders": [
-                        "ASC"
-                    ]
-                },
-                {
                     "key": "search_by_calories",
                     "type": "key",
                     "status": "available",
@@ -81,6 +70,17 @@
                     ],
                     "orders": [
                         "DESC"
+                    ]
+                },
+                {
+                    "key": "search_by_name",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": [
+                        "name"
+                    ],
+                    "orders": [
+                        "ASC"
                     ]
                 }
             ]
@@ -94,11 +94,11 @@
             "permission": "document",
             "attributes": [
                 {
-                    "key": "name",
+                    "key": "steps",
                     "type": "string",
                     "status": "available",
                     "required": true,
-                    "array": false,
+                    "array": true,
                     "size": 255,
                     "default": null
                 },
@@ -112,7 +112,7 @@
                     "default": null
                 },
                 {
-                    "key": "steps",
+                    "key": "ingredients",
                     "type": "string",
                     "status": "available",
                     "required": true,
@@ -121,11 +121,11 @@
                     "default": null
                 },
                 {
-                    "key": "ingredients",
+                    "key": "name",
                     "type": "string",
                     "status": "available",
                     "required": true,
-                    "array": true,
+                    "array": false,
                     "size": 255,
                     "default": null
                 },
@@ -181,12 +181,21 @@
             "permission": "collection",
             "attributes": [
                 {
-                    "key": "name",
+                    "key": "youtube",
                     "type": "string",
                     "status": "available",
-                    "required": true,
+                    "required": false,
                     "array": false,
-                    "size": 255,
+                    "format": "url",
+                    "default": null
+                },
+                {
+                    "key": "facebook",
+                    "type": "string",
+                    "status": "available",
+                    "required": false,
+                    "array": false,
+                    "format": "url",
                     "default": null
                 },
                 {
@@ -199,15 +208,6 @@
                     "default": "404 bio not found"
                 },
                 {
-                    "key": "facebook",
-                    "type": "string",
-                    "status": "available",
-                    "required": false,
-                    "array": false,
-                    "format": "url",
-                    "default": null
-                },
-                {
                     "key": "instagram",
                     "type": "string",
                     "status": "available",
@@ -217,12 +217,12 @@
                     "default": null
                 },
                 {
-                    "key": "youtube",
+                    "key": "name",
                     "type": "string",
                     "status": "available",
-                    "required": false,
+                    "required": true,
                     "array": false,
-                    "format": "url",
+                    "size": 255,
                     "default": null
                 }
             ],
@@ -241,20 +241,6 @@
             "permission": "collection",
             "attributes": [
                 {
-                    "key": "entity_type",
-                    "type": "string",
-                    "status": "available",
-                    "required": false,
-                    "array": false,
-                    "elements": [
-                        "user",
-                        "recipe",
-                        "ingredients"
-                    ],
-                    "format": "enum",
-                    "default": null
-                },
-                {
                     "key": "followed_by",
                     "type": "string",
                     "status": "available",
@@ -270,6 +256,20 @@
                     "required": true,
                     "array": false,
                     "size": 255,
+                    "default": null
+                },
+                {
+                    "key": "entity_type",
+                    "type": "string",
+                    "status": "available",
+                    "required": false,
+                    "array": false,
+                    "elements": [
+                        "user",
+                        "recipe",
+                        "ingredients"
+                    ],
+                    "format": "enum",
                     "default": null
                 }
             ],
