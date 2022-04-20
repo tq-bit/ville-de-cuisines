@@ -1,7 +1,7 @@
 import { ref, computed } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField, FieldContext } from 'vee-validate';
-import useStore from '../store/userStore';
+import useStore from '../store/sessionStore';
 
 import useAppAlert from './globalAlert';
 import { AppUserForm, AppUserLoginPayload, AppServerErrorResponse } from '../@types/commons';

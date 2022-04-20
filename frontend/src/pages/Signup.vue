@@ -38,7 +38,7 @@ const togglePasswordInputType = () => {
 	<app-container page>
 		<app-alert class="mb-6" v-if="hasFormErrors" :variant="alertVariant">
 			<ul>
-				<li>{{ httpError?.message }} - Code {{ httpError?.code }}</li>
+				<li>{{ httpError?.message }} {{ httpError?.code }}</li>
 				<li>{{ validationErrors?.email }}</li>
 				<li>{{ validationErrors?.password }}</li>
 			</ul>
@@ -75,5 +75,3 @@ const togglePasswordInputType = () => {
 		</form>
 	</app-container>
 </template>
-
-<style scoped></style>

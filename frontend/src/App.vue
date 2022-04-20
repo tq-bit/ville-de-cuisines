@@ -2,9 +2,9 @@
 import { onMounted } from 'vue';
 import AppNavigation from './components/ui/navigation/index.vue';
 
-import useUserStore from './store/userStore';
+import useSessionStore from './store/sessionStore';
 
-const { syncLocalSessionIdWithCookie, fetchUserAccount } = useUserStore();
+const { syncLocalSessionIdWithCookie, fetchUserAccount } = useSessionStore();
 
 onMounted(async () => {
 	syncLocalSessionIdWithCookie();

@@ -7,7 +7,6 @@ import AppInput from '../components/form/AppInput.vue';
 import AppButton from '../components/form/AppButton.vue';
 import AppAlert from '../components/ui/AppAlert.vue';
 
-import iUser from '../components/icons/iUser.vue';
 import iLock from '../components/icons/iLock.vue';
 import iMail from '../components/icons/iMail.vue';
 
@@ -38,7 +37,7 @@ const togglePasswordInputType = () => {
 	<app-container page>
 		<app-alert class="mb-6" v-if="hasFormErrors" :variant="alertVariant">
 			<ul>
-				<li>{{ httpError?.message }} - Code {{ httpError?.code }}</li>
+				<li>{{ httpError?.message }} {{ httpError?.code }}</li>
 				<li>{{ validationErrors?.email }}</li>
 				<li>{{ validationErrors?.password }}</li>
 			</ul>
@@ -71,5 +70,3 @@ const togglePasswordInputType = () => {
 		</form>
 	</app-container>
 </template>
-
-<style scoped></style>

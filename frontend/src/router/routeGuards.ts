@@ -1,8 +1,4 @@
 import {
-	createRouter,
-	createWebHistory,
-	RouterOptions,
-	NavigationGuardWithThis,
 	RouteLocationNormalized,
 } from 'vue-router';
 import Cookies from 'js-cookie';

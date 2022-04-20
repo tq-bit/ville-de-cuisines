@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import AppButton from '../components/form/AppButton.vue';
-import useUserStore from '../store/userStore';
+import useSessionStore from '../store/sessionStore';
 import { useRouter } from 'vue-router';
 
-const { account, sessionId, isUserLoggedIn, destroyServerSession } = useUserStore();
+const { account, sessionId, isUserLoggedIn, destroyServerSession } = useSessionStore();
 const router = useRouter();
 
 const logout = async () => {
@@ -21,5 +21,3 @@ const logout = async () => {
 		<app-button @click="logout">Log out</app-button>
 	</div>
 </template>
-
-<style scoped></style>

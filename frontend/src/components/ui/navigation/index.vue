@@ -3,11 +3,11 @@ import { ref, toRefs } from 'vue';
 import AppNavbar from './AppNavbar.vue';
 import AppSidebar from './AppSidebar.vue';
 import AppSearch from '../AppSearch.vue';
-import useUserStore from '../../../store/userStore';
+import useSessionStore from '../../../store/sessionStore';
 
 const showSidebar = ref<boolean>(false);
 
-const { isUserLoggedIn } = toRefs(useUserStore());
+const { isUserLoggedIn } = toRefs(useSessionStore());
 </script>
 
 <template>

@@ -6,9 +6,7 @@ import { AppwriteException } from 'appwrite';
 import appwriteClient from '../api/appwrite';
 import { SESSION_ID_KEY } from '../constants/index';
 
-
-
-const useUserStore = defineStore('user', {
+const useSessionStore = defineStore('user', {
 	state: () => ({
 		_account: {},
 		_sessionId: '',
@@ -89,4 +87,4 @@ const useUserStore = defineStore('user', {
 	},
 });
 
-export default useUserStore;
+export default useSessionStore;
