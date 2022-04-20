@@ -1,0 +1,58 @@
+<script setup lang="ts">
+import { toRefs } from 'vue';
+import AppNavbarItem from './AppNavbarItem.vue';
+import AppSearch from '../AppSearch.vue';
+import iMenu from '../../icons/iMenu.vue';
+
+import useSessionStore from '../../../store/sessionStore';
+const { isUserLoggedIn } = toRefs(useSessionStore());
+
+defineEmits(['toggleSidebar']);
+</script>
+
+<template>
+	<header class="pb-16 md:pb-32">
+		<nav
+			class="absolute z-50 top-0 left-0 w-full h-16 md:h-32 md:pb-32 px-4 bg-gradient-to-bl from-green-400 to-green-500 dark:from-green-600 dark:to-green-700 text-gray-50"
+		>
+			<button class="md:hidden block h-10 w-10 my-3" @click="$emit('toggleSidebar')">
+				<i-menu></i-menu>
+			</button>
+
+			<section class="w-full max-w-screen-xl mx-auto">
+				<!-- Icon or its placeholder -->
+				<div class="w-2/12 h-16 mt-4 hidden md:inline-block">
+					<span class="hidden md:block"> Icon </span>
+				</div>
+
+				<!-- Applicationwide search -->
+				<div class="w-8/12 h-16 mt-4 hidden md:inline-block">
+					<app-search></app-search>
+				</div>
+
+				<!-- User profile navigation -->
+				<div class="w-2/12 h-16 mt-4 hidden md:inline-block">
+					<app-navbar-item v-if="isUserLoggedIn" text="Profile" to="/profile"></app-navbar-item>
+
+					<app-navbar-item v-if="!isUserLoggedIn" text="Login" to="/login"></app-navbar-item>
+					<app-navbar-item v-if="!isUserLoggedIn" text="Signup" to="/signup"></app-navbar-item>
+				</div>
+
+				<div class="w-full h-8 text-center hidden md:block">
+					<app-navbar-item
+						v-if="isUserLoggedIn"
+						text="My Recipes"
+						to="/my-recipes"
+					></app-navbar-item>
+					<app-navbar-item
+						v-if="isUserLoggedIn"
+						text="My follows"
+						to="/my-follows"
+					></app-navbar-item>
+				</div>
+			</section>
+		</nav>
+	</header>
+</template>
+
+<style scoped></style>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import AppNavigation from './components/ui/navigation/index.vue';
+import AppNavigation from './components/ui/navbar/index.vue';
 import AppAlert from './components/ui/AppAlert.vue';
 
 import useSessionStore from './store/sessionStore';
