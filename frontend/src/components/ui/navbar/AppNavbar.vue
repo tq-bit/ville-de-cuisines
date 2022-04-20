@@ -32,23 +32,15 @@ defineEmits(['toggleSidebar']);
 
 				<!-- User profile navigation -->
 				<div class="w-2/12 h-16 mt-4 hidden md:inline-block">
-					<app-navbar-item v-if="isUserLoggedIn" text="Profile" to="/profile"></app-navbar-item>
+					<app-navbar-item v-if="isUserLoggedIn" to="/profile">Profile</app-navbar-item>
 
-					<app-navbar-item v-if="!isUserLoggedIn" text="Login" to="/login"></app-navbar-item>
-					<app-navbar-item v-if="!isUserLoggedIn" text="Signup" to="/signup"></app-navbar-item>
+					<app-navbar-item v-if="!isUserLoggedIn" to="/login">Login</app-navbar-item>
+					<app-navbar-item v-if="!isUserLoggedIn" to="/signup">Signup</app-navbar-item>
 				</div>
 
 				<div class="w-full h-8 text-center hidden md:block">
-					<app-navbar-item
-						v-if="isUserLoggedIn"
-						text="My Recipes"
-						to="/my-recipes"
-					></app-navbar-item>
-					<app-navbar-item
-						v-if="isUserLoggedIn"
-						text="My follows"
-						to="/my-follows"
-					></app-navbar-item>
+					<app-navbar-item v-if="isUserLoggedIn" to="/my-recipes"> My Recipes</app-navbar-item>
+					<app-navbar-item v-if="isUserLoggedIn" to="/my-follows">My follows</app-navbar-item>
 				</div>
 			</section>
 		</nav>

@@ -1,8 +1,7 @@
 <script setup lang="ts">
 defineProps<{
-	text: string;
 	to: string;
-	direction: 'horizontal' | 'vertical';
+	direction?: 'horizontal' | 'vertical';
 }>();
 </script>
 
@@ -14,7 +13,7 @@ defineProps<{
 		}"
 		:to="to"
 	>
-		{{ text }}
+		<slot />
 	</router-link>
 </template>
 
