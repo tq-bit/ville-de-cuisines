@@ -9,8 +9,16 @@ startAppwrite() {
     appwrite/appwrite:0.13.4
 }
 
+stopAppwrite() {
+  docker-compose --file appwrite/docker-compose.yml down
+}
+
 startFrontend() {
   docker-compose up --build
+}
+
+stopFrontend() {
+  docker-compose down
 }
 
 install() {
@@ -24,6 +32,8 @@ install() {
   appwrite init --all
 }
 
+
+
 # Commando functions
 initServices() {
   echo "Setting up appwrite for the first time"
@@ -32,10 +42,16 @@ initServices() {
   startFrontend
 }
 
+startServices() {
+  echo "Starting services ..."
+  startAppwrite
+  startFrontend
+}
+
 stopServices() {
-  echo "Stopping iCuisine services"
-  docker-compose down
-  docker-compose --file appwrite/docker-compose.yml down
+  echo "Stopping services"
+  stopFrontend
+  stopAppwrite
 }
 
 # Command execution
