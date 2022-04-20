@@ -50,10 +50,10 @@ const useUserStore = defineStore('user', {
 			this._account = account;
 		},
 
-		async logout() {
+		async destroyServerSession() {
 			try {
 				const response = await appwriteClient.account.deleteSession(this._sessionId);
-				this._sessionId = '';
+				this.resetUserSession()
 
 				return [response, null];
 			} catch (error) {
