@@ -69,7 +69,7 @@ const togglePasswordInputType = () => {
 				</template>
 			</app-input>
 
-			<app-button block outline type="submit">Signup with us</app-button>
+			<app-button block outline type="submit">Sign up!</app-button>
 		</form>
 	</app-container>
 </template>

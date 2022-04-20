@@ -5,7 +5,9 @@ import AppContainer from '../../layout/AppContainer.vue';
 import AppNavbarMain from './AppNavbarMain.vue';
 import AppNavbarSecondary from './AppNavbarSecondary.vue';
 
-const isUserLoggedIn = ref<boolean>(false);
+defineProps<{
+	isUserLoggedIn: boolean
+}>()
 
 defineEmits(['toggleSidebar']);
 </script>

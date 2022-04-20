@@ -3,7 +3,8 @@ import { ref } from 'vue';
 import AppNavbarMain from './AppNavbarMain.vue';
 import AppNavbarSecondary from './AppNavbarSecondary.vue';
 
-withDefaults(defineProps<{ show: boolean }>(), {
+withDefaults(defineProps<{ isUserLoggedIn: boolean; show: boolean }>(), {
+	isUserLoggedIn: false,
 	show: false,
 });
 

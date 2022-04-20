@@ -1,22 +1,14 @@
 <script setup lang="ts">
-import { onMounted, provide } from 'vue';
+import { onMounted } from 'vue';
 import AppNavigation from './components/ui/navigation/index.vue';
 
 import useUserStore from './store/userStore';
 
-const {
-	isUserLoggedIn,
-	account,
-	syncLocalSessionIdWithCookie,
-	syncLocalSessionIdWithServerSession,
-} = useUserStore();
-
-provide('global:account', account);
-provide('global:isUserLoggedIn', isUserLoggedIn);
+const { syncLocalSessionIdWithCookie, fetchUserAccount } = useUserStore();
 
 onMounted(async () => {
 	syncLocalSessionIdWithCookie();
-	await syncLocalSessionIdWithServerSession();
+	await fetchUserAccount();
 });
 </script>
 
