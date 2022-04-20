@@ -1,26 +1,25 @@
 import { defineStore } from 'pinia';
 import appwriteClient from '../api/appwrite';
+import Cookie from 'js-cookie';
 
 import { AppUserLoginPayload, AppServerResponseOrError } from '../@types/commons';
 import { AppwriteException } from 'appwrite';
 
-const useStore = defineStore('user', {
+const SESSION_ID_KEY = 'appgram-session-id';
+
+const useUserStore = defineStore('user', {
 	state: () => ({
-		account: {},
-		preferences: {},
-		token: '',
-		sessionId: '',
+		_account: {},
+		_sessionId: '',
 	}),
 
 	getters: {
-		isUserLoggedIn: (state): boolean => !!state.token && !!state.sessionId,
-		userAccount: (state) => ({
-			account: state.account,
-			preferences: state.preferences,
+		isUserLoggedIn: (state): boolean => !!state._sessionId,
+		account: (state) => ({
+			account: state._account,
 		}),
-		userSessionData: (state) => ({
-			token: state.token,
-			sessionId: state.sessionId,
+		sessionId: (state) => ({
+			sessionId: state._sessionId,
 		}),
 	},
 
@@ -37,9 +36,8 @@ const useStore = defineStore('user', {
 		async login({ password, email }: AppUserLoginPayload): AppServerResponseOrError {
 			try {
 				const { $id: sessionId } = await appwriteClient.account.createSession(email, password);
-				this.sessionId = sessionId;
-
-				this.flushUserAccountPromises();
+				this.setSessionId(sessionId);
+				this.fetchUserAccount();
 
 				return [sessionId, null];
 			} catch (error) {
@@ -47,10 +45,15 @@ const useStore = defineStore('user', {
 			}
 		},
 
+		async fetchUserAccount() {
+			const account = await appwriteClient.account.get();
+			this._account = account;
+		},
+
 		async logout() {
 			try {
-				const response = await appwriteClient.account.deleteSession(this.sessionId);
-				this.sessionId = '';
+				const response = await appwriteClient.account.deleteSession(this._sessionId);
+				this._sessionId = '';
 
 				return [response, null];
 			} catch (error) {
@@ -58,21 +61,42 @@ const useStore = defineStore('user', {
 			}
 		},
 
-		async flushUserAccountPromises() {
-			const accountPromise = appwriteClient.account.get();
-			const preferencesPromise = appwriteClient.account.getPrefs();
-			const tokenPromise = appwriteClient.account.createJWT();
+		async syncLocalSessionIdWithServerSession() {
+			try {
+				const { $id: sessionId } = await appwriteClient.account.getSession(this._sessionId);
+				this.setSessionId(sessionId);
+				this.fetchUserAccount();
+				return [sessionId, null];
+			} catch (error) {
+				return [null, error as AppwriteException];
+			}
+		},
 
-			const [account, preferences, token] = await Promise.all([
-				accountPromise,
-				preferencesPromise,
-				tokenPromise,
-			]);
-			this.account = account;
-			this.preferences = preferences;
-			this.token = token.jwt;
+		syncLocalSessionIdWithCookie() {
+			const cookieTokenState = Cookie.get(SESSION_ID_KEY) || null;
+			if (this._sessionId !== '') {
+				Cookie.set(SESSION_ID_KEY, this._sessionId);
+			}
+
+			if (!!cookieTokenState) {
+				this._sessionId = cookieTokenState;
+			}
+		},
+
+		setSessionId(sessionId: string) {
+			Cookie.set(SESSION_ID_KEY, sessionId);
+			this._sessionId = sessionId;
+		},
+
+		setUserAccount(account: any) {
+			this._account = account;
+		},
+
+		resetUserSession() {
+			this.setSessionId('');
+			this.setUserAccount({});
 		},
 	},
 });
 
-export default useStore;
+export default useUserStore;

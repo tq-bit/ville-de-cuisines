@@ -34,7 +34,6 @@ const togglePasswordInputType = () => {
 
 <template>
 	<app-container page>
-		<h1>Signup</h1>
 		<app-alert class="mb-6" v-if="hasFormErrors" :variant="alertVariant">
 			<ul>
 				<li>{{ httpError?.message }} - Code {{ httpError?.code }}</li>

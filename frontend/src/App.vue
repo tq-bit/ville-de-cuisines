@@ -1,6 +1,23 @@
 <script setup lang="ts">
-import AppThemeButton from './components/form/AppThemeButton.vue';
+import { onMounted, provide } from 'vue';
 import AppNavigation from './components/ui/navigation/index.vue';
+
+import useUserStore from './store/userStore';
+
+const {
+	isUserLoggedIn,
+	account,
+	syncLocalSessionIdWithCookie,
+	syncLocalSessionIdWithServerSession,
+} = useUserStore();
+
+provide('global:account', account);
+provide('global:isUserLoggedIn', isUserLoggedIn);
+
+onMounted(async () => {
+	syncLocalSessionIdWithCookie();
+	await syncLocalSessionIdWithServerSession();
+});
 </script>
 
 <template>
