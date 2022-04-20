@@ -3,6 +3,8 @@ import { toRefs } from 'vue';
 import AppNavbarItem from './AppNavbarItem.vue';
 import AppSearch from '../AppSearch.vue';
 import iMenu from '../../icons/iMenu.vue';
+import iUser from '../../icons/iUser.vue';
+import iLogin from '../../icons/iLogin.vue';
 
 import useSessionStore from '../../../store/sessionStore';
 const { isUserLoggedIn } = toRefs(useSessionStore());
@@ -26,16 +28,23 @@ defineEmits(['toggleSidebar']);
 				</div>
 
 				<!-- Applicationwide search -->
-				<div class="w-8/12 h-16 mt-4 hidden md:inline-block">
+				<div class="w-7/12 h-16 mt-4 hidden md:inline-block">
 					<app-search></app-search>
 				</div>
 
 				<!-- User profile navigation -->
-				<div class="w-2/12 h-16 mt-4 hidden md:inline-block">
-					<app-navbar-item v-if="isUserLoggedIn" to="/profile">Profile</app-navbar-item>
+				<div class="w-3/12 h-16 mt-4 hidden md:inline-block">
+					<app-navbar-item v-if="isUserLoggedIn" to="/profile">
+						<i-user class="w-4 h-4 inline mb-1 mr-1"></i-user>Profile
+					</app-navbar-item>
 
-					<app-navbar-item v-if="!isUserLoggedIn" to="/login">Login</app-navbar-item>
-					<app-navbar-item v-if="!isUserLoggedIn" to="/signup">Signup</app-navbar-item>
+					<app-navbar-item v-if="!isUserLoggedIn" to="/login">
+						<i-login class="w-4 h-4 inline mb-1 mr-1"></i-login>Login
+					</app-navbar-item>
+
+					<app-navbar-item v-if="!isUserLoggedIn" to="/signup">
+						<i-user class="w-4 h-4 inline mb-1 mr-1"></i-user>Signup
+					</app-navbar-item>
 				</div>
 
 				<div class="w-full h-8 text-center hidden md:block">
