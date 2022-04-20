@@ -47,7 +47,6 @@ const useUserStore = defineStore('user', {
 
 		async fetchUserAccount() {
 			const account = await appwriteClient.account.get();
-			console.log(account)
 			this._account = account;
 		},
 

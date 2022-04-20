@@ -37,7 +37,6 @@ export default function handleUserForm(type: AppUserForm) {
 		httpError.value = null;
 		const [response, error] = await login({ email, password });
 		if (error) {
-			console.dir(error);
 			httpError.value = {
 				message: error.message,
 				code: error.code,
@@ -49,16 +48,15 @@ export default function handleUserForm(type: AppUserForm) {
 	const handleUserSignup = async ({ email, username, password }: AppUserLoginPayload) => {
 		httpError.value = null;
 		const [signupResponse, signupError] = await signup({ email, username, password });
-		const [loginResponse, loginError] = await login({ email, password });
 
-		console.log(signupResponse, loginResponse);
-		if (signupError || loginError) {
-			console.dir(signupError || loginError);
+		if (signupError) {
+			console.dir(signupError);
 			httpError.value = {
-				message: signupError?.message || loginError?.message,
-				code: signupError?.code || loginError?.code,
+				message: signupError?.message,
+				code: signupError?.code,
 			};
 		} else {
+			await login({ email, password });
 			triggerAppAlert({ message: 'Signup successful', variant: 'success' });
 		}
 	};
