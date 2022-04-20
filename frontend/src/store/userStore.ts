@@ -1,11 +1,12 @@
-import { defineStore } from 'pinia';
-import appwriteClient from '../api/appwrite';
-import Cookie from 'js-cookie';
-
 import { AppUserLoginPayload, AppServerResponseOrError } from '../@types/commons';
+import { defineStore } from 'pinia';
+import Cookie from 'js-cookie';
 import { AppwriteException } from 'appwrite';
 
-const SESSION_ID_KEY = 'appgram-session-id';
+import appwriteClient from '../api/appwrite';
+import { SESSION_ID_KEY } from '../constants/index';
+
+
 
 const useUserStore = defineStore('user', {
 	state: () => ({
@@ -53,7 +54,7 @@ const useUserStore = defineStore('user', {
 		async destroyServerSession() {
 			try {
 				const response = await appwriteClient.account.deleteSession(this._sessionId);
-				this.resetUserSession()
+				this.resetUserSession();
 
 				return [response, null];
 			} catch (error) {
