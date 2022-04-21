@@ -7,11 +7,11 @@ import AppCard from '../../components/form/AppCard.vue';
 
 import { useRouter } from 'vue-router';
 import useSessionStore from '../../store/sessionStore';
-import useUserStore from '../../store/userStore';
+import useactiveUserStore from '../../store/activeUserStore';
 import useGlobalAlert from '../../use/globalAlert';
 
 const { destroyServerSession } = useSessionStore();
-const userStore = useUserStore();
+const activeUserStore = useactiveUserStore();
 const { triggerGlobalAlert } = useGlobalAlert();
 const router = useRouter();
 
@@ -28,7 +28,7 @@ const openPreferenceModal = () => {
 	router.push({ path: '/profile/preferences' });
 };
 
-onMounted(async () => await userStore.fetchUserAccount());
+onMounted(async () => await activeUserStore.fetchUserAccount());
 </script>
 
 <template>
@@ -42,7 +42,7 @@ onMounted(async () => await userStore.fetchUserAccount());
 		<app-grid>
 			<template v-slot:left>
 				<app-card title="Your profile" block>
-					<app-image class="mb-4" :rounded="true" size="xsmall" :src="userStore.account.avatar"></app-image>
+					<app-image class="mb-4" :rounded="true" size="xsmall" :src="activeUserStore.account.avatar"></app-image>
 
 					<app-button class="mb-4" @click="openPreferenceModal" block>Edit preferences</app-button>
 					<app-button class="mb-4" @click="logout" block>Log out</app-button>

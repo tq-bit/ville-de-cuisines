@@ -2,7 +2,7 @@ import { ref, computed } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField, FieldContext } from 'vee-validate';
 import useSessionStore from '../store/sessionStore';
-import useUserStore from '../store/userStore';
+import useactiveUserStore from '../store/activeUserStore';
 
 import useAppAlert from './globalAlert';
 import { AppUserForm, AppUserLoginPayload, AppServerErrorResponse } from '../@types/commons';
@@ -15,7 +15,7 @@ const formValidationSchema = yup.object({
 
 export default function handleUserForm(type: AppUserForm) {
 	const { login, signup } = useSessionStore();
-	const { fetchUserAccount } = useUserStore();
+	const { fetchUserAccount } = useactiveUserStore();
 	const { handleSubmit } = useForm({
 		validationSchema: formValidationSchema,
 	});

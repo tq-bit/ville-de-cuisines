@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 
 import appwriteClient from '../api/appwrite';
 
-const useSessionStore = defineStore('user', {
+const activeactiveUserStore = defineStore('user', {
 	state: () => ({
 		_account: {
 			$id: '',
@@ -38,4 +38,4 @@ const useSessionStore = defineStore('user', {
 	},
 });
 
-export default useSessionStore;
+export default activeactiveUserStore;
