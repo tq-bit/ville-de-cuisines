@@ -1,15 +1,14 @@
 <script setup lang="ts">
-import AppGrid from '../components/layout/AppGrid.vue';
-import AppButton from '../components/form/AppButton.vue';
-import AppImage from '../components/ui/AppImage.vue';
-import AppCard from '../components/form/AppCard.vue';
-import AppScreenModal from '../components/layout/AppScreenModal.vue';
+import AppGrid from '../../components/layout/AppGrid.vue';
+import AppButton from '../../components/form/AppButton.vue';
+import AppImage from '../../components/ui/AppImage.vue';
+import AppCard from '../../components/form/AppCard.vue';
 
 import { useRouter } from 'vue-router';
-import useSessionStore from '../store/sessionStore';
-import useGlobalAlert from '../use/globalAlert';
+import useSessionStore from '../../store/sessionStore';
+import useGlobalAlert from '../../use/globalAlert';
 
-const { account, sessionId, isUserLoggedIn, destroyServerSession } = useSessionStore();
+const { account, destroyServerSession } = useSessionStore();
 const { triggerGlobalAlert } = useGlobalAlert();
 const router = useRouter();
 
@@ -21,21 +20,27 @@ const logout = async () => {
 	});
 	router.push({ path: '/' });
 };
+
+const openPreferenceModal = () => {
+	router.push({ path: '/profile/preferences' });
+}
 </script>
 
 <template>
 	<div class="mt-4">
-		<app-screen-modal @click-blend="">
-			<app-card block title="Settings">
-				Test
-			</app-card>
-		</app-screen-modal>
-		<app-grid >
+
+		<router-view v-slot="{ Component }">
+			<transition name="fade">
+				<component :is="Component" />
+			</transition>
+		</router-view>
+
+		<app-grid>
 			<template v-slot:left>
 				<app-card title="Your profile" block>
 					<app-image class="mb-4" :rounded="true" size="xsmall" :src="account.avatar"></app-image>
 
-					<app-button class="mb-4" @click="" block>Edit preferences</app-button>
+					<app-button class="mb-4" @click="openPreferenceModal" block>Edit preferences</app-button>
 					<app-button class="mb-4" @click="logout" block>Log out</app-button>
 				</app-card>
 			</template>
