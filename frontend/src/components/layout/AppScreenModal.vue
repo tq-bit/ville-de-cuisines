@@ -5,7 +5,7 @@ const emit = defineEmits(['click-blend'])
 <template>
 	<section
 		@click.self="emit('click-blend')"
-		class="absolute top-0 left-0 h-full w-screen bg-black bg-opacity-25 z-50 px-6"
+		class="absolute top-0 left-0 h-full w-screen bg-black bg-opacity-50 z-50 px-6"
 	>
 		<div class="relative">
 			<div

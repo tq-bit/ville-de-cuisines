@@ -25,7 +25,7 @@ const logout = async () => {
 };
 
 const openPreferenceModal = () => {
-	router.push({ path: '/profile/preferences' });
+	router.push({ path: '/profile/account' });
 };
 
 onMounted(async () => await activeUserStore.fetchActiveUserAccount());
@@ -42,9 +42,14 @@ onMounted(async () => await activeUserStore.fetchActiveUserAccount());
 		<app-grid>
 			<template v-slot:left>
 				<app-card title="Your profile" block>
-					<app-image class="mb-4" :rounded="true" size="xsmall" :src="activeUserStore.account.avatar"></app-image>
+					<app-image
+						class="mb-4"
+						:rounded="true"
+						size="xsmall"
+						:src="activeUserStore.account.avatar"
+					></app-image>
 
-					<app-button class="mb-4" @click="openPreferenceModal" block>Edit preferences</app-button>
+					<app-button class="mb-4" @click="openPreferenceModal" block>Edit account settings</app-button>
 					<app-button class="mb-4" @click="logout" block>Log out</app-button>
 				</app-card>
 			</template>

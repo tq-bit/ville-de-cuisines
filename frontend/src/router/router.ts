@@ -30,8 +30,8 @@ export const routes: RouterOptions['routes'] = [
 		component: () => import('../pages/profile/index.vue'),
 		beforeEnter: redirectToLoginIfUserIsLoggedOut,
 		children: [{
-			path: '/profile/preferences',
-			component: () => import('../pages/profile/Preferences.vue'),
+			path: '/profile/account',
+			component: () => import('../pages/profile/Account.vue'),
 		}]
 	},
 

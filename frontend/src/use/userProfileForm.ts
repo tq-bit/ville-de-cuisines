@@ -106,8 +106,8 @@ export default function handleUserProfileForm() {
 		validationSchema: passwordSchema,
 	});
 
-	const { value: oldPassword } = useField('old-password') as FieldContext<string>;
-	const { value: newPassword } = useField('new-password') as FieldContext<string>;
+	const { value: oldPassword } = useField('oldPassword') as FieldContext<string>;
+	const { value: newPassword } = useField('newPassword') as FieldContext<string>;
 
 	const handleUpdatePassword = async () => {
 		httpError.value = null;
@@ -118,7 +118,7 @@ export default function handleUserProfileForm() {
 		if (error) {
 			setHttpError({ message: error.message, code: error.code });
 		} else {
-			triggerGlobalAlert({ message: 'Profile details updates', variant: 'success' });
+			triggerGlobalAlert({ message: 'Password updated', variant: 'success' });
 		}
 	};
 

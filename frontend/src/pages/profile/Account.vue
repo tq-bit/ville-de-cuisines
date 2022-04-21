@@ -51,7 +51,7 @@ const onSubmitPassword = async () => {
 
 <template>
 	<app-screen-modal @click-blend="closePreferenceModal">
-		<app-card block title="Settings">
+		<app-card block title="Account settings">
 			<app-alert class="mb-6" v-if="hasFormErrors" variant="error">
 				<ul>
 					<li>{{ httpError?.message }}</li>
@@ -63,11 +63,14 @@ const onSubmitPassword = async () => {
 					<li>{{ validationErrors?.newPassword }}</li>
 				</ul>
 			</app-alert>
+
+			<h4 class="text-xl my-2 text-green-600">Update your username</h4>
 			<form @submit.prevent="onSubmitUsername">
 				<app-input
 					name="username"
 					v-model="username"
-					label-prefix="Update your "
+					hide-label
+					label-prefix="Enter your "
 					label="Username"
 				></app-input>
 				<app-button type="submit">Update username</app-button>
@@ -76,16 +79,19 @@ const onSubmitPassword = async () => {
 			<hr class="my-4" />
 
 			<form @submit.prevent="onSubmitEmail">
+				<h4 class="text-xl my-2 text-green-600">Update your email address</h4>
 				<app-input
 					name="email"
 					v-model="email"
-					label-prefix="Update your "
+					hide-label
+					label-prefix="Enter your "
 					label="Email address"
 				></app-input>
 				<app-input
 					type="password"
 					name="password"
 					v-model="password"
+					hide-label
 					label-prefix="Confirm by entering your "
 					label="Password"
 				></app-input>
@@ -94,12 +100,13 @@ const onSubmitPassword = async () => {
 
 			<hr class="my-4" />
 
-			<form @submit.prevent="handleUpdatePasswordSubmit">
+			<form @submit.prevent="onSubmitPassword">
+				<h4 class="text-xl my-2 text-green-600">Update your password</h4>
 				<div class="flex">
 					<div class="mr-2">
 						<app-input
 							type="password"
-							name="old-password"
+							name="oldPassword"
 							v-model="oldPassword"
 							label-prefix="Enter your "
 							label="Old password"
@@ -108,7 +115,7 @@ const onSubmitPassword = async () => {
 					<div class="ml-2">
 						<app-input
 							type="password"
-							name="new-password"
+							name="newPassword"
 							v-model="newPassword"
 							label-prefix="Enter your "
 							label="New password"
