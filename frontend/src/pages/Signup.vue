@@ -21,6 +21,7 @@ const router = useRouter();
 
 const signupForm = ref<HTMLFormElement | null>(null);
 const alertVariant = ref<AlertVariant>(!!validationErrors ? 'error' : 'success');
+
 const onSubmit = async (): Promise<void> => {
 	await handleUserSubmit();
 	if (!hasFormErrors.value && !httpError.value) {

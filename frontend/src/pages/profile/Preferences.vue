@@ -1,17 +1,123 @@
 <script setup lang="ts">
 import AppScreenModal from '../../components/layout/AppScreenModal.vue';
 import AppCard from '../../components/form/AppCard.vue';
+import AppAlert from '../../components/ui/AppAlert.vue';
+import AppInput from '../../components/form/AppInput.vue';
+import AppButton from '../../components/form/AppButton.vue';
+
 import { useRouter } from 'vue-router';
+import useUserProfileForm from '../../use/userProfileForm';
+
 const router = useRouter();
+const {
+	username,
+	email,
+	password,
+	oldPassword,
+	newPassword,
+	httpError,
+	validationErrors,
+	hasFormErrors,
+	handleUpdateUsernameSubmit,
+	handleUpdateEmailSubmit,
+	handleUpdatePasswordSubmit,
+} = useUserProfileForm();
 
 const closePreferenceModal = () => {
 	router.push({ path: '/profile' });
+};
+
+const onSubmitUsername = async () => {
+	await handleUpdateUsernameSubmit();
+	if (!hasFormErrors.value && !httpError.value) {
+		closePreferenceModal();
+	}
+};
+
+const onSubmitEmail = async () => {
+	await handleUpdateEmailSubmit();
+	if (!hasFormErrors.value && !httpError.value) {
+		closePreferenceModal();
+	}
+};
+
+const onSubmitPassword = async () => {
+	await handleUpdatePasswordSubmit();
+	if (!hasFormErrors.value && !httpError.value) {
+		closePreferenceModal();
+	}
 };
 </script>
 
 <template>
 	<app-screen-modal @click-blend="closePreferenceModal">
-		<app-card block title="Settings"> Test </app-card>
+		<app-card block title="Settings">
+			<app-alert class="mb-6" v-if="hasFormErrors" variant="error">
+				<ul>
+					<li>{{ httpError?.message }}</li>
+
+					<li>{{ validationErrors?.username }}</li>
+					<li>{{ validationErrors?.email }}</li>
+					<li>{{ validationErrors?.password }}</li>
+					<li>{{ validationErrors?.oldPassword }}</li>
+					<li>{{ validationErrors?.newPassword }}</li>
+				</ul>
+			</app-alert>
+			<form @submit.prevent="onSubmitUsername">
+				<app-input
+					name="username"
+					v-model="username"
+					label-prefix="Update your "
+					label="Username"
+				></app-input>
+				<app-button type="submit">Update username</app-button>
+			</form>
+
+			<hr class="my-4" />
+
+			<form @submit.prevent="onSubmitEmail">
+				<app-input
+					name="email"
+					v-model="email"
+					label-prefix="Update your "
+					label="Email address"
+				></app-input>
+				<app-input
+					type="password"
+					name="password"
+					v-model="password"
+					label-prefix="Confirm by entering your "
+					label="Password"
+				></app-input>
+				<app-button type="submit">Update email address</app-button>
+			</form>
+
+			<hr class="my-4" />
+
+			<form @submit.prevent="handleUpdatePasswordSubmit">
+				<div class="flex">
+					<div class="mr-2">
+						<app-input
+							type="password"
+							name="old-password"
+							v-model="oldPassword"
+							label-prefix="Enter your "
+							label="Old password"
+						></app-input>
+					</div>
+					<div class="ml-2">
+						<app-input
+							type="password"
+							name="new-password"
+							v-model="newPassword"
+							label-prefix="Enter your "
+							label="New password"
+						></app-input>
+					</div>
+				</div>
+				<app-button type="submit">Update password</app-button>
+			</form>
+		</app-card>
 	</app-screen-modal>
 </template>
 

@@ -1,8 +1,15 @@
-import { defineStore } from 'pinia';
+import {
+	AppUserUpdateUsernamePayload,
+	AppUserEmailUpdatePayload,
+	AppUserUpdatePasswordPayload,
+	AppServerResponseOrError,
+} from '../@types/commons';
+import { AppwriteException } from 'appwrite';
 
+import { defineStore } from 'pinia';
 import appwriteClient from '../api/appwrite';
 
-const activeactiveUserStore = defineStore('user', {
+const activeUserStore = defineStore('user', {
 	state: () => ({
 		_account: {
 			$id: '',
@@ -35,10 +42,48 @@ const activeactiveUserStore = defineStore('user', {
 			this._avatar = avatar.href;
 		},
 
+		async updateUsername({ username }: AppUserUpdateUsernamePayload): AppServerResponseOrError {
+			try {
+				console.log(username);
+				const response = await appwriteClient.account.updateName(username as string);
+				return [response, null];
+			} catch (error) {
+				console.error(error);
+				return [null, error as AppwriteException];
+			}
+		},
+
+		async updateEmail({ email, password }: AppUserEmailUpdatePayload): AppServerResponseOrError {
+			try {
+				const response = await appwriteClient.account.updateEmail(
+					email as string,
+					password as string
+				);
+				return [response, null];
+			} catch (error) {
+				return [null, error as AppwriteException];
+			}
+		},
+
+		async updatePassword({
+			oldPassword,
+			newPassword,
+		}: AppUserUpdatePasswordPayload): AppServerResponseOrError {
+			try {
+				const response = await appwriteClient.account.updatePassword(
+					newPassword as string,
+					oldPassword as string
+				);
+				return [response, null];
+			} catch (error) {
+				return [null, error as AppwriteException];
+			}
+		},
+
 		setUserAccount(account: any) {
 			this._account = account;
 		},
 	},
 });
 
-export default activeactiveUserStore;
+export default activeUserStore;
