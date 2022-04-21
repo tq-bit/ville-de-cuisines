@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { AlertVariant } from '../@types/commons';
 
 import AppContainer from '../components/layout/AppContainer.vue';
-import AppFormCard from '../components/form/AppFormCard.vue';
+import AppCard from '../components/form/AppCard.vue';
 import AppInput from '../components/form/AppInput.vue';
 import AppButton from '../components/form/AppButton.vue';
 import AppAlert from '../components/ui/AppAlert.vue';
@@ -37,7 +37,7 @@ const togglePasswordInputType = () => {
 
 <template>
 	<app-container page>
-		<app-form-card title="Sign up to iCuisine" class="mt-12">
+		<app-card title="Sign up to iCuisine" class="mt-12">
 
 			<app-alert class="mb-6" v-if="hasFormErrors" :variant="alertVariant">
 				<ul>
@@ -83,6 +83,6 @@ const togglePasswordInputType = () => {
 					>Already have an account? Login</router-link
 				>
 			</form>
-		</app-form-card>
+		</app-card>
 	</app-container>
 </template>

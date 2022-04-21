@@ -6,9 +6,10 @@ import { AppwriteException } from 'appwrite';
 import appwriteClient from '../api/appwrite';
 import { SESSION_ID_KEY } from '../constants/index';
 
-const useSessionStore = defineStore('user', {
+const useSessionStore = defineStore('session', {
 	state: () => ({
 		_account: {},
+		_avatar: '',
 		_sessionId: '',
 	}),
 
@@ -16,6 +17,7 @@ const useSessionStore = defineStore('user', {
 		isUserLoggedIn: (state): boolean => !!state._sessionId,
 		account: (state) => ({
 			account: state._account,
+			avatar: state._avatar
 		}),
 		sessionId: (state) => ({
 			sessionId: state._sessionId,
@@ -46,7 +48,9 @@ const useSessionStore = defineStore('user', {
 
 		async fetchUserAccount() {
 			const account = await appwriteClient.account.get();
+			const avatar = await appwriteClient.avatars.getInitials()
 			this._account = account;
+			this._avatar = avatar.href;
 		},
 
 		async destroyServerSession() {
