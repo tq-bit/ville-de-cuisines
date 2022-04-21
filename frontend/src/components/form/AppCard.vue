@@ -1,5 +1,5 @@
 <script setup lang="ts">
-defineProps<{ center?: boolean; title?: string; block: boolean }>();
+defineProps<{ center?: boolean; title?: string; block?: boolean }>();
 </script>
 
 <template>

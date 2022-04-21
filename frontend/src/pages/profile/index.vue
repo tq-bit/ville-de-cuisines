@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { onMounted } from 'vue';
 import AppGrid from '../../components/layout/AppGrid.vue';
 import AppButton from '../../components/form/AppButton.vue';
 import AppImage from '../../components/ui/AppImage.vue';
@@ -6,9 +7,11 @@ import AppCard from '../../components/form/AppCard.vue';
 
 import { useRouter } from 'vue-router';
 import useSessionStore from '../../store/sessionStore';
+import useUserStore from '../../store/userStore';
 import useGlobalAlert from '../../use/globalAlert';
 
-const { account, destroyServerSession } = useSessionStore();
+const { destroyServerSession } = useSessionStore();
+const userStore = useUserStore();
 const { triggerGlobalAlert } = useGlobalAlert();
 const router = useRouter();
 
@@ -23,12 +26,13 @@ const logout = async () => {
 
 const openPreferenceModal = () => {
 	router.push({ path: '/profile/preferences' });
-}
+};
+
+onMounted(async () => await userStore.fetchUserAccount());
 </script>
 
 <template>
 	<div class="mt-4">
-
 		<router-view v-slot="{ Component }">
 			<transition name="fade">
 				<component :is="Component" />
@@ -38,7 +42,7 @@ const openPreferenceModal = () => {
 		<app-grid>
 			<template v-slot:left>
 				<app-card title="Your profile" block>
-					<app-image class="mb-4" :rounded="true" size="xsmall" :src="account.avatar"></app-image>
+					<app-image class="mb-4" :rounded="true" size="xsmall" :src="userStore.account.avatar"></app-image>
 
 					<app-button class="mb-4" @click="openPreferenceModal" block>Edit preferences</app-button>
 					<app-button class="mb-4" @click="logout" block>Log out</app-button>

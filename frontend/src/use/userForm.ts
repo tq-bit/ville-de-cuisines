@@ -1,7 +1,8 @@
 import { ref, computed } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField, FieldContext } from 'vee-validate';
-import useStore from '../store/sessionStore';
+import useSessionStore from '../store/sessionStore';
+import useUserStore from '../store/userStore';
 
 import useAppAlert from './globalAlert';
 import { AppUserForm, AppUserLoginPayload, AppServerErrorResponse } from '../@types/commons';
@@ -13,7 +14,8 @@ const formValidationSchema = yup.object({
 });
 
 export default function handleUserForm(type: AppUserForm) {
-	const { login, signup } = useStore();
+	const { login, signup } = useSessionStore();
+	const { fetchUserAccount } = useUserStore();
 	const { handleSubmit } = useForm({
 		validationSchema: formValidationSchema,
 	});
@@ -42,6 +44,7 @@ export default function handleUserForm(type: AppUserForm) {
 				code: error.code,
 			};
 		} else {
+			await fetchUserAccount();
 			triggerGlobalAlert({ message: 'Login successful', variant: 'success' });
 		}
 	};
@@ -57,6 +60,7 @@ export default function handleUserForm(type: AppUserForm) {
 			};
 		} else {
 			await login({ email, password });
+			await fetchUserAccount();
 			triggerGlobalAlert({ message: 'Signup successful', variant: 'success' });
 		}
 	};

@@ -8,26 +8,11 @@ import { SESSION_ID_KEY } from '../constants/index';
 
 const useSessionStore = defineStore('session', {
 	state: () => ({
-		_account: {
-			$id: '',
-			name: '',
-			registration: 0,
-			status: false,
-			passwordUpdate: 0,
-			email: '',
-			emailVerification: false,
-			prefs: {},
-		},
-		_avatar: '',
 		_sessionId: '',
 	}),
 
 	getters: {
 		isUserLoggedIn: (state): boolean => !!state._sessionId,
-		account: (state) => ({
-			user: state._account,
-			avatar: state._avatar,
-		}),
 		sessionId: (state) => ({
 			sessionId: state._sessionId,
 		}),
@@ -47,19 +32,11 @@ const useSessionStore = defineStore('session', {
 			try {
 				const { $id: sessionId } = await appwriteClient.account.createSession(email, password);
 				this.setSessionId(sessionId);
-				this.fetchUserAccount();
 
 				return [sessionId, null];
 			} catch (error) {
 				return [null, error as AppwriteException];
 			}
-		},
-
-		async fetchUserAccount() {
-			const account = await appwriteClient.account.get();
-			const avatar = await appwriteClient.avatars.getInitials();
-			this._account = account;
-			this._avatar = avatar.href;
 		},
 
 		async destroyServerSession() {
@@ -89,13 +66,8 @@ const useSessionStore = defineStore('session', {
 			this._sessionId = sessionId;
 		},
 
-		setUserAccount(account: any) {
-			this._account = account;
-		},
-
 		resetUserSession() {
 			this.setSessionId('');
-			this.setUserAccount({});
 		},
 	},
 });

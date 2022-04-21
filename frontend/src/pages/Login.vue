@@ -7,7 +7,6 @@ import AppCard from '../components/form/AppCard.vue';
 import AppInput from '../components/form/AppInput.vue';
 import AppButton from '../components/form/AppButton.vue';
 import AppAlert from '../components/ui/AppAlert.vue';
-import AppBackgroundImage from '../components/img/AppBackgroundImage.vue';
 
 import iLock from '../components/icons/iLock.vue';
 import iMail from '../components/icons/iMail.vue';

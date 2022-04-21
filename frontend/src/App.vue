@@ -8,11 +8,10 @@ import useGlobalAlert from './use/globalAlert';
 
 const { message, showGlobalAlert, variant } = useGlobalAlert();
 
-const { syncLocalSessionIdWithCookie, fetchUserAccount } = useSessionStore();
+const { syncLocalSessionIdWithCookie } = useSessionStore();
 
 onMounted(async () => {
 	syncLocalSessionIdWithCookie();
-	await fetchUserAccount();
 });
 </script>
 
