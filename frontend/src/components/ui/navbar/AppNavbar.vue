@@ -48,7 +48,7 @@ defineEmits(['toggleSidebar']);
 				</div>
 
 				<div class="w-full h-8 text-center hidden md:block">
-					<app-navbar-item v-if="isUserLoggedIn" to="/my-recipes"> My Recipes</app-navbar-item>
+					<app-navbar-item v-if="isUserLoggedIn" to="/my-kitchen"> My kitchen</app-navbar-item>
 					<app-navbar-item v-if="isUserLoggedIn" to="/my-follows">My follows</app-navbar-item>
 				</div>
 			</section>
@@ -56,5 +56,4 @@ defineEmits(['toggleSidebar']);
 	</header>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

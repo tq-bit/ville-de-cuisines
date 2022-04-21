@@ -16,8 +16,8 @@ defineProps<{
 			class="fixed top-0 left-0 w-screen h-screen z-10 px-4 pt-20 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-50"
 		>
 			<!-- Primary navigation -->
-			<app-navbar-item v-if="isUserLoggedIn" direction="vertical" to="/my-recipes"
-				>My Recipes</app-navbar-item
+			<app-navbar-item v-if="isUserLoggedIn" direction="vertical" to="/my-kitchen"
+				>My kitchen</app-navbar-item
 			>
 			<app-navbar-item v-if="isUserLoggedIn" direction="vertical" to="/my-follows"
 				>My follows</app-navbar-item
