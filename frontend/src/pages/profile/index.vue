@@ -28,7 +28,7 @@ const openPreferenceModal = () => {
 	router.push({ path: '/profile/preferences' });
 };
 
-onMounted(async () => await activeUserStore.fetchUserAccount());
+onMounted(async () => await activeUserStore.fetchActiveUserAccount());
 </script>
 
 <template>

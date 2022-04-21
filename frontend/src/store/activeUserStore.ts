@@ -25,9 +25,12 @@ const activeactiveUserStore = defineStore('user', {
 	},
 
 	actions: {
-		async fetchUserAccount() {
-			const account = await appwriteClient.account.get();
-			const avatar = await appwriteClient.avatars.getInitials();
+		async fetchActiveUserAccount() {
+			const accountPromise = appwriteClient.account.get();
+			const avatarPromise = appwriteClient.avatars.getInitials();
+
+			const [account, avatar] = await Promise.all([accountPromise, avatarPromise]);
+
 			this._account = account;
 			this._avatar = avatar.href;
 		},

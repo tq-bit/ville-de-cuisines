@@ -15,7 +15,7 @@ const formValidationSchema = yup.object({
 
 export default function handleUserForm(type: AppUserForm) {
 	const { login, signup } = useSessionStore();
-	const { fetchUserAccount } = useactiveUserStore();
+	const { fetchActiveUserAccount } = useactiveUserStore();
 	const { handleSubmit } = useForm({
 		validationSchema: formValidationSchema,
 	});
@@ -44,7 +44,7 @@ export default function handleUserForm(type: AppUserForm) {
 				code: error.code,
 			};
 		} else {
-			await fetchUserAccount();
+			await fetchActiveUserAccount();
 			triggerGlobalAlert({ message: 'Login successful', variant: 'success' });
 		}
 	};
@@ -60,7 +60,7 @@ export default function handleUserForm(type: AppUserForm) {
 			};
 		} else {
 			await login({ email, password });
-			await fetchUserAccount();
+			await fetchActiveUserAccount();
 			triggerGlobalAlert({ message: 'Signup successful', variant: 'success' });
 		}
 	};
