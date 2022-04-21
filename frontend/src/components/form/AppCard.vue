@@ -4,7 +4,7 @@ defineProps<{ center?: boolean; title?: string; block: boolean }>();
 
 <template>
 	<div
-		class="p-4 w-full h-auto mx-auto border border-green-600 rounded bg-white shadow-md"
+		class="p-4 w-full h-auto mx-auto rounded bg-white shadow-md"
 		:class="{ 'text-center': center, 'max-w-md': !block }"
 	>
 		<div class="flex w-full items-center justify-center"></div>

@@ -8,7 +8,16 @@ import { SESSION_ID_KEY } from '../constants/index';
 
 const useSessionStore = defineStore('session', {
 	state: () => ({
-		_account: {},
+		_account: {
+			$id: '',
+			name: '',
+			registration: 0,
+			status: false,
+			passwordUpdate: 0,
+			email: '',
+			emailVerification: false,
+			prefs: {},
+		},
 		_avatar: '',
 		_sessionId: '',
 	}),
@@ -16,8 +25,8 @@ const useSessionStore = defineStore('session', {
 	getters: {
 		isUserLoggedIn: (state): boolean => !!state._sessionId,
 		account: (state) => ({
-			account: state._account,
-			avatar: state._avatar
+			user: state._account,
+			avatar: state._avatar,
 		}),
 		sessionId: (state) => ({
 			sessionId: state._sessionId,
@@ -48,7 +57,7 @@ const useSessionStore = defineStore('session', {
 
 		async fetchUserAccount() {
 			const account = await appwriteClient.account.get();
-			const avatar = await appwriteClient.avatars.getInitials()
+			const avatar = await appwriteClient.avatars.getInitials();
 			this._account = account;
 			this._avatar = avatar.href;
 		},
