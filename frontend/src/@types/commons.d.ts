@@ -13,6 +13,6 @@ export interface AppServerErrorResponse {
 	code: number
 }
 
-export type AppUserForm = 'login' | 'signup';
+export type AppUserAuthForm = 'login' | 'signup';
 
 export type AppServerResponseOrError = Promise<[unknown, null] | [null, AppwriteException]>;

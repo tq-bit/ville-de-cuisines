@@ -2,10 +2,9 @@ import { ref, computed } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField, FieldContext } from 'vee-validate';
 import useSessionStore from '../store/sessionStore';
-import useactiveUserStore from '../store/activeUserStore';
 
 import useAppAlert from './globalAlert';
-import { AppUserForm, AppUserLoginPayload, AppServerErrorResponse } from '../@types/commons';
+import { AppUserAuthForm, AppUserLoginPayload, AppServerErrorResponse } from '../@types/commons';
 
 const formValidationSchema = yup.object({
 	email: yup.string().required().email().label('Email address'),
@@ -13,9 +12,8 @@ const formValidationSchema = yup.object({
 	password: yup.string().required().min(8).label('Password'),
 });
 
-export default function handleUserForm(type: AppUserForm) {
+export default function handleUserAuthForm(type: AppUserAuthForm) {
 	const { login, signup } = useSessionStore();
-	const { fetchActiveUserAccount } = useactiveUserStore();
 	const { handleSubmit } = useForm({
 		validationSchema: formValidationSchema,
 	});
@@ -44,7 +42,6 @@ export default function handleUserForm(type: AppUserForm) {
 				code: error.code,
 			};
 		} else {
-			await fetchActiveUserAccount();
 			triggerGlobalAlert({ message: 'Login successful', variant: 'success' });
 		}
 	};
@@ -60,7 +57,6 @@ export default function handleUserForm(type: AppUserForm) {
 			};
 		} else {
 			await login({ email, password });
-			await fetchActiveUserAccount();
 			triggerGlobalAlert({ message: 'Signup successful', variant: 'success' });
 		}
 	};
