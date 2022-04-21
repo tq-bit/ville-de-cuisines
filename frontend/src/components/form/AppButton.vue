@@ -27,16 +27,6 @@ withDefaults(
 	>
 		<slot />
 	</button>
-
-	<router-link
-		v-if="variant === 'link' && !!link"
-		v-bind="$attrs"
-		:to="link"
-		class="text-green-600 py-1 px-2 font-semibold"
-		:class="{ 'w-full text-center block': block }"
-	>
-		<slot />
-	</router-link>
 </template>
 
 <style scoped>

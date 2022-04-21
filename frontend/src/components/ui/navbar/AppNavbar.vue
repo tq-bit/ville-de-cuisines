@@ -23,17 +23,17 @@ defineEmits(['toggleSidebar']);
 
 			<section class="w-full max-w-screen-xl mx-auto">
 				<!-- Icon or its placeholder -->
-				<div class="w-2/12 h-16 mt-4 hidden md:inline-block">
+				<div class="w-1/12 xl:w-2/12 h-16 mt-4 hidden md:inline-block">
 					<span class="hidden md:block"> Icon </span>
 				</div>
 
 				<!-- Applicationwide search -->
-				<div class="w-7/12 h-16 mt-4 hidden md:inline-block">
+				<div class="w-8/12 h-16 mt-4 hidden md:inline-block">
 					<app-search></app-search>
 				</div>
 
 				<!-- User profile navigation -->
-				<div class="w-3/12 h-16 mt-4 hidden md:inline-block">
+				<div class="w-3/12 xl:w-2/12 h-16 mt-4 hidden md:inline-block text-right">
 					<app-navbar-item v-if="isUserLoggedIn" to="/profile">
 						<i-user class="w-4 h-4 inline mb-1 mr-1"></i-user>Profile
 					</app-navbar-item>
@@ -56,4 +56,5 @@ defineEmits(['toggleSidebar']);
 	</header>
 </template>
 
-<style scoped></style>
+<style scoped>
+</style>

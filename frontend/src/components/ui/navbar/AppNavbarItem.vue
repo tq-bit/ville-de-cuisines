@@ -7,7 +7,7 @@ defineProps<{
 
 <template>
 	<router-link
-		class="mx-2 font-semibold"
+		class="mx-2 p-2 font-semibold"
 		:class="{
 			'block mx-auto text-center my-2': direction === 'vertical',
 		}"
@@ -17,4 +17,9 @@ defineProps<{
 	</router-link>
 </template>
 
-<style scoped></style>
+<style scoped>
+
+.router-link-active {
+	@apply rounded bg-gray-100 dark:bg-gray-900 text-green-500 overflow-hidden;
+}
+</style>
