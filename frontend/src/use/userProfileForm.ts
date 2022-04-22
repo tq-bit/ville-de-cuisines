@@ -44,6 +44,10 @@ export default function handleUserProfileForm() {
 	\************************/
 	const { handleSubmit: handleEmailSubmit } = useForm({
 		validationSchema: emailSchema,
+		initialValues: {
+			email: account.user.email,
+			password: ''
+		}
 	});
 
 	const { value: email } = useField('email') as FieldContext<string>;
@@ -73,6 +77,9 @@ export default function handleUserProfileForm() {
 	\***************************/
 	const { handleSubmit: handleUsernameSubmit } = useForm({
 		validationSchema: usernameSchema,
+		initialValues: {
+			username: account.user.name
+		}
 	});
 
 	const { value: username } = useField('username') as FieldContext<string>;
