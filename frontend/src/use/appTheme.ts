@@ -1,27 +1,9 @@
 import { UserTheme } from '../@types/commons';
-import { ref, toRefs } from 'vue';
-import activeUserStore from '../store/activeUserStore';
+import { computed } from 'vue';
+import useActiveUserStore from '../store/activeUserStore';
 
 export default function useAppTheme() {
-	const { prefs } = toRefs(activeUserStore());
-
-	const setTheme = (theme: UserTheme) => {
-		prefs.value.theme = theme;
-		document.documentElement.className = theme;
-	};
-
-	const getTheme = (): UserTheme => {
-		return prefs.value.theme;
-	};
-
-	const toggleTheme = (): void => {
-		const activeTheme = getTheme()
-		if (activeTheme === 'light') {
-			setTheme('dark');
-		} else {
-			setTheme('light');
-		}
-	};
+	const activeUserStore = useActiveUserStore();
 
 	const getMediaPreference = (): UserTheme => {
 		const hasDarkPreference = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -32,7 +14,13 @@ export default function useAppTheme() {
 		}
 	};
 
-	const userTheme = ref<UserTheme>(getTheme() || getMediaPreference());
+	const userTheme = computed<UserTheme>(() => {
+		return activeUserStore.prefs.theme || getMediaPreference();
+	});
 
-	return { userTheme, setTheme, toggleTheme };
+	const setTheme = (theme: UserTheme) => {
+		document.documentElement.className = theme;
+	};
+
+	return { userTheme, setTheme };
 }

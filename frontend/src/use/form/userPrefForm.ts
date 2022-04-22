@@ -1,13 +1,12 @@
 import { AppServerErrorResponse, UserTheme } from '../../@types/commons';
 
-import { ref, computed, toRefs } from 'vue';
+import { ref, computed } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField, FieldContext } from 'vee-validate';
 import useActiveUserStore from '../../store/activeUserStore';
 import useAppAlert from '../globalAlert';
 
-const { prefs } = toRefs(useActiveUserStore());
-const { updatePreferences } = useActiveUserStore();
+const activeUserStore = useActiveUserStore();
 const { triggerGlobalAlert } = useAppAlert();
 
 const themeOptions = ['light', 'dark'];
@@ -40,9 +39,9 @@ export default function handleUserProfileForm() {
 	const { handleSubmit: handlePreferencesSubmit } = useForm({
 		validationSchema: preferencesSchema,
 		initialValues: {
-			bio: prefs.value.bio,
-			location: prefs.value.location,
-			theme: prefs.value.theme,
+			bio: activeUserStore.prefs.bio,
+			location: activeUserStore.prefs.location,
+			theme: activeUserStore.prefs.theme,
 		},
 	});
 
@@ -52,7 +51,7 @@ export default function handleUserProfileForm() {
 
 	const handleUpdatePreferences = async () => {
 		httpError.value = null;
-		const [response, error] = await updatePreferences({
+		const [response, error] = await activeUserStore.updatePreferences({
 			bio: bio.value,
 			location: location.value,
 			theme: theme.value,

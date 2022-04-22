@@ -6,8 +6,7 @@ import { useForm, useField, FieldContext } from 'vee-validate';
 import useActiveUserStore from '../../store/activeUserStore';
 import useAppAlert from '../globalAlert';
 
-const { user } = toRefs(useActiveUserStore());
-const { updateEmail, updatePassword, updateUsername } = useActiveUserStore();
+const activeUserStore = useActiveUserStore();
 const { triggerGlobalAlert } = useAppAlert();
 
 // Static schemata
@@ -46,7 +45,7 @@ export default function handleUserProfileForm() {
 	const { handleSubmit: handleEmailSubmit } = useForm({
 		validationSchema: emailSchema,
 		initialValues: {
-			email: user.value.email,
+			email: activeUserStore.user.email,
 			password: '',
 		},
 	});
@@ -56,7 +55,10 @@ export default function handleUserProfileForm() {
 
 	const handleUpdateEmail = async () => {
 		httpError.value = null;
-		const [response, error] = await updateEmail({ email: email.value, password: password.value });
+		const [response, error] = await activeUserStore.updateEmail({
+			email: email.value,
+			password: password.value,
+		});
 		if (error) {
 			setHttpError({ message: error.message, code: error.code });
 		} else {
@@ -79,7 +81,7 @@ export default function handleUserProfileForm() {
 	const { handleSubmit: handleUsernameSubmit } = useForm({
 		validationSchema: usernameSchema,
 		initialValues: {
-			username: user.value.name,
+			username: activeUserStore.user.name,
 		},
 	});
 
@@ -87,7 +89,7 @@ export default function handleUserProfileForm() {
 
 	const handleUpdateUsername = async () => {
 		httpError.value = null;
-		const [response, error] = await updateUsername({ username: username.value });
+		const [response, error] = await activeUserStore.updateUsername({ username: username.value });
 		if (error) {
 			setHttpError({ message: error.message, code: error.code });
 		} else {
@@ -119,7 +121,7 @@ export default function handleUserProfileForm() {
 
 	const handleUpdatePassword = async () => {
 		httpError.value = null;
-		const [response, error] = await updatePassword({
+		const [response, error] = await activeUserStore.updatePassword({
 			oldPassword: oldPassword.value,
 			newPassword: newPassword.value,
 		});

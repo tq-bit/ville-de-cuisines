@@ -1,18 +1,22 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, watch } from 'vue';
 import AppNavigation from './components/ui/navbar/index.vue';
 import AppAlert from './components/ui/AppAlert.vue';
 
 import useSessionStore from './store/sessionStore';
 import useGlobalAlert from './use/globalAlert';
+import useAppTheme from './use/appTheme';
 
 const { message, showGlobalAlert, variant } = useGlobalAlert();
-
 const { syncLocalSessionIdWithCookie } = useSessionStore();
+const { userTheme, setTheme } = useAppTheme();
 
 onMounted(async () => {
+	setTheme(userTheme.value);
 	syncLocalSessionIdWithCookie();
 });
+
+watch(userTheme, (newTheme) => setTheme(newTheme));
 </script>
 
 <template>
