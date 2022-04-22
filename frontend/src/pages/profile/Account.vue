@@ -23,35 +23,35 @@ const {
 	handleUpdatePasswordSubmit,
 } = useUserProfileForm();
 
-const closePreferenceModal = () => {
+const closeAccountModal = () => {
 	router.push({ path: '/profile' });
 };
 
 const onSubmitUsername = async () => {
 	await handleUpdateUsernameSubmit();
 	if (!hasFormErrors.value && !httpError.value) {
-		closePreferenceModal();
+		closeAccountModal();
 	}
 };
 
 const onSubmitEmail = async () => {
 	await handleUpdateEmailSubmit();
 	if (!hasFormErrors.value && !httpError.value) {
-		closePreferenceModal();
+		closeAccountModal();
 	}
 };
 
 const onSubmitPassword = async () => {
 	await handleUpdatePasswordSubmit();
 	if (!hasFormErrors.value && !httpError.value) {
-		closePreferenceModal();
+		closeAccountModal();
 	}
 };
 </script>
 
 <template>
-	<app-screen-modal @click-blend="closePreferenceModal">
-		<app-card block title="Account settings">
+	<app-screen-modal @keydown.esc="closeAccountModal" @click-blend="closeAccountModal">
+		<app-card block :closable="true" @close="closeAccountModal" title="Account settings">
 			<app-alert class="mb-6" v-if="hasFormErrors" variant="error">
 				<ul>
 					<li>{{ httpError?.message }}</li>
