@@ -24,9 +24,8 @@ const logout = async () => {
 	router.push({ path: '/' });
 };
 
-const openPreferenceModal = () => {
-	router.push({ path: '/profile/account' });
-};
+const openAccountModal = () => router.push({ path: '/profile/account' });
+const openPreferencesModal = () => router.push({ path: '/profile/preferences' });
 
 onMounted(async () => await activeUserStore.fetchActiveUserAccount());
 </script>
@@ -49,7 +48,12 @@ onMounted(async () => await activeUserStore.fetchActiveUserAccount());
 						:src="activeUserStore.account.avatar"
 					></app-image>
 
-					<app-button class="mb-4" @click="openPreferenceModal" block>Edit account settings</app-button>
+					<app-button class="mb-4" @click="openPreferencesModal" block>Edit preferences</app-button>
+					<app-button class="mb-4" @click="openAccountModal" block
+						>Edit account settings</app-button
+					>
+
+					<hr class="mb-4" />
 					<app-button class="mb-4" @click="logout" block>Log out</app-button>
 				</app-card>
 			</template>

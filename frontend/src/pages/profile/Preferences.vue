@@ -6,7 +6,7 @@ import AppInput from '../../components/form/AppInput.vue';
 import AppButton from '../../components/form/AppButton.vue';
 
 import { useRouter } from 'vue-router';
-import useUserProfileForm from '../../use/form/userProfileForm';
+import useUserProfileForm from '../../use/userProfileForm';
 
 const router = useRouter();
 const {

@@ -13,7 +13,7 @@ import iLock from '../components/icons/iLock.vue';
 import iMail from '../components/icons/iMail.vue';
 
 import { useRouter } from 'vue-router';
-import handleUserAuthForm from '../use/userAuthForm';
+import handleUserAuthForm from '../use/form/userAuthForm';
 
 const { email, username, password, handleUserSubmit, hasFormErrors, httpError, validationErrors } =
 	handleUserAuthForm('signup');

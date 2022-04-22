@@ -1,10 +1,10 @@
-import { AppServerErrorResponse } from '../@types/commons';
+import { AppServerErrorResponse } from '../../@types/commons';
 
 import { ref, computed } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField, FieldContext } from 'vee-validate';
-import useActiveUserStore from '../store/activeUserStore';
-import useAppAlert from './globalAlert';
+import useActiveUserStore from '../../store/activeUserStore';
+import useAppAlert from '../globalAlert';
 
 const { updateEmail, updatePassword, updateUsername, account } = useActiveUserStore();
 const { triggerGlobalAlert } = useAppAlert();

@@ -1,10 +1,10 @@
 import { ref, computed } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField, FieldContext } from 'vee-validate';
-import useSessionStore from '../store/sessionStore';
+import useSessionStore from '../../store/sessionStore';
 
-import useAppAlert from './globalAlert';
-import { AppUserAuthForm, AppUserLoginPayload, AppServerErrorResponse } from '../@types/commons';
+import useAppAlert from '../globalAlert';
+import { AppUserAuthForm, AppUserLoginPayload, AppServerErrorResponse } from '../../@types/commons';
 
 const formValidationSchema = yup.object({
 	email: yup.string().required().email().label('Email address'),
