@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import { AlertVariant } from '../@types/commons';
 
-import AppContainer from '../components/layout/AppContainer.vue';
+import AppContainer from '../components/layout/content/AppContainer.vue';
 import AppCard from '../components/form/AppCard.vue';
 import AppInput from '../components/form/AppInput.vue';
 import AppButton from '../components/form/AppButton.vue';

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import AppGrid from '../../components/layout/AppGrid.vue';
+import AppGrid from '../../components/layout/content/AppGrid.vue';
 import AppButton from '../../components/form/AppButton.vue';
 import AppImage from '../../components/ui/AppImage.vue';
 import AppCard from '../../components/form/AppCard.vue';

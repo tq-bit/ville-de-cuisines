@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import AppContainer from '../components/layout/AppContainer.vue';
+import AppContainer from '../components/layout/content/AppContainer.vue';
 import AppInput from '../components/form/AppInput.vue';
 import AppThemeButton from '../components/form/AppThemeButton.vue';
 import iUser from '../components/icons/iUser.vue';

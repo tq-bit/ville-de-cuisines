@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { h, Component } from 'vue';
+import { h, ref, Component } from 'vue';
 
 interface AppContainerProps {
   tag?: keyof HTMLElementTagNameMap;
@@ -21,9 +21,9 @@ const flexClasses = ['flex', 'justify-between'];
 const pageClasses = ['min-h-screen'];
 const centerClasses = ['flex', 'flex-col', 'items-center', 'justify-center'];
 
-const isFlexBetween = props.flex && !props.center;
-const isFlexCentered = props.center && !props.flex;
-const isPage = props.page;
+const isFlexBetween = ref<boolean>(props.flex && !props.center);
+const isFlexCentered = ref<boolean>(props.center && !props.flex);
+const isPage = ref<boolean>(props.page);
 
 let classes = [
   'container',
@@ -35,13 +35,13 @@ let classes = [
   'max-w-screen-xl',
 ];
 
-if (isFlexBetween) {
+if (isFlexBetween.value) {
   classes = [...classes, ...flexClasses];
 }
-if (isFlexCentered) {
+if (isFlexCentered.value) {
   classes = [...classes, ...centerClasses];
 }
-if (isPage) {
+if (isPage.value) {
   classes = [...classes, ...pageClasses];
 }
 
