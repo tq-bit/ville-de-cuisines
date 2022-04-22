@@ -3,15 +3,15 @@ import { ref, toRefs } from 'vue';
 import activeUserStore from '../store/activeUserStore';
 
 export default function useAppTheme() {
-	const { account } = toRefs(activeUserStore());
+	const { prefs } = toRefs(activeUserStore());
 
 	const setTheme = (theme: UserTheme) => {
-		account.value.prefs.theme = theme;
+		prefs.value.theme = theme;
 		document.documentElement.className = theme;
 	};
 
 	const getTheme = (): UserTheme => {
-		return account.value.prefs.theme;
+		return prefs.value.theme;
 	};
 
 	const toggleTheme = (): void => {

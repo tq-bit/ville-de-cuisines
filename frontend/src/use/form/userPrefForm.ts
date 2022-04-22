@@ -1,21 +1,22 @@
 import { AppServerErrorResponse, UserTheme } from '../../@types/commons';
 
-import { ref, computed } from 'vue';
+import { ref, computed, toRefs } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField, FieldContext } from 'vee-validate';
 import useActiveUserStore from '../../store/activeUserStore';
 import useAppAlert from '../globalAlert';
 
-const { account, updatePreferences } = useActiveUserStore();
+const { prefs } = toRefs(useActiveUserStore());
+const { updatePreferences } = useActiveUserStore();
 const { triggerGlobalAlert } = useAppAlert();
 
-const prefThemeOptions = ['light', 'dark'];
+const themeOptions = ['light', 'dark'];
 
 // Static schemata
 const preferencesSchema = yup.object({
 	bio: yup.string().label('Bio'),
 	location: yup.string().label('Location'),
-	theme: yup.string().oneOf(prefThemeOptions).label('Theme'),
+	theme: yup.string().oneOf(themeOptions).label('Theme'),
 });
 
 // Main exported function
@@ -38,7 +39,11 @@ export default function handleUserProfileForm() {
 	\***********************/
 	const { handleSubmit: handlePreferencesSubmit } = useForm({
 		validationSchema: preferencesSchema,
-		initialValues: account.prefs,
+		initialValues: {
+			bio: prefs.value.bio,
+			location: prefs.value.location,
+			theme: prefs.value.theme,
+		},
 	});
 
 	const { value: bio } = useField('bio') as FieldContext<string>;
@@ -80,5 +85,13 @@ export default function handleUserProfileForm() {
 		loading.value = payload;
 	};
 
-	return {};
+	return {
+		bio,
+		location,
+		theme,
+		handleUpdatePreferencesSubmit,
+		httpError,
+		hasFormErrors,
+		themeOptions,
+	};
 }

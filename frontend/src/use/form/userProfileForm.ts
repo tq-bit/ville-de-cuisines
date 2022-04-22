@@ -1,12 +1,13 @@
 import { AppServerErrorResponse } from '../../@types/commons';
 
-import { ref, computed } from 'vue';
+import { ref, computed, toRefs } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField, FieldContext } from 'vee-validate';
 import useActiveUserStore from '../../store/activeUserStore';
 import useAppAlert from '../globalAlert';
 
-const { updateEmail, updatePassword, updateUsername, account } = useActiveUserStore();
+const { user } = toRefs(useActiveUserStore());
+const { updateEmail, updatePassword, updateUsername } = useActiveUserStore();
 const { triggerGlobalAlert } = useAppAlert();
 
 // Static schemata
@@ -45,9 +46,9 @@ export default function handleUserProfileForm() {
 	const { handleSubmit: handleEmailSubmit } = useForm({
 		validationSchema: emailSchema,
 		initialValues: {
-			email: account.user.email,
-			password: ''
-		}
+			email: user.value.email,
+			password: '',
+		},
 	});
 
 	const { value: email } = useField('email') as FieldContext<string>;
@@ -78,8 +79,8 @@ export default function handleUserProfileForm() {
 	const { handleSubmit: handleUsernameSubmit } = useForm({
 		validationSchema: usernameSchema,
 		initialValues: {
-			username: account.user.name
-		}
+			username: user.value.name,
+		},
 	});
 
 	const { value: username } = useField('username') as FieldContext<string>;

@@ -7,11 +7,11 @@ import AppCard from '../../components/form/AppCard.vue';
 
 import { useRouter } from 'vue-router';
 import useSessionStore from '../../store/sessionStore';
-import useactiveUserStore from '../../store/activeUserStore';
+import useActiveUserStore from '../../store/activeUserStore';
 import useGlobalAlert from '../../use/globalAlert';
 
 const { destroyServerSession } = useSessionStore();
-const activeUserStore = useactiveUserStore();
+const activeUserStore = useActiveUserStore();
 const { triggerGlobalAlert } = useGlobalAlert();
 const router = useRouter();
 
@@ -45,7 +45,7 @@ onMounted(async () => await activeUserStore.fetchActiveUserAccount());
 						class="mb-4"
 						:rounded="true"
 						size="xsmall"
-						:src="activeUserStore.account.avatar"
+						:src="activeUserStore.avatar"
 					></app-image>
 
 					<app-button class="mb-4" @click="openPreferencesModal" block>Edit preferences</app-button>

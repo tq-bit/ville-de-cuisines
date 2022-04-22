@@ -26,11 +26,9 @@ const activeUserStore = defineStore('user', {
 	}),
 
 	getters: {
-		account: (state) => ({
-			user: state._account,
-			prefs: state._prefs,
-			avatar: state._avatar,
-		}),
+		user: (state) => state._account,
+		prefs: (state) => state._prefs,
+		avatar: (state) => state._avatar,
 	},
 
 	actions: {
@@ -49,6 +47,7 @@ const activeUserStore = defineStore('user', {
 
 		async updateUsername({ username }: AppUserUpdateUsernamePayload): AppServerResponseOrError {
 			try {
+				this._account.name = username as string;
 				const response = await appwriteClient.account.updateName(username as string);
 				return [response, null];
 			} catch (error) {
@@ -58,6 +57,7 @@ const activeUserStore = defineStore('user', {
 
 		async updateEmail({ email, password }: AppUserEmailUpdatePayload): AppServerResponseOrError {
 			try {
+				this._account.email = email as string;
 				const response = await appwriteClient.account.updateEmail(
 					email as string,
 					password as string
@@ -86,6 +86,7 @@ const activeUserStore = defineStore('user', {
 		async updatePreferences(payload: AppUserPreferences): AppServerResponseOrError {
 			try {
 				const response = await appwriteClient.account.updatePrefs(payload);
+				this._prefs = response.prefs as AppUserPreferences;
 				return [response, null];
 			} catch (error) {
 				return [null, error as AppwriteException];
