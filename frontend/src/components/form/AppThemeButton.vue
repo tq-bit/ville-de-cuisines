@@ -1,7 +1,6 @@
 <script setup lang="ts">
+import { UserTheme } from '../../@types/commons';
 import { ref, onMounted } from 'vue';
-
-type UserTheme = 'light' | 'dark';
 
 const setTheme = (theme: UserTheme) => {
   localStorage.setItem('user-theme', theme);

@@ -3,6 +3,7 @@ import {
 	AppUserEmailUpdatePayload,
 	AppUserUpdatePasswordPayload,
 	AppServerResponseOrError,
+	AppUserPreferences,
 } from '../@types/commons';
 import { AppwriteException } from 'appwrite';
 
@@ -19,14 +20,15 @@ const activeUserStore = defineStore('user', {
 			passwordUpdate: 0,
 			email: '',
 			emailVerification: false,
-			prefs: {},
 		},
+		_prefs: {} as AppUserPreferences,
 		_avatar: '',
 	}),
 
 	getters: {
 		account: (state) => ({
 			user: state._account,
+			prefs: state._prefs,
 			avatar: state._avatar,
 		}),
 	},
@@ -38,17 +40,18 @@ const activeUserStore = defineStore('user', {
 
 			const [account, avatar] = await Promise.all([accountPromise, avatarPromise]);
 
-			this._account = account;
+			const { prefs, ...accountInfo } = account;
+
+			this._account = accountInfo;
+			this._prefs = prefs as AppUserPreferences;
 			this._avatar = avatar.href;
 		},
 
 		async updateUsername({ username }: AppUserUpdateUsernamePayload): AppServerResponseOrError {
 			try {
-				console.log(username);
 				const response = await appwriteClient.account.updateName(username as string);
 				return [response, null];
 			} catch (error) {
-				console.error(error);
 				return [null, error as AppwriteException];
 			}
 		},
@@ -80,8 +83,13 @@ const activeUserStore = defineStore('user', {
 			}
 		},
 
-		setUserAccount(account: any) {
-			this._account = account;
+		async updatePreferences(payload: AppUserPreferences): AppServerResponseOrError {
+			try {
+				const response = await appwriteClient.account.updatePrefs(payload);
+				return [response, null];
+			} catch (error) {
+				return [null, error as AppwriteException];
+			}
 		},
 	},
 });

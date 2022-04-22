@@ -1,6 +1,7 @@
 import { AppwriteException } from 'appwrite';
 
 export type AlertVariant = 'info' | 'error' | 'success';
+export type UserTheme = 'light' | 'dark';
 
 export interface AppUserLoginPayload {
 	email: string;
@@ -25,6 +26,12 @@ export interface AppUserUpdatePasswordPayload {
 export interface AppServerErrorResponse {
 	message: string;
 	code: number;
+}
+
+export interface AppUserPreferences {
+	bio: string;
+	theme: UserTheme;
+	location : string;
 }
 
 export type AppUserAuthForm = 'login' | 'signup';

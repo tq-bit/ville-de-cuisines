@@ -7,7 +7,7 @@ withDefaults(
 		labelPrefix?: string;
 		label?: string;
 		placeholder?: string;
-		modelValue?: string | number;
+		modelValue?: any;
 		error?: string;
 		required?: boolean;
 		requiredSign?: string;
@@ -23,7 +23,7 @@ const slots = useSlots();
 const hasIconSlot = computed(() => !!slots.icon)
 
 const emit = defineEmits<{
-	(event: 'update:modelValue', chatText: string): void;
+	(event: 'update:modelValue', payload: string): void;
   (event: 'click-icon'): void;
 }>();
 
@@ -34,7 +34,6 @@ const onInput = (ev: Event) => emit('update:modelValue', (ev.target as HTMLInput
 	<div class="relative mb-4">
 		<label v-if="label && !hideLabel" class="font-semibold block mb-1 text-green-600">
 			{{ label }}
-			<span class="text-red-500" v-if="required">{{ requiredSign }}</span>
 		</label>
 
 		<span @click="emit('click-icon')" tabindex="1" v-if="hasIconSlot" class="h-8 w-8 m-2 ml-4 rounded-full text-green-600 absolute"><slot name="icon" /></span>

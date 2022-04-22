@@ -22,17 +22,23 @@ export const routes: RouterOptions['routes'] = [
 	{
 		path: '/signup',
 		component: () => import('../pages/Signup.vue'),
-		beforeEnter: redirectToProfileIfUserIsLoggedIn
+		beforeEnter: redirectToProfileIfUserIsLoggedIn,
 	},
 
 	{
 		path: '/profile',
 		component: () => import('../pages/profile/index.vue'),
 		beforeEnter: redirectToLoginIfUserIsLoggedOut,
-		children: [{
-			path: '/profile/account',
-			component: () => import('../pages/profile/Account.vue'),
-		}]
+		children: [
+			{
+				path: '/profile/account',
+				component: () => import('../pages/profile/Account.vue'),
+			},
+			{
+				path: '/profile/preferences',
+				component: () => import('../pages/profile/Preferences.vue'),
+			},
+		],
 	},
 
 	{
