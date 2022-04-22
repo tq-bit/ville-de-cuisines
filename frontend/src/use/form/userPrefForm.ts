@@ -20,9 +20,9 @@ const preferencesSchema = yup.object({
 
 // Main exported function
 export default function handleUserProfileForm() {
-  let loading = ref<boolean>(false);
-  let validationErrors = ref<any>(null);
-  let httpError = ref<AppServerErrorResponse | null>(null);
+  const loading = ref<boolean>(false);
+  const validationErrors = ref<any>(null);
+  const httpError = ref<AppServerErrorResponse | null>(null);
   const hasFormErrors = computed(() => {
     const hasValidationErrors =
       Object.keys(validationErrors.value || {}).length > 0;

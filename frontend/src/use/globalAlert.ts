@@ -7,10 +7,10 @@ export interface AlertComposableConfig {
   message: string;
 }
 
-let variantState = ref<AlertVariant>('info');
-let messageState = ref('');
-let showGlobalAlertState = ref(false);
-let timeoutHandler = ref<number | null>(null);
+const variantState = ref<AlertVariant>('info');
+const messageState = ref('');
+const showGlobalAlertState = ref(false);
+const timeoutHandler = ref<number | null>(null);
 
 export default function useGlobalAlert() {
   const variant = computed(() => variantState.value);

@@ -1,6 +1,6 @@
 import { AppServerErrorResponse } from '../../@types/commons';
 
-import { ref, computed, toRefs } from 'vue';
+import { ref, computed } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField, FieldContext } from 'vee-validate';
 import useActiveUserStore from '../../store/activeUserStore';
@@ -26,9 +26,9 @@ const passwordSchema = yup.object({
 
 // Main exported function
 export default function handleUserProfileForm() {
-  let loading = ref<boolean>(false);
-  let validationErrors = ref<any>(null);
-  let httpError = ref<AppServerErrorResponse | null>(null);
+  const loading = ref<boolean>(false);
+  const validationErrors = ref<any>(null);
+  const httpError = ref<AppServerErrorResponse | null>(null);
   const hasFormErrors = computed(() => {
     const hasValidationErrors =
       Object.keys(validationErrors.value || {}).length > 0;

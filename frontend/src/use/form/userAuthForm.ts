@@ -27,9 +27,9 @@ export default function handleUserAuthForm(type: AppUserAuthForm) {
   const { value: username } = useField('username') as FieldContext<string>;
   const { value: password } = useField('password') as FieldContext<string>;
 
-  let validationErrors = ref<any>(null);
-  let httpError = ref<AppServerErrorResponse | null>(null);
-  let loading = ref<boolean>(false);
+  const validationErrors = ref<any>(null);
+  const httpError = ref<AppServerErrorResponse | null>(null);
+  const loading = ref<boolean>(false);
 
   const hasFormErrors = computed(() => {
     const hasValidationErrors =

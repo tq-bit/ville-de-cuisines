@@ -5,7 +5,7 @@ import router from './router/router';
 import './css/styles.css';
 import { createPinia } from 'pinia';
 
-const pinia = createPinia()
+const pinia = createPinia();
 const app = createApp(App);
 
 app.use(router).use(pinia);
