@@ -40,11 +40,11 @@ export const routes: RouterOptions['routes'] = [
     children: [
       {
         path: '/profile/account',
-        component: () => import('../pages/profile/Account.vue'),
+        component: () => import('../pages/profile/AccountBlend.vue'),
       },
       {
         path: '/profile/preferences',
-        component: () => import('../pages/profile/Preferences.vue'),
+        component: () => import('../pages/profile/PreferencesBlend.vue'),
       },
     ],
   },
@@ -56,7 +56,7 @@ export const routes: RouterOptions['routes'] = [
   },
   {
     path: '/my-kitchen',
-    component: () => import('../pages/MyKitchen.vue'),
+    component: () => import('../pages/my-kitchen/index.vue'),
     beforeEnter: redirectToLoginIfUserIsLoggedOut,
   },
 

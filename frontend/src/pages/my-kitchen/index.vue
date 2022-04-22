@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import AppGrid from '../components/layout/content/AppGrid.vue';
-import AppButton from '../components/form/AppButton.vue';
-import AppCard from '../components/form/AppCard.vue';
-import AppGallery from '../components/lists/gallery/AppGallery.vue';
+import AppGrid from '../../components/layout/content/AppGrid.vue';
+import AppButton from '../../components/form/AppButton.vue';
+import AppCard from '../../components/form/AppCard.vue';
+import AppGallery from '../../components/lists/gallery/AppGallery.vue';
 
-import imgCookingManagement from '../components/img/imgCookingManagement.vue';
+import imgCookingManagement from '../../components/img/imgCookingManagement.vue';
 
 const items = [
   {
@@ -42,7 +42,7 @@ const items = [
         <img-cooking-management class="mb-4"></img-cooking-management>
         <hr class="mb-4" />
         <app-button class="mb-4" block> Add new recipe</app-button>
-        <app-button class="mb-4" block> Add ingredients</app-button>
+        <app-button class="mb-4" block> Add public ingredients</app-button>
       </app-card>
     </template>
 
