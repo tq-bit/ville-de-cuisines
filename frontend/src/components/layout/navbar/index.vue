@@ -2,7 +2,6 @@
 import { ref, toRefs } from 'vue';
 import AppNavbar from './AppNavbar.vue';
 import AppSidebar from './AppSidebar.vue';
-import AppSearch from '../AppSearch.vue';
 import useSessionStore from '../../../store/sessionStore';
 
 const showSidebar = ref<boolean>(false);
