@@ -39,7 +39,7 @@ onMounted(async () => await activeUserStore.fetchActiveUserAccount());
       </transition>
     </router-view>
 
-    <app-grid>
+    <app-grid variant="sidebar-left">
       <template v-slot:left>
         <app-card title="Your profile" block>
           <app-image
