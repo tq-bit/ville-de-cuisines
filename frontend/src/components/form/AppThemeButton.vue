@@ -22,7 +22,9 @@ const toggleTheme = (): void => {
 };
 
 const getMediaPreference = (): UserTheme => {
-  const hasDarkPreference = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const hasDarkPreference = window.matchMedia(
+    '(prefers-color-scheme: dark)',
+  ).matches;
   if (hasDarkPreference) {
     return 'dark';
   } else {

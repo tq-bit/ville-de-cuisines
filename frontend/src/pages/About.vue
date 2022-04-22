@@ -14,19 +14,22 @@ import AppContainer from '../components/layout/AppContainer.vue';
         >
           Deepgram. </a
         ><br />
-        Its purpose is to take recorded voicemails and transcribe them into readable text.
+        Its purpose is to take recorded voicemails and transcribe them into
+        readable text.
       </p>
       <hr class="mb-4 w-12 border border-purple-600" />
       <p class="mb-4">This app was inspired by two ideas.</p>
 
       <p class="mb-4">
-        First and foremost: Make voicemails accessible. There are situations in which you simple
-        cannot listen to recorded messages. Why not have the opportunity to read them?
+        First and foremost: Make voicemails accessible. There are situations in
+        which you simple cannot listen to recorded messages. Why not have the
+        opportunity to read them?
       </p>
 
       <p class="mb-4">
-        The second one: My impatience to listen to other peoples 5-minute pre-recorded nightmares
-        (hence the slogan). A call might get the problem out of the way more quickly.
+        The second one: My impatience to listen to other peoples 5-minute
+        pre-recorded nightmares (hence the slogan). A call might get the problem
+        out of the way more quickly.
       </p>
 
       <p class="mb-4 mt-8 text-center border rounded py-2">
@@ -35,7 +38,7 @@ import AppContainer from '../components/layout/AppContainer.vue';
           class="font-semibold text-violet-800 dark:text-violet-400"
           href="https://www.linkedin.com/in/tsvetomira-dichevska/"
           >@Tsvetomira Dichevska</a
-        ><br/>
+        ><br />
         for the logo and the inspirational talks.
       </p>
     </div>

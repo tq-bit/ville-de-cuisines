@@ -22,7 +22,10 @@ export default function useGlobalAlert() {
     messageState.value = message;
   };
 
-  const triggerGlobalAlert = (payload: AlertComposableConfig, timeout: number = 3500) => {
+  const triggerGlobalAlert = (
+    payload: AlertComposableConfig,
+    timeout: number = 3500,
+  ) => {
     showGlobalAlertState.value = true;
     setAlertConfig(payload);
 

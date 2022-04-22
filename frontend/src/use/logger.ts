@@ -3,7 +3,12 @@ type AppEnvironment = 'development' | 'production';
 
 export default function useLogger(environment: AppEnvironment = 'development') {
   const styles = {
-    base: ['color: #fff', 'background-color: #444', 'padding: 2px 4px', 'border-radius: 2px'],
+    base: [
+      'color: #fff',
+      'background-color: #444',
+      'padding: 2px 4px',
+      'border-radius: 2px',
+    ],
     info: ['background-color: steelblue'],
     warn: ['color: #eee', 'background-color: red'],
     error: ['background-color: #ef0000'],

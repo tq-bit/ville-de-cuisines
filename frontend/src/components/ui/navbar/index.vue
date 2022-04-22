@@ -11,7 +11,10 @@ const { isUserLoggedIn } = toRefs(useSessionStore());
 </script>
 
 <template>
-	<app-navbar :is-user-logged-in="isUserLoggedIn" @toggle-sidebar="showSidebar = !showSidebar">
-	</app-navbar>
-	<app-sidebar :show="showSidebar"> </app-sidebar>
+  <app-navbar
+    :is-user-logged-in="isUserLoggedIn"
+    @toggle-sidebar="showSidebar = !showSidebar"
+  >
+  </app-navbar>
+  <app-sidebar :show="showSidebar"> </app-sidebar>
 </template>
