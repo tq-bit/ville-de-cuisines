@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { toRefs } from 'vue';
 import AppNavbarItem from './AppNavbarItem.vue';
-import AppSearch from '../AppSearch.vue';
+import AppSearch from '../../ui/AppSearch.vue';
 import iMenu from '../../icons/iMenu.vue';
 import iUser from '../../icons/iUser.vue';
 import iLogin from '../../icons/iLogin.vue';

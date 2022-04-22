@@ -48,12 +48,24 @@ onMounted(async () => await activeUserStore.fetchActiveUserAccount());
             size="xsmall"
             :src="activeUserStore.avatar"
           ></app-image>
+          <h4 class="font-semibold">Name:</h4>
+          <p class="mb-2">{{ activeUserStore.user.name }}</p>
+
+          <h4 class="font-semibold">Email:</h4>
+          <p class="mb-2">{{ activeUserStore.user.email }}</p>
+
+          <h4 class="font-semibold">Location:</h4>
+          <p class="mb-2">{{ activeUserStore.prefs.location }}</p>
+
+          <h4 class="font-semibold">Bio:</h4>
+          <p class="mb-2">{{ activeUserStore.prefs.bio }}</p>
+
+          <app-button class="mb-4 mt-4" @click="openAccountModal" block
+            >Edit account settings</app-button
+          >
 
           <app-button class="mb-4" @click="openPreferencesModal" block
             >Edit preferences</app-button
-          >
-          <app-button class="mb-4" @click="openAccountModal" block
-            >Edit account settings</app-button
           >
 
           <hr class="mb-4" />

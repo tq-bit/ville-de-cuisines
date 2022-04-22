@@ -19,6 +19,6 @@ defineProps<{
 
 <style scoped>
 .router-link-active {
-  @apply rounded bg-gray-100 dark:bg-gray-900 text-green-500 overflow-hidden;
+  @apply rounded bg-gray-100 text-green-500 dark:text-green-700 overflow-hidden;
 }
 </style>
