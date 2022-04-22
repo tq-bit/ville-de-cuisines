@@ -6,7 +6,7 @@ const emit = defineEmits(['close']);
 
 <template>
 	<div
-		class="relative p-4 w-full h-auto mx-auto rounded bg-white shadow-md"
+		class="relative p-4 w-full h-auto mx-auto rounded bg-white dark:bg-gray-800 border dark:border-gray-600 shadow-md"
 		:class="{ 'text-center': center, 'max-w-md': !block }"
 	>
 		<span v-if="closable" @click="emit('close')" class="absolute right-4 top-4 cursor-pointer">
