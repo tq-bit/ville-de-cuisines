@@ -5,7 +5,7 @@ import {
   AppServerResponseOrError,
   AppUserPreferences,
 } from '../@types/commons';
-import { AppwriteException } from 'appwrite';
+import { AppwriteException, Models } from 'appwrite';
 
 import { defineStore } from 'pinia';
 import appwriteClient from '../api/appwrite';
@@ -21,12 +21,14 @@ const activeUserStore = defineStore('user', {
       email: '',
       emailVerification: false,
     },
+    _location: {} as Models.Locale,
     _prefs: {} as AppUserPreferences,
     _avatar: '',
   }),
 
   getters: {
     user: (state) => state._account,
+    location: (state) => state._location,
     prefs: (state) => state._prefs,
     avatar: (state) => state._avatar,
   },
@@ -35,15 +37,18 @@ const activeUserStore = defineStore('user', {
     async fetchActiveUserAccount() {
       const accountPromise = appwriteClient.account.get();
       const avatarPromise = appwriteClient.avatars.getInitials();
+      const locationPromise = appwriteClient.locale.get();
 
-      const [account, avatar] = await Promise.all([
+      const [account, avatar, location] = await Promise.all([
         accountPromise,
         avatarPromise,
+        locationPromise,
       ]);
 
       const { prefs, ...accountInfo } = account;
 
       this._account = accountInfo;
+      this._location = location;
       this._prefs = prefs as AppUserPreferences;
       this._avatar = avatar.href;
     },

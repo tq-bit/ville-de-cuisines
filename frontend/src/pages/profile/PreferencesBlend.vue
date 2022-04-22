@@ -12,7 +12,6 @@ import usePrefForm from '../../use/form/userPrefForm';
 const router = useRouter();
 const {
   bio,
-  location,
   theme,
   themeOptions,
   hasFormErrors,
@@ -44,12 +43,6 @@ const onSubmitPreferences = async () => {
       title="Preferences"
     >
       <form @submit.prevent="onSubmitPreferences">
-        <app-input
-          v-model="location"
-          class="mb-2"
-          name="location"
-          label="Location"
-        ></app-input>
         <app-input
           v-model="bio"
           class="mb-2"

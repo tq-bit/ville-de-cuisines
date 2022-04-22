@@ -55,7 +55,7 @@ onMounted(async () => await activeUserStore.fetchActiveUserAccount());
           <p class="mb-2">{{ activeUserStore.user.email }}</p>
 
           <h4 class="font-semibold">Location:</h4>
-          <p class="mb-2">{{ activeUserStore.prefs.location }}</p>
+          <p class="mb-2">{{ activeUserStore.location.country }}</p>
 
           <h4 class="font-semibold">Bio:</h4>
           <p class="mb-2">{{ activeUserStore.prefs.bio }}</p>

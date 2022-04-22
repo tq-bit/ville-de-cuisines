@@ -1,4 +1,4 @@
-import { AppwriteException } from 'appwrite';
+import { AppwriteException, Models } from 'appwrite';
 
 export type AlertVariant = 'info' | 'error' | 'success';
 export type UserTheme = 'light' | 'dark';
@@ -28,7 +28,7 @@ export interface AppServerErrorResponse {
   code: number;
 }
 
-export interface AppUserPreferences {
+export interface AppUserPreferences extends Models.Preferences {
   bio: string;
   theme: UserTheme;
   location: string;
