@@ -6,6 +6,10 @@ import AppGallery from '../../components/lists/gallery/AppGallery.vue';
 
 import imgCookingManagement from '../../components/img/imgCookingManagement.vue';
 
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
 const items = [
   {
     title: "Grammy's superfood",
@@ -33,6 +37,14 @@ const items = [
     alt: 'Cooking Management',
   },
 ];
+
+const openRecipeModal = () => {
+  router.push({ path: '/my-kitchen/add-recipe' });
+};
+
+const openIngredientModal = () => {
+  router.push({ path: '/my-kitchen/add-ingredient' });
+};
 </script>
 
 <template>
@@ -41,12 +53,21 @@ const items = [
       <app-card block title="My kitchen">
         <img-cooking-management class="mb-4"></img-cooking-management>
         <hr class="mb-4" />
-        <app-button class="mb-4" block> Add new recipe</app-button>
-        <app-button class="mb-4" block> Add public ingredients</app-button>
+        <app-button @click="openRecipeModal" class="mb-4" block>
+          Add new recipe</app-button
+        >
+        <app-button @click="openIngredientModal" class="mb-4" block>
+          Add public ingredients</app-button
+        >
       </app-card>
     </template>
 
     <template v-slot:default>
+      <router-view v-slot="{ Component }">
+        <transition name="fade">
+          <component :is="Component" />
+        </transition>
+      </router-view>
       <app-card block title="My recipes">
         <app-gallery :gallery-items="items"></app-gallery>
       </app-card>
