@@ -8,7 +8,7 @@
       <slot name="left" />
     </div>
     <div class="col-span-12 sm:col-span-8 lg:col-span-9">
-      <slot name="right" />
+      <slot name="default" />
     </div>
   </section>
 </template>

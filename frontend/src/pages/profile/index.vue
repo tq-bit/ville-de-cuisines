@@ -73,7 +73,7 @@ onMounted(async () => await activeUserStore.fetchActiveUserAccount());
         </app-card>
       </template>
 
-      <template v-slot:right
+      <template v-slot:default
         ><app-card class="mb-4" title="Feed" block> </app-card>
 
         <app-card class="mb-4" title="First item" block>
