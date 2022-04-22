@@ -21,7 +21,7 @@ const emit = defineEmits(['close']);
     >
       <i-close></i-close>
     </span>
-    <h3 class="text-3xl text-center mb-4">{{ title }}</h3>
+    <h3 class="text-2xl text-center mb-4">{{ title }}</h3>
     <slot name="default" />
   </div>
 </template>

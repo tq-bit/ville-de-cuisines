@@ -11,7 +11,7 @@ withDefaults(
 
 <template>
   <section
-    class="grid grid-cols-12 gap-x-4 gap-y-8 px-4 w-full max-w-screen-xl mx-auto"
+    class="grid grid-cols-12 gap-x-4 gap-y-8 px-4 md:px-0 w-full max-w-screen-xl mx-auto"
   >
     <div
       class="col-span-12 sm:col-span-4 lg:col-span-3"

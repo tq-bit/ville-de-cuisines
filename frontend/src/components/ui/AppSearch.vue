@@ -7,7 +7,7 @@ import AppInput from '../form/AppInput.vue';
   <app-input
     :hide-label="true"
     class="mx-2 mb-0 border-none"
-    label="Find delicious 🍔 🍝 🥙's"
+    label="🍔 Discover delicious recipes"
   >
     <template v-slot:icon>
       <i-search></i-search>
