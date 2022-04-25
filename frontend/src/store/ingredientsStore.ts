@@ -29,11 +29,11 @@ const ingredientsStore = defineStore('ingredients', {
       },
     ] as Ingredient[],
     _quantityOptions: [
-      { key: 'l', value: 'Liter' },
-      { key: 'g', value: 'Gram' },
-      { key: 'pc', value: 'Pieces' },
-      { key: 'tsp', value: 'Teaspoon' },
-      { key: 'tbsp', value: 'Tablespoon' },
+      { key: 'l', value: 'Liter (l)' },
+      { key: 'g', value: 'Gram (g)' },
+      { key: 'pc', value: 'Pieces (pc)' },
+      { key: 'tsp', value: 'Teaspoon (tsp)' },
+      { key: 'tbsp', value: 'Tablespoon (tbsp)' },
     ],
   }),
 
