@@ -7,64 +7,102 @@ import AppInput from '../../components/form/AppInput.vue';
 import AppButton from '../../components/form/AppButton.vue';
 
 import { useRouter } from 'vue-router';
-import usePrefForm from '../../use/form/userPrefForm';
+import useIngredientForm from '../../use/form/ingredientForm';
 
 const router = useRouter();
 const {
-  bio,
-  location,
-  theme,
-  themeOptions,
+  name,
+  description,
+  nutrients,
+  calories,
+  quantity,
+  quantity_unit,
   hasFormErrors,
   httpError,
-  handleUpdatePreferencesSubmit,
-} = usePrefForm();
+  validationErrors,
+  handleIngredientSubmit,
+} = useIngredientForm('create');
 
-const closePreferencesModal = () => {
+const closeIngredientsModal = () => {
   router.push({ path: '/my-kitchen' });
 };
 
-const onSubmitPreferences = async () => {
-  await handleUpdatePreferencesSubmit();
+const onSubmitIngredient = async () => {
+  await handleIngredientSubmit();
   if (!hasFormErrors.value && !httpError.value) {
-    closePreferencesModal();
+    closeIngredientsModal();
   }
 };
 </script>
 
 <template>
   <app-screen-modal
-    @keydown.esc="closePreferencesModal"
-    @click-blend="closePreferencesModal"
+    @keydown.esc="closeIngredientsModal"
+    @click-blend="closeIngredientsModal"
   >
     <app-card
       block
       :closable="true"
-      @close="closePreferencesModal"
-      title="Preferences"
+      @close="closeIngredientsModal"
+      title="Add new ingredient"
     >
-      <form @submit.prevent="onSubmitPreferences">
+      <app-alert class="mb-6" v-if="hasFormErrors" variant="error">
+        <ul>
+          <li>{{ httpError?.message }}</li>
+
+          <li>{{ validationErrors?.name }}</li>
+          <li>{{ validationErrors?.description }}</li>
+          <li>{{ validationErrors?.quantity }}</li>
+          <li>{{ validationErrors?.quantity_unit }}</li>
+          <li>{{ validationErrors?.calories }}</li>
+          <li>{{ validationErrors?.nutrients }}</li>
+        </ul>
+      </app-alert>
+
+      <form @submit.prevent="onSubmitIngredient">
         <app-input
-          v-model="location"
+          v-model="name"
           class="mb-2"
-          name="location"
-          label="Location"
+          name="name"
+          label="Name"
         ></app-input>
+
         <app-input
-          v-model="bio"
+          v-model="description"
           class="mb-2"
-          name="bio"
-          label="Bio"
+          name="description"
+          label="Description"
         ></app-input>
-        <app-select
-          class="mb-4"
-          name="theme"
-          v-model="theme"
-          label-prefix="Select your preferred "
-          label="App theme"
-          :options="themeOptions"
-        ></app-select>
-        <app-button type="submit">Update preferences</app-button>
+
+        <app-input
+          v-model="quantity"
+          class="mb-2"
+          name="quantity"
+          label="Quantity"
+        ></app-input>
+
+        <app-input
+          v-model="quantity_unit"
+          class="mb-2"
+          name="quantity_unit"
+          label="Unit"
+        ></app-input>
+
+        <app-input
+          v-model="calories"
+          class="mb-2"
+          name="calories"
+          label="Calories"
+        ></app-input>
+
+        <app-input
+          v-model="nutrients"
+          class="mb-2"
+          name="nutrients"
+          label="Nutrients"
+        ></app-input>
+
+        <app-button type="submit">Submit ingredient</app-button>
       </form>
     </app-card>
   </app-screen-modal>

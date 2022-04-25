@@ -6,13 +6,13 @@ import { defineStore } from 'pinia';
 import appwriteClient from '../api/appwrite';
 
 export interface Ingredient {
-  $id: string;
+  $id?: string;
   name: string;
   description: string;
   quantity: number;
   quantity_unit: string;
   calories: number;
-  nutrients: string[];
+  nutrients: string;
 }
 
 const ingredientsStore = defineStore('ingredients', {
@@ -25,9 +25,10 @@ const ingredientsStore = defineStore('ingredients', {
         quantity: 0,
         quantity_unit: '',
         calories: 0,
-        nutrients: [],
+        nutrients: '',
       },
     ] as Ingredient[],
+    _ingredeintQuantityUnitOptions: [],
   }),
 
   getters: {
@@ -62,7 +63,7 @@ const ingredientsStore = defineStore('ingredients', {
       try {
         const response = await appwriteClient.database.updateDocument(
           INGREDIENTS_COLLECTION_ID,
-          $id,
+          $id || '',
           payload,
         );
         return [response, null];
@@ -75,7 +76,7 @@ const ingredientsStore = defineStore('ingredients', {
       try {
         const response = await appwriteClient.database.deleteDocument(
           INGREDIENTS_COLLECTION_ID,
-          $id,
+          $id || '',
         );
         return [response, null];
       } catch (error) {

@@ -1,14 +1,14 @@
+import {
+  AppUserAuthForm,
+  AppUserLoginPayload,
+  AppServerErrorResponse,
+} from '../../@types/commons';
 import { ref, computed } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField, FieldContext } from 'vee-validate';
 import useSessionStore from '../../store/sessionStore';
 
 import useAppAlert from '../globalAlert';
-import {
-  AppUserAuthForm,
-  AppUserLoginPayload,
-  AppServerErrorResponse,
-} from '../../@types/commons';
 
 const formValidationSchema = yup.object({
   email: yup.string().required().email().label('Email address'),
@@ -50,6 +50,7 @@ export default function handleUserAuthForm(type: AppUserAuthForm) {
       triggerGlobalAlert({ message: 'Login successful', variant: 'success' });
     }
   };
+
   const handleUserSignup = async ({
     email,
     username,
