@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import AppGrid from '../../components/layout/content/AppGrid.vue';
 import AppScreenModal from '../../components/layout/AppScreenModal.vue';
 import AppCard from '../../components/form/AppCard.vue';
 import AppAlert from '../../components/ui/AppAlert.vue';
@@ -110,8 +111,9 @@ const onSubmitPassword = async () => {
 
       <form @submit.prevent="onSubmitPassword">
         <h4 class="text-xl my-2 text-green-600">Update your password</h4>
-        <div class="flex">
-          <div class="mr-2">
+
+        <app-grid variant="form">
+          <template v-slot:left>
             <app-input
               type="password"
               name="oldPassword"
@@ -119,8 +121,9 @@ const onSubmitPassword = async () => {
               label-prefix="Enter your "
               label="Old password"
             ></app-input>
-          </div>
-          <div class="ml-2">
+          </template>
+
+          <template v-slot:default>
             <app-input
               type="password"
               name="newPassword"
@@ -128,8 +131,8 @@ const onSubmitPassword = async () => {
               label-prefix="Enter your "
               label="New password"
             ></app-input>
-          </div>
-        </div>
+          </template>
+        </app-grid>
         <app-button type="submit">Update password</app-button>
       </form>
     </app-card>

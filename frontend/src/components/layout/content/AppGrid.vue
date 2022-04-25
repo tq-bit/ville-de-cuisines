@@ -1,7 +1,7 @@
 <script setup lang="ts">
 withDefaults(
   defineProps<{
-    variant: 'sidebar-left' | 'sidebar-left-and-right' | 'gallery';
+    variant: 'sidebar-left' | 'sidebar-left-and-right' | 'form';
   }>(),
   {
     variant: 'sidebar-left',
@@ -12,12 +12,15 @@ withDefaults(
 <template>
   <section
     class="grid grid-cols-12 gap-x-4 gap-y-8 px-4 md:px-0 w-full max-w-screen-xl mx-auto"
+    :class="{
+      'gap-x-0 gap-y-0 px-0 sm:gap-x-4 sm:px-4': variant === 'form',
+    }"
   >
     <div
       class="col-span-12 sm:col-span-4 lg:col-span-3"
       :class="{
         'sm:col-span-4 lg:col-span-3': variant === 'sidebar-left-and-right',
-        hidden: variant === 'gallery',
+        'md:col-span-6 lg:col-span-6': variant === 'form',
       }"
     >
       <slot name="left" />
@@ -26,7 +29,7 @@ withDefaults(
       class="col-span-12 sm:col-span-8 lg:col-span-9"
       :class="{
         'sm:col-span-8 lg:col-span-6': variant === 'sidebar-left-and-right',
-        'col-auto': variant === 'gallery',
+        'sm:col-span-12 md:col-span-6 lg:col-span-6': variant === 'form',
       }"
     >
       <slot name="default" />
@@ -35,7 +38,6 @@ withDefaults(
       class="hidden lg:block col-span-12"
       :class="{
         'lg:col-span-3': variant === 'sidebar-left-and-right',
-        'lg:hidden': variant === 'gallery',
       }"
     >
       <slot name="right" />
