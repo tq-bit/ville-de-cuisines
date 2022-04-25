@@ -2,26 +2,30 @@
 import { AppUploadPayload } from '../../@types/commons';
 import { ref } from 'vue';
 import imgUpload from '../img/imgUpload.vue';
+import { computed } from '@vue/reactivity';
 
 const over = ref<boolean>(false);
 const fileData = ref<File>();
 const fileBuffer = ref<ArrayBuffer>();
+const fileUrl = ref<string>();
 
 const emit = defineEmits<{
   (event: 'drop', payload: AppUploadPayload): void;
 }>();
 
-const onDragOver = (e: DragEvent) => (over.value = true);
-const onDragLeave = (e: DragEvent) => (over.value = false);
+const onDragOver = () => (over.value = true);
+const onDragLeave = () => (over.value = false);
 
 const onDropItem = async (event: DragEvent) => {
   const items = event.dataTransfer?.items;
   const file = items ? items[0].getAsFile() : null;
   setFileData(file);
+  setFileUrl(file);
   await setFileBuffer(file);
   over.value = false;
   emit('drop', {
     fileData: fileData.value,
+    fileUrl: fileUrl.value,
     fileBuffer: fileBuffer.value,
   } as AppUploadPayload);
 };
@@ -30,9 +34,11 @@ const onChangeItem = async (event: Event) => {
   const items = (event.target as HTMLInputElement).files;
   const file = items ? items[0] : null;
   setFileData(file);
+  setFileUrl(file);
   await setFileBuffer(file);
   emit('drop', {
     fileData: fileData.value,
+    fileUrl: fileUrl.value,
     fileBuffer: fileBuffer.value,
   } as AppUploadPayload);
 };
@@ -40,6 +46,13 @@ const onChangeItem = async (event: Event) => {
 const setFileData = (file: File | null) => {
   if (!!file) {
     fileData.value = file;
+  }
+};
+
+const setFileUrl = (file: File | null) => {
+  if (!!file) {
+    const blobUrl = URL.createObjectURL(file);
+    fileUrl.value = blobUrl;
   }
 };
 
@@ -52,6 +65,8 @@ const setFileBuffer = (file: File | null): Promise<void> => {
         fileBuffer.value = (event?.target?.result as ArrayBuffer) || null;
         resolve();
       };
+    } else {
+      reject('No file input detected');
     }
   });
 };
@@ -68,14 +83,25 @@ const setFileBuffer = (file: File | null): Promise<void> => {
     <!-- Upload dropdown section -->
     <div
       id="header"
-      class="text-center p-12 rounded text-gray-800 dark:text-gray-200 bg-gray-100 focus:bg-white dark:bg-gray-800 focus:dark:bg-gray-900 border border-green-600 transition-all outline-none"
+      class="text-center p-4 rounded text-gray-800 dark:text-gray-200 bg-gray-100 focus:bg-white dark:bg-gray-800 focus:dark:bg-gray-900 border border-green-600 transition-all outline-none"
     >
       <section class="text-xl">
         <label
           for="fileupload"
           class="items-center block cursor-pointer transition-all"
-          ><img-upload></img-upload>Upload a file</label
         >
+          <span v-if="!fileData">
+            <img-upload></img-upload>Drop a file or browse</span
+          >
+          <span v-else>
+            <img
+              class="rounded mx-auto w-auto max-h-72 mb-2"
+              :src="fileUrl"
+              :alt="fileData.name"
+            />
+            {{ fileData.name }}
+          </span>
+        </label>
         <input
           id="fileupload"
           class="hidden"

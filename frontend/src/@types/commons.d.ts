@@ -50,4 +50,5 @@ export interface Ingredient extends Models.Document {
 export interface AppUploadPayload {
   fileData: File;
   fileBuffer: ArrayBuffer;
+  fileUrl: string;
 }
