@@ -18,7 +18,7 @@ withDefaults(
   <button
     v-if="variant !== 'link'"
     v-bind="$attrs"
-    class="rounded-full py-2 px-4 font-semibold inline-block bg-gradient-to-bl from-green-400 to-green-500 dark:from-green-600 dark:to-green-700 text-gray-50"
+    class="rounded py-2 px-4 font-semibold inline-block bg-gradient-to-bl from-green-400 to-green-500 dark:from-green-600 dark:to-green-700 text-gray-50"
     :class="{
       'w-full text-center': block,
     }"

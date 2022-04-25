@@ -13,7 +13,7 @@ defineProps<{
     :alt="alt"
     class="w-full h-auto mx-auto rounded border dark:border-gray-600"
     :class="{
-      'rounded-full': rounded,
+      rounded: rounded,
       'max-w-xs': size === 'xsmall',
       'max-w-sm': size === 'small',
       'max-w-md': size === 'medium',
