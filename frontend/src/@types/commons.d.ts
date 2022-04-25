@@ -2,6 +2,10 @@ import { AppwriteException, Models } from 'appwrite';
 
 export type AlertVariant = 'info' | 'error' | 'success';
 export type UserTheme = 'light' | 'dark';
+export type AppUserAuthForm = 'login' | 'signup';
+export type AppServerResponseOrError = Promise<
+  [unknown, null] | [null, AppwriteException]
+>;
 
 export interface AppUserLoginPayload {
   email: string;
@@ -43,8 +47,7 @@ export interface Ingredient extends Models.Document {
   nutrients: string;
 }
 
-export type AppUserAuthForm = 'login' | 'signup';
-
-export type AppServerResponseOrError = Promise<
-  [unknown, null] | [null, AppwriteException]
->;
+export interface AppUploadPayload {
+  fileData: File;
+  fileBuffer: ArrayBuffer;
+}
