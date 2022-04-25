@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, useSlots } from 'vue';
+import { computed } from 'vue';
 
 withDefaults(
   defineProps<{
@@ -18,9 +18,6 @@ withDefaults(
     requiredSign: '*',
   },
 );
-const slots = useSlots();
-
-const hasIconSlot = computed(() => !!slots.icon);
 
 const emit = defineEmits<{
   (event: 'update:modelValue', payload: string): void;
@@ -40,8 +37,7 @@ const onInput = (ev: Event) =>
   </label>
 
   <textarea
-    class="h-12 px-6 py-2 mb-4 w-full rounded text-gray-800 dark:text-gray-200 bg-gray-100 focus:bg-white dark:bg-gray-800 focus:dark:bg-gray-900 border border-green-600 transition-all outline-none"
-    :class="{ 'pl-12': hasIconSlot }"
+    class="px-6 py-3 overflow-auto max-h-screen mb-4 w-full rounded text-gray-800 dark:text-gray-200 bg-gray-100 focus:bg-white dark:bg-gray-800 focus:dark:bg-gray-900 border border-green-600 transition-all outline-none"
     v-bind="$attrs"
     @input="onInput"
     :value="modelValue"

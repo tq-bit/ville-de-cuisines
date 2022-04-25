@@ -7,6 +7,7 @@ import AppAlert from '../../components/ui/AppAlert.vue';
 import AppSelect from '../../components/form/AppSelect.vue';
 import AppInput from '../../components/form/AppInput.vue';
 import AppButton from '../../components/form/AppButton.vue';
+import AppTextArea from '../../components/form/AppTextArea.vue';
 
 import { useRouter } from 'vue-router';
 import useIngredientForm from '../../use/form/ingredientForm';
@@ -129,13 +130,14 @@ onMounted(() => {
           label="Calories"
         ></app-input>
 
-        <app-input
+        <app-text-area
+          rows="3"
           v-model="description"
           class="mb-2"
           name="description"
           label="Notes"
-        ></app-input>
-
+        ></app-text-area>
+        {{ description }}
         <app-button type="submit">Submit ingredient</app-button>
       </form>
     </app-card>
