@@ -4,7 +4,7 @@ import * as yup from 'yup';
 import { useForm, useField, FieldContext } from 'vee-validate';
 import useIngredientsStore from '../../store/ingredientsStore';
 import useAppAlert from '../globalAlert';
-import { getFormErrors } from '../../util/error.util';
+import { getFormErrors } from '../util/error';
 
 const {
   createIngredient,

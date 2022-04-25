@@ -1,5 +1,5 @@
 import { computed, Ref } from 'vue';
-import { AppServerErrorResponse } from '../@types/commons';
+import { AppServerErrorResponse } from '../../@types/commons';
 
 export function getFormErrors(
   validationErrors: Ref<any>,

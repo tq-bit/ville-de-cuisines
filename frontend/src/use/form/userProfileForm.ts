@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import { useForm, useField, FieldContext } from 'vee-validate';
 import useActiveUserStore from '../../store/activeUserStore';
 import useAppAlert from '../globalAlert';
-import { getFormErrors } from '../../util/error.util';
+import { getFormErrors } from '../util/error';
 
 const activeUserStore = useActiveUserStore();
 const { triggerGlobalAlert } = useAppAlert();
