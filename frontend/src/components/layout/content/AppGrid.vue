@@ -1,7 +1,7 @@
 <script setup lang="ts">
 withDefaults(
   defineProps<{
-    variant: 'sidebar-left' | 'sidebar-left-and-right' | 'form';
+    variant: 'sidebar-left' | 'sidebar-left-and-right' | 'equal';
   }>(),
   {
     variant: 'sidebar-left',
@@ -13,23 +13,25 @@ withDefaults(
   <section
     class="grid grid-cols-12 gap-x-4 gap-y-8 px-4 md:px-0 w-full max-w-screen-xl mx-auto"
     :class="{
-      'gap-x-0 gap-y-0 px-0 sm:gap-x-4 sm:px-4': variant === 'form',
+      'gap-x-0 gap-y-0 px-0 sm:gap-x-4 sm:px-4': variant === 'equal',
     }"
   >
     <div
-      class="col-span-12 sm:col-span-4 lg:col-span-3"
+      class="col-span-12"
       :class="{
+        'sm:col-span-4 md:col-span-4 lg:col-span-3': variant === 'sidebar-left',
         'sm:col-span-4 lg:col-span-3': variant === 'sidebar-left-and-right',
-        'md:col-span-6 lg:col-span-6': variant === 'form',
+        'md:col-span-6 lg:col-span-6': variant === 'equal',
       }"
     >
       <slot name="left" />
     </div>
     <div
-      class="col-span-12 sm:col-span-8 lg:col-span-9"
+      class="col-span-12"
       :class="{
+        'sm:col-span-8 lg:col-span-9': variant === 'sidebar-left',
         'sm:col-span-8 lg:col-span-6': variant === 'sidebar-left-and-right',
-        'sm:col-span-12 md:col-span-6 lg:col-span-6': variant === 'form',
+        'sm:col-span-12 md:col-span-6 lg:col-span-6': variant === 'equal',
       }"
     >
       <slot name="default" />

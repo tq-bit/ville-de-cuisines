@@ -39,11 +39,11 @@ const items = [
 ];
 
 const openRecipeModal = () => {
-  router.push({ path: '/my-kitchen/add-recipe' });
+  router.push({ path: '/my-kitchen/recipe' });
 };
 
 const openIngredientModal = () => {
-  router.push({ path: '/my-kitchen/add-ingredient' });
+  router.push({ path: '/my-kitchen/ingredient' });
 };
 </script>
 
