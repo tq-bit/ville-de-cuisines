@@ -28,11 +28,12 @@ const ingredientsStore = defineStore('ingredients', {
         nutrients: '',
       },
     ] as Ingredient[],
-    _ingredeintQuantityUnitOptions: [],
+    _quantityOptions: ['l', 'g', 'pc', 'tsp', 'tbsp'],
   }),
 
   getters: {
     ingredients: (state) => state._ingredients,
+    quantityOptions: (state) => state._quantityOptions,
     ingredientById: (state) => ($id: string) => {
       return state._ingredients.find((ingredient) => ingredient.$id === $id);
     },

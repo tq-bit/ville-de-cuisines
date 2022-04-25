@@ -3,24 +3,22 @@ import { ref, computed } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField, FieldContext } from 'vee-validate';
 import useIngredientsStore, { Ingredient } from '../../store/ingredientsStore';
-
 import useAppAlert from '../globalAlert';
+
+const { createIngredient, updateIngredient, quantityOptions } =
+  useIngredientsStore();
 
 const ingredientSchema = yup.object({
   $id: yup.string().optional().label('ID'),
   name: yup.string().required().label('Ingredient name'),
   description: yup.string().label('Ingredient description'),
   quantity: yup.number().required().label('Quantity'),
-  quantity_unit: yup
-    .string()
-    .oneOf(['l', 'g', 'pc', 'tsp', 'tbsp'])
-    .label('Quantity unit'),
+  quantity_unit: yup.string().oneOf(quantityOptions).label('Quantity unit'),
   calories: yup.number().required().label('Calories'),
   nutrients: yup.string().label('Nutrients'),
 });
 
 export default function handleIngredientForm() {
-  const { createIngredient, updateIngredient } = useIngredientsStore();
   const { handleSubmit } = useForm({
     validationSchema: ingredientSchema,
   });
