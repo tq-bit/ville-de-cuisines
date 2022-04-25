@@ -60,6 +60,11 @@ export const routes: RouterOptions['routes'] = [
     beforeEnter: redirectToLoginIfUserIsLoggedOut,
     children: [
       {
+        path: '/my-kitchen/ingredient/:ingredientId/edit',
+        component: () => import('../pages/my-kitchen/IndedientBlend.vue'),
+        props: true,
+      },
+      {
         path: '/my-kitchen/ingredient',
         component: () => import('../pages/my-kitchen/IndedientBlend.vue'),
       },

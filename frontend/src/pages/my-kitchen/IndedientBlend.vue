@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { onMounted } from 'vue';
 import AppGrid from '../../components/layout/content/AppGrid.vue';
 import AppScreenModal from '../../components/layout/AppScreenModal.vue';
 import AppCard from '../../components/form/AppCard.vue';
@@ -13,9 +14,9 @@ import useIngredientsStore from '../../store/ingredientsStore';
 
 const router = useRouter();
 const {
+  $id,
   name,
   description,
-  nutrients,
   calories,
   quantity,
   quantity_unit,
@@ -23,6 +24,7 @@ const {
   httpError,
   validationErrors,
   handleIngredientSubmit,
+  setIngredientToEditById,
 } = useIngredientForm();
 const { quantityOptions } = useIngredientsStore();
 
@@ -36,6 +38,14 @@ const onSubmitIngredient = async () => {
     closeIngredientsModal();
   }
 };
+
+onMounted(() => {
+  const params = router.currentRoute.value.params;
+  const ingredientId = params.ingredientId as string;
+  if (ingredientId) {
+    setIngredientToEditById(ingredientId);
+  }
+});
 </script>
 
 <template>
@@ -62,7 +72,26 @@ const onSubmitIngredient = async () => {
         </ul>
       </app-alert>
       <form @submit.prevent="onSubmitIngredient">
+        <app-grid v-if="$id" variant="equal">
+          <template v-slot:left>
+            <app-input
+              v-model="name"
+              class="mb-2"
+              name="name"
+              label="Name"
+            ></app-input>
+          </template>
+
+          <app-input
+            v-if="$id"
+            v-model="$id"
+            class="mb-2"
+            name="id"
+            label="Ingredient ID"
+          ></app-input>
+        </app-grid>
         <app-input
+          v-else
           v-model="name"
           class="mb-2"
           name="name"

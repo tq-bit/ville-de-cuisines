@@ -1,12 +1,16 @@
-import { AppServerErrorResponse } from '../../@types/commons';
+import { AppServerErrorResponse, Ingredient } from '../../@types/commons';
 import { ref, computed } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField, FieldContext } from 'vee-validate';
-import useIngredientsStore, { Ingredient } from '../../store/ingredientsStore';
+import useIngredientsStore from '../../store/ingredientsStore';
 import useAppAlert from '../globalAlert';
 
-const { createIngredient, updateIngredient, quantityOptionKeys } =
-  useIngredientsStore();
+const {
+  createIngredient,
+  updateIngredient,
+  quantityOptionKeys,
+  getIngredientById,
+} = useIngredientsStore();
 
 const ingredientSchema = yup.object({
   $id: yup.string().optional().label('ID'),
@@ -25,16 +29,16 @@ export default function handleIngredientForm() {
 
   const { triggerGlobalAlert } = useAppAlert();
 
+  const { value: $id } = useField('$id') as FieldContext<string>;
   const { value: name } = useField('name') as FieldContext<string>;
   const { value: description } = useField(
     'description',
   ) as FieldContext<string>;
-  const { value: quantity } = useField('quantity') as FieldContext<string>;
+  const { value: quantity } = useField('quantity') as FieldContext<number>;
   const { value: quantity_unit } = useField(
     'quantity_unit',
   ) as FieldContext<string>;
-  const { value: calories } = useField('calories') as FieldContext<string>;
-  const { value: nutrients } = useField('nutrients') as FieldContext<string>;
+  const { value: calories } = useField('calories') as FieldContext<number>;
 
   const validationErrors = ref<any>(null);
   const httpError = ref<AppServerErrorResponse | null>(null);
@@ -46,6 +50,16 @@ export default function handleIngredientForm() {
     const hasHttpErrors = Object.keys(httpError.value || {}).length > 0;
     return hasValidationErrors || hasHttpErrors;
   });
+
+  const setIngredientToEditById = (id: string) => {
+    const ingredient = getIngredientById(id);
+    $id.value = ingredient?.$id || id;
+    name.value = ingredient?.name || '';
+    description.value = ingredient?.description || '';
+    quantity.value = ingredient?.quantity || 0;
+    quantity_unit.value = ingredient?.quantity_unit || '';
+    calories.value = ingredient?.calories || 0;
+  };
 
   const handleIngredientCreate = async (payload: Ingredient) => {
     httpError.value = null;
@@ -94,15 +108,16 @@ export default function handleIngredientForm() {
   );
 
   return {
+    $id,
     name,
     description,
     quantity,
     quantity_unit,
     calories,
-    nutrients,
     hasFormErrors,
     httpError,
     validationErrors,
     handleIngredientSubmit,
+    setIngredientToEditById,
   };
 }

@@ -34,6 +34,15 @@ export interface AppUserPreferences extends Models.Preferences {
   location: string;
 }
 
+export interface Ingredient extends Models.Document {
+  name: string;
+  description: string;
+  quantity: number;
+  quantity_unit: string;
+  calories: number;
+  nutrients: string;
+}
+
 export type AppUserAuthForm = 'login' | 'signup';
 
 export type AppServerResponseOrError = Promise<

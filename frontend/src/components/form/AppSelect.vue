@@ -37,14 +37,14 @@ const onChange = (ev: Event) => {
     :aria-label="label"
     :aria-required="required"
   >
-    <option selected disabled aria-disabled>
+    <option disabled aria-disabled>
       {{ labelPrefix ? labelPrefix + label?.toLowerCase() : label }}
     </option>
     <option
       v-for="option in options"
       :value="option.key ? option.key : option"
       :key="option.key ? option.key : option"
-      :selected="option === modelValue"
+      :selected="option.key ? option.key === modelValue : option === modelValue"
       :aria-selected="
         option.text ? option.text : option.value ? option.value : option
       "

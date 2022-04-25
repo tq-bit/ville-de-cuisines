@@ -1,33 +1,14 @@
-import { AppServerResponseOrError } from '../@types/commons';
+import { AppServerResponseOrError, Ingredient } from '../@types/commons';
 import { INGREDIENTS_COLLECTION_ID } from '../constants';
 import { AppwriteException, Models } from 'appwrite';
 
 import { defineStore } from 'pinia';
 import appwriteClient from '../api/appwrite';
 
-export interface Ingredient {
-  $id?: string;
-  name: string;
-  description: string;
-  quantity: number;
-  quantity_unit: string;
-  calories: number;
-  nutrients: string;
-}
-
 const ingredientsStore = defineStore('ingredients', {
   state: () => ({
-    _ingredients: [
-      {
-        $id: '',
-        name: '',
-        description: '',
-        quantity: 0,
-        quantity_unit: '',
-        calories: 0,
-        nutrients: '',
-      },
-    ] as Ingredient[],
+    _count: 0,
+    _ingredients: [] as Ingredient[],
     _quantityOptions: [
       { key: 'l', value: 'Liter (l)' },
       { key: 'g', value: 'Gram (g)' },
@@ -44,7 +25,7 @@ const ingredientsStore = defineStore('ingredients', {
     quantityOptionKeys: (state) => {
       return state._quantityOptions.map((option) => option.key);
     },
-    ingredientById: (state) => ($id: string) => {
+    getIngredientById: (state) => ($id: string) => {
       return state._ingredients.find((ingredient) => ingredient.$id === $id);
     },
   },
@@ -54,10 +35,7 @@ const ingredientsStore = defineStore('ingredients', {
       const response = await appwriteClient.database.listDocuments(
         INGREDIENTS_COLLECTION_ID,
       );
-
-      console.log(response);
-
-      this._ingredients = response.documents;
+      this._ingredients = response.documents as Ingredient[];
     },
 
     async createIngredient(payload: Ingredient): AppServerResponseOrError {
