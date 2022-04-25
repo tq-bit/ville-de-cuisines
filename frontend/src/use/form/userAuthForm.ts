@@ -7,8 +7,8 @@ import { ref, computed } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField, FieldContext } from 'vee-validate';
 import useSessionStore from '../../store/sessionStore';
-
 import useAppAlert from '../globalAlert';
+import { getFormErrors } from '../../util/error.util';
 
 const formValidationSchema = yup.object({
   email: yup.string().required().email().label('Email address'),
@@ -31,12 +31,7 @@ export default function handleUserAuthForm(type: AppUserAuthForm) {
   const httpError = ref<AppServerErrorResponse | null>(null);
   const loading = ref<boolean>(false);
 
-  const hasFormErrors = computed(() => {
-    const hasValidationErrors =
-      Object.keys(validationErrors.value || {}).length > 0;
-    const hasHttpErrors = Object.keys(httpError.value || {}).length > 0;
-    return hasValidationErrors || hasHttpErrors;
-  });
+  const hasFormErrors = getFormErrors(validationErrors, httpError);
 
   const handleUserLogin = async ({ email, password }: AppUserLoginPayload) => {
     httpError.value = null;

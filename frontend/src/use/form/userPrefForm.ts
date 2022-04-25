@@ -1,9 +1,9 @@
 import { AppServerErrorResponse, UserTheme } from '../../@types/commons';
-
 import { ref, computed } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField, FieldContext } from 'vee-validate';
 import useActiveUserStore from '../../store/activeUserStore';
+import { getFormErrors } from '../../util/error.util';
 import useAppAlert from '../globalAlert';
 
 const activeUserStore = useActiveUserStore();
@@ -24,12 +24,7 @@ export default function handleUserProfileForm() {
   const validationErrors = ref<any>(null);
   const httpError = ref<AppServerErrorResponse | null>(null);
 
-  const hasFormErrors = computed(() => {
-    const hasValidationErrors =
-      Object.keys(validationErrors.value || {}).length > 0;
-    const hasHttpErrors = Object.keys(httpError.value || {}).length > 0;
-    return hasValidationErrors || hasHttpErrors;
-  });
+  const hasFormErrors = getFormErrors(validationErrors, httpError);
 
   const onValidationError = ({ errors }: any) => {
     validationErrors.value = errors;

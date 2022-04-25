@@ -1,9 +1,10 @@
 import { AppServerErrorResponse, Ingredient } from '../../@types/commons';
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField, FieldContext } from 'vee-validate';
 import useIngredientsStore from '../../store/ingredientsStore';
 import useAppAlert from '../globalAlert';
+import { getFormErrors } from '../../util/error.util';
 
 const {
   createIngredient,
@@ -44,12 +45,7 @@ export default function handleIngredientForm() {
   const httpError = ref<AppServerErrorResponse | null>(null);
   const loading = ref<boolean>(false);
 
-  const hasFormErrors = computed(() => {
-    const hasValidationErrors =
-      Object.keys(validationErrors.value || {}).length > 0;
-    const hasHttpErrors = Object.keys(httpError.value || {}).length > 0;
-    return hasValidationErrors || hasHttpErrors;
-  });
+  const hasFormErrors = getFormErrors(validationErrors, httpError);
 
   const setIngredientToEditById = (id: string) => {
     const ingredient = getIngredientById(id);
