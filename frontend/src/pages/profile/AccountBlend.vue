@@ -112,7 +112,7 @@ const onSubmitPassword = async () => {
       <form @submit.prevent="onSubmitPassword">
         <h4 class="text-xl my-2 text-green-600">Update your password</h4>
 
-        <app-grid variant="form">
+        <app-grid variant="equal">
           <template v-slot:left>
             <app-input
               type="password"
