@@ -61,12 +61,12 @@ export const routes: RouterOptions['routes'] = [
     children: [
       {
         path: '/my-kitchen/ingredient/:ingredientId/edit',
-        component: () => import('../pages/my-kitchen/IndedientBlend.vue'),
+        component: () => import('../pages/my-kitchen/IngredientBlend.vue'),
         props: true,
       },
       {
         path: '/my-kitchen/ingredient',
-        component: () => import('../pages/my-kitchen/IndedientBlend.vue'),
+        component: () => import('../pages/my-kitchen/IngredientBlend.vue'),
       },
       {
         path: '/my-kitchen/recipe',

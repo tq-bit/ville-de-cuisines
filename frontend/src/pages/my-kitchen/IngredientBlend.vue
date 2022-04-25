@@ -8,7 +8,6 @@ import AppSelect from '../../components/form/AppSelect.vue';
 import AppInput from '../../components/form/AppInput.vue';
 import AppButton from '../../components/form/AppButton.vue';
 import AppTextArea from '../../components/form/AppTextArea.vue';
-import AppUpload from '../../components/form/AppUpload.vue';
 
 import { useRouter } from 'vue-router';
 import useIngredientForm from '../../use/form/ingredientForm';
@@ -144,8 +143,6 @@ onMounted(() => {
         ></app-text-area>
         {{ description }}
         <app-button type="submit">Submit ingredient</app-button>
-
-        <app-upload @drop="onDrop"></app-upload>
       </form>
     </app-card>
   </app-screen-modal>

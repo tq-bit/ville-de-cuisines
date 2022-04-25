@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { AppUploadPayload } from '../../@types/commons';
+import { ref, onMounted } from 'vue';
 import AppGrid from '../../components/layout/content/AppGrid.vue';
 import AppButton from '../../components/form/AppButton.vue';
 import AppImage from '../../components/ui/AppImage.vue';
+import AppFileInput from '../../components/form/AppFileInput.vue';
 import AppCard from '../../components/form/AppCard.vue';
 
 import { useRouter } from 'vue-router';
@@ -10,6 +12,7 @@ import useSessionStore from '../../store/sessionStore';
 import useActiveUserStore from '../../store/activeUserStore';
 import useGlobalAlert from '../../use/globalAlert';
 
+const editAvatar = ref(false);
 const { destroyServerSession } = useSessionStore();
 const activeUserStore = useActiveUserStore();
 const { triggerGlobalAlert } = useGlobalAlert();
@@ -28,6 +31,11 @@ const openAccountModal = () => router.push({ path: '/profile/account' });
 const openPreferencesModal = () =>
   router.push({ path: '/profile/preferences' });
 
+const onDrop = (filePayload: AppUploadPayload) => {
+  console.log(filePayload);
+  editAvatar.value = false;
+};
+
 onMounted(async () => await activeUserStore.fetchActiveUserAccount());
 </script>
 
@@ -42,9 +50,14 @@ onMounted(async () => await activeUserStore.fetchActiveUserAccount());
     <app-grid variant="sidebar-left">
       <template v-slot:left>
         <app-card title="Your profile" block>
+          <app-file-input v-if="editAvatar" class="mb-4" @drop="onDrop">
+          </app-file-input>
           <app-image
-            class="mb-4"
+            v-if="!editAvatar"
+            @click="editAvatar = !editAvatar"
+            class="mb-4 hover:opacity-75 cursor-pointer transition-opacity"
             :rounded="true"
+            title="Upload a new avatar"
             size="xsmall"
             :src="activeUserStore.avatar"
           ></app-image>
