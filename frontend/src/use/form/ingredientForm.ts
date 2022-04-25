@@ -5,7 +5,7 @@ import { useForm, useField, FieldContext } from 'vee-validate';
 import useIngredientsStore, { Ingredient } from '../../store/ingredientsStore';
 import useAppAlert from '../globalAlert';
 
-const { createIngredient, updateIngredient, quantityOptions } =
+const { createIngredient, updateIngredient, quantityOptionKeys } =
   useIngredientsStore();
 
 const ingredientSchema = yup.object({
@@ -13,7 +13,7 @@ const ingredientSchema = yup.object({
   name: yup.string().required().label('Ingredient name'),
   description: yup.string().label('Ingredient description'),
   quantity: yup.number().required().label('Quantity'),
-  quantity_unit: yup.string().oneOf(quantityOptions).label('Quantity unit'),
+  quantity_unit: yup.string().oneOf(quantityOptionKeys).label('Quantity unit'),
   calories: yup.number().required().label('Calories'),
   nutrients: yup.string().label('Nutrients'),
 });
