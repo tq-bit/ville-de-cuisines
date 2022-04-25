@@ -33,6 +33,9 @@ const ingredientsStore = defineStore('ingredients', {
 
   getters: {
     ingredients: (state) => state._ingredients,
+    ingredientById: (state) => ($id: string) => {
+      return state._ingredients.find((ingredient) => ingredient.$id === $id);
+    },
   },
 
   actions: {
@@ -59,7 +62,10 @@ const ingredientsStore = defineStore('ingredients', {
       }
     },
 
-    async updateIngredient({ $id, ...payload }: Ingredient) {
+    async updateIngredient({
+      $id,
+      ...payload
+    }: Ingredient): AppServerResponseOrError {
       try {
         const response = await appwriteClient.database.updateDocument(
           INGREDIENTS_COLLECTION_ID,

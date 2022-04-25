@@ -64,7 +64,6 @@ export default function handleUserAuthForm(type: AppUserAuthForm) {
     });
 
     if (signupError) {
-      console.dir(signupError);
       httpError.value = {
         message: signupError?.message,
         code: signupError?.code,

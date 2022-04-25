@@ -19,7 +19,7 @@ const ingredientSchema = yup.object({
   nutrients: yup.string().label('Nutrients'),
 });
 
-export default function handleIngredientForm(type: 'create' | 'update') {
+export default function handleIngredientForm() {
   const { createIngredient, updateIngredient } = useIngredientsStore();
   const { handleSubmit } = useForm({
     validationSchema: ingredientSchema,
@@ -75,14 +75,13 @@ export default function handleIngredientForm(type: 'create' | 'update') {
     }
   };
 
-  const onValidationSuccess = async (payload: Ingredient) => {
+  const onValidationSuccess = async (payload: Ingredient | any) => {
     loading.value = true;
     validationErrors.value = null;
-    if (type === 'create') {
-      await handleIngredientCreate(payload);
-    }
-    if (type === 'update') {
+    if (payload.$id) {
       await handleIngredientUpdate(payload);
+    } else {
+      await handleIngredientCreate(payload);
     }
     loading.value = false;
   };

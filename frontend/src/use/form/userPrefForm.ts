@@ -23,6 +23,7 @@ export default function handleUserProfileForm() {
   const loading = ref<boolean>(false);
   const validationErrors = ref<any>(null);
   const httpError = ref<AppServerErrorResponse | null>(null);
+
   const hasFormErrors = computed(() => {
     const hasValidationErrors =
       Object.keys(validationErrors.value || {}).length > 0;
