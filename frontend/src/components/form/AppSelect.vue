@@ -15,8 +15,9 @@ const emit = defineEmits<{
   (event: 'update:modelValue', payload: string): void;
 }>();
 
-const onChange = (ev: Event) =>
+const onChange = (ev: Event) => {
   emit('update:modelValue', (ev.target as HTMLInputElement).value);
+};
 </script>
 
 <template>
@@ -27,21 +28,21 @@ const onChange = (ev: Event) =>
     {{ label }}
   </label>
   <select
-    class="px-6 py-3 w-full rounded-full text-gray-800 dark:text-gray-200 bg-gray-100 focus:bg-white dark:bg-gray-800 focus:dark:bg-gray-900 border-2 border-green-600 transition-all outline-none"
+    class="h-14 px-6 py-2 w-full rounded-full text-gray-800 dark:text-gray-200 bg-gray-100 focus:bg-white dark:bg-gray-800 focus:dark:bg-gray-900 border-2 border-green-600 transition-all outline-none"
     v-bind="{
       ...$attrs,
       onChange,
     }"
-    :placeholder="labelPrefix ? labelPrefix + label.toLowerCase() : label"
+    :placeholder="labelPrefix ? labelPrefix + label?.toLowerCase() : label"
     :aria-label="label"
     :aria-required="required"
   >
     <option selected disabled aria-disabled>
-      {{ labelPrefix ? labelPrefix + label.toLowerCase() : label }}
+      {{ labelPrefix ? labelPrefix + label?.toLowerCase() : label }}
     </option>
     <option
       v-for="option in options"
-      :value="option.value ? option.value : option"
+      :value="option.key ? option.key : option"
       :key="option.key ? option.key : option"
       :selected="option === modelValue"
       :aria-selected="
@@ -54,3 +55,10 @@ const onChange = (ev: Event) =>
     </option>
   </select>
 </template>
+
+<style scoped>
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+</style>
