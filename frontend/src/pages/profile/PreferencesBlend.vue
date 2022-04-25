@@ -5,6 +5,7 @@ import AppAlert from '../../components/ui/AppAlert.vue';
 import AppSelect from '../../components/form/AppSelect.vue';
 import AppInput from '../../components/form/AppInput.vue';
 import AppButton from '../../components/form/AppButton.vue';
+import AppTextArea from '../../components/form/AppTextArea.vue';
 
 import { useRouter } from 'vue-router';
 import usePrefForm from '../../use/form/userPrefForm';
@@ -43,12 +44,6 @@ const onSubmitPreferences = async () => {
       title="Preferences"
     >
       <form @submit.prevent="onSubmitPreferences">
-        <app-input
-          v-model="bio"
-          class="mb-2"
-          name="bio"
-          label="Bio"
-        ></app-input>
         <app-select
           class="mb-4"
           name="theme"
@@ -57,6 +52,14 @@ const onSubmitPreferences = async () => {
           label="App theme"
           :options="themeOptions"
         ></app-select>
+
+        <app-text-area
+          v-model="bio"
+          class="mb-2"
+          name="bio"
+          label="Bio"
+        ></app-text-area>
+
         <app-button type="submit">Update preferences</app-button>
       </form>
     </app-card>
