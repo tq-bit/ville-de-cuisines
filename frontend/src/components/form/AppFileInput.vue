@@ -2,7 +2,6 @@
 import { AppUploadPayload } from '../../@types/commons';
 import { ref } from 'vue';
 import imgUpload from '../img/imgUpload.vue';
-import { computed } from '@vue/reactivity';
 
 const over = ref<boolean>(false);
 const fileData = ref<File>();
@@ -16,31 +15,26 @@ const emit = defineEmits<{
 const onDragOver = () => (over.value = true);
 const onDragLeave = () => (over.value = false);
 
-const onDropItem = async (event: DragEvent) => {
-  const items = event.dataTransfer?.items;
-  const file = items ? items[0].getAsFile() : null;
+const onChangeItem = async (event: Event) => {
+  const file = getItemFromEvent(event);
   setFileData(file);
   setFileUrl(file);
   await setFileBuffer(file);
-  over.value = false;
   emit('drop', {
     fileData: fileData.value,
     fileUrl: fileUrl.value,
     fileBuffer: fileBuffer.value,
   } as AppUploadPayload);
+  onDragLeave();
 };
 
-const onChangeItem = async (event: Event) => {
+const getItemFromEvent = (event: Event | DragEvent): File | null => {
+  if (event.type === 'drop') {
+    const items = (event as DragEvent).dataTransfer?.items;
+    return items ? items[0].getAsFile() : null;
+  }
   const items = (event.target as HTMLInputElement).files;
-  const file = items ? items[0] : null;
-  setFileData(file);
-  setFileUrl(file);
-  await setFileBuffer(file);
-  emit('drop', {
-    fileData: fileData.value,
-    fileUrl: fileUrl.value,
-    fileBuffer: fileBuffer.value,
-  } as AppUploadPayload);
+  return items ? items[0] : null;
 };
 
 const setFileData = (file: File | null) => {
@@ -76,7 +70,7 @@ const setFileBuffer = (file: File | null): Promise<void> => {
   <div
     @dragover.prevent="onDragOver"
     @dragleave.prevent="onDragLeave"
-    @drop.prevent="onDropItem"
+    @drop.prevent="onChangeItem"
     class="shadow rounded m-auto h-full w-full"
     :class="{ 'animate-pulse': over }"
   >
