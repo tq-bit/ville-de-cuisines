@@ -1,7 +1,7 @@
 import { AppServerErrorResponse, Recipe } from '../../@types/commons';
 import { ref } from 'vue';
 import * as yup from 'yup';
-import { useForm, useField, FieldContext } from 'vee-validate';
+import { useForm, useField, useFieldArray } from 'vee-validate';
 import useRecipeStore from '../../store/recipeStore';
 import useAppAlert from '../globalAlert';
 import { getFormErrors } from '../util/error';
@@ -10,12 +10,12 @@ const { createRecipe, updateRecipe } = useRecipeStore();
 
 const recipeSchema = yup.object({
   $id: yup.string().optional().label('ID'),
-  originalRecipeId: yup.string().required().label('Original recipe ID'),
+  originalRecipeId: yup.string().optional().label('Original recipe ID'),
   name: yup.string().required().label('Recipe name'),
   description: yup.string().optional().label('Recipe description'),
   ingredients: yup.array().label('Recipe ingredients'),
-  username: yup.string().required().label('Recipe creator'),
-  tags: yup.string().optional().label('Recipe tags'),
+  username: yup.string().optional().label('Recipe creator'),
+  tags: yup.array().optional().label('Recipe tags'),
   public: yup.boolean().optional().label('Recipe publicity'),
 });
 
@@ -26,22 +26,21 @@ export default function handleIngredientForm() {
 
   const { triggerGlobalAlert } = useAppAlert();
 
-  const { value: $id } = useField('$id') as FieldContext<string>;
-  const { value: originalRecipeId } = useField(
-    'original_recipe_id',
-  ) as FieldContext<string>;
-  const { value: name } = useField('name') as FieldContext<string>;
-  const { value: description } = useField(
-    'description',
-  ) as FieldContext<string>;
-  const { value: ingredientId } = useField(
-    'ingredient_id',
-  ) as FieldContext<number>;
-  const { value: ingredientQuantity } = useField(
-    'ingredient_quantity',
-  ) as FieldContext<number>;
-  const { value: tags } = useField('tags') as FieldContext<number>;
-  const { value: isPublic } = useField('is_public') as FieldContext<number>;
+  const { value: $id } = useField('$id');
+  const { value: originalRecipeId } = useField('original_recipe_id');
+  const { value: name } = useField('name');
+  const { value: description } = useField('description');
+  const {
+    remove: removeIngredient,
+    push: pushIngredient,
+    fields: recipeIngredients,
+  } = useFieldArray('ingredients');
+  const {
+    remove: removeTag,
+    push: pushTag,
+    fields: recipeTags,
+  } = useFieldArray('tags');
+  const { value: isPublic } = useField('is_public');
 
   const validationErrors = ref<any>(null);
   const httpError = ref<AppServerErrorResponse | null>(null);
@@ -78,11 +77,12 @@ export default function handleIngredientForm() {
   const onValidationSuccess = async (payload: Recipe | any) => {
     loading.value = true;
     validationErrors.value = null;
-    if (payload.$id) {
-      await handleRecipeUpdate(payload);
-    } else {
-      await handleRecipeCreate(payload);
-    }
+    console.log(payload);
+    // if (payload.$id) {
+    //   await handleRecipeUpdate(payload);
+    // } else {
+    //   await handleRecipeCreate(payload);
+    // }
     loading.value = false;
   };
 
@@ -100,9 +100,12 @@ export default function handleIngredientForm() {
     name,
     description,
     originalRecipeId,
-    ingredientId,
-    ingredientQuantity,
-    tags,
+    pushIngredient,
+    removeIngredient,
+    recipeIngredients,
+    pushTag,
+    removeTag,
+    recipeTags,
     isPublic,
     hasFormErrors,
     httpError,

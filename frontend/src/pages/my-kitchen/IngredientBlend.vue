@@ -40,10 +40,6 @@ const onSubmitIngredient = async () => {
   }
 };
 
-const onDrop = (payload: any) => {
-  console.log(payload);
-};
-
 onMounted(() => {
   const params = router.currentRoute.value.params;
   const ingredientId = params.ingredientId as string;
@@ -141,7 +137,6 @@ onMounted(() => {
           name="description"
           label="Notes"
         ></app-text-area>
-        {{ description }}
         <app-button type="submit">Submit ingredient</app-button>
       </form>
     </app-card>

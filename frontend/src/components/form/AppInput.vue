@@ -24,11 +24,15 @@ const hasIconSlot = computed(() => !!slots.icon);
 
 const emit = defineEmits<{
   (event: 'update:modelValue', payload: string): void;
+  (event: 'enter', payload: string): void;
   (event: 'click-icon'): void;
 }>();
 
 const onInput = (ev: Event) =>
   emit('update:modelValue', (ev.target as HTMLInputElement).value);
+
+const onEnter = (ev: Event) =>
+  emit('enter', (ev.target as HTMLInputElement).value);
 </script>
 
 <template>
@@ -51,6 +55,7 @@ const onInput = (ev: Event) =>
     class="h-12 px-6 py-2 mb-4 w-full rounded text-gray-800 dark:text-gray-200 bg-gray-100 focus:bg-white dark:bg-gray-800 focus:dark:bg-gray-900 border border-green-600 transition-all outline-none"
     :class="{ 'pl-12': hasIconSlot }"
     v-bind="$attrs"
+    @keypress.enter="onEnter"
     @input="onInput"
     :value="modelValue"
     :required="required"

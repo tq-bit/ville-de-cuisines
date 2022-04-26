@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import { ref, computed } from 'vue';
 import AppScreenModal from '../../components/layout/AppScreenModal.vue';
+import AppTagPill from '../../components/lists/pills/AppTagPill.vue';
 import AppCard from '../../components/form/AppCard.vue';
 import AppAlert from '../../components/ui/AppAlert.vue';
 import AppSelect from '../../components/form/AppSelect.vue';
@@ -7,25 +9,37 @@ import AppInput from '../../components/form/AppInput.vue';
 import AppButton from '../../components/form/AppButton.vue';
 
 import { useRouter } from 'vue-router';
-import usePrefForm from '../../use/form/userPrefForm';
+import useRecipeForm from '../../use/form/recipeForm';
+import { Ingredient } from '../../@types/commons';
 
 const router = useRouter();
 const {
-  bio,
-  location,
-  theme,
-  themeOptions,
-  hasFormErrors,
+  $id,
+  originalRecipeId,
+  name,
+  description,
+  pushIngredient,
+  pushTag,
+  removeIngredient,
+  removeTag,
+  isPublic,
   httpError,
-  handleUpdatePreferencesSubmit,
-} = usePrefForm();
+  validationErrors,
+  hasFormErrors,
+  handleRecipeSubmit,
+} = useRecipeForm();
 
-const closeRecipeModal = () => {
-  router.push({ path: '/my-kitchen' });
-};
+const localTagModel = ref<string>();
+const localTags = computed(() =>
+  localTagModel.value?.split(',').map((text) => text.trim()),
+);
 
-const onSubmitPreferences = async () => {
-  await handleUpdatePreferencesSubmit();
+const localIngredients = ref<Ingredient[]>([]);
+
+const closeRecipeModal = () => router.push({ path: '/my-kitchen' });
+const onSubmitIngredient = async () => {
+  localTags.value?.forEach((tag) => pushTag(tag.trim()));
+  await handleRecipeSubmit();
   if (!hasFormErrors.value && !httpError.value) {
     closeRecipeModal();
   }
@@ -41,30 +55,36 @@ const onSubmitPreferences = async () => {
       block
       :closable="true"
       @close="closeRecipeModal"
-      title="Preferences"
+      title="Add new recipe"
     >
-      <form @submit.prevent="onSubmitPreferences">
+      <app-alert class="mb-6" v-if="hasFormErrors" variant="error">
+        <ul>
+          <li>{{ httpError?.message }}</li>
+          <li v-for="(error, idx) in validationErrors" :key="idx">
+            {{ error }}
+          </li>
+        </ul>
+      </app-alert>
+      <form @submit.prevent="onSubmitIngredient">
         <app-input
-          v-model="location"
+          v-model="name"
           class="mb-2"
-          name="location"
-          label="Location"
+          name="name"
+          label="Recipe name"
         ></app-input>
+
         <app-input
-          v-model="bio"
-          class="mb-2"
-          name="bio"
-          label="Bio"
+          v-model="localTagModel"
+          label-prefix="Add one or more "
+          label="Tags"
         ></app-input>
-        <app-select
-          class="mb-4"
-          name="theme"
-          v-model="theme"
-          label-prefix="Select your preferred "
-          label="App theme"
-          :options="themeOptions"
-        ></app-select>
-        <app-button type="submit">Update preferences</app-button>
+        <div class="mb-4">
+          <app-tag-pill v-for="tag in localTags" :key="tag">
+            {{ tag }}
+          </app-tag-pill>
+        </div>
+
+        <app-button type="submit">Submit Recipe</app-button>
       </form>
     </app-card>
   </app-screen-modal>
