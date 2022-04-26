@@ -47,6 +47,16 @@ export interface Ingredient extends Models.Document {
   nutrients: string;
 }
 
+export interface Recipe extends Models.Document {
+  name: string;
+  description: string;
+  ingredients: Ingredient[];
+  username: string;
+  tags: string;
+  original: boolean;
+  public: boolean;
+}
+
 export interface AppUploadPayload {
   fileData: File;
   fileBuffer: ArrayBuffer;

@@ -1,6 +1,6 @@
 import { AppServerResponseOrError, Ingredient } from '../@types/commons';
 import { INGREDIENTS_COLLECTION_ID } from '../constants';
-import { AppwriteException, Models } from 'appwrite';
+import { AppwriteException } from 'appwrite';
 
 import { defineStore } from 'pinia';
 import appwriteClient from '../api/appwrite';
@@ -40,11 +40,13 @@ const ingredientsStore = defineStore('ingredients', {
 
     async createIngredient(payload: Ingredient): AppServerResponseOrError {
       try {
-        const response = await appwriteClient.database.createDocument(
-          INGREDIENTS_COLLECTION_ID,
-          'unique()',
-          payload,
-        );
+        const response: Ingredient =
+          await appwriteClient.database.createDocument(
+            INGREDIENTS_COLLECTION_ID,
+            'unique()',
+            payload,
+          );
+        this.addIngredient(response);
         return [response, null];
       } catch (error) {
         return [null, error as AppwriteException];
@@ -77,6 +79,11 @@ const ingredientsStore = defineStore('ingredients', {
       } catch (error) {
         return [null, error as AppwriteException];
       }
+    },
+
+    // Local methods
+    addIngredient(ingredient: Ingredient) {
+      this._ingredients.push(ingredient);
     },
   },
 });
