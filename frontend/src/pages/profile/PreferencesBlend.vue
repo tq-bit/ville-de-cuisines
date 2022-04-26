@@ -17,6 +17,7 @@ const {
   themeOptions,
   hasFormErrors,
   httpError,
+  validationErrors,
   handleUpdatePreferencesSubmit,
 } = usePrefForm();
 
@@ -43,6 +44,14 @@ const onSubmitPreferences = async () => {
       @close="closePreferencesModal"
       title="Preferences"
     >
+      <app-alert class="mb-6" v-if="hasFormErrors" variant="error">
+        <ul>
+          <li>{{ httpError?.message }}</li>
+          <li v-for="(error, idx) in validationErrors" :key="idx">
+            {{ error }}
+          </li>
+        </ul>
+      </app-alert>
       <form @submit.prevent="onSubmitPreferences">
         <app-select
           class="mb-4"

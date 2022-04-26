@@ -90,6 +90,7 @@ export default function handleUserProfileForm() {
     theme,
     handleUpdatePreferencesSubmit,
     httpError,
+    validationErrors,
     hasFormErrors,
     themeOptions,
   };

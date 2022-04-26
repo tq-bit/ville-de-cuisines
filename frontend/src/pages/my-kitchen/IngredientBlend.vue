@@ -63,13 +63,9 @@ onMounted(() => {
       <app-alert class="mb-6" v-if="hasFormErrors" variant="error">
         <ul>
           <li>{{ httpError?.message }}</li>
-
-          <li>{{ validationErrors?.name }}</li>
-          <li>{{ validationErrors?.description }}</li>
-          <li>{{ validationErrors?.quantity }}</li>
-          <li>{{ validationErrors?.quantity_unit }}</li>
-          <li>{{ validationErrors?.calories }}</li>
-          <li>{{ validationErrors?.nutrients }}</li>
+          <li v-for="(error, idx) in validationErrors" :key="idx">
+            {{ error }}
+          </li>
         </ul>
       </app-alert>
       <form @submit.prevent="onSubmitIngredient">

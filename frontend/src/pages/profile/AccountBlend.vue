@@ -64,12 +64,9 @@ const onSubmitPassword = async () => {
       <app-alert class="mb-6" v-if="hasFormErrors" variant="error">
         <ul>
           <li>{{ httpError?.message }}</li>
-
-          <li>{{ validationErrors?.username }}</li>
-          <li>{{ validationErrors?.email }}</li>
-          <li>{{ validationErrors?.password }}</li>
-          <li>{{ validationErrors?.oldPassword }}</li>
-          <li>{{ validationErrors?.newPassword }}</li>
+          <li v-for="(error, idx) in validationErrors" :key="idx">
+            {{ error }}
+          </li>
         </ul>
       </app-alert>
 
