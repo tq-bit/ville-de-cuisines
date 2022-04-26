@@ -4,6 +4,8 @@ import AppScreenModal from '../../components/layout/AppScreenModal.vue';
 import AppTagPill from '../../components/lists/pills/AppTagPill.vue';
 import AppCard from '../../components/form/AppCard.vue';
 import AppAlert from '../../components/ui/AppAlert.vue';
+import AppTextArea from '../../components/form/AppTextArea.vue';
+import AppSwitch from '../../components/form/AppSwitch.vue';
 import AppSelect from '../../components/form/AppSelect.vue';
 import AppInput from '../../components/form/AppInput.vue';
 import AppButton from '../../components/form/AppButton.vue';
@@ -33,8 +35,6 @@ const localTagModel = ref<string>();
 const localTags = computed(() =>
   localTagModel.value?.split(',').map((text) => text.trim()),
 );
-
-const localIngredients = ref<Ingredient[]>([]);
 
 const closeRecipeModal = () => router.push({ path: '/my-kitchen' });
 const onSubmitIngredient = async () => {
@@ -66,23 +66,28 @@ const onSubmitIngredient = async () => {
         </ul>
       </app-alert>
       <form @submit.prevent="onSubmitIngredient">
-        <app-input
-          v-model="name"
-          class="mb-2"
-          name="name"
-          label="Recipe name"
-        ></app-input>
+        <app-input v-model="name" name="name" label="Recipe name"></app-input>
+
+        <app-text-area
+          v-model="description"
+          name="description"
+          label-prefix="Add the recipe's "
+          label="Preparation steps"
+        ></app-text-area>
 
         <app-input
           v-model="localTagModel"
           label-prefix="Add one or more "
           label="Tags"
         ></app-input>
+
         <div class="mb-4">
           <app-tag-pill v-for="tag in localTags" :key="tag">
             {{ tag }}
           </app-tag-pill>
         </div>
+
+        <app-switch v-model="isPublic" label="Make recipe public"></app-switch>
 
         <app-button type="submit">Submit Recipe</app-button>
       </form>
