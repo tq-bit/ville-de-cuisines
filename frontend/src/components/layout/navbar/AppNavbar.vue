@@ -32,7 +32,7 @@ defineEmits(['toggleSidebar']);
 
         <!-- Applicationwide search -->
         <div class="w-8/12 h-16 mt-4 hidden md:inline-block">
-          <app-search></app-search>
+          <app-search :options="[]"></app-search>
         </div>
 
         <!-- User profile navigation -->
