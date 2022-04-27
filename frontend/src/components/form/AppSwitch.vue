@@ -18,11 +18,12 @@ withDefaults(
 );
 
 const emit = defineEmits<{
-  (event: 'update:modelValue', payload: string): void;
+  (event: 'update:modelValue', payload: boolean): void;
 }>();
 
-const onChange = (ev: Event) =>
-  emit('update:modelValue', (ev.target as HTMLInputElement).value);
+const onChange = (ev: Event) => {
+  emit('update:modelValue', (ev.target as HTMLInputElement).checked);
+};
 </script>
 
 <template>
