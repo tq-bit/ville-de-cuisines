@@ -8,8 +8,8 @@ const localIngredient = computed(() => props.ingredient);
 </script>
 
 <template>
-  <li class="mb-2 flex w-full flex-row items-center">
-    <span class="font-semibold text-green-600 underline">
+  <li class="flex w-full flex-row items-center px-2 py-2">
+    <span class="text-green-600 underline">
       {{ ingredient.name }}
     </span>
 

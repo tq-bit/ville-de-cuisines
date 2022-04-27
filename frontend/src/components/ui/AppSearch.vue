@@ -45,7 +45,7 @@ const onInput = (ev: Event) =>
     {{ label }}
   </label>
   <div class="relative mb-4">
-    <span tabindex="1" class="absolute m-2 ml-3 h-8 w-8 rounded text-green-600">
+    <span class="absolute m-2 ml-3 h-8 w-8 rounded text-green-600">
       <i-search></i-search>
     </span>
     <input
