@@ -105,39 +105,14 @@
         },
         {
             "$id": "625d4675ce288a1398b2",
-            "$read": [],
+            "$read": [
+                "role:all"
+            ],
             "$write": [],
             "name": "recipes",
             "enabled": true,
-            "permission": "document",
+            "permission": "collection",
             "attributes": [
-                {
-                    "key": "steps",
-                    "type": "string",
-                    "status": "available",
-                    "required": true,
-                    "array": true,
-                    "size": 255,
-                    "default": null
-                },
-                {
-                    "key": "description",
-                    "type": "string",
-                    "status": "available",
-                    "required": false,
-                    "array": false,
-                    "size": 255,
-                    "default": null
-                },
-                {
-                    "key": "ingredients",
-                    "type": "string",
-                    "status": "available",
-                    "required": true,
-                    "array": true,
-                    "size": 255,
-                    "default": null
-                },
                 {
                     "key": "name",
                     "type": "string",
@@ -145,14 +120,6 @@
                     "required": true,
                     "array": false,
                     "size": 255,
-                    "default": null
-                },
-                {
-                    "key": "original",
-                    "type": "boolean",
-                    "status": "available",
-                    "required": true,
-                    "array": false,
                     "default": null
                 },
                 {
@@ -172,6 +139,50 @@
                     "array": true,
                     "size": 255,
                     "default": null
+                },
+                {
+                    "key": "ingredients",
+                    "type": "string",
+                    "status": "available",
+                    "required": true,
+                    "array": true,
+                    "size": 255,
+                    "default": null
+                },
+                {
+                    "key": "description",
+                    "type": "string",
+                    "status": "available",
+                    "required": false,
+                    "array": false,
+                    "size": 5000,
+                    "default": "This recipe does not have any instructions yet. Create one now."
+                },
+                {
+                    "key": "original_recipe_id",
+                    "type": "string",
+                    "status": "available",
+                    "required": true,
+                    "array": false,
+                    "size": 255,
+                    "default": null
+                },
+                {
+                    "key": "is_public",
+                    "type": "boolean",
+                    "status": "available",
+                    "required": false,
+                    "array": false,
+                    "default": true
+                },
+                {
+                    "key": "attachments",
+                    "type": "string",
+                    "status": "available",
+                    "required": false,
+                    "array": true,
+                    "size": 255,
+                    "default": null
                 }
             ],
             "indexes": [
@@ -180,13 +191,9 @@
                     "type": "fulltext",
                     "status": "available",
                     "attributes": [
-                        "name",
-                        "description"
+                        "name"
                     ],
-                    "orders": [
-                        "ASC",
-                        "ASC"
-                    ]
+                    "orders": []
                 }
             ]
         },

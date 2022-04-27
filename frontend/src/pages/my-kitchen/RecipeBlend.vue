@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
+import AppGrid from '../../components/layout/content/AppGrid.vue';
 import AppScreenModal from '../../components/layout/AppScreenModal.vue';
-import AppTagPill from '../../components/lists/pills/AppTagPill.vue';
+import AppPillList from '../../components/lists/pills/AppPillList.vue';
 import AppCard from '../../components/form/AppCard.vue';
 import AppAlert from '../../components/ui/AppAlert.vue';
 import AppTextArea from '../../components/form/AppTextArea.vue';
@@ -66,7 +67,20 @@ const onSubmitIngredient = async () => {
         </ul>
       </app-alert>
       <form @submit.prevent="onSubmitIngredient">
-        <app-input v-model="name" name="name" label="Recipe name"></app-input>
+        <app-grid variant="equal">
+          <app-input v-model="name" name="name" label="Recipe name"></app-input>
+          <app-switch
+            v-model="isPublic"
+            label="Make my recipe public"
+          ></app-switch>
+          <app-input
+            v-model="localTagModel"
+            label-prefix="Add one or more "
+            label="Tags"
+          ></app-input>
+
+          <app-pill-list :texts="(localTags as string[])"></app-pill-list>
+        </app-grid>
 
         <app-text-area
           v-model="description"
@@ -74,20 +88,6 @@ const onSubmitIngredient = async () => {
           label-prefix="Add the recipe's "
           label="Preparation steps"
         ></app-text-area>
-
-        <app-input
-          v-model="localTagModel"
-          label-prefix="Add one or more "
-          label="Tags"
-        ></app-input>
-
-        <div class="mb-4">
-          <app-tag-pill v-for="tag in localTags" :key="tag">
-            {{ tag }}
-          </app-tag-pill>
-        </div>
-
-        <app-switch v-model="isPublic" label="Make recipe public"></app-switch>
 
         <app-button type="submit">Submit Recipe</app-button>
       </form>
