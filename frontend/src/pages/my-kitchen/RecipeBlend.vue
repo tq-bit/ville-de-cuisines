@@ -17,6 +17,7 @@ import ingredientsStore from '../../store/ingredientsStore';
 import { useRouter } from 'vue-router';
 import useRecipeForm from '../../use/form/recipeForm';
 import useLazyIngredientSearch from '../../use/search/useLazyIngredientSearch';
+import { Ingredient } from '../../@types/commons';
 
 // Router
 const router = useRouter();
@@ -51,6 +52,9 @@ const onSubmitRecipe = async () => {
 const useIngredientsStore = ingredientsStore();
 const ingredientsQuery = ref<string>('');
 const { handleSearch, loading } = useLazyIngredientSearch(ingredientsQuery);
+const onClickItem = (item: Ingredient) => {
+  console.log(item.name);
+};
 watch(ingredientsQuery, handleSearch);
 
 // Tags
@@ -99,8 +103,10 @@ const commitLocalTags = () => {
             <app-pill-list :texts="(localTags as string[])"></app-pill-list>
           </template>
 
-          <app-file-input label="Upload a recipe image" class="mb-4">
-          </app-file-input>
+          <app-file-input
+            label="Upload a recipe image"
+            class="mb-4"
+          ></app-file-input>
         </app-grid>
 
         <app-search
@@ -109,8 +115,10 @@ const commitLocalTags = () => {
           label="Search for ingredients"
           :options="useIngredientsStore.ingredientSearchResults"
           :loading="loading"
+          @click-item="onClickItem"
           listKey="name"
         ></app-search>
+
         <app-text-area
           v-model="description"
           name="description"
