@@ -3,10 +3,10 @@ defineProps<{ text: string }>();
 </script>
 
 <template>
-  <span
+  <li
     v-if="text"
     class="text-sm px-2 py-1 mx-1 m-1 rounded text-green-600 border border-green-600"
   >
     {{ text }}
-  </span>
+  </li>
 </template>

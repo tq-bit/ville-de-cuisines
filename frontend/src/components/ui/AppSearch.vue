@@ -64,6 +64,7 @@ const onInput = (ev: Event) =>
 
       <ul v-else-if="loadingFinishedWithResults">
         <li
+          tabindex="0"
           v-for="option in options"
           :key="option"
           class="py-2 px-4 cursor-pointer hover:bg-green-500 dark:hover:bg-green-700 hover:text-white rounded transition-all"

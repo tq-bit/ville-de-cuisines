@@ -11,6 +11,7 @@ import AppSwitch from '../../components/form/AppSwitch.vue';
 import AppInput from '../../components/form/AppInput.vue';
 import AppButton from '../../components/form/AppButton.vue';
 import AppSearch from '../../components/ui/AppSearch.vue';
+import AppIngredientList from '../../components/lists/ingredients/AppIngredientList.vue';
 
 import ingredientsStore from '../../store/ingredientsStore';
 
@@ -41,7 +42,7 @@ const {
 } = useRecipeForm();
 
 const onSubmitRecipe = async () => {
-  commitLocalTags();
+  commitLocalTagState();
   await handleRecipeSubmit();
   if (!hasFormErrors.value && !httpError.value) {
     closeRecipeModal();
@@ -51,19 +52,21 @@ const onSubmitRecipe = async () => {
 // Ingredients
 const useIngredientsStore = ingredientsStore();
 const ingredientsQuery = ref<string>('');
+const localIngredientState = ref<Ingredient[]>([]);
 const { handleSearch, loading } = useLazyIngredientSearch(ingredientsQuery);
-const onClickItem = (item: Ingredient) => {
-  console.log(item.name);
+const onClickIngredientItem = (ingredient: Ingredient) => {
+  localIngredientState.value.push(ingredient);
+  ingredientsQuery.value = '';
 };
 watch(ingredientsQuery, handleSearch);
 
 // Tags
 const localTagModel = ref<string>();
-const localTags = computed(() =>
+const localTagState = computed(() =>
   localTagModel.value?.split(',').map((text) => text.trim()),
 );
-const commitLocalTags = () => {
-  localTags.value?.forEach((tag) => pushTag(tag.trim()));
+const commitLocalTagState = () => {
+  localTagState.value?.forEach((tag) => pushTag(tag.trim()));
 };
 </script>
 
@@ -100,7 +103,7 @@ const commitLocalTags = () => {
               label-prefix="Add comma-separated "
               label="Tags"
             ></app-input>
-            <app-pill-list :texts="(localTags as string[])"></app-pill-list>
+            <app-pill-list :texts="(localTagState as string[])"></app-pill-list>
           </template>
 
           <app-file-input
@@ -111,13 +114,18 @@ const commitLocalTags = () => {
 
         <app-search
           v-model="ingredientsQuery"
-          label-prefix="Start typing to "
-          label="Search for ingredients"
+          label-prefix="Start typing to search and "
+          label="Add ingredients"
           :options="useIngredientsStore.ingredientSearchResults"
           :loading="loading"
-          @click-item="onClickItem"
+          @click-item="onClickIngredientItem"
           listKey="name"
         ></app-search>
+
+        <app-ingredient-list
+          :editable="true"
+          :ingredients="localIngredientState"
+        ></app-ingredient-list>
 
         <app-text-area
           v-model="description"
