@@ -11,11 +11,11 @@ withDefaults(defineProps<AlertProps>(), {
 
 <template>
   <div
-    class="p-2 border rounded w-full text-gray-100"
+    class="w-full rounded border p-2 text-gray-100"
     :class="{
-      'bg-blue-500 border-blue-300': variant === 'info',
-      'bg-orange-500 border-orange-300': variant === 'error',
-      'bg-green-500 border-green-300': variant === 'success',
+      'border-blue-300 bg-blue-500': variant === 'info',
+      'border-orange-300 bg-orange-500': variant === 'error',
+      'border-green-300 bg-green-500': variant === 'success',
     }"
   >
     <slot />

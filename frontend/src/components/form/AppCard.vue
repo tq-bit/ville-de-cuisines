@@ -11,7 +11,7 @@ const emit = defineEmits(['close']);
 
 <template>
   <div
-    class="relative p-4 w-full h-auto mx-auto rounded bg-white dark:bg-gray-800 border dark:border-gray-600 shadow-md"
+    class="relative mx-auto h-auto w-full rounded border bg-white p-4 shadow-md dark:border-gray-600 dark:bg-gray-800"
     :class="{ 'text-center': center, 'max-w-md': !block }"
   >
     <span
@@ -21,7 +21,7 @@ const emit = defineEmits(['close']);
     >
       <i-close></i-close>
     </span>
-    <h3 class="text-2xl text-center mb-4">{{ title }}</h3>
+    <h3 class="mb-4 text-center text-2xl">{{ title }}</h3>
     <slot name="default" />
   </div>
 </template>

@@ -27,7 +27,7 @@ const onChange = (ev: Event) => {
 </script>
 
 <template>
-  <label class="flex items-center cursor-pointer relative mb-4">
+  <label class="relative mb-4 flex cursor-pointer items-center">
     <input
       v-bind="$attrs"
       @change="onChange"
@@ -40,11 +40,11 @@ const onChange = (ev: Event) => {
       class="sr-only"
     />
     <div
-      class="h-6 w-11 rounded-full toggle-bg bg-gray-100 focus:bg-white dark:bg-gray-800 border-2 border-green-600"
+      class="toggle-bg h-6 w-11 rounded-full border-2 border-green-600 bg-gray-100 focus:bg-white dark:bg-gray-800"
     ></div>
     <span
       v-if="label"
-      class="ml-3 text-gray-800 dark:text-gray-200 text-md font-medium"
+      class="text-md ml-3 font-medium text-gray-800 dark:text-gray-200"
       >{{ label }}</span
     >
   </label>
@@ -53,7 +53,7 @@ const onChange = (ev: Event) => {
 <style scoped>
 .toggle-bg:after {
   content: '';
-  @apply absolute top-0.5 left-0.5 bg-white border border-gray-300 rounded-full h-5 w-5 transition shadow-sm;
+  @apply absolute top-0.5 left-0.5 h-5 w-5 rounded-full border border-gray-300 bg-white shadow-sm transition;
 }
 
 input:checked + .toggle-bg:after {

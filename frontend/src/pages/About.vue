@@ -5,7 +5,7 @@ import AppContainer from '../components/layout/content/AppContainer.vue';
 <template>
   <app-container page center>
     <div class="max-w-2xl">
-      <h1 class="text-3xl mb-6">About Chattergram</h1>
+      <h1 class="mb-6 text-3xl">About Chattergram</h1>
       <p class="mb-4 text-lg">
         Chattergram is my submission to the Dev.to Hackerthon of
         <a
@@ -32,7 +32,7 @@ import AppContainer from '../components/layout/content/AppContainer.vue';
         out of the way more quickly.
       </p>
 
-      <p class="mb-4 mt-8 text-center border rounded py-2">
+      <p class="mb-4 mt-8 rounded border py-2 text-center">
         Finally, thank you
         <a
           class="font-semibold text-violet-800 dark:text-violet-400"

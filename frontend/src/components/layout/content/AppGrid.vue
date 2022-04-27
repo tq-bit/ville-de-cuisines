@@ -11,7 +11,7 @@ withDefaults(
 
 <template>
   <section
-    class="grid grid-cols-12 gap-x-4 gap-y-8 px-4 md:px-0 w-full max-w-screen-xl mx-auto"
+    class="mx-auto grid w-full max-w-screen-xl grid-cols-12 gap-x-4 gap-y-8 px-4 md:px-0"
     :class="{
       'gap-x-0 gap-y-0 px-0 sm:gap-x-4 sm:px-4': variant === 'equal',
     }"
@@ -37,7 +37,7 @@ withDefaults(
       <slot name="default" />
     </div>
     <div
-      class="hidden lg:block col-span-12"
+      class="col-span-12 hidden lg:block"
       :class="{
         'lg:col-span-3': variant === 'sidebar-left-and-right',
       }"

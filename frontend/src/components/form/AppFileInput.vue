@@ -82,30 +82,30 @@ const setFileBuffer = (file: File | null): Promise<void> => {
     @dragover.prevent="onDragOver"
     @dragleave.prevent="onDragLeave"
     @drop.prevent="onChangeItem"
-    class="shadow rounded m-auto h-auto w-full"
+    class="m-auto h-auto w-full rounded shadow"
     :class="{ 'animate-pulse': over }"
   >
     <!-- Upload dropdown section -->
     <label
       v-if="label && !hideLabel"
-      class="font-semibold block mb-1 text-green-600"
+      class="mb-1 block font-semibold text-green-600"
     >
       {{ label }}
     </label>
     <div
-      class="text-center p-4 rounded text-gray-800 dark:text-gray-200 bg-gray-100 focus:bg-white dark:bg-gray-800 focus:dark:bg-gray-900 border border-green-600 transition-all outline-none"
+      class="rounded border border-green-600 bg-gray-100 p-4 text-center text-gray-800 outline-none transition-all focus:bg-white dark:bg-gray-800 dark:text-gray-200 focus:dark:bg-gray-900"
     >
       <section class="text-xl">
         <label
           for="fileupload"
-          class="items-center block cursor-pointer transition-all"
+          class="block cursor-pointer items-center transition-all"
         >
           <span v-if="!fileData">
             <img-upload></img-upload>Drop a file or browse</span
           >
           <span v-else>
             <img
-              class="rounded mx-auto w-auto max-h-72 mb-2"
+              class="mx-auto mb-2 max-h-72 w-auto rounded"
               :src="fileUrl"
               :alt="fileData.name"
             />

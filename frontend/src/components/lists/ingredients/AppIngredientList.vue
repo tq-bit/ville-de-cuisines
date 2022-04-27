@@ -6,7 +6,7 @@ defineProps<{ editable: boolean; ingredients: Ingredient[] }>();
 </script>
 
 <template>
-  <ul class="flex flex-wrap w-full">
+  <ul class="flex w-full flex-wrap">
     <app-ingredient-item
       v-for="ingredient in ingredients"
       :key="ingredient.$id"

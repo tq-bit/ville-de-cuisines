@@ -11,7 +11,7 @@ defineProps<{
   <img
     :src="src"
     :alt="alt"
-    class="w-full h-auto mx-auto rounded border dark:border-gray-600"
+    class="mx-auto h-auto w-full rounded border dark:border-gray-600"
     :class="{
       rounded: rounded,
       'max-w-xs': size === 'xsmall',

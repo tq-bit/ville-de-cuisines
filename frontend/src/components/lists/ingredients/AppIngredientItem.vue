@@ -8,12 +8,12 @@ const localIngredient = computed(() => props.ingredient);
 </script>
 
 <template>
-  <li class="flex flex-row items-center w-full mb-2">
+  <li class="mb-2 flex w-full flex-row items-center">
     <span class="font-semibold text-green-600 underline">
       {{ ingredient.name }}
     </span>
 
-    <div class="flex ml-auto w-20">
+    <div class="ml-auto flex w-20">
       <app-input
         v-if="editable"
         v-model="localIngredient.quantity"

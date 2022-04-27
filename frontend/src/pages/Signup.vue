@@ -96,7 +96,7 @@ const togglePasswordInputType = () => {
 
         <router-link
           to="/login"
-          class="w-full mx-auto block mt-2 text-center text-green-600"
+          class="mx-auto mt-2 block w-full text-center text-green-600"
           >Already have an account? Login</router-link
         >
       </form>
