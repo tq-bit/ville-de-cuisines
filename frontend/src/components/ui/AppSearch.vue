@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed } from 'vue';
 import iSearch from '../icons/iSearch.vue';
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     hideLabel?: boolean;
     labelPrefix?: string;
@@ -19,6 +19,14 @@ withDefaults(
     loading: false,
   },
 );
+
+const isLoadingOrHasResults = computed(() => {
+  return props.loading || props.options.length > 0;
+});
+
+const loadingFinishedWithResults = computed(() => {
+  return !props.loading && props.options.length > 0;
+});
 
 const emit = defineEmits<{
   (event: 'update:modelValue', payload: string): void;
@@ -42,19 +50,19 @@ const onInput = (ev: Event) =>
     </span>
     <input
       class="h-12 pl-14 px-6 py-2 w-full rounded text-gray-800 dark:text-gray-200 bg-gray-100 focus:bg-white dark:bg-gray-800 focus:dark:bg-gray-900 border border-green-600 transition-all outline-none"
-      :class="{ 'border-b-0 rounded-b-none': options.length > 0 }"
+      :class="{ 'border-b-0 rounded-b-none': isLoadingOrHasResults }"
       v-bind="$attrs"
       @input="onInput"
       :value="modelValue"
       :placeholder="labelPrefix ? labelPrefix + label?.toLowerCase() : label || $attrs.placeholder as string"
     />
     <div
-      v-if="loading || options.length > 0"
+      v-if="isLoadingOrHasResults"
       class="absolute w-full text-gray-800 dark:text-gray-200 bg-gray-100 dark:bg-gray-800 rounded-b border-b border-x border-green-600"
     >
-      <span class="py-2 px-4" v-if="loading"> Loading ...</span>
+      <p class="py-2 px-4" v-if="loading">Loading ...</p>
 
-      <ul v-else-if="options.length > 0 && !loading">
+      <ul v-else-if="loadingFinishedWithResults">
         <li
           v-for="option in options"
           :key="option"
