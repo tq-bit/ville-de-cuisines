@@ -9,11 +9,17 @@ import AppInput from '../../components/form/AppInput.vue';
 import AppButton from '../../components/form/AppButton.vue';
 import AppTextArea from '../../components/form/AppTextArea.vue';
 
-import { useRouter } from 'vue-router';
-import useIngredientForm from '../../use/form/ingredientForm';
 import useIngredientsStore from '../../store/ingredientsStore';
 
+import { useRouter } from 'vue-router';
+import useIngredientForm from '../../use/form/ingredientForm';
+
+// Router
 const router = useRouter();
+const closeIngredientsModal = () => router.push({ path: '/my-kitchen' });
+
+// Ingredient (main resource)
+const { quantityOptions } = useIngredientsStore();
 const {
   $id,
   name,
@@ -27,11 +33,6 @@ const {
   handleIngredientSubmit,
   setIngredientToEditById,
 } = useIngredientForm();
-const { quantityOptions } = useIngredientsStore();
-
-const closeIngredientsModal = () => {
-  router.push({ path: '/my-kitchen' });
-};
 
 const onSubmitIngredient = async () => {
   await handleIngredientSubmit();

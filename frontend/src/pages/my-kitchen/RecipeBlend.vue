@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { Ingredient } from '../../@types/commons';
 import { ref, computed, watch } from 'vue';
 import AppGrid from '../../components/layout/content/AppGrid.vue';
 import AppScreenModal from '../../components/layout/AppScreenModal.vue';
@@ -13,12 +12,17 @@ import AppInput from '../../components/form/AppInput.vue';
 import AppButton from '../../components/form/AppButton.vue';
 import AppSearch from '../../components/ui/AppSearch.vue';
 
+import ingredientsStore from '../../store/ingredientsStore';
+
 import { useRouter } from 'vue-router';
 import useRecipeForm from '../../use/form/recipeForm';
-import ingredientsStore from '../../store/ingredientsStore';
 import useLazyIngredientSearch from '../../use/search/useLazyIngredientSearch';
 
+// Router
 const router = useRouter();
+const closeRecipeModal = () => router.push({ path: '/my-kitchen' });
+
+// Recipe (main resource)
 const {
   $id,
   originalRecipeId,
@@ -34,25 +38,29 @@ const {
   hasFormErrors,
   handleRecipeSubmit,
 } = useRecipeForm();
-const useIngredientsStore = ingredientsStore();
 
-const localTagModel = ref<string>();
-const ingredientsQuery = ref<string>('');
-const localTags = computed(() =>
-  localTagModel.value?.split(',').map((text) => text.trim()),
-);
-
-const { handleSearch, loading } = useLazyIngredientSearch(ingredientsQuery);
-const closeRecipeModal = () => router.push({ path: '/my-kitchen' });
-const onSubmitIngredient = async () => {
-  localTags.value?.forEach((tag) => pushTag(tag.trim()));
+const onSubmitRecipe = async () => {
+  commitLocalTags();
   await handleRecipeSubmit();
   if (!hasFormErrors.value && !httpError.value) {
     closeRecipeModal();
   }
 };
 
+// Ingredients
+const useIngredientsStore = ingredientsStore();
+const ingredientsQuery = ref<string>('');
+const { handleSearch, loading } = useLazyIngredientSearch(ingredientsQuery);
 watch(ingredientsQuery, handleSearch);
+
+// Tags
+const localTagModel = ref<string>();
+const localTags = computed(() =>
+  localTagModel.value?.split(',').map((text) => text.trim()),
+);
+const commitLocalTags = () => {
+  localTags.value?.forEach((tag) => pushTag(tag.trim()));
+};
 </script>
 
 <template>
@@ -74,7 +82,7 @@ watch(ingredientsQuery, handleSearch);
           </li>
         </ul>
       </app-alert>
-      <form @submit.prevent="onSubmitIngredient">
+      <form @submit.prevent="onSubmitRecipe">
         <app-grid variant="equal">
           <template v-slot:left>
             <app-input

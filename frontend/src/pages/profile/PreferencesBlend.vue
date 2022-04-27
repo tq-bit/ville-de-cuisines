@@ -3,14 +3,16 @@ import AppScreenModal from '../../components/layout/AppScreenModal.vue';
 import AppCard from '../../components/form/AppCard.vue';
 import AppAlert from '../../components/ui/AppAlert.vue';
 import AppSelect from '../../components/form/AppSelect.vue';
-import AppInput from '../../components/form/AppInput.vue';
 import AppButton from '../../components/form/AppButton.vue';
 import AppTextArea from '../../components/form/AppTextArea.vue';
 
 import { useRouter } from 'vue-router';
 import usePrefForm from '../../use/form/userPrefForm';
 
+// Router
 const router = useRouter();
+const closePreferencesModal = () => router.push({ path: '/profile' });
+
 const {
   bio,
   theme,
@@ -20,10 +22,6 @@ const {
   validationErrors,
   handleUpdatePreferencesSubmit,
 } = usePrefForm();
-
-const closePreferencesModal = () => {
-  router.push({ path: '/profile' });
-};
 
 const onSubmitPreferences = async () => {
   await handleUpdatePreferencesSubmit();
