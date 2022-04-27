@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { Ingredient } from '../../@types/commons';
+import { ref, computed, watch } from 'vue';
 import AppGrid from '../../components/layout/content/AppGrid.vue';
 import AppScreenModal from '../../components/layout/AppScreenModal.vue';
 import AppPillList from '../../components/lists/pills/AppPillList.vue';
@@ -8,13 +9,14 @@ import AppFileInput from '../../components/form/AppFileInput.vue';
 import AppAlert from '../../components/ui/AppAlert.vue';
 import AppTextArea from '../../components/form/AppTextArea.vue';
 import AppSwitch from '../../components/form/AppSwitch.vue';
-import AppSelect from '../../components/form/AppSelect.vue';
 import AppInput from '../../components/form/AppInput.vue';
 import AppButton from '../../components/form/AppButton.vue';
+import AppSearch from '../../components/ui/AppSearch.vue';
 
 import { useRouter } from 'vue-router';
 import useRecipeForm from '../../use/form/recipeForm';
-import { Ingredient } from '../../@types/commons';
+import ingredientsStore from '../../store/ingredientsStore';
+import useLazyIngredientSearch from '../../use/search/useLazyIngredientSearch';
 
 const router = useRouter();
 const {
@@ -32,12 +34,15 @@ const {
   hasFormErrors,
   handleRecipeSubmit,
 } = useRecipeForm();
+const useIngredientsStore = ingredientsStore();
 
 const localTagModel = ref<string>();
+const ingredientsQuery = ref<string>('');
 const localTags = computed(() =>
   localTagModel.value?.split(',').map((text) => text.trim()),
 );
 
+const { handleSearch, loading } = useLazyIngredientSearch(ingredientsQuery);
 const closeRecipeModal = () => router.push({ path: '/my-kitchen' });
 const onSubmitIngredient = async () => {
   localTags.value?.forEach((tag) => pushTag(tag.trim()));
@@ -46,6 +51,8 @@ const onSubmitIngredient = async () => {
     closeRecipeModal();
   }
 };
+
+watch(ingredientsQuery, handleSearch);
 </script>
 
 <template>
@@ -88,6 +95,14 @@ const onSubmitIngredient = async () => {
           </app-file-input>
         </app-grid>
 
+        <app-search
+          v-model="ingredientsQuery"
+          label-prefix="Start typing to "
+          label="Search for ingredients"
+          :options="useIngredientsStore.ingredientSearchResults"
+          :loading="loading"
+          listKey="name"
+        ></app-search>
         <app-text-area
           v-model="description"
           name="description"

@@ -1,6 +1,6 @@
 import { AppServerResponseOrError, Ingredient } from '../@types/commons';
 import { INGREDIENTS_COLLECTION_ID } from '../constants';
-import { AppwriteException } from 'appwrite';
+import { AppwriteException, Query } from 'appwrite';
 
 import { defineStore } from 'pinia';
 import appwriteClient from '../api/appwrite';
@@ -9,6 +9,7 @@ const ingredientsStore = defineStore('ingredients', {
   state: () => ({
     _count: 0,
     _ingredients: [] as Ingredient[],
+    _ingredientSearchResults: [] as Ingredient[],
     _quantityOptions: [
       { key: 'l', value: 'Liter (l)' },
       { key: 'g', value: 'Gram (g)' },
@@ -20,6 +21,7 @@ const ingredientsStore = defineStore('ingredients', {
 
   getters: {
     ingredients: (state) => state._ingredients,
+    ingredientSearchResults: (state) => state._ingredientSearchResults,
     quantityOptions: (state) => state._quantityOptions,
 
     quantityOptionKeys: (state) => {
@@ -36,6 +38,18 @@ const ingredientsStore = defineStore('ingredients', {
         INGREDIENTS_COLLECTION_ID,
       );
       this._ingredients = response.documents as Ingredient[];
+    },
+
+    async searchIngredients(query: string): Promise<void> {
+      const response = await appwriteClient.database.listDocuments(
+        INGREDIENTS_COLLECTION_ID,
+        [Query.search('name', query)],
+      );
+      this._ingredientSearchResults = response.documents as Ingredient[];
+    },
+
+    resetIngredientSearch() {
+      this._ingredientSearchResults = [];
     },
 
     async createIngredient(payload: Ingredient): AppServerResponseOrError {

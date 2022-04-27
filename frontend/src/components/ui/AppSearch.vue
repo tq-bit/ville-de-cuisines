@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import iSearch from '../icons/iSearch.vue';
 
 withDefaults(
@@ -9,10 +10,13 @@ withDefaults(
     placeholder?: string;
     modelValue?: any;
     options: any[];
+    loading: boolean;
+    listKey: string;
   }>(),
   {
     hideLabel: false,
     required: false,
+    loading: false,
   },
 );
 
@@ -26,11 +30,13 @@ const onInput = (ev: Event) =>
 </script>
 
 <template>
-  <label v-if="label && !hideLabel" class="hidden">
+  <label
+    v-if="label && !hideLabel"
+    class="font-semibold block mb-1 text-green-600"
+  >
     {{ label }}
   </label>
-
-  <div class="relative">
+  <div class="relative mb-4">
     <span tabindex="1" class="h-8 w-8 m-2 ml-3 rounded text-green-600 absolute">
       <i-search></i-search>
     </span>
@@ -42,20 +48,23 @@ const onInput = (ev: Event) =>
       :value="modelValue"
       :placeholder="labelPrefix ? labelPrefix + label?.toLowerCase() : label || $attrs.placeholder as string"
     />
-
-    <ul
-      v-if="options.length > 0"
-      class="absolute w-full text-gray-800 dark:text-gray-200 bg-gray-100 dark:bg-gray-800 rounded-b p-2 border-b border-x border-green-600"
+    <div
+      v-if="loading || options.length > 0"
+      class="absolute w-full text-gray-800 dark:text-gray-200 bg-gray-100 dark:bg-gray-800 rounded-b border-b border-x border-green-600"
     >
-      <li
-        v-for="option in options"
-        :key="option"
-        class="py-1 px-2 cursor-pointer hover:bg-green-500 dark:hover:bg-green-700 hover:text-white rounded transition-all"
-        @click="emit('click-item', option)"
-      >
-        {{ option }}
-      </li>
-    </ul>
+      <span class="py-2 px-4" v-if="loading"> Loading ...</span>
+
+      <ul v-else-if="options.length > 0 && !loading">
+        <li
+          v-for="option in options"
+          :key="option"
+          class="py-2 px-4 cursor-pointer hover:bg-green-500 dark:hover:bg-green-700 hover:text-white rounded transition-all"
+          @click="emit('click-item', option)"
+        >
+          {{ option[listKey] }}
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
