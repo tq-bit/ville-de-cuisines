@@ -10,6 +10,8 @@ import { useRouter } from 'vue-router';
 import useUserProfileForm from '../../use/form/userProfileForm';
 
 const router = useRouter();
+const closeAccountModal = () => router.push({ path: '/profile' });
+
 const {
   username,
   email,
@@ -23,10 +25,6 @@ const {
   handleUpdateEmailSubmit,
   handleUpdatePasswordSubmit,
 } = useUserProfileForm();
-
-const closeAccountModal = () => {
-  router.push({ path: '/profile' });
-};
 
 const onSubmitUsername = async () => {
   await handleUpdateUsernameSubmit();
