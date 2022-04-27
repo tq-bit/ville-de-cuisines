@@ -80,25 +80,25 @@
             ],
             "indexes": [
                 {
-                    "key": "search_by_calories",
-                    "type": "key",
+                    "key": "name",
+                    "type": "fulltext",
                     "status": "available",
                     "attributes": [
-                        "calories"
+                        "name"
                     ],
                     "orders": [
                         "DESC"
                     ]
                 },
                 {
-                    "key": "search_by_name",
-                    "type": "key",
+                    "key": "description",
+                    "type": "fulltext",
                     "status": "available",
                     "attributes": [
-                        "name"
+                        "description"
                     ],
                     "orders": [
-                        "ASC"
+                        "DESC"
                     ]
                 }
             ]
@@ -187,13 +187,15 @@
             ],
             "indexes": [
                 {
-                    "key": "search_by_name_description",
+                    "key": "search_by_name",
                     "type": "fulltext",
                     "status": "available",
                     "attributes": [
                         "name"
                     ],
-                    "orders": []
+                    "orders": [
+                        "ASC"
+                    ]
                 }
             ]
         },

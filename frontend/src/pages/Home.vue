@@ -2,7 +2,6 @@
 import { ref } from 'vue';
 import AppContainer from '../components/layout/content/AppContainer.vue';
 import AppInput from '../components/form/AppInput.vue';
-import AppThemeButton from '../components/form/AppThemeButton.vue';
 import iUser from '../components/icons/iUser.vue';
 import iLock from '../components/icons/iLock.vue';
 
