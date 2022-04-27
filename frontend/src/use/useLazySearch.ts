@@ -21,6 +21,7 @@ export default function useLazySearch(
         });
       }, timeout || 1000);
     } else {
+      loading.value = false;
       resetHandler();
     }
   };
