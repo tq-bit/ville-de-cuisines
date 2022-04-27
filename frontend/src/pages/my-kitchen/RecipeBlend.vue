@@ -4,6 +4,7 @@ import AppGrid from '../../components/layout/content/AppGrid.vue';
 import AppScreenModal from '../../components/layout/AppScreenModal.vue';
 import AppPillList from '../../components/lists/pills/AppPillList.vue';
 import AppCard from '../../components/form/AppCard.vue';
+import AppFileInput from '../../components/form/AppFileInput.vue';
 import AppAlert from '../../components/ui/AppAlert.vue';
 import AppTextArea from '../../components/form/AppTextArea.vue';
 import AppSwitch from '../../components/form/AppSwitch.vue';
@@ -68,18 +69,23 @@ const onSubmitIngredient = async () => {
       </app-alert>
       <form @submit.prevent="onSubmitIngredient">
         <app-grid variant="equal">
-          <app-input v-model="name" name="name" label="Recipe name"></app-input>
-          <app-switch
-            v-model="isPublic"
-            label="Make my recipe public"
-          ></app-switch>
-          <app-input
-            v-model="localTagModel"
-            label-prefix="Add one or more "
-            label="Tags"
-          ></app-input>
+          <template v-slot:left>
+            <app-input
+              v-model="name"
+              name="name"
+              label="Recipe name"
+            ></app-input>
 
-          <app-pill-list :texts="(localTags as string[])"></app-pill-list>
+            <app-input
+              v-model="localTagModel"
+              label-prefix="Add comma-separated "
+              label="Tags"
+            ></app-input>
+            <app-pill-list :texts="(localTags as string[])"></app-pill-list>
+          </template>
+
+          <app-file-input label="Upload a recipe image" class="mb-4">
+          </app-file-input>
         </app-grid>
 
         <app-text-area
@@ -87,8 +93,13 @@ const onSubmitIngredient = async () => {
           name="description"
           label-prefix="Add the recipe's "
           label="Preparation steps"
+          rows="5"
         ></app-text-area>
 
+        <app-switch
+          v-model="isPublic"
+          label="Make my recipe public"
+        ></app-switch>
         <app-button type="submit">Submit Recipe</app-button>
       </form>
     </app-card>

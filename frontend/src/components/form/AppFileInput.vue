@@ -8,6 +8,17 @@ const fileData = ref<File>();
 const fileBuffer = ref<ArrayBuffer>();
 const fileUrl = ref<string>();
 
+withDefaults(
+  defineProps<{
+    hideLabel?: boolean;
+    labelPrefix?: string;
+    label?: string;
+  }>(),
+  {
+    hideLabel: false,
+  },
+);
+
 const emit = defineEmits<{
   (event: 'drop', payload: AppUploadPayload): void;
 }>();
@@ -71,12 +82,17 @@ const setFileBuffer = (file: File | null): Promise<void> => {
     @dragover.prevent="onDragOver"
     @dragleave.prevent="onDragLeave"
     @drop.prevent="onChangeItem"
-    class="shadow rounded m-auto h-full w-full"
+    class="shadow rounded m-auto h-auto w-full"
     :class="{ 'animate-pulse': over }"
   >
     <!-- Upload dropdown section -->
+    <label
+      v-if="label && !hideLabel"
+      class="font-semibold block mb-1 text-green-600"
+    >
+      {{ label }}
+    </label>
     <div
-      id="header"
       class="text-center p-4 rounded text-gray-800 dark:text-gray-200 bg-gray-100 focus:bg-white dark:bg-gray-800 focus:dark:bg-gray-900 border border-green-600 transition-all outline-none"
     >
       <section class="text-xl">
