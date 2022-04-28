@@ -36,6 +36,7 @@ export interface AppUserPreferences extends Models.Preferences {
   bio: string;
   theme: UserTheme;
   location: string;
+  avatar_id?: string;
 }
 
 export interface Ingredient extends Models.Document {

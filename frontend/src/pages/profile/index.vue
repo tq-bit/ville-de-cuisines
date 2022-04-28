@@ -31,12 +31,16 @@ const openAccountModal = () => router.push({ path: '/profile/account' });
 const openPreferencesModal = () =>
   router.push({ path: '/profile/preferences' });
 
-const onDrop = (filePayload: AppUploadPayload) => {
-  console.log(filePayload);
+const onDrop = async (filePayload: AppUploadPayload) => {
+  await activeUserStore.handleAvatarUpload(filePayload.fileData);
+  await activeUserStore.fetchActiveUserAvatar();
   editAvatar.value = false;
 };
 
-onMounted(async () => await activeUserStore.fetchActiveUserAccount());
+onMounted(async () => {
+  await activeUserStore.fetchActiveUserAccount();
+  await activeUserStore.fetchActiveUserAvatar();
+});
 </script>
 
 <template>
@@ -55,7 +59,7 @@ onMounted(async () => await activeUserStore.fetchActiveUserAccount());
           <app-image
             v-if="!editAvatar"
             @click="editAvatar = !editAvatar"
-            class="mb-4 hover:opacity-75 cursor-pointer transition-opacity"
+            class="mb-4 cursor-pointer bg-white transition-opacity hover:opacity-75"
             :rounded="true"
             title="Upload a new avatar"
             size="xsmall"

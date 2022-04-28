@@ -5,7 +5,9 @@ import {
   AppServerResponseOrError,
   AppUserPreferences,
 } from '../@types/commons';
+import { AVATAR_BUCKET_ID } from '../constants/index';
 import { AppwriteException, Models } from 'appwrite';
+import { v4 as uuid } from 'uuid';
 
 import { defineStore } from 'pinia';
 import appwriteClient from '../api/appwrite';
@@ -23,25 +25,23 @@ const activeUserStore = defineStore('user', {
     },
     _location: {} as Models.Locale,
     _prefs: {} as AppUserPreferences,
-    _avatar: '',
+    _avatar_url: '',
   }),
 
   getters: {
     user: (state) => state._account,
     location: (state) => state._location,
     prefs: (state) => state._prefs,
-    avatar: (state) => state._avatar,
+    avatar: (state) => state._avatar_url,
   },
 
   actions: {
     async fetchActiveUserAccount() {
       const accountPromise = appwriteClient.account.get();
-      const avatarPromise = appwriteClient.avatars.getInitials();
       const locationPromise = appwriteClient.locale.get();
 
-      const [account, avatar, location] = await Promise.all([
+      const [account, location] = await Promise.all([
         accountPromise,
-        avatarPromise,
         locationPromise,
       ]);
 
@@ -50,7 +50,30 @@ const activeUserStore = defineStore('user', {
       this._account = accountInfo;
       this._location = location;
       this._prefs = prefs as AppUserPreferences;
-      this._avatar = avatar.href;
+    },
+
+    async fetchActiveUserAvatar() {
+      const avatarFileId = this._prefs.avatar_id;
+
+      const fetchUploadedAvatarImage = async (fileId: string) => {
+        const response = await appwriteClient.storage.getFilePreview(
+          AVATAR_BUCKET_ID,
+          fileId,
+        );
+
+        this._avatar_url = response.href;
+      };
+
+      const fetchDefaultAvatarImage = async () => {
+        const response = appwriteClient.avatars.getInitials();
+        this._avatar_url = response.href;
+      };
+
+      if (avatarFileId) {
+        await fetchUploadedAvatarImage(avatarFileId);
+      } else {
+        await fetchDefaultAvatarImage();
+      }
     },
 
     async updateUsername({
@@ -104,6 +127,50 @@ const activeUserStore = defineStore('user', {
       try {
         const response = await appwriteClient.account.updatePrefs(payload);
         this._prefs = response.prefs as AppUserPreferences;
+        return [response, null];
+      } catch (error) {
+        return [null, error as AppwriteException];
+      }
+    },
+
+    async handleAvatarUpload(file: File): AppServerResponseOrError {
+      try {
+        const userHasAvatarImage: boolean = !!this._prefs.avatar_id;
+        let response: Models.File;
+
+        const createAvatarUpload = async () => {
+          const fileId = uuid();
+          return appwriteClient.storage.createFile(
+            AVATAR_BUCKET_ID,
+            fileId,
+            file,
+          );
+        };
+
+        const updateAvatarUpload = async () => {
+          const fileId = this._prefs.avatar_id;
+          await appwriteClient.storage.deleteFile(
+            AVATAR_BUCKET_ID,
+            fileId as string,
+          );
+          return appwriteClient.storage.createFile(
+            AVATAR_BUCKET_ID,
+            fileId as string,
+            file,
+          );
+        };
+
+        if (!userHasAvatarImage) {
+          response = await createAvatarUpload();
+        } else {
+          response = await updateAvatarUpload();
+        }
+
+        await this.updatePreferences({
+          ...this._prefs,
+          avatar_id: response.$id,
+        });
+
         return [response, null];
       } catch (error) {
         return [null, error as AppwriteException];
