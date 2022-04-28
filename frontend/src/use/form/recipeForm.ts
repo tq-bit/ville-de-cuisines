@@ -17,6 +17,7 @@ const recipeSchema = yup.object({
   ingredients: yup.array().label('Recipe ingredients'),
   username: yup.string().optional().label('Recipe creator'),
   tags: yup.array().optional().label('Recipe tags'),
+  primary_image: yup.string().optional().label('Recipe primary image'),
   is_public: yup.boolean().optional().label('Recipe publicity'),
 });
 
@@ -41,6 +42,7 @@ export default function handleIngredientForm() {
     push: pushTag,
     fields: recipeTags,
   } = useFieldArray('tags');
+  const { value: primary_image } = useField('primary_image');
   const { value: isPublic } = useField('is_public');
 
   const validationErrors = ref<any>(null);
@@ -106,6 +108,7 @@ export default function handleIngredientForm() {
     pushTag,
     removeTag,
     recipeTags,
+    primary_image,
     isPublic,
     hasFormErrors,
     httpError,

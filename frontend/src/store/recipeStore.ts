@@ -82,22 +82,26 @@ const ingredientsStore = defineStore('recipes', {
       }
     },
 
-    async updateRecipePrimaryImage(recipe: Recipe, file: File) {
+    async uploadRecipeImage(file: File): AppServerResponseOrError<Models.File> {
       try {
-        const fileId = uuid();
-        const uploadResponse = await appwriteClient.storage.createFile(
+        const response = await appwriteClient.storage.createFile(
           RECIPE_BUCKET_ID,
-          fileId,
+          uuid(),
           file,
         );
-        recipe.primary_image_id = uploadResponse.$id;
-        const recipeUpdateResponse =
-          await appwriteClient.database.updateDocument(
-            RECIPES_COLLECTION_ID,
-            recipe.$id,
-            recipe,
-          );
-        return [recipeUpdateResponse, null];
+        return [response, null];
+      } catch (error) {
+        return [null, error as AppwriteException];
+      }
+    },
+
+    async deleteRecipeImage(fileId: string) {
+      try {
+        const response = await appwriteClient.storage.deleteFile(
+          RECIPE_BUCKET_ID,
+          fileId,
+        );
+        return [response, null];
       } catch (error) {
         return [null, error as AppwriteException];
       }

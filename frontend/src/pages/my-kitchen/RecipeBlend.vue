@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch, onBeforeUnmount } from 'vue';
 import AppGrid from '../../components/layout/content/AppGrid.vue';
 import AppScreenModal from '../../components/layout/AppScreenModal.vue';
 import AppPillList from '../../components/lists/pills/AppPillList.vue';
@@ -13,12 +13,13 @@ import AppButton from '../../components/form/AppButton.vue';
 import AppSearch from '../../components/ui/AppSearch.vue';
 import AppIngredientList from '../../components/lists/ingredients/AppIngredientList.vue';
 
-import ingredientsStore from '../../store/ingredientsStore';
+import useRecipeStore from '../../store/recipeStore';
+import useIngredientsStore from '../../store/ingredientsStore';
 
 import { useRouter } from 'vue-router';
 import useRecipeForm from '../../use/form/recipeForm';
 import useLazyIngredientSearch from '../../use/search/useLazyIngredientSearch';
-import { Ingredient } from '../../@types/commons';
+import { AppUploadPayload, Ingredient } from '../../@types/commons';
 
 // Router
 const router = useRouter();
@@ -32,10 +33,12 @@ const {
   pushTag,
   isPublic,
   httpError,
+  primary_image,
   validationErrors,
   hasFormErrors,
   handleRecipeSubmit,
 } = useRecipeForm();
+const recipeStore = useRecipeStore();
 
 const onSubmitRecipe = async () => {
   commitLocalTagState();
@@ -46,8 +49,24 @@ const onSubmitRecipe = async () => {
   }
 };
 
+// Recipe Image
+const onDropRecipeImage = async (filePayload: AppUploadPayload) => {
+  if (primary_image.value) {
+    await recipeStore.deleteRecipeImage(primary_image.value as string);
+  }
+  const [fileResponse, fileError] = await recipeStore.uploadRecipeImage(
+    filePayload.fileData,
+  );
+  primary_image.value = fileResponse?.$id as string;
+};
+onBeforeUnmount(async () => {
+  if (primary_image.value) {
+    await recipeStore.deleteRecipeImage(primary_image.value as string);
+  }
+});
+
 // Ingredients
-const useIngredientsStore = ingredientsStore();
+const ingredientsStore = useIngredientsStore();
 const ingredientsQuery = ref<string>('');
 const localIngredientState = ref<Ingredient[]>([]);
 const { handleSearch, loading } = useLazyIngredientSearch(ingredientsQuery);
@@ -111,6 +130,7 @@ const commitLocalTagState = () => {
           <app-file-input
             label="Upload a recipe image"
             class="mb-4"
+            @drop="onDropRecipeImage"
           ></app-file-input>
         </app-grid>
 
@@ -118,7 +138,7 @@ const commitLocalTagState = () => {
           v-model="ingredientsQuery"
           label-prefix="Start typing to search and "
           label="Add ingredients"
-          :options="useIngredientsStore.ingredientSearchResults"
+          :options="ingredientsStore.ingredientSearchResults"
           :loading="loading"
           @click-item="onClickIngredientItem"
           listKey="name"
