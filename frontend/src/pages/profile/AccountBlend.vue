@@ -68,7 +68,7 @@ const onSubmitPassword = async () => {
         </ul>
       </app-alert>
 
-      <h4 class="text-xl my-2 text-green-600">Update your username</h4>
+      <h4 class="my-2 text-xl text-green-600">Update your username</h4>
       <form @submit.prevent="onSubmitUsername">
         <app-input
           name="username"
@@ -83,7 +83,7 @@ const onSubmitPassword = async () => {
       <hr class="my-4" />
 
       <form @submit.prevent="onSubmitEmail">
-        <h4 class="text-xl my-2 text-green-600">Update your email address</h4>
+        <h4 class="my-2 text-xl text-green-600">Update your email address</h4>
         <app-input
           name="email"
           v-model="email"
@@ -105,7 +105,7 @@ const onSubmitPassword = async () => {
       <hr class="my-4" />
 
       <form @submit.prevent="onSubmitPassword">
-        <h4 class="text-xl my-2 text-green-600">Update your password</h4>
+        <h4 class="my-2 text-xl text-green-600">Update your password</h4>
 
         <app-grid variant="equal">
           <template v-slot:left>
