@@ -47,7 +47,7 @@ const ingredientsStore = defineStore('recipes', {
           id,
           patchedPayload,
         );
-        this.addRecipe(response);
+        this.addRecipeToLocalState(response);
         return [response, null];
       } catch (error) {
         return [null, error as AppwriteException];
@@ -77,10 +77,6 @@ const ingredientsStore = defineStore('recipes', {
       } catch (error) {
         return [null, error as AppwriteException];
       }
-    },
-
-    addRecipe(recipe: Recipe) {
-      this._recipes.push(recipe);
     },
 
     patchRecipeCreationPayload(
@@ -115,6 +111,10 @@ const ingredientsStore = defineStore('recipes', {
 
     deserializeRecipeIngredient(stringifiedIngredient: string): Ingredient {
       return JSON.parse(stringifiedIngredient);
+    },
+
+    addRecipeToLocalState(recipe: Recipe) {
+      this._recipes.push(recipe);
     },
   },
 });
