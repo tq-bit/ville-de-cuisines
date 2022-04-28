@@ -5,7 +5,7 @@ import {
   SerializedRecipe,
 } from '../@types/commons';
 import { RECIPES_COLLECTION_ID, RECIPE_BUCKET_ID } from '../constants';
-import { AppwriteException } from 'appwrite';
+import { AppwriteException, Models } from 'appwrite';
 import { v4 as uuid } from 'uuid';
 
 import { defineStore } from 'pinia';
@@ -34,7 +34,7 @@ const ingredientsStore = defineStore('recipes', {
       this._recipes = deserializedDocuments;
     },
 
-    async createRecipe(payload: Recipe): AppServerResponseOrError {
+    async createRecipe(payload: Recipe): AppServerResponseOrError<Recipe> {
       try {
         const id = uuid();
         const patchedPayload = this.patchRecipeCreationPayload(
@@ -54,7 +54,10 @@ const ingredientsStore = defineStore('recipes', {
       }
     },
 
-    async updateRecipe({ $id, ...payload }: Recipe): AppServerResponseOrError {
+    async updateRecipe({
+      $id,
+      ...payload
+    }: Recipe): AppServerResponseOrError<Models.Document> {
       try {
         const response = await appwriteClient.database.updateDocument(
           RECIPES_COLLECTION_ID,
@@ -67,7 +70,7 @@ const ingredientsStore = defineStore('recipes', {
       }
     },
 
-    async deleteRecipe({ $id }: Recipe): AppServerResponseOrError {
+    async deleteRecipe({ $id }: Recipe): AppServerResponseOrError<any> {
       try {
         const response = await appwriteClient.database.deleteDocument(
           RECIPES_COLLECTION_ID,

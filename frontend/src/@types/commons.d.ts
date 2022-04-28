@@ -3,8 +3,8 @@ import { AppwriteException, Models } from 'appwrite';
 export type AlertVariant = 'info' | 'error' | 'success';
 export type UserTheme = 'light' | 'dark';
 export type AppUserAuthForm = 'login' | 'signup';
-export type AppServerResponseOrError = Promise<
-  [unknown, null] | [null, AppwriteException]
+export type AppServerResponseOrError<T> = Promise<
+  [T, null] | [null, AppwriteException]
 >;
 
 export interface AppUserLoginPayload {

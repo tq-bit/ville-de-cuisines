@@ -4,7 +4,7 @@ import {
 } from '../@types/commons';
 import { defineStore } from 'pinia';
 import Cookie from 'js-cookie';
-import { AppwriteException } from 'appwrite';
+import { AppwriteException, Models } from 'appwrite';
 
 import appwriteClient from '../api/appwrite';
 import { SESSION_ID_KEY } from '../constants/index';
@@ -26,7 +26,9 @@ const useSessionStore = defineStore('session', {
       email,
       password,
       username,
-    }: AppUserLoginPayload): AppServerResponseOrError {
+    }: AppUserLoginPayload): AppServerResponseOrError<
+      Models.User<Models.Preferences>
+    > {
       try {
         const response = await appwriteClient.account.create(
           'unique()',
@@ -43,7 +45,7 @@ const useSessionStore = defineStore('session', {
     async login({
       password,
       email,
-    }: AppUserLoginPayload): AppServerResponseOrError {
+    }: AppUserLoginPayload): AppServerResponseOrError<string> {
       try {
         const { $id: sessionId } = await appwriteClient.account.createSession(
           email,
@@ -57,7 +59,7 @@ const useSessionStore = defineStore('session', {
       }
     },
 
-    async destroyServerSession() {
+    async destroyServerSession(): AppServerResponseOrError<any> {
       try {
         const response = await appwriteClient.account.deleteSession(
           this._sessionId,

@@ -1,6 +1,6 @@
 import { AppServerResponseOrError, Ingredient } from '../@types/commons';
 import { INGREDIENTS_COLLECTION_ID } from '../constants';
-import { AppwriteException, Query } from 'appwrite';
+import { AppwriteException, Models, Query } from 'appwrite';
 
 import { defineStore } from 'pinia';
 import appwriteClient from '../api/appwrite';
@@ -33,7 +33,7 @@ const ingredientsStore = defineStore('ingredients', {
   },
 
   actions: {
-    async fetchIngredients() {
+    async fetchIngredients(): Promise<void> {
       const response = await appwriteClient.database.listDocuments(
         INGREDIENTS_COLLECTION_ID,
       );
@@ -48,11 +48,13 @@ const ingredientsStore = defineStore('ingredients', {
       this._ingredientSearchResults = response.documents as Ingredient[];
     },
 
-    resetIngredientSearch() {
+    resetIngredientSearch(): void {
       this._ingredientSearchResults = [];
     },
 
-    async createIngredient(payload: Ingredient): AppServerResponseOrError {
+    async createIngredient(
+      payload: Ingredient,
+    ): AppServerResponseOrError<Ingredient> {
       try {
         const response: Ingredient =
           await appwriteClient.database.createDocument(
@@ -70,7 +72,7 @@ const ingredientsStore = defineStore('ingredients', {
     async updateIngredient({
       $id,
       ...payload
-    }: Ingredient): AppServerResponseOrError {
+    }: Ingredient): AppServerResponseOrError<Models.Document> {
       try {
         const response = await appwriteClient.database.updateDocument(
           INGREDIENTS_COLLECTION_ID,
@@ -83,7 +85,7 @@ const ingredientsStore = defineStore('ingredients', {
       }
     },
 
-    async deleteIngredient({ $id }: Ingredient) {
+    async deleteIngredient({ $id }: Ingredient): AppServerResponseOrError<any> {
       try {
         const response = await appwriteClient.database.deleteDocument(
           INGREDIENTS_COLLECTION_ID,

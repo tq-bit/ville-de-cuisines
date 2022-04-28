@@ -25,7 +25,7 @@ const activeUserStore = defineStore('user', {
     },
     _location: {} as Models.Locale,
     _prefs: {} as AppUserPreferences,
-    _avatar_url: '',
+    _avatar_url: '' as string,
   }),
 
   getters: {
@@ -36,7 +36,7 @@ const activeUserStore = defineStore('user', {
   },
 
   actions: {
-    async fetchActiveUserAccount() {
+    async fetchActiveUserAccount(): Promise<void> {
       const accountPromise = appwriteClient.account.get();
       const locationPromise = appwriteClient.locale.get();
 
@@ -52,10 +52,12 @@ const activeUserStore = defineStore('user', {
       this._prefs = prefs as AppUserPreferences;
     },
 
-    async fetchActiveUserAvatar() {
+    async fetchActiveUserAvatar(): Promise<void> {
       const avatarFileId = this._prefs.avatar_id;
 
-      const fetchUploadedAvatarImage = async (fileId: string) => {
+      const fetchUploadedAvatarImage = async (
+        fileId: string,
+      ): Promise<void> => {
         const response = await appwriteClient.storage.getFilePreview(
           AVATAR_BUCKET_ID,
           fileId,
@@ -64,7 +66,7 @@ const activeUserStore = defineStore('user', {
         this._avatar_url = response.href;
       };
 
-      const fetchDefaultAvatarImage = async () => {
+      const fetchDefaultAvatarImage = async (): Promise<void> => {
         const response = appwriteClient.avatars.getInitials();
         this._avatar_url = response.href;
       };
@@ -78,7 +80,9 @@ const activeUserStore = defineStore('user', {
 
     async updateUsername({
       username,
-    }: AppUserUpdateUsernamePayload): AppServerResponseOrError {
+    }: AppUserUpdateUsernamePayload): AppServerResponseOrError<
+      Models.User<Models.Preferences>
+    > {
       try {
         this._account.name = username as string;
         const response = await appwriteClient.account.updateName(
@@ -93,7 +97,9 @@ const activeUserStore = defineStore('user', {
     async updateEmail({
       email,
       password,
-    }: AppUserEmailUpdatePayload): AppServerResponseOrError {
+    }: AppUserEmailUpdatePayload): AppServerResponseOrError<
+      Models.User<Models.Preferences>
+    > {
       try {
         this._account.email = email as string;
         const response = await appwriteClient.account.updateEmail(
@@ -109,7 +115,9 @@ const activeUserStore = defineStore('user', {
     async updatePassword({
       oldPassword,
       newPassword,
-    }: AppUserUpdatePasswordPayload): AppServerResponseOrError {
+    }: AppUserUpdatePasswordPayload): AppServerResponseOrError<
+      Models.User<Models.Preferences>
+    > {
       try {
         const response = await appwriteClient.account.updatePassword(
           newPassword as string,
@@ -123,7 +131,7 @@ const activeUserStore = defineStore('user', {
 
     async updatePreferences(
       payload: AppUserPreferences,
-    ): AppServerResponseOrError {
+    ): AppServerResponseOrError<Models.User<Models.Preferences>> {
       try {
         const response = await appwriteClient.account.updatePrefs(payload);
         this._prefs = response.prefs as AppUserPreferences;
@@ -133,7 +141,9 @@ const activeUserStore = defineStore('user', {
       }
     },
 
-    async handleAvatarUpload(file: File): AppServerResponseOrError {
+    async handleAvatarUpload(
+      file: File,
+    ): AppServerResponseOrError<Models.File> {
       try {
         const userHasAvatarImage: boolean = !!this._prefs.avatar_id;
         let response: Models.File;
