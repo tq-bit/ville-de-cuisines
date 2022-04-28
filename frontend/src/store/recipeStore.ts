@@ -4,7 +4,7 @@ import {
   Recipe,
   SerializedRecipe,
 } from '../@types/commons';
-import { RECIPES_COLLECTION_ID } from '../constants';
+import { RECIPES_COLLECTION_ID, RECIPE_BUCKET_ID } from '../constants';
 import { AppwriteException } from 'appwrite';
 import { v4 as uuid } from 'uuid';
 
@@ -74,6 +74,27 @@ const ingredientsStore = defineStore('recipes', {
           $id || '',
         );
         return [response, null];
+      } catch (error) {
+        return [null, error as AppwriteException];
+      }
+    },
+
+    async updateRecipePrimaryImage(recipe: Recipe, file: File) {
+      try {
+        const fileId = uuid();
+        const uploadResponse = await appwriteClient.storage.createFile(
+          RECIPE_BUCKET_ID,
+          fileId,
+          file,
+        );
+        recipe.primary_image_id = uploadResponse.$id;
+        const recipeUpdateResponse =
+          await appwriteClient.database.updateDocument(
+            RECIPES_COLLECTION_ID,
+            recipe.$id,
+            recipe,
+          );
+        return [recipeUpdateResponse, null];
       } catch (error) {
         return [null, error as AppwriteException];
       }
