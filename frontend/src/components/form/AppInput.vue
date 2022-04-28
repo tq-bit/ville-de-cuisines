@@ -11,7 +11,7 @@ withDefaults(
     error?: string;
     required?: boolean;
     requiredSign?: string;
-    variant: 'default' | 'small';
+    variant?: 'default' | 'small';
   }>(),
   {
     hideLabel: false,
@@ -71,6 +71,7 @@ const onEnter = (ev: Event) =>
   />
 
   <span
+    v-if="hasPostfixSlot"
     class="inline"
     :class="{ 'p-1': variant === 'small' }"
     @click="emit('click-postfix')"

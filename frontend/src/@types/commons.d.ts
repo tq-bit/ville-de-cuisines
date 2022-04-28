@@ -48,13 +48,23 @@ export interface Ingredient extends Models.Document {
 }
 
 export interface Recipe extends Models.Document {
-  originalRecipeId: string;
+  original_recipe_id: string;
   name: string;
   description?: string;
   ingredients: Ingredient[];
   username: string;
   tags?: string[];
-  isPublic: boolean;
+  is_public: boolean;
+}
+
+export interface SerializedRecipe extends Models.Document {
+  original_recipe_id: string;
+  name: string;
+  description?: string;
+  ingredients: string[];
+  username: string;
+  tags?: string[];
+  is_public: boolean;
 }
 
 export interface AppUploadPayload {

@@ -2,21 +2,22 @@ import { AppServerErrorResponse, Recipe } from '../../@types/commons';
 import { ref } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField, useFieldArray } from 'vee-validate';
-import useRecipeStore from '../../store/recipeStore';
+import recipeStore from '../../store/recipeStore';
 import useAppAlert from '../globalAlert';
 import { getFormErrors } from '../util/error';
 
-const { createRecipe, updateRecipe } = useRecipeStore();
+const { createRecipe, updateRecipe } = recipeStore();
+console.log(recipeStore());
 
 const recipeSchema = yup.object({
   $id: yup.string().optional().label('ID'),
-  originalRecipeId: yup.string().optional().label('Original recipe ID'),
+  original_recipe_id: yup.string().optional().label('Original recipe ID'),
   name: yup.string().required().label('Recipe name'),
   description: yup.string().optional().label('Recipe description'),
   ingredients: yup.array().label('Recipe ingredients'),
   username: yup.string().optional().label('Recipe creator'),
   tags: yup.array().optional().label('Recipe tags'),
-  public: yup.boolean().optional().label('Recipe publicity'),
+  is_public: yup.boolean().optional().label('Recipe publicity'),
 });
 
 export default function handleIngredientForm() {
@@ -27,7 +28,7 @@ export default function handleIngredientForm() {
   const { triggerGlobalAlert } = useAppAlert();
 
   const { value: $id } = useField('$id');
-  const { value: originalRecipeId } = useField('original_recipe_id');
+  const { value: original_recipe_id } = useField('original_recipe_id');
   const { value: name } = useField('name');
   const { value: description } = useField('description');
   const {
@@ -77,12 +78,11 @@ export default function handleIngredientForm() {
   const onValidationSuccess = async (payload: Recipe | any) => {
     loading.value = true;
     validationErrors.value = null;
-    console.log(payload);
-    // if (payload.$id) {
-    //   await handleRecipeUpdate(payload);
-    // } else {
-    //   await handleRecipeCreate(payload);
-    // }
+    if (payload.$id) {
+      await handleRecipeUpdate(payload);
+    } else {
+      await handleRecipeCreate(payload);
+    }
     loading.value = false;
   };
 
@@ -99,7 +99,7 @@ export default function handleIngredientForm() {
     $id,
     name,
     description,
-    originalRecipeId,
+    original_recipe_id,
     pushIngredient,
     removeIngredient,
     recipeIngredients,

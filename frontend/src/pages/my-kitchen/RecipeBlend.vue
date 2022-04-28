@@ -26,14 +26,10 @@ const closeRecipeModal = () => router.push({ path: '/my-kitchen' });
 
 // Recipe (main resource)
 const {
-  $id,
-  originalRecipeId,
   name,
   description,
   pushIngredient,
   pushTag,
-  removeIngredient,
-  removeTag,
   isPublic,
   httpError,
   validationErrors,
@@ -43,6 +39,7 @@ const {
 
 const onSubmitRecipe = async () => {
   commitLocalTagState();
+  commitLocalIngredientState();
   await handleRecipeSubmit();
   if (!hasFormErrors.value && !httpError.value) {
     closeRecipeModal();
@@ -57,6 +54,11 @@ const { handleSearch, loading } = useLazyIngredientSearch(ingredientsQuery);
 const onClickIngredientItem = (ingredient: Ingredient) => {
   localIngredientState.value.push(ingredient);
   ingredientsQuery.value = '';
+};
+const commitLocalIngredientState = () => {
+  localIngredientState.value.forEach((ingredient) =>
+    pushIngredient(ingredient),
+  );
 };
 watch(ingredientsQuery, handleSearch);
 
@@ -144,5 +146,3 @@ const commitLocalTagState = () => {
     </app-card>
   </app-screen-modal>
 </template>
-
-<style scoped></style>

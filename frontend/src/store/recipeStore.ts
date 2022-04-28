@@ -1,11 +1,20 @@
-import { AppServerResponseOrError, Recipe } from '../@types/commons';
+import {
+  AppServerResponseOrError,
+  Ingredient,
+  Recipe,
+  SerializedRecipe,
+} from '../@types/commons';
 import { RECIPES_COLLECTION_ID } from '../constants';
 import { AppwriteException } from 'appwrite';
+import { v4 as uuid } from 'uuid';
 
 import { defineStore } from 'pinia';
 import appwriteClient from '../api/appwrite';
+import activeUserStore from './activeUserStore';
 
-const ingredientsStore = defineStore('ingredients', {
+const { user: activeUser } = activeUserStore();
+
+const ingredientsStore = defineStore('recipes', {
   state: () => ({
     _count: 0,
     _recipes: [] as Recipe[],
@@ -20,15 +29,23 @@ const ingredientsStore = defineStore('ingredients', {
       const response = await appwriteClient.database.listDocuments(
         RECIPES_COLLECTION_ID,
       );
-      this._recipes = response.documents as Recipe[];
+      const documents = response.documents as SerializedRecipe[];
+      const deserializedDocuments = this.patchRecipeFetchPayload(documents);
+      this._recipes = deserializedDocuments;
     },
 
     async createRecipe(payload: Recipe): AppServerResponseOrError {
       try {
+        const id = uuid();
+        const patchedPayload = this.patchRecipeCreationPayload(
+          payload,
+          activeUser.name,
+          id,
+        );
         const response: Recipe = await appwriteClient.database.createDocument(
           RECIPES_COLLECTION_ID,
-          'unique()',
-          payload,
+          id,
+          patchedPayload,
         );
         this.addRecipe(response);
         return [response, null];
@@ -64,6 +81,40 @@ const ingredientsStore = defineStore('ingredients', {
 
     addRecipe(recipe: Recipe) {
       this._recipes.push(recipe);
+    },
+
+    patchRecipeCreationPayload(
+      payload: Recipe,
+      username: string,
+      id: string,
+    ): SerializedRecipe {
+      return {
+        ...payload,
+        original_recipe_id: id,
+        username: username,
+        ingredients: payload.ingredients.map((ingredient: Ingredient) => {
+          return this.serializeRecipeIngredient(ingredient);
+        }),
+      };
+    },
+
+    patchRecipeFetchPayload(documents: SerializedRecipe[]): Recipe[] {
+      return documents.map((document: SerializedRecipe) => {
+        return {
+          ...document,
+          ingredients: document.ingredients.map((ingredient: string) => {
+            return this.deserializeRecipeIngredient(ingredient);
+          }),
+        };
+      });
+    },
+
+    serializeRecipeIngredient(ingredeint: Ingredient): string {
+      return JSON.stringify(ingredeint);
+    },
+
+    deserializeRecipeIngredient(stringifiedIngredient: string): Ingredient {
+      return JSON.parse(stringifiedIngredient);
     },
   },
 });
