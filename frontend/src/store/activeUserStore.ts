@@ -4,8 +4,9 @@ import {
   AppUserUpdatePasswordPayload,
   AppServerResponseOrError,
   AppUserPreferences,
+  AppPublicUser,
 } from '../@types/commons';
-import { AVATAR_BUCKET_ID } from '../constants/index';
+import { USER_COLLECTION_ID, AVATAR_BUCKET_ID } from '../constants/index';
 import { AppwriteException, Models } from 'appwrite';
 import { v4 as uuid } from 'uuid';
 
@@ -23,7 +24,7 @@ const activeUserStore = defineStore('user', {
       email: '',
       emailVerification: false,
     },
-    _user: {},
+    _user: {} as AppPublicUser,
     _location: {} as Models.Locale,
     _prefs: {} as AppUserPreferences,
     _avatar_url: '' as string,
@@ -31,7 +32,6 @@ const activeUserStore = defineStore('user', {
 
   getters: {
     account: (state) => state._account,
-    user: (state) => state._user,
     location: (state) => state._location,
     prefs: (state) => state._prefs,
     avatar: (state) => state._avatar_url,
@@ -41,10 +41,15 @@ const activeUserStore = defineStore('user', {
     async fetchActiveUserAccount(): Promise<void> {
       const accountPromise = appwriteClient.account.get();
       const locationPromise = appwriteClient.locale.get();
+      const userPromise = appwriteClient.database.getDocument(
+        USER_COLLECTION_ID,
+        this.account.$id,
+      );
 
-      const [account, location] = await Promise.all([
+      const [account, location, user] = await Promise.all([
         accountPromise,
         locationPromise,
+        userPromise,
       ]);
 
       const { prefs, ...accountInfo } = account;
@@ -52,10 +57,11 @@ const activeUserStore = defineStore('user', {
       this._account = accountInfo;
       this._location = location;
       this._prefs = prefs as AppUserPreferences;
+      this._user = user as AppPublicUser;
     },
 
     async fetchActiveUserAvatar(): Promise<void> {
-      const avatarFileId = this._prefs.avatar_id;
+      const avatarFileId = this._user.avatar_id;
 
       const fetchUploadedAvatarImage = async (
         fileId: string,
@@ -143,11 +149,40 @@ const activeUserStore = defineStore('user', {
       }
     },
 
+    async createInitialPublicUser(
+      id: string,
+      name: string,
+    ): AppServerResponseOrError<AppPublicUser> {
+      try {
+        const response: AppPublicUser =
+          await appwriteClient.database.createDocument(USER_COLLECTION_ID, id, {
+            name,
+          });
+        return [response, null];
+      } catch (error) {
+        return [null, error as AppwriteException];
+      }
+    },
+
+    async updateActivePublicUserData(payload: AppPublicUser) {
+      try {
+        const response = await appwriteClient.database.updateDocument(
+          USER_COLLECTION_ID,
+          this.account.$id,
+          payload,
+        );
+        this._user = response as AppPublicUser;
+        return [response, null];
+      } catch (error) {
+        return [null, error as AppwriteException];
+      }
+    },
+
     async handleAvatarUpload(
       file: File,
     ): AppServerResponseOrError<Models.File> {
       try {
-        const userHasAvatarImage: boolean = !!this._prefs.avatar_id;
+        const userHasAvatarImage: boolean = !!this._user.avatar_id;
         let response: Models.File;
 
         const createAvatarUpload = async () => {
@@ -160,7 +195,7 @@ const activeUserStore = defineStore('user', {
         };
 
         const updateAvatarUpload = async () => {
-          const fileId = this._prefs.avatar_id;
+          const fileId = this._user.avatar_id;
           await appwriteClient.storage.deleteFile(
             AVATAR_BUCKET_ID,
             fileId as string,
@@ -178,8 +213,8 @@ const activeUserStore = defineStore('user', {
           response = await updateAvatarUpload();
         }
 
-        await this.updatePreferences({
-          ...this._prefs,
+        await this.updateActivePublicUserData({
+          ...this._user,
           avatar_id: response.$id,
         });
 

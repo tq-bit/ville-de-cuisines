@@ -23,6 +23,7 @@ const useSessionStore = defineStore('session', {
 
   actions: {
     async signup({
+      id,
       email,
       password,
       username,
@@ -31,7 +32,7 @@ const useSessionStore = defineStore('session', {
     > {
       try {
         const response = await appwriteClient.account.create(
-          'unique()',
+          id || 'unique()',
           email,
           password,
           username,

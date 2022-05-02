@@ -15,6 +15,7 @@ export interface AppGalleryItemType {
 }
 
 export interface AppUserLoginPayload {
+  id?: string;
   email: string;
   password: string;
   username?: string;
@@ -40,8 +41,13 @@ export interface AppServerErrorResponse {
 }
 
 export interface AppUserPreferences extends Models.Preferences {
-  bio: string;
   theme: UserTheme;
+}
+
+export interface AppPublicUser extends Models.Document {
+  $id: string;
+  name: string;
+  bio: string;
   location: string;
   avatar_id?: string;
 }

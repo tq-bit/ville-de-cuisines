@@ -3,10 +3,12 @@ import {
   AppUserLoginPayload,
   AppServerErrorResponse,
 } from '../../@types/commons';
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField, FieldContext } from 'vee-validate';
+import { v4 as uuid } from 'uuid';
 import useSessionStore from '../../store/sessionStore';
+import useActiveUserStore from '../../store/activeUserStore';
 import useAppAlert from '../globalAlert';
 import { getFormErrors } from '../util/error';
 
@@ -18,6 +20,8 @@ const formValidationSchema = yup.object({
 
 export default function handleUserAuthForm(type: AppUserAuthForm) {
   const { login, signup } = useSessionStore();
+  const { fetchActiveUserAccount, createInitialPublicUser } =
+    useActiveUserStore();
   const { handleSubmit } = useForm({
     validationSchema: formValidationSchema,
   });
@@ -51,8 +55,10 @@ export default function handleUserAuthForm(type: AppUserAuthForm) {
     username,
     password,
   }: AppUserLoginPayload) => {
+    const id = uuid();
     httpError.value = null;
     const [signupResponse, signupError] = await signup({
+      id,
       email,
       username,
       password,
@@ -64,7 +70,11 @@ export default function handleUserAuthForm(type: AppUserAuthForm) {
         code: signupError?.code,
       };
     } else {
-      await login({ email, password });
+      Promise.all([
+        () => login({ email, password }),
+        () => fetchActiveUserAccount(),
+        () => createInitialPublicUser(id, username || ''),
+      ]);
       triggerGlobalAlert({ message: 'Signup successful', variant: 'success' });
     }
   };
