@@ -32,7 +32,7 @@ let classes = [
   'w-12/12',
   'md:px-0',
   `md:w-${props.cols}/12`,
-  'max-w-screen-xl',
+  'max-w-screen-lg',
 ];
 
 if (isFlexBetween.value) {

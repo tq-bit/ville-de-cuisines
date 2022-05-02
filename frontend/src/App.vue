@@ -18,8 +18,6 @@ const { userTheme, setTheme } = useAppTheme();
 onMounted(async () => {
   setTheme(userTheme.value);
   syncLocalSessionIdWithCookie();
-  await fetchIngredients();
-  await fetchActiveUserAccount();
 });
 
 watch(userTheme, (newTheme) => setTheme(newTheme));

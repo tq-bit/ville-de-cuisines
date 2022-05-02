@@ -56,7 +56,7 @@ export default function handleIngredientForm() {
     httpError.value = null;
     const [response, error] = await createRecipe(
       payload,
-      activeUserStore.user.$id,
+      activeUserStore.account.$id,
     );
     if (error) {
       httpError.value = {

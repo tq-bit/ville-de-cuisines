@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import AppPill from './AppPill.vue';
 
-defineProps<{ texts: string[] }>();
+defineProps<{ texts?: string[] }>();
 </script>
 
 <template>

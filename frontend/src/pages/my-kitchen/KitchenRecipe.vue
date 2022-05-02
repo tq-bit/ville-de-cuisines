@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { ref, computed, watch, onBeforeUnmount } from 'vue';
+import { ref, computed, watch, onBeforeUnmount, onMounted } from 'vue';
 import AppGrid from '../../components/layout/content/AppGrid.vue';
-import AppScreenModal from '../../components/layout/AppScreenModal.vue';
+import AppContainer from '../../components/layout/content/AppContainer.vue';
 import AppPillList from '../../components/lists/pills/AppPillList.vue';
-import AppCard from '../../components/form/AppCard.vue';
 import AppFileInput from '../../components/form/AppFileInput.vue';
 import AppAlert from '../../components/ui/AppAlert.vue';
 import AppTextArea from '../../components/form/AppTextArea.vue';
@@ -83,6 +82,7 @@ const commitLocalIngredientState = () => {
   );
 };
 watch(ingredientsQuery, handleSearch);
+onMounted(async () => await ingredientsStore.fetchIngredients());
 
 // Tags
 const localTagModel = ref<string>();
@@ -95,77 +95,63 @@ const commitLocalTagState = () => {
 </script>
 
 <template>
-  <app-screen-modal
-    @keydown.esc="closeRecipeModal"
-    @click-blend="closeRecipeModal"
-  >
-    <app-card
-      block
-      :closable="true"
-      @close="closeRecipeModal"
-      title="Add new recipe"
-    >
-      <app-alert class="mb-6" v-if="hasFormErrors" variant="error">
-        <ul>
-          <li>{{ httpError?.message }}</li>
-          <li v-for="(error, idx) in validationErrors" :key="idx">
-            {{ error }}
-          </li>
-        </ul>
-      </app-alert>
-      <form @submit.prevent="onSubmitRecipe">
-        <app-grid variant="equal">
-          <template v-slot:left>
-            <app-input
-              v-model="name"
-              name="name"
-              label="Recipe name"
-            ></app-input>
-
-            <app-input
-              v-model="localTagModel"
-              label-prefix="Add comma-separated "
-              label="Tags"
-            ></app-input>
-            <app-pill-list :texts="(localTagState as string[])"></app-pill-list>
-          </template>
-
+  <app-container>
+    <app-alert class="mb-6" v-if="hasFormErrors" variant="error">
+      <ul>
+        <li>{{ httpError?.message }}</li>
+        <li v-for="(error, idx) in validationErrors" :key="idx">
+          {{ error }}
+        </li>
+      </ul>
+    </app-alert>
+    <form @submit.prevent="onSubmitRecipe">
+      <app-grid variant="sidebar-left">
+        <template v-slot:left>
           <app-file-input
             label="Upload a recipe image"
             class="mb-4"
             @drop="onDropRecipeImage"
           ></app-file-input>
-        </app-grid>
 
-        <app-search
-          v-model="ingredientsQuery"
-          label-prefix="Start typing to search and "
-          label="Add ingredients"
-          :options="ingredientsStore.ingredientSearchResults"
-          :loading="loading"
-          @click-item="onClickIngredientItem"
-          listKey="name"
-        ></app-search>
+          <app-switch
+            v-model="isPublic"
+            label="Make my recipe public"
+          ></app-switch>
+          <app-button block type="submit">Submit Recipe</app-button>
+        </template>
 
-        <app-ingredient-list
-          :editable="true"
-          :ingredients="localIngredientState"
-        ></app-ingredient-list>
+        <template v-slot:default>
+          <app-input v-model="name" name="name" label="Recipe name"></app-input>
+          <app-input
+            v-model="localTagModel"
+            label-prefix="Add comma-separated "
+            label="Tags"
+          ></app-input>
+          <app-pill-list :texts="(localTagState as string[])"></app-pill-list>
 
-        <app-text-area
-          v-model="description"
-          name="description"
-          label-prefix="Add the recipe's "
-          label="Preparation steps"
-          rows="5"
-        ></app-text-area>
+          <app-text-area
+            v-model="description"
+            name="description"
+            label-prefix="Add the recipe's "
+            label="Preparation steps"
+            rows="5"
+          ></app-text-area>
 
-        <app-switch
-          v-model="isPublic"
-          label="Make my recipe public"
-        ></app-switch>
-        <app-button type="submit">Submit Recipe</app-button>
-      </form>
-    </app-card>
-  </app-screen-modal>
+          <app-search
+            v-model="ingredientsQuery"
+            label-prefix="Start typing to search and "
+            label="Add ingredients"
+            :options="ingredientsStore.ingredientSearchResults"
+            :loading="loading"
+            @click-item="onClickIngredientItem"
+            listKey="name"
+          ></app-search>
+          <app-ingredient-list
+            :editable="true"
+            :ingredients="localIngredientState"
+          ></app-ingredient-list>
+        </template>
+      </app-grid>
+    </form>
+  </app-container>
 </template>

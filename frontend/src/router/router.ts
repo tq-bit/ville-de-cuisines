@@ -54,6 +54,12 @@ export const routes: RouterOptions['routes'] = [
     component: () => import('../pages/MyFollows.vue'),
     beforeEnter: redirectToLoginIfUserIsLoggedOut,
   },
+
+  {
+    path: '/my-kitchen/recipe',
+    component: () => import('../pages/my-kitchen/KitchenRecipe.vue'),
+    beforeEnter: redirectToLoginIfUserIsLoggedOut,
+  },
   {
     path: '/my-kitchen',
     component: () => import('../pages/my-kitchen/index.vue'),
@@ -67,10 +73,6 @@ export const routes: RouterOptions['routes'] = [
       {
         path: '/my-kitchen/ingredient',
         component: () => import('../pages/my-kitchen/IngredientBlend.vue'),
-      },
-      {
-        path: '/my-kitchen/recipe',
-        component: () => import('../pages/my-kitchen/RecipeBlend.vue'),
       },
     ],
   },
