@@ -6,17 +6,20 @@ import AppAlert from './components/ui/AppAlert.vue';
 import useSessionStore from './store/sessionStore';
 import useIngredientStore from './store/ingredientsStore';
 import useGlobalAlert from './use/globalAlert';
+import useActiveUserStore from './store/activeUserStore';
 import useAppTheme from './use/appTheme';
 
 const { message, showGlobalAlert, variant } = useGlobalAlert();
 const { fetchIngredients } = useIngredientStore();
 const { syncLocalSessionIdWithCookie } = useSessionStore();
+const { fetchActiveUserAccount } = useActiveUserStore();
 const { userTheme, setTheme } = useAppTheme();
 
 onMounted(async () => {
   setTheme(userTheme.value);
   syncLocalSessionIdWithCookie();
   await fetchIngredients();
+  await fetchActiveUserAccount();
 });
 
 watch(userTheme, (newTheme) => setTheme(newTheme));
@@ -28,7 +31,7 @@ watch(userTheme, (newTheme) => setTheme(newTheme));
       <app-alert
         v-if="showGlobalAlert && message"
         :variant="variant"
-        class="absolute z-50 bottom-12 right-4 left-4 w-64 max-w-xs text-center block mx-auto"
+        class="absolute bottom-12 right-4 left-4 z-50 mx-auto block w-64 max-w-xs text-center"
       >
         {{ message }}
       </app-alert>

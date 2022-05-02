@@ -61,6 +61,7 @@ export interface Recipe extends Models.Document {
   description?: string;
   ingredients: Ingredient[];
   username: string;
+  user_id: string;
   tags?: string[];
   primary_image_id?: string;
   gallery_image_ids?: string[];
@@ -75,6 +76,7 @@ export interface SerializedRecipe extends Models.Document {
   description?: string;
   ingredients: string[];
   username: string;
+  user_id: string;
   tags?: string[];
   primary_image_id?: string;
   gallery_image_ids?: string[];

@@ -21,9 +21,9 @@ defineProps<{
     <main class="relative">
       <section
         v-if="isHovered"
-        class="absolute flex h-48 w-full items-center justify-center text-lg"
+        class="absolute flex h-48 w-full items-center justify-center text-lg transition-all"
         :class="{
-          'scale-110 bg-gray-800 bg-opacity-70 transition-all': isHovered,
+          'bg-gray-800 bg-opacity-70 ': isHovered,
         }"
       >
         <h4 class="text-white">{{ item.title }}</h4>

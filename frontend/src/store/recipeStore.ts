@@ -49,11 +49,7 @@ const ingredientsStore = defineStore('recipes', {
     async createRecipe(payload: Recipe): AppServerResponseOrError<Recipe> {
       try {
         const id = uuid();
-        const patchedPayload = this.patchRecipeCreationPayload(
-          payload,
-          activeUser.name,
-          id,
-        );
+        const patchedPayload = this.patchRecipeCreationPayload(payload, id);
         const response: Recipe = await appwriteClient.database.createDocument(
           RECIPES_COLLECTION_ID,
           id,
@@ -119,15 +115,12 @@ const ingredientsStore = defineStore('recipes', {
       }
     },
 
-    patchRecipeCreationPayload(
-      payload: Recipe,
-      username: string,
-      id: string,
-    ): SerializedRecipe {
+    patchRecipeCreationPayload(payload: Recipe, id: string): SerializedRecipe {
       return {
         ...payload,
         original_recipe_id: id,
-        username: username,
+        user_id: activeUser.$id,
+        username: activeUser.name,
         ingredients: payload.ingredients.map((ingredient: Ingredient) => {
           return this.serializeRecipeIngredient(ingredient);
         }),
