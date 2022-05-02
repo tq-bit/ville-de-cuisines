@@ -1,5 +1,5 @@
 import { AppServerErrorResponse, UserTheme } from '../../@types/commons';
-import { ref, computed } from 'vue';
+import { ref } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField, FieldContext } from 'vee-validate';
 import useActiveUserStore from '../../store/activeUserStore';
@@ -36,8 +36,8 @@ export default function handleUserProfileForm() {
   const { handleSubmit: handlePreferencesSubmit } = useForm({
     validationSchema: preferencesSchema,
     initialValues: {
-      bio: activeUserStore.prefs.bio,
-      location: activeUserStore.prefs.location,
+      bio: activeUserStore.user.bio,
+      location: activeUserStore.user.location,
       theme: activeUserStore.prefs.theme,
     },
   });
@@ -49,8 +49,6 @@ export default function handleUserProfileForm() {
   const handleUpdatePreferences = async () => {
     httpError.value = null;
     const [response, error] = await activeUserStore.updatePreferences({
-      bio: bio.value,
-      location: location.value,
       theme: theme.value,
     });
     if (error) {

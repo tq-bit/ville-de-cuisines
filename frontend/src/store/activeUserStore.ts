@@ -13,7 +13,7 @@ import { v4 as uuid } from 'uuid';
 import { defineStore } from 'pinia';
 import appwriteClient from '../api/appwrite';
 
-const activeUserStore = defineStore('user', {
+const useActiveUserStore = defineStore('user', {
   state: () => ({
     _account: {
       $id: '',
@@ -32,6 +32,7 @@ const activeUserStore = defineStore('user', {
 
   getters: {
     account: (state) => state._account,
+    user: (state) => state._user,
     location: (state) => state._location,
     prefs: (state) => state._prefs,
     avatar: (state) => state._avatar_url,
@@ -238,4 +239,4 @@ const activeUserStore = defineStore('user', {
   },
 });
 
-export default activeUserStore;
+export default useActiveUserStore;

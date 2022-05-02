@@ -5,7 +5,7 @@ import { AppwriteException, Models, Query } from 'appwrite';
 import { defineStore } from 'pinia';
 import appwriteClient from '../api/appwrite';
 
-const ingredientsStore = defineStore('ingredients', {
+const useIngredientsStore = defineStore('ingredients', {
   state: () => ({
     _count: 0,
     _ingredients: [] as Ingredient[],
@@ -104,4 +104,4 @@ const ingredientsStore = defineStore('ingredients', {
   },
 });
 
-export default ingredientsStore;
+export default useIngredientsStore;

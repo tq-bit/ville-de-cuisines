@@ -11,11 +11,11 @@ import { v4 as uuid } from 'uuid';
 
 import { defineStore } from 'pinia';
 import appwriteClient from '../api/appwrite';
-import activeUserStore from './activeUserStore';
+import useActiveUserStore from './activeUserStore';
 
-const { account } = activeUserStore();
+const activeUserStore = useActiveUserStore();
 
-const ingredientsStore = defineStore('recipes', {
+const useRecipeStore = defineStore('recipes', {
   state: () => ({
     _count: 0,
     _recipes: [] as Recipe[],
@@ -119,8 +119,7 @@ const ingredientsStore = defineStore('recipes', {
       return {
         ...payload,
         original_recipe_id: id,
-        user_id: account.$id,
-        username: account.name,
+        user_id: activeUserStore.account.$id,
         ingredients: payload.ingredients.map((ingredient: Ingredient) => {
           return this.serializeRecipeIngredient(ingredient);
         }),
@@ -139,10 +138,12 @@ const ingredientsStore = defineStore('recipes', {
     },
 
     enrichRecipes(documents: Recipe[]): Promise<Recipe[]> {
+      // TODO: add enrichment for users here when user store is ready
       const documentPromises = documents.map(async (document: Recipe) => {
         const primary_image_href = await this.fetchRecipeImage(
           document.primary_image_id as string,
         );
+
         return {
           ...document,
           primary_image_href,
@@ -177,4 +178,4 @@ const ingredientsStore = defineStore('recipes', {
   },
 });
 
-export default ingredientsStore;
+export default useRecipeStore;

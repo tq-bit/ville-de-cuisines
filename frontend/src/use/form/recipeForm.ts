@@ -2,12 +2,11 @@ import { AppServerErrorResponse, Recipe } from '../../@types/commons';
 import { ref } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField, useFieldArray } from 'vee-validate';
-import recipeStore from '../../store/recipeStore';
+import useRecipeStore from '../../store/recipeStore';
 import useAppAlert from '../globalAlert';
 import { getFormErrors } from '../util/error';
 
-const { createRecipe, updateRecipe } = recipeStore();
-console.log(recipeStore());
+const { createRecipe, updateRecipe } = useRecipeStore();
 
 const recipeSchema = yup.object({
   $id: yup.string().optional().label('ID'),
