@@ -7,24 +7,20 @@ defineProps<{
 </script>
 
 <template>
-  <li
-    class="relative h-full w-full cursor-pointer rounded shadow transition hover:scale-105"
-  >
-    <header>
+  <li class="w-full cursor-pointer rounded transition hover:scale-105">
+    <header class="relative h-48">
       <img
-        class="h-auto w-full rounded"
+        class="h-48 w-full rounded-t bg-cover bg-center bg-no-repeat object-cover"
         :src="item.src"
         :alt="item.alt || item.title"
       />
     </header>
-    <main>
-      <div
-        class="rounded-bottom absolute left-0 bottom-0 w-full bg-gray-100 bg-opacity-80 dark:bg-gray-800 dark:bg-opacity-80"
-      >
-        <h4 class="text-center font-semibold text-gray-800 dark:text-gray-100">
+    <main class="p-2">
+      <div class="w-full rounded-b">
+        <h4 class="text-center font-semibold">
           {{ item.title }}
         </h4>
-        <section class="px-2 py-1">
+        <section class="p-2">
           <slot />
         </section>
       </div>

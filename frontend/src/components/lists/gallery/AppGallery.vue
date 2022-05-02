@@ -10,7 +10,7 @@ defineProps<{
 <template>
   <ul class="grid grid-cols-12 gap-4">
     <app-gallery-item
-      class="col-span-12 sm:col-span-6 md:col-span-4 lg:col-span-6"
+      class="col-span-12 sm:col-span-12 md:col-span-6 lg:col-span-6"
       v-for="item in galleryItems"
       :key="item.title"
       :item="item"
