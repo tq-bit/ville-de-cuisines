@@ -95,7 +95,7 @@ const commitLocalTagState = () => {
 </script>
 
 <template>
-  <app-container>
+  <app-container class="mt-4">
     <app-alert class="mb-6" v-if="hasFormErrors" variant="error">
       <ul>
         <li>{{ httpError?.message }}</li>
