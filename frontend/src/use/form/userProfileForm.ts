@@ -42,7 +42,7 @@ export default function handleUserProfileForm() {
   const { handleSubmit: handleEmailSubmit } = useForm({
     validationSchema: emailSchema,
     initialValues: {
-      email: activeUserStore.user.email,
+      email: activeUserStore.account.email,
       password: '',
     },
   });
@@ -84,7 +84,7 @@ export default function handleUserProfileForm() {
   const { handleSubmit: handleUsernameSubmit } = useForm({
     validationSchema: usernameSchema,
     initialValues: {
-      username: activeUserStore.user.name,
+      username: activeUserStore.account.name,
     },
   });
 

@@ -66,10 +66,10 @@ onMounted(async () => {
             :src="activeUserStore.avatar"
           ></app-image>
           <h4 class="font-semibold">Name:</h4>
-          <p class="mb-2">{{ activeUserStore.user.name }}</p>
+          <p class="mb-2">{{ activeUserStore.account.name }}</p>
 
           <h4 class="font-semibold">Email:</h4>
-          <p class="mb-2">{{ activeUserStore.user.email }}</p>
+          <p class="mb-2">{{ activeUserStore.account.email }}</p>
 
           <h4 class="font-semibold">Location:</h4>
           <p class="mb-2">{{ activeUserStore.location.country }}</p>

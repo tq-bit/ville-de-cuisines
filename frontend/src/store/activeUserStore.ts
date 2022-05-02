@@ -23,13 +23,15 @@ const activeUserStore = defineStore('user', {
       email: '',
       emailVerification: false,
     },
+    _user: {},
     _location: {} as Models.Locale,
     _prefs: {} as AppUserPreferences,
     _avatar_url: '' as string,
   }),
 
   getters: {
-    user: (state) => state._account,
+    account: (state) => state._account,
+    user: (state) => state._user,
     location: (state) => state._location,
     prefs: (state) => state._prefs,
     avatar: (state) => state._avatar_url,

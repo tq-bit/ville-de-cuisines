@@ -13,7 +13,7 @@ import { defineStore } from 'pinia';
 import appwriteClient from '../api/appwrite';
 import activeUserStore from './activeUserStore';
 
-const { user: activeUser } = activeUserStore();
+const { account } = activeUserStore();
 
 const ingredientsStore = defineStore('recipes', {
   state: () => ({
@@ -119,8 +119,8 @@ const ingredientsStore = defineStore('recipes', {
       return {
         ...payload,
         original_recipe_id: id,
-        user_id: activeUser.$id,
-        username: activeUser.name,
+        user_id: account.$id,
+        username: account.name,
         ingredients: payload.ingredients.map((ingredient: Ingredient) => {
           return this.serializeRecipeIngredient(ingredient);
         }),
