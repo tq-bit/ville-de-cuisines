@@ -7,6 +7,13 @@ export type AppServerResponseOrError<T> = Promise<
   [T, null] | [null, AppwriteException]
 >;
 
+export interface AppGalleryItemType {
+  $id: string;
+  src: string;
+  alt: string;
+  title: string;
+}
+
 export interface AppUserLoginPayload {
   email: string;
   password: string;
@@ -56,7 +63,9 @@ export interface Recipe extends Models.Document {
   username: string;
   tags?: string[];
   primary_image_id?: string;
-  gallery_images?: string[];
+  gallery_image_ids?: string[];
+  primary_image_href?: string;
+  gallery_image_hrefs?: string[];
   is_public: boolean;
 }
 
@@ -68,7 +77,7 @@ export interface SerializedRecipe extends Models.Document {
   username: string;
   tags?: string[];
   primary_image_id?: string;
-  gallery_images?: string[];
+  gallery_image_ids?: string[];
   is_public: boolean;
 }
 

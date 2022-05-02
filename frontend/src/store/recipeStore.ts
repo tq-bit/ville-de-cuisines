@@ -1,4 +1,5 @@
 import {
+  AppGalleryItemType,
   AppServerResponseOrError,
   Ingredient,
   Recipe,
@@ -22,6 +23,16 @@ const ingredientsStore = defineStore('recipes', {
 
   getters: {
     recipes: (state) => state._recipes,
+    recipesForGallery: (state) => {
+      return state._recipes.map((recipe) => {
+        return {
+          $id: recipe.$id,
+          src: recipe.primary_image_href,
+          alt: recipe.name,
+          title: recipe.name,
+        } as AppGalleryItemType;
+      });
+    },
   },
 
   actions: {
@@ -30,8 +41,9 @@ const ingredientsStore = defineStore('recipes', {
         RECIPES_COLLECTION_ID,
       );
       const documents = response.documents as SerializedRecipe[];
-      const deserializedDocuments = this.patchRecipeFetchPayload(documents);
-      this._recipes = deserializedDocuments;
+      const deserializedDocuments = this.deserializeRecipes(documents);
+      const enrichedDocuments = await this.enrichRecipes(deserializedDocuments);
+      this._recipes = enrichedDocuments;
     },
 
     async createRecipe(payload: Recipe): AppServerResponseOrError<Recipe> {
@@ -122,7 +134,7 @@ const ingredientsStore = defineStore('recipes', {
       };
     },
 
-    patchRecipeFetchPayload(documents: SerializedRecipe[]): Recipe[] {
+    deserializeRecipes(documents: SerializedRecipe[]): Recipe[] {
       return documents.map((document: SerializedRecipe) => {
         return {
           ...document,
@@ -131,6 +143,31 @@ const ingredientsStore = defineStore('recipes', {
           }),
         };
       });
+    },
+
+    enrichRecipes(documents: Recipe[]): Promise<Recipe[]> {
+      const documentPromises = documents.map(async (document: Recipe) => {
+        const primary_image_href = await this.fetchRecipeImage(
+          document.primary_image_id as string,
+        );
+        return {
+          ...document,
+          primary_image_href,
+        };
+      });
+
+      return Promise.all(documentPromises);
+    },
+
+    async fetchRecipeImage(fileId: string): Promise<string> {
+      if (fileId) {
+        const response = await appwriteClient.storage.getFilePreview(
+          RECIPE_BUCKET_ID,
+          fileId,
+        );
+        return response.href;
+      }
+      return '';
     },
 
     serializeRecipeIngredient(ingredeint: Ingredient): string {

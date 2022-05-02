@@ -33,10 +33,11 @@ const {
   pushTag,
   isPublic,
   httpError,
-  primary_image,
+  primary_image_id,
   validationErrors,
   hasFormErrors,
   handleRecipeSubmit,
+  handleRecipeReset,
 } = useRecipeForm();
 const recipeStore = useRecipeStore();
 
@@ -45,23 +46,25 @@ const onSubmitRecipe = async () => {
   commitLocalIngredientState();
   await handleRecipeSubmit();
   if (!hasFormErrors.value && !httpError.value) {
+    handleRecipeReset();
     closeRecipeModal();
+    await recipeStore.fetchRecipes();
   }
 };
 
 // Recipe Image
 const onDropRecipeImage = async (filePayload: AppUploadPayload) => {
-  if (primary_image.value) {
-    await recipeStore.deleteRecipeImage(primary_image.value as string);
+  if (primary_image_id.value) {
+    await recipeStore.deleteRecipeImage(primary_image_id.value as string);
   }
   const [fileResponse, fileError] = await recipeStore.uploadRecipeImage(
     filePayload.fileData,
   );
-  primary_image.value = fileResponse?.$id as string;
+  primary_image_id.value = fileResponse?.$id as string;
 };
 onBeforeUnmount(async () => {
-  if (primary_image.value) {
-    await recipeStore.deleteRecipeImage(primary_image.value as string);
+  if (primary_image_id.value) {
+    await recipeStore.deleteRecipeImage(primary_image_id.value as string);
   }
 });
 

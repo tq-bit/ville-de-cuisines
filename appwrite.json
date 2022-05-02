@@ -108,7 +108,9 @@
             "$read": [
                 "role:all"
             ],
-            "$write": [],
+            "$write": [
+                "role:all"
+            ],
             "name": "recipes",
             "enabled": true,
             "permission": "collection",
@@ -176,7 +178,16 @@
                     "default": true
                 },
                 {
-                    "key": "attachments",
+                    "key": "primary_image",
+                    "type": "string",
+                    "status": "available",
+                    "required": false,
+                    "array": false,
+                    "size": 255,
+                    "default": null
+                },
+                {
+                    "key": "gallery_images",
                     "type": "string",
                     "status": "available",
                     "required": false,

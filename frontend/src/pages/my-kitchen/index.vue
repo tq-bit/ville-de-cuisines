@@ -1,14 +1,17 @@
 <script setup lang="ts">
+import { onMounted } from 'vue';
 import AppGrid from '../../components/layout/content/AppGrid.vue';
 import AppButton from '../../components/form/AppButton.vue';
 import AppCard from '../../components/form/AppCard.vue';
 import AppGallery from '../../components/lists/gallery/AppGallery.vue';
+import useRecipeStore from '../../store/recipeStore';
 
 import imgCookingManagement from '../../components/img/imgCookingManagement.vue';
 
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
+const recipeStore = useRecipeStore();
 
 const items = [
   {
@@ -45,6 +48,8 @@ const openRecipeModal = () => {
 const openIngredientModal = () => {
   router.push({ path: '/my-kitchen/ingredient' });
 };
+
+onMounted(async () => await recipeStore.fetchRecipes());
 </script>
 
 <template>
@@ -68,8 +73,11 @@ const openIngredientModal = () => {
           <component :is="Component" />
         </transition>
       </router-view>
+
       <app-card block title="My recipes">
-        <app-gallery :gallery-items="items"></app-gallery>
+        <app-gallery
+          :gallery-items="recipeStore.recipesForGallery"
+        ></app-gallery>
       </app-card>
     </template>
 
