@@ -7,7 +7,7 @@ const router = useRouter();
 </script>
 
 <template>
-  <app-container page>
+  <app-container>
     <app-hero
       class="mt-12"
       @clickGetStarted="router.push({ path: '/login' })"
