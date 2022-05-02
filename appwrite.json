@@ -125,15 +125,6 @@
                     "default": null
                 },
                 {
-                    "key": "username",
-                    "type": "string",
-                    "status": "available",
-                    "required": true,
-                    "array": false,
-                    "size": 255,
-                    "default": null
-                },
-                {
                     "key": "tags",
                     "type": "string",
                     "status": "available",
@@ -178,7 +169,7 @@
                     "default": true
                 },
                 {
-                    "key": "primary_image",
+                    "key": "primary_image_id",
                     "type": "string",
                     "status": "available",
                     "required": false,
@@ -187,11 +178,20 @@
                     "default": null
                 },
                 {
-                    "key": "gallery_images",
+                    "key": "gallery_image_ids",
                     "type": "string",
                     "status": "available",
                     "required": false,
                     "array": true,
+                    "size": 255,
+                    "default": null
+                },
+                {
+                    "key": "user_id",
+                    "type": "string",
+                    "status": "available",
+                    "required": true,
+                    "array": false,
                     "size": 255,
                     "default": null
                 }
@@ -212,30 +212,16 @@
         },
         {
             "$id": "625d483a10f5de955b29",
-            "$read": [],
-            "$write": [],
+            "$read": [
+                "role:all"
+            ],
+            "$write": [
+                "role:all"
+            ],
             "name": "users",
             "enabled": true,
             "permission": "collection",
             "attributes": [
-                {
-                    "key": "youtube",
-                    "type": "string",
-                    "status": "available",
-                    "required": false,
-                    "array": false,
-                    "format": "url",
-                    "default": null
-                },
-                {
-                    "key": "facebook",
-                    "type": "string",
-                    "status": "available",
-                    "required": false,
-                    "array": false,
-                    "format": "url",
-                    "default": null
-                },
                 {
                     "key": "bio",
                     "type": "string",
@@ -246,19 +232,19 @@
                     "default": "404 bio not found"
                 },
                 {
-                    "key": "instagram",
-                    "type": "string",
-                    "status": "available",
-                    "required": false,
-                    "array": false,
-                    "format": "url",
-                    "default": null
-                },
-                {
                     "key": "name",
                     "type": "string",
                     "status": "available",
                     "required": true,
+                    "array": false,
+                    "size": 255,
+                    "default": null
+                },
+                {
+                    "key": "avatar_id",
+                    "type": "string",
+                    "status": "available",
+                    "required": false,
                     "array": false,
                     "size": 255,
                     "default": null
