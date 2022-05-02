@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import AppGalleryItem, { AppGalleryItemType } from './AppGalleryItem.vue';
+import { AppGalleryItemType } from '../../../@types/commons';
+import AppGalleryItem from './AppGalleryItem.vue';
 
 defineProps<{
   galleryItems: AppGalleryItemType[];

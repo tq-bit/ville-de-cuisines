@@ -1,9 +1,5 @@
 <script setup lang="ts">
-export interface AppGalleryItemType {
-  src: string;
-  alt: string;
-  title: string;
-}
+import { AppGalleryItemType } from '../../../@types/commons';
 
 defineProps<{
   item: AppGalleryItemType;
