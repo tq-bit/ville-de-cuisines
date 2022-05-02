@@ -57,6 +57,7 @@ export default function handleUserAuthForm(type: AppUserAuthForm) {
   }: AppUserLoginPayload) => {
     const id = uuid();
     httpError.value = null;
+
     const [signupResponse, signupError] = await signup({
       id,
       email,

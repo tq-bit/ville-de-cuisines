@@ -93,10 +93,22 @@ const activeUserStore = defineStore('user', {
     > {
       try {
         this._account.name = username as string;
-        const response = await appwriteClient.account.updateName(
+        this._user.name = username as string;
+
+        const privateUserPromise = await appwriteClient.account.updateName(
           username as string,
         );
-        return [response, null];
+        const publicUserPromise = await appwriteClient.database.updateDocument(
+          USER_COLLECTION_ID,
+          this.account.$id,
+          { name: username },
+        );
+
+        const [privateUser, publicUser] = await Promise.all([
+          privateUserPromise,
+          publicUserPromise,
+        ]);
+        return [privateUser, null];
       } catch (error) {
         return [null, error as AppwriteException];
       }
