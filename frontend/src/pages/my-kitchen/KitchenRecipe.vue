@@ -117,7 +117,9 @@ const commitLocalTagState = () => {
             v-model="isPublic"
             label="Make my recipe public"
           ></app-switch>
-          <app-button block type="submit">Submit Recipe</app-button>
+          <app-button class="hidden md:block" block type="submit"
+            >Submit Recipe</app-button
+          >
         </template>
 
         <template v-slot:default>
@@ -150,6 +152,10 @@ const commitLocalTagState = () => {
             :editable="true"
             :ingredients="localIngredientState"
           ></app-ingredient-list>
+
+          <app-button class="md:hidden" block type="submit"
+            >Submit Recipe</app-button
+          >
         </template>
       </app-grid>
     </form>

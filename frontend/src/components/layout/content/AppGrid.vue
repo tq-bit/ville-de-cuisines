@@ -11,7 +11,7 @@ withDefaults(
 
 <template>
   <section
-    class="mx-auto grid w-full max-w-screen-xl grid-cols-12 gap-x-4 gap-y-8 px-4 md:px-0"
+    class="mx-auto grid w-full max-w-screen-xl grid-cols-12 gap-2 px-4 md:gap-8 md:px-0"
     :class="{
       'gap-x-0 gap-y-0 px-0 sm:gap-x-4 sm:px-4': variant === 'equal',
     }"

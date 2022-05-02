@@ -68,6 +68,12 @@ onMounted(async () => await recipeStore.fetchRecipes());
     </template>
 
     <template v-slot:default>
+      <router-view v-slot="{ Component }">
+        <transition name="fade">
+          <component :is="Component" />
+        </transition>
+      </router-view>
+
       <app-card block title="My recipes">
         <app-gallery
           :gallery-items="recipeStore.recipesForGallery"
