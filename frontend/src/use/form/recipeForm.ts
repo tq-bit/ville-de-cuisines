@@ -3,10 +3,12 @@ import { ref } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField, useFieldArray } from 'vee-validate';
 import useRecipeStore from '../../store/recipeStore';
+import useActiveUserStore from '../../store/activeUserStore';
 import useAppAlert from '../globalAlert';
 import { getFormErrors } from '../util/error';
 
 const { createRecipe, updateRecipe } = useRecipeStore();
+const activeUserStore = useActiveUserStore();
 
 const recipeSchema = yup.object({
   $id: yup.string().optional().label('ID'),
@@ -52,7 +54,10 @@ export default function handleIngredientForm() {
 
   const handleRecipeCreate = async (payload: Recipe) => {
     httpError.value = null;
-    const [response, error] = await createRecipe(payload);
+    const [response, error] = await createRecipe(
+      payload,
+      activeUserStore.user.$id,
+    );
     if (error) {
       httpError.value = {
         message: error.message,

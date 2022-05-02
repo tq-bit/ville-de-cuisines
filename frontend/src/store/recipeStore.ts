@@ -11,9 +11,6 @@ import { v4 as uuid } from 'uuid';
 
 import { defineStore } from 'pinia';
 import appwriteClient from '../api/appwrite';
-import useActiveUserStore from './activeUserStore';
-
-const activeUserStore = useActiveUserStore();
 
 const useRecipeStore = defineStore('recipes', {
   state: () => ({
@@ -46,10 +43,17 @@ const useRecipeStore = defineStore('recipes', {
       this._recipes = enrichedDocuments;
     },
 
-    async createRecipe(payload: Recipe): AppServerResponseOrError<Recipe> {
+    async createRecipe(
+      payload: Recipe,
+      userId: string,
+    ): AppServerResponseOrError<Recipe> {
       try {
         const id = uuid();
-        const patchedPayload = this.patchRecipeCreationPayload(payload, id);
+        const patchedPayload = this.patchRecipeCreationPayload(
+          payload,
+          id,
+          userId,
+        );
         const response: Recipe = await appwriteClient.database.createDocument(
           RECIPES_COLLECTION_ID,
           id,
@@ -115,11 +119,15 @@ const useRecipeStore = defineStore('recipes', {
       }
     },
 
-    patchRecipeCreationPayload(payload: Recipe, id: string): SerializedRecipe {
+    patchRecipeCreationPayload(
+      payload: Recipe,
+      id: string,
+      userId: string,
+    ): SerializedRecipe {
       return {
         ...payload,
         original_recipe_id: id,
-        user_id: activeUserStore.account.$id,
+        user_id: userId,
         ingredients: payload.ingredients.map((ingredient: Ingredient) => {
           return this.serializeRecipeIngredient(ingredient);
         }),

@@ -60,6 +60,7 @@ const useActiveUserStore = defineStore('user', {
       this._location = location;
       this._prefs = prefs as AppUserPreferences;
       this._user = user as AppPublicUser;
+      console.log(user);
     },
 
     async fetchActiveUserAvatar(): Promise<void> {
