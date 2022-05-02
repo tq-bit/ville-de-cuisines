@@ -21,6 +21,13 @@ export interface AppUserLoginPayload {
   username?: string;
 }
 
+export interface AppPublicUserPayload {
+  name?: string;
+  bio?: string;
+  location?: string;
+  avatar_id?: string;
+}
+
 export interface AppUserUpdateUsernamePayload {
   username?: string;
 }
@@ -45,7 +52,6 @@ export interface AppUserPreferences extends Models.Preferences {
 }
 
 export interface AppPublicUser extends Models.Document {
-  $id: string;
   name: string;
   bio: string;
   location: string;

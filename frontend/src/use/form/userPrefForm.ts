@@ -48,9 +48,15 @@ export default function handleUserProfileForm() {
 
   const handleUpdatePreferences = async () => {
     httpError.value = null;
-    const [response, error] = await activeUserStore.updatePreferences({
+    const [prefResponse, prefError] = await activeUserStore.updatePreferences({
       theme: theme.value,
     });
+    const [userResponse, userError] =
+      await activeUserStore.updateActivePublicUserData({
+        bio: bio.value,
+        location: location.value,
+      });
+    const error = prefError || userError;
     if (error) {
       setHttpError({ message: error.message, code: error.code });
     } else {

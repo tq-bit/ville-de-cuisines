@@ -4,6 +4,7 @@ import {
   AppUserUpdatePasswordPayload,
   AppServerResponseOrError,
   AppUserPreferences,
+  AppPublicUserPayload,
   AppPublicUser,
 } from '../@types/commons';
 import { USER_COLLECTION_ID, AVATAR_BUCKET_ID } from '../constants/index';
@@ -177,14 +178,17 @@ const useActiveUserStore = defineStore('user', {
       }
     },
 
-    async updateActivePublicUserData(payload: AppPublicUser) {
+    async updateActivePublicUserData(
+      payload: AppPublicUserPayload,
+    ): AppServerResponseOrError<AppPublicUser> {
       try {
-        const response = await appwriteClient.database.updateDocument(
-          USER_COLLECTION_ID,
-          this.account.$id,
-          payload,
-        );
-        this._user = response as AppPublicUser;
+        const response: AppPublicUser =
+          await appwriteClient.database.updateDocument(
+            USER_COLLECTION_ID,
+            this.account.$id,
+            payload,
+          );
+        this._user = response;
         return [response, null];
       } catch (error) {
         return [null, error as AppwriteException];

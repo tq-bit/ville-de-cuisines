@@ -75,7 +75,7 @@ onMounted(async () => {
           <p class="mb-2">{{ activeUserStore.location.country }}</p>
 
           <h4 class="font-semibold">Bio:</h4>
-          <p class="mb-2">{{ activeUserStore.prefs.bio }}</p>
+          <p class="mb-2">{{ activeUserStore.user.bio }}</p>
 
           <app-button class="mb-4 mt-4" @click="openAccountModal" block
             >Edit account settings</app-button
