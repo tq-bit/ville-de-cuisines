@@ -1,5 +1,11 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { AppGalleryItemType } from '../../../@types/commons';
+
+const isHovered = ref<boolean>(false);
+const setIsHovered = (value: boolean) => {
+  isHovered.value = value;
+};
 
 defineProps<{
   item: AppGalleryItemType;
@@ -7,23 +13,26 @@ defineProps<{
 </script>
 
 <template>
-  <li class="w-full cursor-pointer rounded transition hover:scale-105">
-    <header class="relative h-48">
+  <li
+    @mouseenter="setIsHovered(true)"
+    @mouseleave="setIsHovered(false)"
+    class="cursor-pointer"
+  >
+    <main class="relative">
+      <section
+        v-if="isHovered"
+        class="absolute flex h-48 w-full items-center justify-center text-lg"
+        :class="{
+          'scale-110 bg-gray-800 bg-opacity-70 transition-all': isHovered,
+        }"
+      >
+        <h4 class="text-white">{{ item.title }}</h4>
+      </section>
       <img
-        class="h-48 w-full rounded-t bg-cover bg-center bg-no-repeat object-cover"
+        class="h-48 w-full rounded object-cover"
         :src="item.src"
         :alt="item.alt || item.title"
       />
-    </header>
-    <main class="p-2">
-      <div class="w-full rounded-b">
-        <h4 class="text-center font-semibold">
-          {{ item.title }}
-        </h4>
-        <section class="p-2">
-          <slot />
-        </section>
-      </div>
     </main>
   </li>
 </template>
