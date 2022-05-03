@@ -71,11 +71,9 @@ export default function handleUserAuthForm(type: AppUserAuthForm) {
         code: signupError?.code,
       };
     } else {
-      Promise.all([
-        () => login({ email, password }),
-        () => fetchActiveUserAccount(),
-        () => createInitialPublicUser(id, username || ''),
-      ]);
+      await createInitialPublicUser(id, username || '');
+      await login({ email, password });
+
       triggerGlobalAlert({ message: 'Signup successful', variant: 'success' });
     }
   };
