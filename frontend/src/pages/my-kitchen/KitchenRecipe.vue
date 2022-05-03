@@ -28,6 +28,7 @@ const closeRecipeModal = () => router.push({ path: '/my-kitchen' });
 // Recipe (main resource)
 const {
   name,
+  portions_count,
   description,
   pushIngredient,
   pushTag,
@@ -157,11 +158,17 @@ const commitLocalTagState = () => {
           <app-button class="hidden md:block" block type="submit"
             >Submit Recipe</app-button
           >
-          {{ recipeId }}
         </template>
 
         <template v-slot:default>
           <app-input v-model="name" name="name" label="Recipe name"></app-input>
+          <app-input
+            v-model="portions_count"
+            name="portions_count"
+            label="Recipe portions"
+            type="number"
+          ></app-input>
+
           <app-input
             v-model="localTagModel"
             label-prefix="Add comma-separated "

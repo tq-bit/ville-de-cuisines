@@ -15,11 +15,21 @@ const recipeSchema = yup.object({
   original_recipe_id: yup.string().optional().label('Original recipe ID'),
   name: yup.string().required().label('Recipe name'),
   description: yup.string().optional().label('Recipe description'),
-  ingredients: yup.array().label('Recipe ingredients'),
+  ingredients: yup
+    .array()
+    .required()
+    .min(2, 'Please add at least two ingredients')
+    .label('Recipe ingredients'),
+  portions_count: yup
+    .number()
+    .min(0)
+    .max(500)
+    .required()
+    .label('Recipe portions count'),
   username: yup.string().optional().label('Recipe creator'),
   tags: yup.array().optional().label('Recipe tags'),
   primary_image_id: yup.string().optional().label('Recipe primary image'),
-  is_public: yup.boolean().optional().label('Recipe publicity'),
+  is_public: yup.boolean().label('Recipe publicity'),
 });
 
 export default function handleIngredientForm() {
@@ -47,6 +57,7 @@ export default function handleIngredientForm() {
     push: pushTag,
     fields: recipeTags,
   } = useFieldArray('tags');
+  const { value: portions_count } = useField('portions_count');
   const { value: primary_image_id } = useField('primary_image_id');
   const { value: isPublic } = useField('is_public');
 
@@ -110,6 +121,7 @@ export default function handleIngredientForm() {
     name,
     description,
     original_recipe_id,
+    portions_count,
     pushIngredient,
     removeIngredient,
     recipeIngredients,
