@@ -135,8 +135,11 @@ const commitLocalTagState = () => {
 
 <template>
   <app-container class="mt-4">
-    <h1 :title="`RecipeID: ${recipeId}`" class="my-4 text-3xl" v-if="recipeId">
-      Updating recipe for {{ name }}
+    <h1 class="my-4 text-3xl">
+      <span :title="`RecipeID: ${recipeId}`" v-if="recipeId">
+        Updating recipe for {{ name }}</span
+      >
+      <span v-else> 🍲 Create a new masterpiece</span>
     </h1>
     <app-alert class="mb-6" v-if="hasFormErrors" variant="error">
       <ul>
