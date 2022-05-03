@@ -12,6 +12,8 @@ export interface AppGalleryItemType {
   src: string;
   alt: string;
   title: string;
+  text?: string;
+  count?: number;
 }
 
 export interface AppUserLoginPayload {

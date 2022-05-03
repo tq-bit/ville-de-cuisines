@@ -1,4 +1,8 @@
-import { AppServerResponseOrError, AppPublicUser } from '../@types/commons';
+import {
+  AppServerResponseOrError,
+  AppPublicUser,
+  AppGalleryItemType,
+} from '../@types/commons';
 import { USER_COLLECTION_ID, AVATAR_BUCKET_ID } from '../constants';
 import { Appwrite, AppwriteException, Models, Query } from 'appwrite';
 
@@ -18,6 +22,15 @@ const usePublicUserStore = defineStore('public_user', {
       state._publicUserProfile?.name?.split(' ')[0],
     publicUserProfileAvatar: (state) => state._publicUserProfileAvatar,
     publicUsers: (state) => state._publicUsers,
+    publicUserFeedItems: (state) => {
+      return state._publicUsers.map((user) => {
+        return {
+          $id: user.$id,
+          title: user.name,
+          text: user.bio,
+        } as AppGalleryItemType;
+      });
+    },
   },
 
   actions: {
