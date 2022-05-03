@@ -53,20 +53,6 @@ onMounted(async () => {
             :gallery-items="recipeStore.publicUserRecipesForGallery"
           ></app-gallery>
         </app-card>
-
-        <app-card class="mb-4" title="First item" block>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit
-          consequatur culpa tempore vero perspiciatis omnis quod quam ullam
-          quibusdam alias dolor illum consequuntur laboriosam, cum
-          necessitatibus, nulla rem officia impedit!
-        </app-card>
-
-        <app-card class="mb-4" title="Second item" block>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit
-          consequatur culpa tempore vero perspiciatis omnis quod quam ullam
-          quibusdam alias dolor illum consequuntur laboriosam, cum
-          necessitatibus, nulla rem officia impedit!
-        </app-card>
       </template>
     </app-grid>
   </div>
