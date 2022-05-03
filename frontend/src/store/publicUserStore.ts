@@ -12,7 +12,6 @@ import appwriteClient from '../api/appwrite';
 const usePublicUserStore = defineStore('public_user', {
   state: () => ({
     _publicUserProfile: {} as AppPublicUser,
-    _publicUserProfileAvatar: '' as string,
     _publicUsers: [] as AppPublicUser[],
   }),
 
@@ -20,7 +19,6 @@ const usePublicUserStore = defineStore('public_user', {
     publicUserProfile: (state) => state._publicUserProfile,
     publicUserProfileFirstName: (state) =>
       state._publicUserProfile?.name?.split(' ')[0],
-    publicUserProfileAvatar: (state) => state._publicUserProfileAvatar,
     publicUsers: (state) => state._publicUsers,
     publicUserFeedItems: (state) => {
       return state._publicUsers.map((user) => {
@@ -59,7 +57,15 @@ const usePublicUserStore = defineStore('public_user', {
         USER_COLLECTION_ID,
         userId,
       );
-      this._publicUserProfile = response as AppPublicUser;
+      const user = response as AppPublicUser;
+      const avatar_href = await this.fetchPublicUserAvatar(
+        user.avatar_id as string,
+      );
+      const patchedUser = {
+        ...user,
+        avatar_href,
+      };
+      this._publicUserProfile = patchedUser as AppPublicUser;
     },
 
     async fetchPublicUserAvatar(fileId: string) {

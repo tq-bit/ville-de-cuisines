@@ -17,7 +17,6 @@ const router = useRouter();
 onMounted(async () => {
   const userId = router.currentRoute.value.params.userId as string;
   await publicUserStore.fetchPublicUserById(userId);
-  await publicUserStore.fetchPublicUserAvatar();
   await recipeStore.fetchPublicUserRecipes(userId);
 });
 </script>
@@ -31,7 +30,7 @@ onMounted(async () => {
             class="mb-4"
             :rounded="true"
             size="xsmall"
-            :src="publicUserStore.publicUserProfileAvatar"
+            :src="publicUserStore.publicUserProfile.avatar_href || ''"
           ></app-image>
 
           <h4 class="font-semibold">Bio:</h4>
