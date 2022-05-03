@@ -74,6 +74,7 @@ const onDeleteRecipe = async () => {
   );
   if (recipeId && confirmationResult) {
     await recipeStore.handleRecipeDeletion(recipeId);
+    router.push({ path: '/my-kitchen' });
   }
 };
 onMounted(async () => {

@@ -5,6 +5,7 @@ import AppButton from '../../components/form/AppButton.vue';
 import AppCard from '../../components/form/AppCard.vue';
 import AppGallery from '../../components/lists/gallery/AppGallery.vue';
 import useRecipeStore from '../../store/recipeStore';
+import useActiveUserStore from '../../store/activeUserStore';
 
 import imgCookingManagement from '../../components/img/imgCookingManagement.vue';
 
@@ -13,6 +14,7 @@ import { AppGalleryItemType } from '../../@types/commons';
 
 const router = useRouter();
 const recipeStore = useRecipeStore();
+const activeUserStore = useActiveUserStore();
 
 const onGalleryItemClick = (payload: AppGalleryItemType) => {
   router.push({
@@ -28,7 +30,10 @@ const openIngredientModal = () => {
   router.push({ path: '/my-kitchen/ingredient' });
 };
 
-onMounted(async () => await recipeStore.fetchRecipes());
+onMounted(
+  async () =>
+    await recipeStore.fetchActiveUserRecipes(activeUserStore.account.$id),
+);
 </script>
 
 <template>
@@ -55,7 +60,7 @@ onMounted(async () => await recipeStore.fetchRecipes());
 
       <app-card block title="My recipes">
         <app-gallery
-          :gallery-items="recipeStore.recipesForGallery"
+          :gallery-items="recipeStore.activeUserRecipesForGallery"
           @click="onGalleryItemClick"
         ></app-gallery>
       </app-card>

@@ -6,7 +6,7 @@ import {
   SerializedRecipe,
 } from '../@types/commons';
 import { RECIPES_COLLECTION_ID, RECIPE_BUCKET_ID } from '../constants';
-import { AppwriteException, Models } from 'appwrite';
+import { AppwriteException, Models, Query } from 'appwrite';
 import { v4 as uuid } from 'uuid';
 import useAppAlert from '../use/globalAlert';
 import { removeDuplicates } from '../util/array_util';
@@ -20,12 +20,24 @@ const useRecipeStore = defineStore('recipes', {
   state: () => ({
     _count: 0,
     _recipes: [] as Recipe[],
+    _activeUserRecipes: [] as Recipe[],
   }),
 
   getters: {
     recipes: (state) => state._recipes,
+    activeUserRecipes: (state) => state._activeUserRecipes,
     recipesForGallery: (state) => {
       return state._recipes.map((recipe) => {
+        return {
+          $id: recipe.$id,
+          src: recipe.primary_image_href,
+          alt: recipe.name,
+          title: recipe.name,
+        } as AppGalleryItemType;
+      });
+    },
+    activeUserRecipesForGallery: (state) => {
+      return state._activeUserRecipes.map((recipe) => {
         return {
           $id: recipe.$id,
           src: recipe.primary_image_href,
@@ -53,6 +65,25 @@ const useRecipeStore = defineStore('recipes', {
         }),
       );
       this._recipes = enrichedDocuments;
+    },
+
+    async fetchActiveUserRecipes(userId: string) {
+      const response = await appwriteClient.database.listDocuments(
+        RECIPES_COLLECTION_ID,
+        [Query.equal('user_id', userId)],
+      );
+      const documents = response.documents as SerializedRecipe[];
+      const deserializedDocuments = await Promise.all(
+        documents.map((document) => {
+          return this.deserializeRecipe(document);
+        }),
+      );
+      const enrichedDocuments = await Promise.all(
+        deserializedDocuments.map((document) => {
+          return this.enrichRecipe(document);
+        }),
+      );
+      this._activeUserRecipes = enrichedDocuments;
     },
 
     async fetchRecipeById(recipeId: string): AppServerResponseOrError<Recipe> {
