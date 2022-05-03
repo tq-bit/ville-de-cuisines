@@ -9,37 +9,16 @@ import useRecipeStore from '../../store/recipeStore';
 import imgCookingManagement from '../../components/img/imgCookingManagement.vue';
 
 import { useRouter } from 'vue-router';
+import { AppGalleryItemType } from '../../@types/commons';
 
 const router = useRouter();
 const recipeStore = useRecipeStore();
 
-const items = [
-  {
-    title: "Grammy's superfood",
-    src: 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-    alt: 'Cooking Management',
-  },
-  {
-    title: 'My second recipe',
-    src: 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-    alt: 'Cooking Management',
-  },
-  {
-    title: 'My third recipe',
-    src: 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-    alt: 'Cooking Management',
-  },
-  {
-    title: 'My other recipe',
-    src: 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-    alt: 'Cooking Management',
-  },
-  {
-    title: 'My next recipe',
-    src: 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-    alt: 'Cooking Management',
-  },
-];
+const onGalleryItemClick = (payload: AppGalleryItemType) => {
+  router.push({
+    path: `/my-kitchen/recipe/${payload.$id}/edit`,
+  });
+};
 
 const openRecipeModal = () => {
   router.push({ path: '/my-kitchen/recipe' });
@@ -77,6 +56,7 @@ onMounted(async () => await recipeStore.fetchRecipes());
       <app-card block title="My recipes">
         <app-gallery
           :gallery-items="recipeStore.recipesForGallery"
+          @click="onGalleryItemClick"
         ></app-gallery>
       </app-card>
     </template>

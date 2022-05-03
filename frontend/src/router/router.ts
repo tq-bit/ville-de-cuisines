@@ -56,6 +56,13 @@ export const routes: RouterOptions['routes'] = [
   },
 
   {
+    path: '/my-kitchen/recipe/:recipeId/edit',
+    component: () => import('../pages/my-kitchen/KitchenRecipe.vue'),
+    beforeEnter: redirectToLoginIfUserIsLoggedOut,
+    props: true,
+  },
+
+  {
     path: '/my-kitchen/recipe',
     component: () => import('../pages/my-kitchen/KitchenRecipe.vue'),
     beforeEnter: redirectToLoginIfUserIsLoggedOut,

@@ -5,11 +5,16 @@ import AppGalleryItem from './AppGalleryItem.vue';
 defineProps<{
   galleryItems: AppGalleryItemType[];
 }>();
+
+const emit = defineEmits<{
+  (event: 'click', item: AppGalleryItemType): void;
+}>();
 </script>
 
 <template>
   <ul class="grid grid-cols-12 gap-8">
     <app-gallery-item
+      @click="emit('click', item)"
       class="col-span-12 sm:col-span-12 md:col-span-6 lg:col-span-6"
       v-for="item in galleryItems"
       :key="item.title"

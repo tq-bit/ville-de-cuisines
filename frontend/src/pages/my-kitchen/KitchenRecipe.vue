@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch, onBeforeUnmount, onMounted } from 'vue';
+import { ref, computed, toRefs, watch, onBeforeUnmount, onMounted } from 'vue';
 import AppGrid from '../../components/layout/content/AppGrid.vue';
 import AppContainer from '../../components/layout/content/AppContainer.vue';
 import AppPillList from '../../components/lists/pills/AppPillList.vue';
@@ -22,6 +22,7 @@ import { AppUploadPayload, Ingredient } from '../../@types/commons';
 
 // Router
 const router = useRouter();
+const { recipeId } = toRefs(router.currentRoute.value.params);
 const closeRecipeModal = () => router.push({ path: '/my-kitchen' });
 
 // Recipe (main resource)
@@ -120,6 +121,7 @@ const commitLocalTagState = () => {
           <app-button class="hidden md:block" block type="submit"
             >Submit Recipe</app-button
           >
+          {{ recipeId }}
         </template>
 
         <template v-slot:default>
