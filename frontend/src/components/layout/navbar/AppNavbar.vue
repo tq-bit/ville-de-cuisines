@@ -15,50 +15,51 @@ defineEmits(['toggleSidebar']);
 <template>
   <header class="pb-16 md:pb-32">
     <nav
-      class="absolute z-50 top-0 left-0 w-full h-16 md:h-32 md:pb-32 px-4 bg-gradient-to-bl from-green-400 to-green-500 dark:from-green-600 dark:to-green-700 text-gray-50"
+      class="absolute top-0 left-0 z-50 h-16 w-full bg-gradient-to-bl from-green-400 to-green-500 px-4 text-gray-50 dark:from-green-600 dark:to-green-700 md:h-32 md:pb-32"
     >
       <button
-        class="md:hidden block h-10 w-10 my-3"
+        class="my-3 block h-10 w-10 md:hidden"
         @click="$emit('toggleSidebar')"
       >
         <i-menu></i-menu>
       </button>
 
-      <section class="w-full max-w-screen-xl mx-auto">
+      <section class="mx-auto w-full max-w-screen-xl">
         <!-- Icon or its placeholder -->
-        <div class="w-1/12 xl:w-2/12 h-16 mt-4 hidden md:inline-block">
+        <div class="mt-4 hidden h-16 w-1/12 md:inline-block xl:w-2/12">
           <span class="hidden md:block"> Icon </span>
         </div>
 
         <!-- Applicationwide search -->
-        <div class="w-8/12 h-16 mt-4 hidden md:inline-block">
+        <div class="mt-4 hidden h-16 w-8/12 md:inline-block">
           <app-search :options="[]"></app-search>
         </div>
 
         <!-- User profile navigation -->
         <div
-          class="w-3/12 xl:w-2/12 h-16 mt-4 hidden md:inline-block text-right"
+          class="mt-4 hidden h-16 w-3/12 text-right md:inline-block xl:w-2/12"
         >
           <app-navbar-item v-if="isUserLoggedIn" to="/profile">
-            <i-user class="w-4 h-4 inline mb-1 mr-1"></i-user>Profile
+            <i-user class="mb-1 mr-1 inline h-4 w-4"></i-user>Profile
           </app-navbar-item>
 
           <app-navbar-item v-if="!isUserLoggedIn" to="/login">
-            <i-login class="w-4 h-4 inline mb-1 mr-1"></i-login>Login
+            <i-login class="mb-1 mr-1 inline h-4 w-4"></i-login>Login
           </app-navbar-item>
 
           <app-navbar-item v-if="!isUserLoggedIn" to="/signup">
-            <i-user class="w-4 h-4 inline mb-1 mr-1"></i-user>Signup
+            <i-user class="mb-1 mr-1 inline h-4 w-4"></i-user>Signup
           </app-navbar-item>
         </div>
 
-        <div class="w-full h-8 text-center hidden md:block">
+        <div class="hidden h-8 w-full text-center md:block">
           <app-navbar-item v-if="isUserLoggedIn" to="/my-kitchen">
             My kitchen</app-navbar-item
           >
           <app-navbar-item v-if="isUserLoggedIn" to="/my-follows"
             >My follows</app-navbar-item
           >
+          <app-navbar-item to="/discover/users">Discover chefs</app-navbar-item>
         </div>
       </section>
     </nav>
