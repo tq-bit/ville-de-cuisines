@@ -91,15 +91,15 @@ const useRecipeStore = defineStore('recipes', {
       }
     },
 
-    async updateRecipe({
-      $id,
-      ...payload
-    }: Recipe): AppServerResponseOrError<Models.Document> {
+    async updateRecipe(
+      payload: Recipe,
+    ): AppServerResponseOrError<Models.Document> {
       try {
+        const patchedPayload = this.patchRecipeUpdatePayload(payload);
         const response = await appwriteClient.database.updateDocument(
           RECIPES_COLLECTION_ID,
-          $id || '',
-          payload,
+          patchedPayload.$id || '',
+          patchedPayload,
         );
         return [response, null];
       } catch (error) {
@@ -153,6 +153,15 @@ const useRecipeStore = defineStore('recipes', {
         ...payload,
         original_recipe_id: id,
         user_id: userId,
+        ingredients: payload.ingredients.map((ingredient: Ingredient) => {
+          return this.serializeRecipeIngredient(ingredient);
+        }),
+      };
+    },
+
+    patchRecipeUpdatePayload(payload: Recipe) {
+      return {
+        ...payload,
         ingredients: payload.ingredients.map((ingredient: Ingredient) => {
           return this.serializeRecipeIngredient(ingredient);
         }),

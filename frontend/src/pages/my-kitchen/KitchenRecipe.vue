@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, toRefs, watch, onBeforeUnmount, onMounted } from 'vue';
+import { ref, computed, watch, onBeforeUnmount, onMounted } from 'vue';
 import AppGrid from '../../components/layout/content/AppGrid.vue';
 import AppContainer from '../../components/layout/content/AppContainer.vue';
 import AppPillList from '../../components/lists/pills/AppPillList.vue';
@@ -18,11 +18,11 @@ import useIngredientsStore from '../../store/ingredientsStore';
 import { useRouter } from 'vue-router';
 import useRecipeForm from '../../use/form/recipeForm';
 import useLazyIngredientSearch from '../../use/search/useLazyIngredientSearch';
-import { AppUploadPayload, Ingredient } from '../../@types/commons';
+import { AppUploadPayload, Ingredient, Recipe } from '../../@types/commons';
 
 // Router
 const router = useRouter();
-const { recipeId } = toRefs(router.currentRoute.value.params);
+const recipeId = router.currentRoute.value.params.recipeId as string;
 const closeRecipeModal = () => router.push({ path: '/my-kitchen' });
 
 // Recipe (main resource)
@@ -38,6 +38,7 @@ const {
   hasFormErrors,
   handleRecipeSubmit,
   handleRecipeReset,
+  setRecipeValues,
 } = useRecipeForm();
 const recipeStore = useRecipeStore();
 
@@ -51,6 +52,25 @@ const onSubmitRecipe = async () => {
     await recipeStore.fetchRecipes();
   }
 };
+const setActiveRecipeToUpdate = async (recipeId: string) => {
+  const [response, error] = await recipeStore.fetchRecipeById(recipeId);
+  setRecipeValues({
+    $id: response?.$id,
+    name: response?.name,
+    description: response?.description,
+    is_public: response?.is_public,
+    primary_image_id: response?.primary_image_id,
+    username: response?.username,
+  });
+
+  setLocalIngredientState(response as Recipe);
+  setLocalTagState(response as Recipe);
+};
+onMounted(async () => {
+  if (recipeId) {
+    await setActiveRecipeToUpdate(recipeId);
+  }
+});
 
 // Recipe Image
 const onDropRecipeImage = async (filePayload: AppUploadPayload) => {
@@ -62,20 +82,28 @@ const onDropRecipeImage = async (filePayload: AppUploadPayload) => {
   );
   primary_image_id.value = fileResponse?.$id as string;
 };
-onBeforeUnmount(async () => {
-  if (primary_image_id.value) {
+const cleanUploadedImageIfExists = async () => {
+  const isCreationFormAndHasUploadedImage = primary_image_id.value && !recipeId;
+
+  if (isCreationFormAndHasUploadedImage) {
     await recipeStore.deleteRecipeImage(primary_image_id.value as string);
   }
+};
+onBeforeUnmount(async () => {
+  await cleanUploadedImageIfExists();
 });
 
 // Ingredients
 const ingredientsStore = useIngredientsStore();
 const ingredientsQuery = ref<string>('');
-const localIngredientState = ref<Ingredient[]>([]);
+let localIngredientState = ref<Ingredient[]>([]);
 const { handleSearch, loading } = useLazyIngredientSearch(ingredientsQuery);
 const onClickIngredientItem = (ingredient: Ingredient) => {
   localIngredientState.value.push(ingredient);
   ingredientsQuery.value = '';
+};
+const setLocalIngredientState = (recipe: Recipe) => {
+  localIngredientState.value = recipe?.ingredients ?? [];
 };
 const commitLocalIngredientState = () => {
   localIngredientState.value.forEach((ingredient) =>
@@ -86,10 +114,13 @@ watch(ingredientsQuery, handleSearch);
 onMounted(async () => await ingredientsStore.fetchIngredients());
 
 // Tags
-const localTagModel = ref<string>();
+let localTagModel = ref<string>();
 const localTagState = computed(() =>
   localTagModel.value?.split(',').map((text) => text.trim()),
 );
+const setLocalTagState = (recipe: Recipe) => {
+  localTagModel.value = recipe?.tags?.join(', ');
+};
 const commitLocalTagState = () => {
   localTagState.value?.forEach((tag) => pushTag(tag.trim()));
 };

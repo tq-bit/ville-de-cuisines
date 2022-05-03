@@ -23,7 +23,11 @@ const recipeSchema = yup.object({
 });
 
 export default function handleIngredientForm() {
-  const { handleSubmit, handleReset: handleRecipeReset } = useForm({
+  const {
+    handleSubmit,
+    handleReset: handleRecipeReset,
+    setValues: setRecipeValues,
+  } = useForm({
     validationSchema: recipeSchema,
   });
 
@@ -119,5 +123,6 @@ export default function handleIngredientForm() {
     validationErrors,
     handleRecipeSubmit,
     handleRecipeReset,
+    setRecipeValues,
   };
 }
