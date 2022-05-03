@@ -28,7 +28,11 @@ const recipeSchema = yup.object({
     .label('Recipe portions count'),
   username: yup.string().optional().label('Recipe creator'),
   tags: yup.array().optional().label('Recipe tags'),
-  primary_image_id: yup.string().optional().label('Recipe primary image'),
+  primary_image_id: yup
+    .string()
+    .optional()
+    .nullable()
+    .label('Recipe primary image'),
   is_public: yup.boolean().label('Recipe publicity'),
 });
 
@@ -69,6 +73,7 @@ export default function handleIngredientForm() {
 
   const handleRecipeCreate = async (payload: Recipe) => {
     httpError.value = null;
+    console.log(activeUserStore.account.$id);
     const [response, error] = await createRecipe(
       payload,
       activeUserStore.account.$id,

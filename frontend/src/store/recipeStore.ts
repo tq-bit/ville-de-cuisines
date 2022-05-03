@@ -161,6 +161,7 @@ const useRecipeStore = defineStore('recipes', {
       id: string,
       userId: string,
     ): SerializedRecipe {
+      console.log(userId);
       const ingredients = payload.ingredients.map((ingredient: Ingredient) => {
         return this.serializeRecipeIngredient(ingredient);
       });

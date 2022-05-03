@@ -4,13 +4,11 @@ import AppNavigation from './components/layout/navbar/index.vue';
 import AppAlert from './components/ui/AppAlert.vue';
 
 import useSessionStore from './store/sessionStore';
-import useIngredientStore from './store/ingredientsStore';
 import useGlobalAlert from './use/globalAlert';
 import useActiveUserStore from './store/activeUserStore';
 import useAppTheme from './use/appTheme';
 
 const { message, showGlobalAlert, variant } = useGlobalAlert();
-const { fetchIngredients } = useIngredientStore();
 const { syncLocalSessionIdWithCookie } = useSessionStore();
 const { fetchActiveUserAccount } = useActiveUserStore();
 const { userTheme, setTheme } = useAppTheme();
@@ -18,6 +16,7 @@ const { userTheme, setTheme } = useAppTheme();
 onMounted(async () => {
   setTheme(userTheme.value);
   syncLocalSessionIdWithCookie();
+  await fetchActiveUserAccount();
 });
 
 watch(userTheme, (newTheme) => setTheme(newTheme));
