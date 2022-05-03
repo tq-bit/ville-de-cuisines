@@ -68,6 +68,14 @@ const setActiveRecipeToUpdate = async (recipeId: string) => {
   setLocalIngredientState(response as Recipe);
   setLocalTagState(response as Recipe);
 };
+const onDeleteRecipe = async () => {
+  const confirmationResult = window.confirm(
+    'Do you really want to delete this recipe?',
+  );
+  if (recipeId && confirmationResult) {
+    await recipeStore.handleRecipeDeletion(recipeId);
+  }
+};
 onMounted(async () => {
   if (recipeId) {
     await setActiveRecipeToUpdate(recipeId);
@@ -165,6 +173,15 @@ const commitLocalTagState = () => {
           <app-button class="hidden md:block" block type="submit"
             >Submit Recipe</app-button
           >
+
+          <app-button
+            v-if="recipeId"
+            @click="onDeleteRecipe"
+            class="mt-4 hidden md:block"
+            block
+            type="button"
+            >Delete Recipe</app-button
+          >
         </template>
 
         <template v-slot:default>
@@ -208,6 +225,15 @@ const commitLocalTagState = () => {
 
           <app-button class="md:hidden" block type="submit"
             >Submit Recipe</app-button
+          >
+
+          <app-button
+            v-if="recipeId"
+            @click="onDeleteRecipe"
+            class="md:hidden"
+            block
+            type="button"
+            >Delete Recipe</app-button
           >
         </template>
       </app-grid>

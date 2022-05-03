@@ -8,10 +8,13 @@ import {
 import { RECIPES_COLLECTION_ID, RECIPE_BUCKET_ID } from '../constants';
 import { AppwriteException, Models } from 'appwrite';
 import { v4 as uuid } from 'uuid';
+import useAppAlert from '../use/globalAlert';
 import { removeDuplicates } from '../util/array_util';
 
 import { defineStore } from 'pinia';
 import appwriteClient from '../api/appwrite';
+
+const { triggerGlobalAlert } = useAppAlert();
 
 const useRecipeStore = defineStore('recipes', {
   state: () => ({
@@ -119,6 +122,32 @@ const useRecipeStore = defineStore('recipes', {
       }
     },
 
+    async handleRecipeDeletion(recipeId: string): Promise<void> {
+      const [fetchRecipeResponse, fetchRecipeError] =
+        await this.fetchRecipeById(recipeId);
+      const recipeToDelete = fetchRecipeResponse as Recipe;
+
+      // TODO: add a way to check whether an image exists or not
+      const [recipeResponse, recipeError] = await this.deleteRecipe(
+        recipeToDelete,
+      );
+      const [imageResponse, imageError] = await this.deleteRecipeImage(
+        recipeToDelete.primary_image_id as string,
+      );
+
+      if (fetchRecipeError || recipeError || imageError) {
+        triggerGlobalAlert({
+          variant: 'error',
+          message: 'Could not delete recipe for ' + recipeToDelete.name,
+        });
+      } else {
+        triggerGlobalAlert({
+          variant: 'success',
+          message: 'Deleted recipe for ' + recipeToDelete.name,
+        });
+      }
+    },
+
     async deleteRecipe({ $id }: Recipe): AppServerResponseOrError<any> {
       try {
         const response = await appwriteClient.database.deleteDocument(
@@ -146,11 +175,11 @@ const useRecipeStore = defineStore('recipes', {
 
     async deleteRecipeImage(fileId: string) {
       try {
-        const response = await appwriteClient.storage.deleteFile(
+        const deletionResponse = await appwriteClient.storage.deleteFile(
           RECIPE_BUCKET_ID,
           fileId,
         );
-        return [response, null];
+        return [deletionResponse, null];
       } catch (error) {
         return [null, error as AppwriteException];
       }
@@ -161,7 +190,6 @@ const useRecipeStore = defineStore('recipes', {
       id: string,
       userId: string,
     ): SerializedRecipe {
-      console.log(userId);
       const ingredients = payload.ingredients.map((ingredient: Ingredient) => {
         return this.serializeRecipeIngredient(ingredient);
       });
