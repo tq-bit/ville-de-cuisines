@@ -62,6 +62,7 @@ const setActiveRecipeToUpdate = async (recipeId: string) => {
     is_public: response?.is_public,
     primary_image_id: response?.primary_image_id,
     username: response?.username,
+    portions_count: response?.portions_count,
   });
 
   setLocalIngredientState(response as Recipe);
@@ -134,6 +135,9 @@ const commitLocalTagState = () => {
 
 <template>
   <app-container class="mt-4">
+    <h1 :title="`RecipeID: ${recipeId}`" class="my-4 text-3xl" v-if="recipeId">
+      Updating recipe for {{ name }}
+    </h1>
     <app-alert class="mb-6" v-if="hasFormErrors" variant="error">
       <ul>
         <li>{{ httpError?.message }}</li>

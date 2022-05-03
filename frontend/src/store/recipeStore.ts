@@ -6,8 +6,9 @@ import {
   SerializedRecipe,
 } from '../@types/commons';
 import { RECIPES_COLLECTION_ID, RECIPE_BUCKET_ID } from '../constants';
-import { Appwrite, AppwriteException, Models } from 'appwrite';
+import { AppwriteException, Models } from 'appwrite';
 import { v4 as uuid } from 'uuid';
+import { removeDuplicates } from '../util/array_util';
 
 import { defineStore } from 'pinia';
 import appwriteClient from '../api/appwrite';
@@ -66,6 +67,17 @@ const useRecipeStore = defineStore('recipes', {
       } catch (error) {
         return [null, error as AppwriteException];
       }
+    },
+
+    async fetchRecipeImage(fileId: string): Promise<string> {
+      if (fileId) {
+        const response = await appwriteClient.storage.getFilePreview(
+          RECIPE_BUCKET_ID,
+          fileId,
+        );
+        return response.href;
+      }
+      return '';
     },
 
     async createRecipe(
@@ -149,22 +161,30 @@ const useRecipeStore = defineStore('recipes', {
       id: string,
       userId: string,
     ): SerializedRecipe {
+      const ingredients = payload.ingredients.map((ingredient: Ingredient) => {
+        return this.serializeRecipeIngredient(ingredient);
+      });
+      const uniqueIngredients = removeDuplicates(ingredients);
+      const uniqueTags = removeDuplicates(payload?.tags);
       return {
         ...payload,
         original_recipe_id: id,
         user_id: userId,
-        ingredients: payload.ingredients.map((ingredient: Ingredient) => {
-          return this.serializeRecipeIngredient(ingredient);
-        }),
+        tags: uniqueTags,
+        ingredients: uniqueIngredients as string[],
       };
     },
 
     patchRecipeUpdatePayload(payload: Recipe) {
+      const ingredients = payload.ingredients.map((ingredient: Ingredient) => {
+        return this.serializeRecipeIngredient(ingredient);
+      });
+      const uniqueIngredients = removeDuplicates(ingredients);
+      const uniqueTags = removeDuplicates(payload?.tags);
       return {
         ...payload,
-        ingredients: payload.ingredients.map((ingredient: Ingredient) => {
-          return this.serializeRecipeIngredient(ingredient);
-        }),
+        tags: uniqueTags,
+        ingredients: uniqueIngredients,
       };
     },
 
@@ -186,17 +206,6 @@ const useRecipeStore = defineStore('recipes', {
         ...document,
         primary_image_href,
       };
-    },
-
-    async fetchRecipeImage(fileId: string): Promise<string> {
-      if (fileId) {
-        const response = await appwriteClient.storage.getFilePreview(
-          RECIPE_BUCKET_ID,
-          fileId,
-        );
-        return response.href;
-      }
-      return '';
     },
 
     serializeRecipeIngredient(ingredeint: Ingredient): string {
