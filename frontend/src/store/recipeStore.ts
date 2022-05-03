@@ -20,12 +20,15 @@ const useRecipeStore = defineStore('recipes', {
   state: () => ({
     _count: 0,
     _publicRecipes: [] as Recipe[],
+    _publicUserRecipes: [] as Recipe[],
     _activeUserRecipes: [] as Recipe[],
   }),
 
   getters: {
     publicRecipes: (state) => state._publicRecipes,
     activeUserRecipes: (state) => state._activeUserRecipes,
+    publicUserRecipes: (state) => state._publicUserRecipes,
+
     publicRecipesForGallery: (state) => {
       return state._publicRecipes.map((recipe) => {
         return {
@@ -38,6 +41,16 @@ const useRecipeStore = defineStore('recipes', {
     },
     activeUserpublicRecipesForGallery: (state) => {
       return state._activeUserRecipes.map((recipe) => {
+        return {
+          $id: recipe.$id,
+          src: recipe.primary_image_href,
+          alt: recipe.name,
+          title: recipe.name,
+        } as AppGalleryItemType;
+      });
+    },
+    publicUserRecipesForGallery: (state) => {
+      return state._publicUserRecipes.map((recipe) => {
         return {
           $id: recipe.$id,
           src: recipe.primary_image_href,
@@ -63,7 +76,7 @@ const useRecipeStore = defineStore('recipes', {
       );
       const enrichedDocuments = await Promise.all(
         deserializedDocuments.map((document) => {
-          return this.enrichRecipe(document);
+          return this.enrichRecipeWithRemoteData(document);
         }),
       );
       this._publicRecipes = enrichedDocuments;
@@ -82,10 +95,30 @@ const useRecipeStore = defineStore('recipes', {
       );
       const enrichedDocuments = await Promise.all(
         deserializedDocuments.map((document) => {
-          return this.enrichRecipe(document);
+          return this.enrichRecipeWithRemoteData(document);
         }),
       );
       this._activeUserRecipes = enrichedDocuments;
+    },
+
+    async fetchPublicUserRecipes(userId: string) {
+      const response = await appwriteClient.database.listDocuments(
+        RECIPES_COLLECTION_ID,
+        // TODO: Add  Query.equal('is_public', true)  here after explanation
+        [Query.equal('user_id', userId)],
+      );
+      const documents = response.documents as SerializedRecipe[];
+      const deserializedDocuments = await Promise.all(
+        documents.map((document) => {
+          return this.deserializeRecipe(document);
+        }),
+      );
+      const enrichedDocuments = await Promise.all(
+        deserializedDocuments.map((document) => {
+          return this.enrichRecipeWithRemoteData(document);
+        }),
+      );
+      this._publicUserRecipes = enrichedDocuments;
     },
 
     async fetchRecipeById(recipeId: string): AppServerResponseOrError<Recipe> {
@@ -97,7 +130,9 @@ const useRecipeStore = defineStore('recipes', {
           );
 
         const deserializedDocument = await this.deserializeRecipe(response);
-        const enrichedDocument = await this.enrichRecipe(deserializedDocument);
+        const enrichedDocument = await this.enrichRecipeWithRemoteData(
+          deserializedDocument,
+        );
 
         return [enrichedDocument, null];
       } catch (error) {
@@ -259,7 +294,7 @@ const useRecipeStore = defineStore('recipes', {
       };
     },
 
-    async enrichRecipe(document: Recipe): Promise<Recipe> {
+    async enrichRecipeWithRemoteData(document: Recipe): Promise<Recipe> {
       const primary_image_href = await this.fetchRecipeImage(
         document.primary_image_id as string,
       );

@@ -6,16 +6,18 @@ import AppImage from '../../components/ui/AppImage.vue';
 import AppCard from '../../components/form/AppCard.vue';
 
 import usePublicUserStore from '../../store/publicUserStore';
+import useRecipeStore from '../../store/recipeStore';
 import { useRouter } from 'vue-router';
 
 const publicUserStore = usePublicUserStore();
+const recipeStore = useRecipeStore();
 const router = useRouter();
 
 onMounted(async () => {
-  await publicUserStore.fetchPublicUserById(
-    router.currentRoute.value.params.userId as string,
-  );
+  const userId = router.currentRoute.value.params.userId as string;
+  await publicUserStore.fetchPublicUserById(userId);
   await publicUserStore.fetchPublicUserAvatar();
+  await recipeStore.fetchPublicUserRecipes(userId);
 });
 </script>
 
@@ -23,21 +25,18 @@ onMounted(async () => {
   <div class="mt-4">
     <app-grid variant="sidebar-left">
       <template v-slot:left>
-        <app-card title="Your profile" block>
+        <app-card :title="publicUserStore._publicUserProfile.name" block>
           <app-image
             class="mb-4"
             :rounded="true"
             size="xsmall"
             :src="publicUserStore.publicUserProfileAvatar"
           ></app-image>
-          <h4 class="font-semibold">Name:</h4>
-          <p class="mb-2">{{ publicUserStore._publicUserProfile.name }}</p>
 
           <h4 class="font-semibold">Bio:</h4>
-          <p class="mb-2">{{ publicUserStore._publicUserProfile.bio }}</p>
+          <p class="mb-4">{{ publicUserStore._publicUserProfile.bio }}</p>
 
-          <hr class="mb-4" />
-          <app-button class="mb-4" block>Follow</app-button>
+          <app-button class="mb-4" block>Follow {{}}</app-button>
         </app-card>
       </template>
 
