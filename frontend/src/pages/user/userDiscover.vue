@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import AppContainer from '../../components/layout/content/AppContainer.vue';
-import AppFeedList from '../../components/lists/feed/AppFeedList.vue';
+import AppGallery from '../../components/lists/gallery/AppGallery.vue';
 
 import usePublicUserStore from '../../store/publicUserStore';
 import useRecipeStore from '../../store/recipeStore';
@@ -15,7 +15,10 @@ onMounted(async () => {
 </script>
 
 <template>
-  <app-container tag="main">
-    <app-feed-list :items="publicUserStore.publicUserFeedItems"></app-feed-list>
+  <app-container tag="main" class="mt-4">
+    <app-gallery
+      :columns="3"
+      :gallery-items="publicUserStore.publicUserFeedItems"
+    ></app-gallery>
   </app-container>
 </template>

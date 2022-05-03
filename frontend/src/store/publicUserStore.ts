@@ -28,6 +28,7 @@ const usePublicUserStore = defineStore('public_user', {
           $id: user.$id,
           title: user.name,
           text: user.bio,
+          src: user.avatar_href,
         } as AppGalleryItemType;
       });
     },
@@ -38,7 +39,19 @@ const usePublicUserStore = defineStore('public_user', {
       const response = await appwriteClient.database.listDocuments(
         USER_COLLECTION_ID,
       );
-      this._publicUsers = response.documents as AppPublicUser[];
+      const documents = response.documents as AppPublicUser[];
+      const patchedUsers = await Promise.all(
+        documents.map(async (user) => {
+          const avatar_href = await this.fetchPublicUserAvatar(
+            user.avatar_id as string,
+          );
+          return {
+            ...user,
+            avatar_href,
+          };
+        }),
+      );
+      this._publicUsers = patchedUsers;
     },
 
     async fetchPublicUserById(userId: string): Promise<void> {
@@ -49,31 +62,29 @@ const usePublicUserStore = defineStore('public_user', {
       this._publicUserProfile = response as AppPublicUser;
     },
 
-    async fetchPublicUserAvatar() {
-      const avatarFileId = this._publicUserProfile.avatar_id || '';
-
+    async fetchPublicUserAvatar(fileId: string) {
       const fetchUploadedAvatarImage = async (
         fileId: string,
-      ): Promise<void> => {
+      ): Promise<string> => {
         const response = await appwriteClient.storage.getFilePreview(
           AVATAR_BUCKET_ID,
-          avatarFileId,
+          fileId,
         );
 
-        this._publicUserProfileAvatar = response.href;
+        return response.href;
       };
 
-      const fetchDefaultAvatarImage = async (): Promise<void> => {
+      const fetchDefaultAvatarImage = async (): Promise<string> => {
         const response = appwriteClient.avatars.getInitials(
           this._publicUserProfile.name,
         );
-        this._publicUserProfileAvatar = response.href;
+        return response.href;
       };
 
-      if (avatarFileId) {
-        await fetchUploadedAvatarImage(avatarFileId);
+      if (fileId) {
+        return await fetchUploadedAvatarImage(fileId);
       } else {
-        await fetchDefaultAvatarImage();
+        return await fetchDefaultAvatarImage();
       }
     },
   },

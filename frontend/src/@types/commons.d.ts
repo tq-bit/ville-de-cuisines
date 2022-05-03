@@ -58,6 +58,7 @@ export interface AppPublicUser extends Models.Document {
   bio: string;
   location: string;
   avatar_id?: string;
+  avatar_href?: string;
 }
 
 export interface Ingredient extends Models.Document {

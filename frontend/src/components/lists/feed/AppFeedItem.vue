@@ -19,12 +19,13 @@ defineProps<{
     class="my-4 flex h-24 cursor-pointer rounded border border-gray-600"
   >
     <img
-      class="h-24 w-24 rounded object-cover"
+      class="h-24 w-24 rounded-l object-cover"
       :src="item.src"
       :alt="item.alt || item.title"
     />
-    <section class="w-full p-2">
-      <h4 class="text-lg text-white">{{ item.title }}</h4>
+    <section class="w-full px-4 py-2">
+      <h4 class="mb-2 text-lg text-white">{{ item.title }}</h4>
+      <p>{{ item.text }}</p>
     </section>
   </li>
 </template>
