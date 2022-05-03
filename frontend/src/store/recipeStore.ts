@@ -19,15 +19,15 @@ const { triggerGlobalAlert } = useAppAlert();
 const useRecipeStore = defineStore('recipes', {
   state: () => ({
     _count: 0,
-    _recipes: [] as Recipe[],
+    _publicRecipes: [] as Recipe[],
     _activeUserRecipes: [] as Recipe[],
   }),
 
   getters: {
-    recipes: (state) => state._recipes,
+    publicRecipes: (state) => state._publicRecipes,
     activeUserRecipes: (state) => state._activeUserRecipes,
-    recipesForGallery: (state) => {
-      return state._recipes.map((recipe) => {
+    publicRecipesForGallery: (state) => {
+      return state._publicRecipes.map((recipe) => {
         return {
           $id: recipe.$id,
           src: recipe.primary_image_href,
@@ -36,7 +36,7 @@ const useRecipeStore = defineStore('recipes', {
         } as AppGalleryItemType;
       });
     },
-    activeUserRecipesForGallery: (state) => {
+    activeUserpublicRecipesForGallery: (state) => {
       return state._activeUserRecipes.map((recipe) => {
         return {
           $id: recipe.$id,
@@ -49,9 +49,11 @@ const useRecipeStore = defineStore('recipes', {
   },
 
   actions: {
-    async fetchRecipes() {
+    async fetchPublicRecipes() {
       const response = await appwriteClient.database.listDocuments(
         RECIPES_COLLECTION_ID,
+        [Query.equal('is_public', true)],
+        10,
       );
       const documents = response.documents as SerializedRecipe[];
       const deserializedDocuments = await Promise.all(
@@ -64,7 +66,7 @@ const useRecipeStore = defineStore('recipes', {
           return this.enrichRecipe(document);
         }),
       );
-      this._recipes = enrichedDocuments;
+      this._publicRecipes = enrichedDocuments;
     },
 
     async fetchActiveUserRecipes(userId: string) {
@@ -277,7 +279,7 @@ const useRecipeStore = defineStore('recipes', {
     },
 
     addRecipeToLocalState(recipe: Recipe) {
-      this._recipes.push(recipe);
+      this._activeUserRecipes.push(recipe);
     },
   },
 });

@@ -50,7 +50,6 @@ const onSubmitRecipe = async () => {
   if (!hasFormErrors.value && !httpError.value) {
     handleRecipeReset();
     closeRecipeModal();
-    await recipeStore.fetchRecipes();
   }
 };
 const setActiveRecipeToUpdate = async (recipeId: string) => {
