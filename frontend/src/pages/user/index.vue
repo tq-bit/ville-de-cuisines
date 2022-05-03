@@ -50,6 +50,7 @@ onMounted(async () => {
           block
         >
           <app-gallery
+            :columns="3"
             :gallery-items="recipeStore.publicUserRecipesForGallery"
           ></app-gallery>
         </app-card>
