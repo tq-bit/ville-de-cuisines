@@ -14,6 +14,8 @@ const usePublicUserStore = defineStore('public_user', {
 
   getters: {
     publicUserProfile: (state) => state._publicUserProfile,
+    publicUserProfileFirstName: (state) =>
+      state._publicUserProfile?.name?.split(' ')[0],
     publicUserProfileAvatar: (state) => state._publicUserProfileAvatar,
     publicUsers: (state) => state._publicUsers,
   },

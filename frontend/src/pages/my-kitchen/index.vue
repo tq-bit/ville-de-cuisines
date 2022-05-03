@@ -60,7 +60,7 @@ onMounted(
 
       <app-card block title="My recipes">
         <app-gallery
-          :gallery-items="recipeStore.activeUserpublicRecipesForGallery"
+          :gallery-items="recipeStore.activeUserPublicRecipesForGallery"
           @click="onGalleryItemClick"
         ></app-gallery>
       </app-card>

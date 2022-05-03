@@ -20,7 +20,7 @@ const useRecipeStore = defineStore('recipes', {
   state: () => ({
     _count: 0,
     _publicRecipes: [] as Recipe[],
-    _publicUserRecipes: [] as Recipe[],
+    _publicUserRecipes: [] as Recipe[], // @see ./publicUserStore
     _activeUserRecipes: [] as Recipe[],
   }),
 
@@ -39,7 +39,7 @@ const useRecipeStore = defineStore('recipes', {
         } as AppGalleryItemType;
       });
     },
-    activeUserpublicRecipesForGallery: (state) => {
+    activeUserPublicRecipesForGallery: (state) => {
       return state._activeUserRecipes.map((recipe) => {
         return {
           $id: recipe.$id,

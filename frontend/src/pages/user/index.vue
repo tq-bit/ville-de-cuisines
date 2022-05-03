@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue';
 import AppGrid from '../../components/layout/content/AppGrid.vue';
 import AppButton from '../../components/form/AppButton.vue';
 import AppImage from '../../components/ui/AppImage.vue';
+import AppGallery from '../../components/lists/gallery/AppGallery.vue';
 import AppCard from '../../components/form/AppCard.vue';
 
 import usePublicUserStore from '../../store/publicUserStore';
@@ -36,12 +37,22 @@ onMounted(async () => {
           <h4 class="font-semibold">Bio:</h4>
           <p class="mb-4">{{ publicUserStore._publicUserProfile.bio }}</p>
 
-          <app-button class="mb-4" block>Follow {{}}</app-button>
+          <app-button class="mb-4" block
+            >Follow {{ publicUserStore.publicUserProfileFirstName }}</app-button
+          >
         </app-card>
       </template>
 
       <template v-slot:default
-        ><app-card class="mb-4" title="Feed" block> </app-card>
+        ><app-card
+          class="mb-4"
+          :title="`${publicUserStore.publicUserProfileFirstName}'s Recipes`"
+          block
+        >
+          <app-gallery
+            :gallery-items="recipeStore.publicUserRecipesForGallery"
+          ></app-gallery>
+        </app-card>
 
         <app-card class="mb-4" title="First item" block>
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit
