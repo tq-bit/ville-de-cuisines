@@ -6,7 +6,7 @@ import {
   SerializedRecipe,
 } from '../@types/commons';
 import { RECIPES_COLLECTION_ID, RECIPE_BUCKET_ID } from '../constants';
-import { AppwriteException, Models } from 'appwrite';
+import { Appwrite, AppwriteException, Models } from 'appwrite';
 import { v4 as uuid } from 'uuid';
 
 import { defineStore } from 'pinia';
@@ -38,9 +38,34 @@ const useRecipeStore = defineStore('recipes', {
         RECIPES_COLLECTION_ID,
       );
       const documents = response.documents as SerializedRecipe[];
-      const deserializedDocuments = this.deserializeRecipes(documents);
-      const enrichedDocuments = await this.enrichRecipes(deserializedDocuments);
+      const deserializedDocuments = await Promise.all(
+        documents.map((document) => {
+          return this.deserializeRecipe(document);
+        }),
+      );
+      const enrichedDocuments = await Promise.all(
+        deserializedDocuments.map((document) => {
+          return this.enrichRecipe(document);
+        }),
+      );
       this._recipes = enrichedDocuments;
+    },
+
+    async fetchRecipeById(recipeId: string): AppServerResponseOrError<Recipe> {
+      try {
+        const response: SerializedRecipe =
+          await appwriteClient.database.getDocument(
+            RECIPES_COLLECTION_ID,
+            recipeId,
+          );
+
+        const deserializedDocument = await this.deserializeRecipe(response);
+        const enrichedDocument = await this.enrichRecipe(deserializedDocument);
+
+        return [enrichedDocument, null];
+      } catch (error) {
+        return [null, error as AppwriteException];
+      }
     },
 
     async createRecipe(
@@ -134,31 +159,24 @@ const useRecipeStore = defineStore('recipes', {
       };
     },
 
-    deserializeRecipes(documents: SerializedRecipe[]): Recipe[] {
-      return documents.map((document: SerializedRecipe) => {
-        return {
-          ...document,
-          ingredients: document.ingredients.map((ingredient: string) => {
-            return this.deserializeRecipeIngredient(ingredient);
-          }),
-        };
-      });
+    deserializeRecipe(document: SerializedRecipe): Recipe {
+      return {
+        ...document,
+        ingredients: document.ingredients.map((ingredient: string) => {
+          return this.deserializeRecipeIngredient(ingredient);
+        }),
+      };
     },
 
-    enrichRecipes(documents: Recipe[]): Promise<Recipe[]> {
-      // TODO: add enrichment for users here when user store is ready
-      const documentPromises = documents.map(async (document: Recipe) => {
-        const primary_image_href = await this.fetchRecipeImage(
-          document.primary_image_id as string,
-        );
+    async enrichRecipe(document: Recipe): Promise<Recipe> {
+      const primary_image_href = await this.fetchRecipeImage(
+        document.primary_image_id as string,
+      );
 
-        return {
-          ...document,
-          primary_image_href,
-        };
-      });
-
-      return Promise.all(documentPromises);
+      return {
+        ...document,
+        primary_image_href,
+      };
     },
 
     async fetchRecipeImage(fileId: string): Promise<string> {
