@@ -2,8 +2,10 @@
 import { Ingredient } from '../../../@types/commons';
 import { computed } from 'vue';
 import AppInput from '../../form/AppInput.vue';
+import iClose from '../../icons/iClose.vue';
 
 const props = defineProps<{ editable: boolean; ingredient: Ingredient }>();
+const emit = defineEmits(['click-remove']);
 const localIngredient = computed(() => props.ingredient);
 </script>
 
@@ -13,7 +15,7 @@ const localIngredient = computed(() => props.ingredient);
       {{ ingredient.name }}
     </span>
 
-    <div class="ml-auto flex w-20">
+    <div class="ml-auto flex w-32">
       <app-input
         v-if="editable"
         v-model="localIngredient.quantity"
@@ -31,6 +33,10 @@ const localIngredient = computed(() => props.ingredient);
         {{ ingredient.quantity }}
         {{ ingredient.quantity_unit }}
       </span>
+
+      <button type="button" @click="emit('click-remove')" class="ml-2 p-1">
+        <i-close></i-close>
+      </button>
     </div>
   </li>
 </template>

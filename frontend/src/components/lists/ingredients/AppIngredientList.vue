@@ -3,6 +3,9 @@ import { Ingredient } from '../../../@types/commons';
 import AppIngredientItem from './AppIngredientItem.vue';
 
 defineProps<{ editable: boolean; ingredients: Ingredient[] }>();
+const emit = defineEmits<{
+  (event: 'removeIngredient', ingredient: Ingredient): void;
+}>();
 </script>
 
 <template>
@@ -14,6 +17,7 @@ defineProps<{ editable: boolean; ingredients: Ingredient[] }>();
       :key="ingredient.$id"
       :ingredient="ingredient"
       :editable="editable"
+      @click-remove="emit('removeIngredient', ingredient)"
     ></app-ingredient-item>
   </ul>
 </template>

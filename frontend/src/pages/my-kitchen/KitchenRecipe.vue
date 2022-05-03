@@ -98,12 +98,17 @@ const ingredientsStore = useIngredientsStore();
 const ingredientsQuery = ref<string>('');
 let localIngredientState = ref<Ingredient[]>([]);
 const { handleSearch, loading } = useLazyIngredientSearch(ingredientsQuery);
-const onClickIngredientItem = (ingredient: Ingredient) => {
+const onClickIngredientSearchItem = (ingredient: Ingredient) => {
   localIngredientState.value.push(ingredient);
   ingredientsQuery.value = '';
 };
 const setLocalIngredientState = (recipe: Recipe) => {
   localIngredientState.value = recipe?.ingredients ?? [];
+};
+const onRemoveLocalIngredientItem = (ingredient: Ingredient) => {
+  localIngredientState.value = localIngredientState.value.filter(
+    (item) => item.$id !== ingredient.$id,
+  );
 };
 const commitLocalIngredientState = () => {
   localIngredientState.value.forEach((ingredient) =>
@@ -178,12 +183,13 @@ const commitLocalTagState = () => {
             label="Add ingredients"
             :options="ingredientsStore.ingredientSearchResults"
             :loading="loading"
-            @click-item="onClickIngredientItem"
+            @click-item="onClickIngredientSearchItem"
             listKey="name"
           ></app-search>
           <app-ingredient-list
             :editable="true"
             :ingredients="localIngredientState"
+            @remove-ingredient="onRemoveLocalIngredientItem"
           ></app-ingredient-list>
 
           <app-button class="md:hidden" block type="submit"
