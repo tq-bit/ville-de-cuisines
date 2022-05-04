@@ -175,6 +175,18 @@ const useRecipeStore = defineStore('recipes', {
       return '';
     },
 
+    async fetchRecipeCategoryName(categoryId: string): Promise<string> {
+      if (categoryId) {
+        const response: RecipeCategory =
+          await appwriteClient.database.getDocument(
+            RECIPE_CATEGORY_ID,
+            categoryId,
+          );
+        return response.name;
+      }
+      return '';
+    },
+
     async createRecipe(
       payload: Recipe,
       userId: string,
@@ -325,6 +337,10 @@ const useRecipeStore = defineStore('recipes', {
         document.primary_image_id as string,
       );
 
+      const category_name = await this.fetchRecipeCategoryName(
+        document.category_id as string,
+      );
+
       const [userResponse, userError] = await userStore.fetchPublicUserById(
         document.user_id as string,
       );
@@ -335,6 +351,7 @@ const useRecipeStore = defineStore('recipes', {
         ...document,
         primary_image_href,
         username,
+        category_name,
       };
     },
 

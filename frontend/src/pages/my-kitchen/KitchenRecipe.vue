@@ -81,6 +81,7 @@ const setActiveRecipeToUpdate = async (recipeId: string) => {
 
   setLocalIngredientState(response as Recipe);
   setLocalTagState(response as Recipe);
+  setLocalCategoryState(response as Recipe);
 };
 const onDeleteRecipe = async () => {
   const confirmationResult = window.confirm(
@@ -106,6 +107,10 @@ const onClickCategorySearchItem = (payload: RecipeCategory) => {
   categoryName.value = payload.name;
   category_id.value = payload.$id;
   categoryQuery.value = payload.name;
+};
+const setLocalCategoryState = (recipe: Recipe) => {
+  category_id.value = recipe.category_id;
+  categoryQuery.value = recipe.category_name || '';
 };
 watch(categoryQuery, handleCategorySearch);
 
