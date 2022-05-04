@@ -1,5 +1,6 @@
 import {
   AppGalleryItemType,
+  AppPublicUser,
   AppServerResponseOrError,
   Ingredient,
   Recipe,
@@ -13,6 +14,7 @@ import { removeDuplicates } from '../util/array_util';
 
 import { defineStore } from 'pinia';
 import appwriteClient from '../api/appwrite';
+import usePublicUserStore from './publicUserStore';
 
 const { triggerGlobalAlert } = useAppAlert();
 
@@ -129,7 +131,7 @@ const useRecipeStore = defineStore('recipes', {
             recipeId,
           );
 
-        const deserializedDocument = await this.deserializeRecipe(response);
+        const deserializedDocument = this.deserializeRecipe(response);
         const enrichedDocument = await this.enrichRecipeWithRemoteData(
           deserializedDocument,
         );
@@ -295,13 +297,21 @@ const useRecipeStore = defineStore('recipes', {
     },
 
     async enrichRecipeWithRemoteData(document: Recipe): Promise<Recipe> {
+      const userStore = usePublicUserStore();
       const primary_image_href = await this.fetchRecipeImage(
         document.primary_image_id as string,
       );
 
+      const [userResponse, userError] = await userStore.fetchPublicUserById(
+        document.user_id as string,
+      );
+
+      const { name: username } = userResponse as AppPublicUser;
+
       return {
         ...document,
         primary_image_href,
+        username,
       };
     },
 
