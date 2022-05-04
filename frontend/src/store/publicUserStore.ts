@@ -34,6 +34,7 @@ const usePublicUserStore = defineStore('public_user', {
 
   actions: {
     async fetchPublicUsers(): Promise<void> {
+      // TODO: refactor patching of href locations over public users and user by id
       const response = await appwriteClient.database.listDocuments(
         USER_COLLECTION_ID,
       );

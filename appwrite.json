@@ -194,6 +194,16 @@
                     "array": false,
                     "size": 255,
                     "default": null
+                },
+                {
+                    "key": "portions_count",
+                    "type": "integer",
+                    "status": "available",
+                    "required": true,
+                    "array": false,
+                    "min": 0,
+                    "max": 500,
+                    "default": null
                 }
             ],
             "indexes": [
@@ -203,6 +213,28 @@
                     "status": "available",
                     "attributes": [
                         "name"
+                    ],
+                    "orders": [
+                        "ASC"
+                    ]
+                },
+                {
+                    "key": "user_id",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": [
+                        "user_id"
+                    ],
+                    "orders": [
+                        "DESC"
+                    ]
+                },
+                {
+                    "key": "is_public",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": [
+                        "is_public"
                     ],
                     "orders": [
                         "ASC"
