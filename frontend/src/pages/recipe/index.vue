@@ -14,14 +14,11 @@ const recipeId = router.currentRoute.value.params.recipeId as string;
 
 // User logic
 const activeUserStore = useActiveUserStore();
+const activeUserIsSubmitter = computed(() => {
+  return activeUserStore.user.$id === localRecipe.value?.user_id;
+});
 const submittedBy = computed(() => {
-  const activeUserSubmitted =
-    activeUserStore.user.$id === localRecipe.value?.user_id;
-  if (activeUserSubmitted) {
-    return 'you';
-  } else {
-    return localRecipe.value?.username;
-  }
+  return activeUserIsSubmitter.value ? 'you' : localRecipe.value?.username;
 });
 
 // Recipe Logic
@@ -59,6 +56,8 @@ onMounted(async () => await setLocalRecipe());
         </p>
       </template>
     </app-grid>
+    <p>local recipe {{ localRecipe?.user_id }}</p>
+    <p>active user {{ activeUserStore.user }}</p>
   </app-container>
 </template>
 

@@ -43,15 +43,10 @@ const useActiveUserStore = defineStore('user', {
     async fetchActiveUserAccount(): Promise<void> {
       const accountPromise = appwriteClient.account.get();
       const locationPromise = appwriteClient.locale.get();
-      const userPromise = appwriteClient.database.getDocument(
-        USER_COLLECTION_ID,
-        this.account.$id,
-      );
 
-      const [account, location, user] = await Promise.all([
+      const [account, location] = await Promise.all([
         accountPromise,
         locationPromise,
-        userPromise,
       ]);
 
       const { prefs, ...accountInfo } = account;
@@ -59,6 +54,12 @@ const useActiveUserStore = defineStore('user', {
       this._account = accountInfo;
       this._location = location;
       this._prefs = prefs as AppUserPreferences;
+
+      const user = await appwriteClient.database.getDocument(
+        USER_COLLECTION_ID,
+        this.account.$id,
+      );
+
       this._user = user as AppPublicUser;
     },
 
