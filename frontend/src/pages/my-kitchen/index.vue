@@ -18,7 +18,7 @@ const activeUserStore = useActiveUserStore();
 
 const onGalleryItemClick = (payload: AppGalleryItemType) => {
   router.push({
-    path: `/my-kitchen/recipe/${payload.$id}/edit`,
+    path: `/recipe/${payload.$id}`,
   });
 };
 
