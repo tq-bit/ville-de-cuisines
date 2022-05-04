@@ -94,6 +94,10 @@ export interface Recipe extends Models.Document {
   category_name?: string;
 }
 
+export interface RecipeMap {
+  [key: string]: Recipe[];
+}
+
 export interface SerializedRecipe extends Models.Document {
   original_recipe_id: string;
   name: string;

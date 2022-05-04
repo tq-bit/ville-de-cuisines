@@ -6,6 +6,7 @@ import {
   Recipe,
   SerializedRecipe,
   RecipeCategory,
+  RecipeMap,
 } from '../@types/commons';
 import {
   RECIPES_COLLECTION_ID,
@@ -28,7 +29,7 @@ const useRecipeStore = defineStore('recipes', {
     _count: 0,
     _publicRecipes: [] as Recipe[],
     _publicUserRecipes: [] as Recipe[], // @see ./publicUserStore
-    _publicRecipesByCategory: [] as Recipe[],
+    _publicRecipesByCategory: {} as RecipeMap,
     _activeUserRecipes: [] as Recipe[],
     _recipeCategories: [] as RecipeCategory[],
     _recipeCategorySearchResults: [] as RecipeCategory[],
@@ -38,7 +39,8 @@ const useRecipeStore = defineStore('recipes', {
     publicRecipes: (state) => state._publicRecipes,
     activeUserRecipes: (state) => state._activeUserRecipes,
     publicUserRecipes: (state) => state._publicUserRecipes,
-    publicRecipesByCategory: (state) => state._publicRecipesByCategory,
+    publicRecipesByCategory: (state) => (categoryId: string) =>
+      state._publicRecipesByCategory[categoryId],
     recipeCategories: (state) => state._recipeCategories,
     recipeCategorySearchResults: (state) => state._recipeCategorySearchResults,
 
@@ -63,14 +65,16 @@ const useRecipeStore = defineStore('recipes', {
       });
     },
     publicRecipesByCategoryForGallery: (state) => {
-      return state._publicRecipesByCategory.map((recipe) => {
-        return {
-          $id: recipe.$id,
-          src: recipe.primary_image_href,
-          alt: recipe.name,
-          title: recipe.name,
-        } as AppGalleryItemType;
-      });
+      return (categoryId: string) => {
+        return state._publicRecipesByCategory[categoryId].map((recipe) => {
+          return {
+            $id: recipe.$id,
+            src: recipe.primary_image_href,
+            alt: recipe.name,
+            title: recipe.name,
+          } as AppGalleryItemType;
+        });
+      };
     },
     publicUserRecipesForGallery: (state) => {
       return state._publicUserRecipes.map((recipe) => {
@@ -124,7 +128,7 @@ const useRecipeStore = defineStore('recipes', {
       );
       const documents = response.documents as SerializedRecipe[];
       const enrichedDocuments = await this.enrichRecipes(documents);
-      this._publicRecipesByCategory = enrichedDocuments;
+      this._publicRecipesByCategory[categoryId] = enrichedDocuments;
     },
 
     async searchCategories(query: string) {
