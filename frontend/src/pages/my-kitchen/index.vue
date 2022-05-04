@@ -46,7 +46,7 @@ onMounted(
           Add new recipe</app-button
         >
         <app-button @click="openIngredientModal" class="mb-4" block>
-          Add public ingredients</app-button
+          Add ingredients</app-button
         >
       </app-card>
     </template>

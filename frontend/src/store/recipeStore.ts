@@ -274,7 +274,8 @@ const useRecipeStore = defineStore('recipes', {
       };
     },
 
-    patchRecipeUpdatePayload(payload: Recipe) {
+    patchRecipeUpdatePayload(rawPayload: Recipe) {
+      const { username, ...payload } = rawPayload;
       const ingredients = payload.ingredients.map((ingredient: Ingredient) => {
         return this.serializeRecipeIngredient(ingredient);
       });
