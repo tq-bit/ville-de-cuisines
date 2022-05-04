@@ -74,42 +74,44 @@ onMounted(async () => await setLocalRecipe());
 
 <template>
   <app-container>
-    <app-grid class="mt-4" variant="sidebar-left">
+    <app-grid class="mt-4" variant="sidebar-right">
       <template v-slot:left>
-        <app-image
-          class="mb-2"
-          cover="medium"
-          :src="(localRecipe?.primary_image_href as string)"
-        ></app-image>
-
         <section class="mb-4">
           <h1 class="mb-2 text-3xl">{{ localRecipe?.name }}</h1>
-          <p>
-            Submitted by
-            <router-link
-              class="font-semibold"
-              :to="`/user/${localRecipe?.user_id}`"
-              >{{ submittedBy }}</router-link
-            >
-          </p>
+          <app-image
+            class="mb-2"
+            cover="xlarge"
+            :src="(localRecipe?.primary_image_href as string)"
+          ></app-image>
+          <div class="flex justify-between">
+            <p>
+              Submitted by
+              <router-link
+                class="font-semibold"
+                :to="`/user/${localRecipe?.user_id}`"
+                >{{ submittedBy }}</router-link
+              >
+            </p>
+            <div class="max-w-xs">
+              <app-button
+                v-if="activeUserIsSubmitter"
+                @click="
+                  router.push({ path: `/my-kitchen/recipe/${recipeId}/edit` })
+                "
+                >Edit recipe</app-button
+              >
+
+              <app-button
+                v-else
+                @click="
+                  router.push({ path: `/my-kitchen/recipe/${recipeId}/fork` })
+                "
+                >Refine recipe
+              </app-button>
+            </div>
+          </div>
         </section>
 
-        <app-button
-          block
-          v-if="activeUserIsSubmitter"
-          @click="router.push({ path: `/my-kitchen/recipe/${recipeId}/edit` })"
-          >Edit this recipe</app-button
-        >
-
-        <app-button
-          block
-          v-else
-          @click="router.push({ path: `/my-kitchen/recipe/${recipeId}/fork` })"
-          >Refine this recipe</app-button
-        >
-      </template>
-
-      <template v-slot:default>
         <section class="my-8">
           <h2 class="mb-4 text-2xl">Ingredients</h2>
 
@@ -139,11 +141,14 @@ onMounted(async () => await setLocalRecipe());
             {{ localRecipe?.description }}
           </p>
         </section>
-
         <section class="mb-8">
-          <h2 class="my-4 text-2xl">Tagged as</h2>
+          <h2 class="mb-4 text-2xl">Tagged as</h2>
           <app-pill-list :texts="localRecipe?.tags"></app-pill-list>
         </section>
+      </template>
+
+      <template v-slot:default>
+        <h2 class="mb-4 text-xl">More recipes like this</h2>
       </template>
     </app-grid>
   </app-container>

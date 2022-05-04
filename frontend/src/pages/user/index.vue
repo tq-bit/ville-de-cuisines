@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
+import { AppGalleryItemType } from '../../@types/commons';
 import AppGrid from '../../components/layout/content/AppGrid.vue';
 import AppButton from '../../components/form/AppButton.vue';
 import AppImage from '../../components/ui/AppImage.vue';
@@ -13,6 +14,12 @@ import { useRouter } from 'vue-router';
 const publicUserStore = usePublicUserStore();
 const recipeStore = useRecipeStore();
 const router = useRouter();
+
+const onGalleryItemClick = (payload: AppGalleryItemType) => {
+  router.push({
+    path: `/recipe/${payload.$id}`,
+  });
+};
 
 onMounted(async () => {
   const userId = router.currentRoute.value.params.userId as string;
@@ -51,6 +58,7 @@ onMounted(async () => {
           <app-gallery
             :columns="3"
             :gallery-items="recipeStore.publicUserRecipesForGallery"
+            @click="onGalleryItemClick"
           ></app-gallery>
         </app-card>
       </template>
