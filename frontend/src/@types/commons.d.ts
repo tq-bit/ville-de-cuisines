@@ -70,6 +70,12 @@ export interface Ingredient extends Models.Document {
   nutrients: string;
 }
 
+export interface RecipeCategory extends Models.Document {
+  name: string;
+  subcategory_ids: string[];
+  subcategories?: RecipeCategory[];
+}
+
 export interface Recipe extends Models.Document {
   original_recipe_id: string;
   name: string;
@@ -84,6 +90,8 @@ export interface Recipe extends Models.Document {
   primary_image_href?: string;
   gallery_image_hrefs?: string[];
   is_public: boolean;
+  category_id?: string;
+  category_name?: string;
 }
 
 export interface SerializedRecipe extends Models.Document {

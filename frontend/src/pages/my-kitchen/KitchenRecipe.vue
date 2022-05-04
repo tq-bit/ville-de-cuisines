@@ -1,5 +1,12 @@
 <script setup lang="ts">
-import { ref, computed, watch, onBeforeUnmount, onMounted } from 'vue';
+import {
+  ref,
+  computed,
+  watch,
+  onBeforeUnmount,
+  onMounted,
+  nextTick,
+} from 'vue';
 import AppGrid from '../../components/layout/content/AppGrid.vue';
 import AppContainer from '../../components/layout/content/AppContainer.vue';
 import AppPillList from '../../components/lists/pills/AppPillList.vue';
@@ -18,7 +25,13 @@ import useIngredientsStore from '../../store/ingredientsStore';
 import { useRouter } from 'vue-router';
 import useRecipeForm from '../../use/form/recipeForm';
 import useLazyIngredientSearch from '../../use/search/useLazyIngredientSearch';
-import { AppUploadPayload, Ingredient, Recipe } from '../../@types/commons';
+import useLazyCategorySearch from '../../use/search/useLazyCategorySearch';
+import {
+  AppUploadPayload,
+  Ingredient,
+  Recipe,
+  RecipeCategory,
+} from '../../@types/commons';
 
 // Router
 const router = useRouter();
@@ -30,6 +43,7 @@ const {
   name,
   portions_count,
   description,
+  category_id,
   pushIngredient,
   pushTag,
   isPublic,
@@ -62,6 +76,7 @@ const setActiveRecipeToUpdate = async (recipeId: string) => {
     primary_image_id: response?.primary_image_id,
     username: response?.username,
     portions_count: response?.portions_count,
+    category_id: response?.category_id,
   });
 
   setLocalIngredientState(response as Recipe);
@@ -81,6 +96,18 @@ onMounted(async () => {
     await setActiveRecipeToUpdate(recipeId);
   }
 });
+
+// Recipe categories (Recipe sub resource)
+const categoryQuery = ref<string>('');
+const categoryName = ref<string>('');
+const { handleSearch: handleCategorySearch, loading: categoryLoading } =
+  useLazyCategorySearch(categoryQuery);
+const onClickCategorySearchItem = (payload: RecipeCategory) => {
+  categoryName.value = payload.name;
+  category_id.value = payload.$id;
+  categoryQuery.value = payload.name;
+};
+watch(categoryQuery, handleCategorySearch);
 
 // Recipe Image
 const onDropRecipeImage = async (filePayload: AppUploadPayload) => {
@@ -186,6 +213,16 @@ const commitLocalTagState = () => {
         </template>
 
         <template v-slot:default>
+          <app-search
+            v-model="categoryQuery"
+            label-prefix="Start typing to search and choose a "
+            label="Recipe category"
+            :options="recipeStore.recipeCategorySearchResults"
+            :loading="categoryLoading"
+            @click-item="onClickCategorySearchItem"
+            listKey="name"
+          ></app-search>
+
           <app-input v-model="name" name="name" label="Recipe name"></app-input>
           <app-input
             v-model="portions_count"

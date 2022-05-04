@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
 import iSearch from '../icons/iSearch.vue';
 
 const props = withDefaults(
@@ -20,8 +20,10 @@ const props = withDefaults(
   },
 );
 
+const inputHasFocus = ref<boolean>(false);
+
 const isLoadingOrHasResults = computed(() => {
-  return props.loading || props.options.length > 0;
+  return inputHasFocus.value && (props.loading || props.options.length > 0);
 });
 
 const loadingFinishedWithResults = computed(() => {
@@ -49,12 +51,15 @@ const onInput = (ev: Event) =>
       <i-search></i-search>
     </span>
     <input
+      ref="searchField"
       class="input h-12 pl-14"
       :class="{
         'focus:border-transparent': isLoadingOrHasResults,
       }"
       v-bind="$attrs"
       @input="onInput"
+      @focus="inputHasFocus = true"
+      @blur="inputHasFocus = false"
       :value="modelValue"
       :placeholder="labelPrefix ? labelPrefix + label?.toLowerCase() : label || $attrs.placeholder as string"
     />

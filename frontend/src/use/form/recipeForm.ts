@@ -28,6 +28,7 @@ const recipeSchema = yup.object({
     .label('Recipe portions count'),
   username: yup.string().optional().label('Recipe creator'),
   tags: yup.array().optional().label('Recipe tags'),
+  category_id: yup.string().optional().label('Recipe category'),
   primary_image_id: yup
     .string()
     .optional()
@@ -56,6 +57,7 @@ export default function handleIngredientForm() {
     push: pushIngredient,
     fields: recipeIngredients,
   } = useFieldArray('ingredients');
+  const { value: category_id } = useField('category_id');
   const {
     remove: removeTag,
     push: pushTag,
@@ -125,6 +127,7 @@ export default function handleIngredientForm() {
     $id,
     name,
     description,
+    category_id,
     original_recipe_id,
     portions_count,
     pushIngredient,

@@ -5,8 +5,13 @@ import {
   Ingredient,
   Recipe,
   SerializedRecipe,
+  RecipeCategory,
 } from '../@types/commons';
-import { RECIPES_COLLECTION_ID, RECIPE_BUCKET_ID } from '../constants';
+import {
+  RECIPES_COLLECTION_ID,
+  RECIPE_BUCKET_ID,
+  RECIPE_CATEGORY_ID,
+} from '../constants';
 import { AppwriteException, Models, Query } from 'appwrite';
 import { v4 as uuid } from 'uuid';
 import useAppAlert from '../use/globalAlert';
@@ -24,12 +29,16 @@ const useRecipeStore = defineStore('recipes', {
     _publicRecipes: [] as Recipe[],
     _publicUserRecipes: [] as Recipe[], // @see ./publicUserStore
     _activeUserRecipes: [] as Recipe[],
+    _recipeCategories: [] as RecipeCategory[],
+    _recipeCategorySearchResults: [] as RecipeCategory[],
   }),
 
   getters: {
     publicRecipes: (state) => state._publicRecipes,
     activeUserRecipes: (state) => state._activeUserRecipes,
     publicUserRecipes: (state) => state._publicUserRecipes,
+    recipeCategories: (state) => state._recipeCategories,
+    recipeCategorySearchResults: (state) => state._recipeCategorySearchResults,
 
     publicRecipesForGallery: (state) => {
       return state._publicRecipes.map((recipe) => {
@@ -121,6 +130,19 @@ const useRecipeStore = defineStore('recipes', {
         }),
       );
       this._publicUserRecipes = enrichedDocuments;
+    },
+
+    async searchCategories(query: string) {
+      const response = await appwriteClient.database.listDocuments(
+        RECIPE_CATEGORY_ID,
+        [Query.search('name', query)],
+      );
+      this._recipeCategorySearchResults =
+        response.documents as RecipeCategory[];
+    },
+
+    resetCategorySearch() {
+      this._recipeCategorySearchResults = [];
     },
 
     async fetchRecipeById(recipeId: string): AppServerResponseOrError<Recipe> {
