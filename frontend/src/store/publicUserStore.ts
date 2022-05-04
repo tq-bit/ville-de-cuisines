@@ -33,7 +33,7 @@ const usePublicUserStore = defineStore('public_user', {
   },
 
   actions: {
-    async fetchPublicUsers(): Promise<void> {
+    async syncPublicUsers(): Promise<void> {
       // TODO: refactor patching of href locations over public users and user by id
       const response = await appwriteClient.database.listDocuments(
         USER_COLLECTION_ID,
@@ -53,12 +53,10 @@ const usePublicUserStore = defineStore('public_user', {
       this._publicUsers = patchedUsers;
     },
 
-    async fetchPublicUserById(userId: string): Promise<void> {
-      const response = await appwriteClient.database.getDocument(
-        USER_COLLECTION_ID,
-        userId,
-      );
-      const user = response as AppPublicUser;
+    async syncPublicUserById(userId: string): Promise<void> {
+      const [userResponse, userError] = await this.fetchPublicUserById(userId);
+      const user = userResponse as AppPublicUser;
+
       const avatar_href = await this.fetchPublicUserAvatar(
         user.avatar_id as string,
       );
@@ -67,6 +65,21 @@ const usePublicUserStore = defineStore('public_user', {
         avatar_href,
       };
       this._publicUserProfile = patchedUser as AppPublicUser;
+    },
+
+    async fetchPublicUserById(
+      userId: string,
+    ): AppServerResponseOrError<AppPublicUser> {
+      try {
+        const response = await appwriteClient.database.getDocument(
+          USER_COLLECTION_ID,
+          userId,
+        );
+        const user: AppPublicUser = response as AppPublicUser;
+        return [user, null];
+      } catch (error) {
+        return [null, error as AppwriteException];
+      }
     },
 
     async fetchPublicUserAvatar(fileId: string) {
