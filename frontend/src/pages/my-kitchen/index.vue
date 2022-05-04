@@ -37,7 +37,7 @@ onMounted(
 </script>
 
 <template>
-  <app-grid class="mt-4" variant="sidebar-left-and-right">
+  <app-grid class="mt-4" variant="sidebar-left">
     <template v-slot:left>
       <app-card block title="My kitchen">
         <img-cooking-management class="mb-4"></img-cooking-management>
@@ -58,16 +58,14 @@ onMounted(
         </transition>
       </router-view>
 
+      <app-card class="mb-8" block title="Schedule"></app-card>
       <app-card block title="My recipes">
         <app-gallery
+          :columns="3"
           :gallery-items="recipeStore.activeUserPublicRecipesForGallery"
           @click="onGalleryItemClick"
         ></app-gallery>
       </app-card>
-    </template>
-
-    <template v-slot:right>
-      <app-card block title="Schedule"></app-card>
     </template>
   </app-grid>
 </template>
