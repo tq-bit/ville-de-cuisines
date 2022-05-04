@@ -4,6 +4,7 @@ defineProps<{
   alt?: string;
   rounded?: boolean;
   size?: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
+  cover?: 'medium' | 'large';
 }>();
 </script>
 
@@ -13,6 +14,8 @@ defineProps<{
     :alt="alt"
     class="mx-auto h-auto w-full rounded border dark:border-gray-600"
     :class="{
+      'h-48 w-full rounded object-cover': cover === 'medium',
+      'h-64 w-full rounded object-cover': cover === 'large',
       rounded: rounded,
       'max-w-xs': size === 'xsmall',
       'max-w-sm': size === 'small',
