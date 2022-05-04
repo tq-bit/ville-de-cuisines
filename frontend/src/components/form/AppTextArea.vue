@@ -37,7 +37,7 @@ const onInput = (ev: Event) =>
   </label>
 
   <textarea
-    class="mb-4 max-h-screen w-full overflow-auto rounded border border-green-600 bg-gray-100 px-6 py-3 text-gray-800 outline-none transition-all focus:bg-white dark:bg-gray-800 dark:text-gray-200 focus:dark:bg-gray-900"
+    class="input mb-4"
     v-bind="$attrs"
     @input="onInput"
     :value="modelValue"

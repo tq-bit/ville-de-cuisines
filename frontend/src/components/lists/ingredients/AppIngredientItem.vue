@@ -15,28 +15,27 @@ const localIngredient = computed(() => props.ingredient);
       {{ ingredient.name }}
     </span>
 
-    <div class="ml-auto flex w-32">
-      <app-input
-        v-if="editable"
-        v-model="localIngredient.quantity"
-        class="text-right"
-        variant="small"
-      >
-        <template v-slot:postfix>
-          <span>
-            {{ ingredient.quantity_unit }}
-          </span>
-        </template>
-      </app-input>
+    <div class="ml-auto">
+      <div class="flex w-36 items-center justify-between" v-if="editable">
+        <app-input
+          v-if="editable"
+          v-model="localIngredient.quantity"
+          class="text-right"
+          variant="small"
+        >
+        </app-input>
+        <span class="inline w-10">
+          {{ ingredient.quantity_unit }}
+        </span>
 
+        <button type="button" @click="emit('click-remove')" class="ml-2 p-1">
+          <i-close></i-close>
+        </button>
+      </div>
       <span class="text-right" v-else>
         {{ ingredient.quantity }}
         {{ ingredient.quantity_unit }}
       </span>
-
-      <button type="button" @click="emit('click-remove')" class="ml-2 p-1">
-        <i-close></i-close>
-      </button>
     </div>
   </li>
 </template>

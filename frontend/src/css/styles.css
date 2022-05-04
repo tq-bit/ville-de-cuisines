@@ -5,7 +5,23 @@
 body {
 	@apply bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100
 }
+
+.input {
+	@apply w-full border-b-2 border-gray-700 py-2 px-4 text-gray-800 outline-none transition-all focus:border-green-400 focus:bg-white dark:focus:border-green-600 dark:bg-gray-800 dark:text-gray-200 focus:dark:bg-slate-800
+}
 /* Animations */
+
+/* Grow in size - from top */
+.grow-top-enter-active, .grow-top-leave-active {
+  max-height: 12rem;
+  overflow: hidden;
+  transition: max-height 1s ease-in-out;
+}
+
+.grow-top-enter-from, .grow-top-leave-to {
+  max-height: 0;
+  overflow: hidden;
+}
 
 /* Fade from right */
 .fade-from-right-enter-active,
