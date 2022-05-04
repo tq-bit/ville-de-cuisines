@@ -10,7 +10,7 @@ const emit = defineEmits<{
 
 <template>
   <ul
-    class="mb-2 flex w-full flex-wrap rounded border py-2 dark:border-gray-600 dark:bg-gray-800"
+    class="mb-2 flex w-full flex-wrap rounded border-l-4 py-2 pl-2 dark:border-gray-600 dark:bg-gray-800"
   >
     <app-ingredient-item
       v-for="ingredient in ingredients"

@@ -11,9 +11,9 @@ const localIngredient = computed(() => props.ingredient);
 
 <template>
   <li class="flex w-full flex-row items-center px-2 py-2">
-    <span class="text-green-600 underline">
+    <p>
       {{ ingredient.name }}
-    </span>
+    </p>
 
     <div class="ml-auto">
       <div class="flex w-36 items-center justify-between" v-if="editable">
