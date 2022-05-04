@@ -176,6 +176,7 @@ const commitLocalTagState = () => {
 
           <app-button
             v-if="recipeId"
+            variant="warning-outline"
             @click="onDeleteRecipe"
             class="mt-4 hidden md:block"
             block

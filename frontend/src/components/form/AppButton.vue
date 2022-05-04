@@ -1,7 +1,7 @@
 <script setup lang="ts">
 withDefaults(
   defineProps<{
-    variant?: 'default' | 'link' | 'ghost';
+    variant?: 'default' | 'warning' | 'warning-outline' | 'ghost';
     block?: boolean;
     loading?: boolean;
     link?: string;
@@ -16,10 +16,15 @@ withDefaults(
 
 <template>
   <button
-    v-if="variant !== 'link'"
     v-bind="$attrs"
-    class="inline-block rounded bg-gradient-to-bl from-green-400 to-green-500 py-2 px-4 font-semibold text-gray-50 dark:from-green-600 dark:to-green-700"
+    class="h-10 rounded border-transparent px-4 py-2 font-semibold"
     :class="{
+      'bg-gradient-to-bl from-green-400 to-green-500 text-gray-50  dark:from-green-600 dark:to-green-700':
+        variant === 'default',
+      'bg-gradient-to-bl from-orange-400 to-orange-500 text-gray-50  dark:from-orange-600 dark:to-orange-700':
+        variant === 'warning',
+      'border-2  border-orange-500 text-orange-500 hover:border-0 hover:bg-gradient-to-bl hover:from-orange-400 hover:to-orange-500 hover:text-gray-50 dark:border-orange-700 dark:text-orange-700 hover:dark:from-orange-600 hover:dark:to-orange-700 hover:dark:text-gray-50':
+        variant === 'warning-outline',
       'w-full text-center': block,
     }"
     :disabled="loading"
