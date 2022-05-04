@@ -30,6 +30,7 @@ const useRecipeStore = defineStore('recipes', {
     _publicRecipes: [] as Recipe[],
     _publicUserRecipes: [] as Recipe[], // @see ./publicUserStore
     _publicRecipesByCategory: {} as RecipeMap,
+    _publicRecipesByUser: {} as RecipeMap,
     _activeUserRecipes: [] as Recipe[],
     _recipeCategories: [] as RecipeCategory[],
     _recipeCategorySearchResults: [] as RecipeCategory[],
@@ -41,6 +42,8 @@ const useRecipeStore = defineStore('recipes', {
     publicUserRecipes: (state) => state._publicUserRecipes,
     publicRecipesByCategory: (state) => (categoryId: string) =>
       state._publicRecipesByCategory[categoryId],
+    publicRecipesByUser: (state) => (userId: string) =>
+      state._publicRecipesByUser[userId],
     recipeCategories: (state) => state._recipeCategories,
     recipeCategorySearchResults: (state) => state._recipeCategorySearchResults,
 
@@ -67,6 +70,18 @@ const useRecipeStore = defineStore('recipes', {
     publicRecipesByCategoryForGallery: (state) => {
       return (categoryId: string) => {
         return state._publicRecipesByCategory[categoryId].map((recipe) => {
+          return {
+            $id: recipe.$id,
+            src: recipe.primary_image_href,
+            alt: recipe.name,
+            title: recipe.name,
+          } as AppGalleryItemType;
+        });
+      };
+    },
+    publicRecipesByUserForGallery: (state) => {
+      return (userId: string) => {
+        return state._publicRecipesByUser[userId].map((recipe) => {
           return {
             $id: recipe.$id,
             src: recipe.primary_image_href,
@@ -132,6 +147,12 @@ const useRecipeStore = defineStore('recipes', {
       this._publicRecipesByCategory[categoryId] = enrichedDocuments;
     },
 
+    async syncRecipesByUser(userId: string): Promise<void> {
+      const [response, error] = await this.fetchRecipesByUserId(userId);
+      if (error) console.error(error);
+      this, (this._publicRecipesByUser[userId] = response as Recipe[]);
+    },
+
     async searchCategories(query: string) {
       const response = await appwriteClient.database.listDocuments(
         RECIPE_CATEGORY_ID,
@@ -159,6 +180,22 @@ const useRecipeStore = defineStore('recipes', {
         );
 
         return [enrichedDocument, null];
+      } catch (error) {
+        return [null, error as AppwriteException];
+      }
+    },
+
+    async fetchRecipesByUserId(
+      userId: string,
+    ): AppServerResponseOrError<Recipe[]> {
+      try {
+        const response = await appwriteClient.database.listDocuments(
+          RECIPES_COLLECTION_ID,
+          [Query.equal('user_id', userId)],
+        );
+        const documents = response.documents as SerializedRecipe[];
+        const enrichedDocuments = await this.enrichRecipes(documents);
+        return [enrichedDocuments, null];
       } catch (error) {
         return [null, error as AppwriteException];
       }

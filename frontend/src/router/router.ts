@@ -97,6 +97,7 @@ export const routes: RouterOptions['routes'] = [
   {
     path: '/recipe/:recipeId',
     component: () => import('../pages/recipe/index.vue'),
+    meta: { reuse: false },
   },
 
   {

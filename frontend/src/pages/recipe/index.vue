@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, nextTick } from 'vue';
 import { useRouter } from 'vue-router';
 import { AppGalleryItemType, Ingredient, Recipe } from '../../@types/commons';
 import AppContainer from '../../components/layout/content/AppContainer.vue';
@@ -16,7 +16,6 @@ import useActiveUserStore from '../../store/activeUserStore';
 
 // Router logic
 const router = useRouter();
-const recipeId = router.currentRoute.value.params.recipeId as string;
 
 // User logic
 const activeUserStore = useActiveUserStore();
@@ -31,10 +30,11 @@ const submittedBy = computed(() => {
 const recipeStore = useRecipeStore();
 const localRecipe = ref<Recipe>();
 const localRecipeSuggestions = ref<AppGalleryItemType[]>([]);
+const localRecipeByUser = ref<AppGalleryItemType[]>([]);
 const localRecipeIsOriginal = computed(() => {
   return localRecipe.value?.original_recipe_id === localRecipe.value?.$id;
 });
-const setLocalRecipe = async () => {
+const setLocalRecipe = async (recipeId: string) => {
   const [response, error] = await recipeStore.fetchRecipeById(recipeId);
   if (error) {
     console.error(error);
@@ -46,13 +46,37 @@ const setLocalRecipeSuggestions = async () => {
   const categoryId = localRecipe.value?.category_id;
   if (categoryId) {
     await recipeStore.syncRecipesByCategory(categoryId as string);
-    localRecipeSuggestions.value =
-      recipeStore.publicRecipesByCategoryForGallery(categoryId as string);
+    const suggestions = recipeStore.publicRecipesByCategoryForGallery(
+      categoryId as string,
+    );
+    localRecipeSuggestions.value = suggestions.filter((suggestion) => {
+      return suggestion.$id !== localRecipe.value?.$id;
+    });
   }
 };
-onMounted(async () => {
-  await setLocalRecipe();
+const setLocalRecipeByUser = async () => {
+  const userId = localRecipe.value?.user_id;
+  if (userId) {
+    await recipeStore.syncRecipesByUser(userId as string);
+    const recipes = recipeStore.publicRecipesByUserForGallery(userId as string);
+    localRecipeByUser.value = recipes.filter((recipe) => {
+      return recipe.$id !== localRecipe.value?.$id;
+    });
+  }
+};
+const onClickGalleryItem = async (recipe: AppGalleryItemType) => {
+  router.push({
+    path: `/recipe/${recipe.$id}`,
+  });
+  await setLocalRecipe(recipe.$id);
   await setLocalRecipeSuggestions();
+  await setLocalRecipeByUser();
+};
+
+onMounted(async () => {
+  await setLocalRecipe(router.currentRoute.value.params.recipeId as string);
+  await setLocalRecipeSuggestions();
+  await setLocalRecipeByUser();
 });
 
 // Ingredients & nutrients logic
@@ -108,7 +132,7 @@ const computeIngredientCountForPortion = (ingredient: Ingredient) => {
               <app-button
                 v-if="activeUserIsSubmitter"
                 @click="
-                  router.push({ path: `/my-kitchen/recipe/${recipeId}/edit` })
+                  router.push({ path: `/my-kitchen/recipe/${router.currentRoute.value.params.recipeId as string}/edit` })
                 "
                 >Edit recipe</app-button
               >
@@ -116,7 +140,7 @@ const computeIngredientCountForPortion = (ingredient: Ingredient) => {
               <app-button
                 v-else
                 @click="
-                  router.push({ path: `/my-kitchen/recipe/${recipeId}/fork` })
+                  router.push({ path: `/my-kitchen/recipe/${router.currentRoute.value.params.recipeId as string}/fork` })
                 "
                 >Refine recipe
               </app-button>
@@ -162,8 +186,17 @@ const computeIngredientCountForPortion = (ingredient: Ingredient) => {
       <template v-slot:default>
         <h2 class="mb-4 text-xl">More recipes like this</h2>
         <app-gallery
+          class="mb-8"
           :gallery-items="localRecipeSuggestions"
           :columns="1"
+          @click="onClickGalleryItem"
+        ></app-gallery>
+
+        <h2 class="mb-4 text-xl">More recipes from {{ submittedBy }}</h2>
+        <app-gallery
+          :gallery-items="localRecipeByUser"
+          :columns="1"
+          @click="onClickGalleryItem"
         ></app-gallery>
       </template>
     </app-grid>
