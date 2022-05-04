@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { Ingredient, Recipe } from '../../@types/commons';
+import { AppGalleryItemType, Ingredient, Recipe } from '../../@types/commons';
 import AppContainer from '../../components/layout/content/AppContainer.vue';
 import AppGrid from '../../components/layout/content/AppGrid.vue';
 import AppImage from '../../components/ui/AppImage.vue';
 import AppPillList from '../../components/lists/pills/AppPillList.vue';
+import AppGallery from '../../components/lists/gallery/AppGallery.vue';
 import AppButton from '../../components/form/AppButton.vue';
 import AppInput from '../../components/form/AppInput.vue';
 import AppIngredientList from '../../components/lists/ingredients/AppIngredientList.vue';
@@ -29,7 +30,7 @@ const submittedBy = computed(() => {
 // Recipe Logic
 const recipeStore = useRecipeStore();
 const localRecipe = ref<Recipe>();
-const localRecipeSuggestions = ref<Recipe[]>();
+const localRecipeSuggestions = ref<AppGalleryItemType[]>([]);
 const localRecipeIsOriginal = computed(() => {
   return localRecipe.value?.original_recipe_id === localRecipe.value?.$id;
 });
@@ -45,9 +46,8 @@ const setLocalRecipeSuggestions = async () => {
   const categoryId = localRecipe.value?.category_id;
   if (categoryId) {
     await recipeStore.syncRecipesByCategory(categoryId as string);
-    localRecipeSuggestions.value = recipeStore.publicRecipesByCategory(
-      categoryId as string,
-    );
+    localRecipeSuggestions.value =
+      recipeStore.publicRecipesByCategoryForGallery(categoryId as string);
   }
 };
 onMounted(async () => {
@@ -161,8 +161,10 @@ const computeIngredientCountForPortion = (ingredient: Ingredient) => {
 
       <template v-slot:default>
         <h2 class="mb-4 text-xl">More recipes like this</h2>
-
-        {{ localRecipeSuggestions }}
+        <app-gallery
+          :gallery-items="localRecipeSuggestions"
+          :columns="1"
+        ></app-gallery>
       </template>
     </app-grid>
   </app-container>
