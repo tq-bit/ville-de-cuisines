@@ -82,7 +82,7 @@ const setFileBuffer = (file: File | null): Promise<void> => {
     @dragover.prevent="onDragOver"
     @dragleave.prevent="onDragLeave"
     @drop.prevent="onChangeItem"
-    class="m-auto h-auto w-full rounded shadow"
+    class="m-auto h-auto w-full"
     :class="{ 'animate-pulse': over }"
   >
     <!-- Upload dropdown section -->
@@ -93,7 +93,7 @@ const setFileBuffer = (file: File | null): Promise<void> => {
       {{ label }}
     </label>
     <div
-      class="rounded border border-green-600 bg-gray-100 p-4 text-center text-gray-800 outline-none transition-all focus:bg-white dark:bg-gray-800 dark:text-gray-200 focus:dark:bg-gray-900"
+      class="rounded p-4 text-center text-gray-800 outline-none transition-all focus:bg-white dark:bg-gray-800 dark:text-gray-200 focus:dark:bg-gray-900"
     >
       <section class="text-xl">
         <label

@@ -40,7 +40,7 @@ const onChange = (ev: Event) => {
       class="sr-only"
     />
     <div
-      class="toggle-bg h-6 w-11 rounded-full bg-gray-100 transition-all focus:bg-white dark:bg-gray-800"
+      class="toggle-bg h-6 w-11 rounded-full border bg-gray-50 transition-all focus:bg-white dark:border-transparent dark:bg-gray-800"
     ></div>
     <span
       v-if="label"
