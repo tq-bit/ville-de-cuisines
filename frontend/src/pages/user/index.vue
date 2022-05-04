@@ -16,7 +16,7 @@ const router = useRouter();
 
 onMounted(async () => {
   const userId = router.currentRoute.value.params.userId as string;
-  await publicUserStore.fetchPublicUserById(userId);
+  await publicUserStore.syncPublicUserById(userId);
   await recipeStore.fetchPublicUserRecipes(userId);
 });
 </script>

@@ -16,7 +16,7 @@ const onClickUserItem = (payload: AppGalleryItemType) => {
 };
 
 onMounted(async () => {
-  await publicUserStore.fetchPublicUsers();
+  await publicUserStore.syncPublicUsers();
 });
 </script>
 
