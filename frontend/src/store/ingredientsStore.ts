@@ -33,7 +33,7 @@ const useIngredientsStore = defineStore('ingredients', {
   },
 
   actions: {
-    async fetchIngredients(): Promise<void> {
+    async syncIngredients(): Promise<void> {
       const response = await appwriteClient.database.listDocuments(
         INGREDIENTS_COLLECTION_ID,
       );

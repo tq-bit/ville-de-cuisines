@@ -40,7 +40,7 @@ const useActiveUserStore = defineStore('user', {
   },
 
   actions: {
-    async fetchActiveUserAccount(): Promise<void> {
+    async syncActiveUserAccount(): Promise<void> {
       const accountPromise = appwriteClient.account.get();
       const locationPromise = appwriteClient.locale.get();
 

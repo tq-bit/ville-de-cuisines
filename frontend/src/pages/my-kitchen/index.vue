@@ -32,7 +32,7 @@ const openIngredientModal = () => {
 
 onMounted(
   async () =>
-    await recipeStore.fetchActiveUserRecipes(activeUserStore.account.$id),
+    await recipeStore.syncActiveUserRecipes(activeUserStore.account.$id),
 );
 </script>
 

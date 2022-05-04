@@ -38,7 +38,7 @@ const onDrop = async (filePayload: AppUploadPayload) => {
 };
 
 onMounted(async () => {
-  await activeUserStore.fetchActiveUserAccount();
+  await activeUserStore.syncActiveUserAccount();
   await activeUserStore.fetchActiveUserAvatar();
 });
 </script>

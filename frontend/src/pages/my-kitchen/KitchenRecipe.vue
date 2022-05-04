@@ -126,7 +126,7 @@ const commitLocalIngredientState = () => {
   );
 };
 watch(ingredientsQuery, handleSearch);
-onMounted(async () => await ingredientsStore.fetchIngredients());
+onMounted(async () => await ingredientsStore.syncIngredients());
 
 // Tags
 let localTagModel = ref<string>();

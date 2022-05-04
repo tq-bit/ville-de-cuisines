@@ -64,7 +64,7 @@ const useRecipeStore = defineStore('recipes', {
   },
 
   actions: {
-    async fetchPublicRecipes() {
+    async syncPublicRecipes(): Promise<void> {
       const response = await appwriteClient.database.listDocuments(
         RECIPES_COLLECTION_ID,
         [Query.equal('is_public', true)],
@@ -84,7 +84,7 @@ const useRecipeStore = defineStore('recipes', {
       this._publicRecipes = enrichedDocuments;
     },
 
-    async fetchActiveUserRecipes(userId: string) {
+    async syncActiveUserRecipes(userId: string): Promise<void> {
       const response = await appwriteClient.database.listDocuments(
         RECIPES_COLLECTION_ID,
         [Query.equal('user_id', userId)],
@@ -103,7 +103,7 @@ const useRecipeStore = defineStore('recipes', {
       this._activeUserRecipes = enrichedDocuments;
     },
 
-    async fetchPublicUserRecipes(userId: string) {
+    async syncPublicUserRecipes(userId: string): Promise<void> {
       const response = await appwriteClient.database.listDocuments(
         RECIPES_COLLECTION_ID,
         // TODO: Add  Query.equal('is_public', true)  here after explanation

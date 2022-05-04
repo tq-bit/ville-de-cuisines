@@ -10,13 +10,13 @@ import useAppTheme from './use/appTheme';
 
 const { message, showGlobalAlert, variant } = useGlobalAlert();
 const { syncLocalSessionIdWithCookie } = useSessionStore();
-const { fetchActiveUserAccount } = useActiveUserStore();
+const { syncActiveUserAccount } = useActiveUserStore();
 const { userTheme, setTheme } = useAppTheme();
 
 onMounted(async () => {
   setTheme(userTheme.value);
   syncLocalSessionIdWithCookie();
-  await fetchActiveUserAccount();
+  await syncActiveUserAccount();
 });
 
 watch(userTheme, (newTheme) => setTheme(newTheme));

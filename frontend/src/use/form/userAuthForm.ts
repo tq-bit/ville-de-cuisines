@@ -20,7 +20,7 @@ const formValidationSchema = yup.object({
 
 export default function handleUserAuthForm(type: AppUserAuthForm) {
   const { login, signup } = useSessionStore();
-  const { fetchActiveUserAccount, createInitialPublicUser } =
+  const { syncActiveUserAccount, createInitialPublicUser } =
     useActiveUserStore();
   const { handleSubmit } = useForm({
     validationSchema: formValidationSchema,
