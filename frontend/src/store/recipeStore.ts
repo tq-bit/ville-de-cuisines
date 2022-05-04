@@ -92,15 +92,7 @@ const useRecipeStore = defineStore('recipes', {
         10,
       );
       const documents = response.documents as SerializedRecipe[];
-      const deserializedDocuments = documents.map((document) => {
-        return this.deserializeRecipe(document);
-      });
-
-      const enrichedDocuments = await Promise.all(
-        deserializedDocuments.map((document) => {
-          return this.enrichRecipeWithRemoteData(document);
-        }),
-      );
+      const enrichedDocuments = await this.enrichRecipes(documents);
       this._publicRecipes = enrichedDocuments;
     },
 
@@ -110,15 +102,7 @@ const useRecipeStore = defineStore('recipes', {
         [Query.equal('user_id', userId)],
       );
       const documents = response.documents as SerializedRecipe[];
-      const deserializedDocuments = documents.map((document) => {
-        return this.deserializeRecipe(document);
-      });
-
-      const enrichedDocuments = await Promise.all(
-        deserializedDocuments.map((document) => {
-          return this.enrichRecipeWithRemoteData(document);
-        }),
-      );
+      const enrichedDocuments = await this.enrichRecipes(documents);
       this._activeUserRecipes = enrichedDocuments;
     },
 
@@ -129,15 +113,7 @@ const useRecipeStore = defineStore('recipes', {
         [Query.equal('user_id', userId)],
       );
       const documents = response.documents as SerializedRecipe[];
-      const deserializedDocuments = documents.map((document) => {
-        return this.deserializeRecipe(document);
-      });
-
-      const enrichedDocuments = await Promise.all(
-        deserializedDocuments.map((document) => {
-          return this.enrichRecipeWithRemoteData(document);
-        }),
-      );
+      const enrichedDocuments = await this.enrichRecipes(documents);
       this._publicUserRecipes = enrichedDocuments;
     },
 
@@ -147,15 +123,7 @@ const useRecipeStore = defineStore('recipes', {
         [Query.equal('category_id', categoryId)],
       );
       const documents = response.documents as SerializedRecipe[];
-      const deserializedDocuments = documents.map((document) => {
-        return this.deserializeRecipe(document);
-      });
-
-      const enrichedDocuments = await Promise.all(
-        deserializedDocuments.map((document) => {
-          return this.enrichRecipeWithRemoteData(document);
-        }),
-      );
+      const enrichedDocuments = await this.enrichRecipes(documents);
       this._publicRecipesByCategory = enrichedDocuments;
     },
 
@@ -347,6 +315,20 @@ const useRecipeStore = defineStore('recipes', {
         tags: uniqueTags,
         ingredients: uniqueIngredients,
       };
+    },
+
+    async enrichRecipes(documents: SerializedRecipe[]): Promise<Recipe[]> {
+      const deserializedDocuments = documents.map((document) => {
+        return this.deserializeRecipe(document);
+      });
+
+      const enrichedDocuments = await Promise.all(
+        deserializedDocuments.map((document) => {
+          return this.enrichRecipeWithRemoteData(document);
+        }),
+      );
+
+      return enrichedDocuments;
     },
 
     deserializeRecipe(document: SerializedRecipe): Recipe {
