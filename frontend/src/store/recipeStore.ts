@@ -28,6 +28,7 @@ const useRecipeStore = defineStore('recipes', {
     _count: 0,
     _publicRecipes: [] as Recipe[],
     _publicUserRecipes: [] as Recipe[], // @see ./publicUserStore
+    _publicRecipesByCategory: [] as Recipe[],
     _activeUserRecipes: [] as Recipe[],
     _recipeCategories: [] as RecipeCategory[],
     _recipeCategorySearchResults: [] as RecipeCategory[],
@@ -37,6 +38,7 @@ const useRecipeStore = defineStore('recipes', {
     publicRecipes: (state) => state._publicRecipes,
     activeUserRecipes: (state) => state._activeUserRecipes,
     publicUserRecipes: (state) => state._publicUserRecipes,
+    publicRecipesByCategory: (state) => state._publicRecipesByCategory,
     recipeCategories: (state) => state._recipeCategories,
     recipeCategorySearchResults: (state) => state._recipeCategorySearchResults,
 
@@ -52,6 +54,16 @@ const useRecipeStore = defineStore('recipes', {
     },
     activeUserPublicRecipesForGallery: (state) => {
       return state._activeUserRecipes.map((recipe) => {
+        return {
+          $id: recipe.$id,
+          src: recipe.primary_image_href,
+          alt: recipe.name,
+          title: recipe.name,
+        } as AppGalleryItemType;
+      });
+    },
+    publicRecipesByCategoryForGallery: (state) => {
+      return state._publicRecipesByCategory.map((recipe) => {
         return {
           $id: recipe.$id,
           src: recipe.primary_image_href,
@@ -80,11 +92,10 @@ const useRecipeStore = defineStore('recipes', {
         10,
       );
       const documents = response.documents as SerializedRecipe[];
-      const deserializedDocuments = await Promise.all(
-        documents.map((document) => {
-          return this.deserializeRecipe(document);
-        }),
-      );
+      const deserializedDocuments = documents.map((document) => {
+        return this.deserializeRecipe(document);
+      });
+
       const enrichedDocuments = await Promise.all(
         deserializedDocuments.map((document) => {
           return this.enrichRecipeWithRemoteData(document);
@@ -99,11 +110,10 @@ const useRecipeStore = defineStore('recipes', {
         [Query.equal('user_id', userId)],
       );
       const documents = response.documents as SerializedRecipe[];
-      const deserializedDocuments = await Promise.all(
-        documents.map((document) => {
-          return this.deserializeRecipe(document);
-        }),
-      );
+      const deserializedDocuments = documents.map((document) => {
+        return this.deserializeRecipe(document);
+      });
+
       const enrichedDocuments = await Promise.all(
         deserializedDocuments.map((document) => {
           return this.enrichRecipeWithRemoteData(document);
@@ -119,17 +129,34 @@ const useRecipeStore = defineStore('recipes', {
         [Query.equal('user_id', userId)],
       );
       const documents = response.documents as SerializedRecipe[];
-      const deserializedDocuments = await Promise.all(
-        documents.map((document) => {
-          return this.deserializeRecipe(document);
-        }),
-      );
+      const deserializedDocuments = documents.map((document) => {
+        return this.deserializeRecipe(document);
+      });
+
       const enrichedDocuments = await Promise.all(
         deserializedDocuments.map((document) => {
           return this.enrichRecipeWithRemoteData(document);
         }),
       );
       this._publicUserRecipes = enrichedDocuments;
+    },
+
+    async syncRecipesByCategory(categoryId: string): Promise<void> {
+      const response = await appwriteClient.database.listDocuments(
+        RECIPES_COLLECTION_ID,
+        [Query.equal('category_id', categoryId)],
+      );
+      const documents = response.documents as SerializedRecipe[];
+      const deserializedDocuments = documents.map((document) => {
+        return this.deserializeRecipe(document);
+      });
+
+      const enrichedDocuments = await Promise.all(
+        deserializedDocuments.map((document) => {
+          return this.enrichRecipeWithRemoteData(document);
+        }),
+      );
+      this._publicRecipesByCategory = enrichedDocuments;
     },
 
     async searchCategories(query: string) {
