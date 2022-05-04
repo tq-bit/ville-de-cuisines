@@ -125,6 +125,7 @@ const useRecipeStore = defineStore('recipes', {
       const response = await appwriteClient.database.listDocuments(
         RECIPES_COLLECTION_ID,
         [Query.equal('category_id', categoryId)],
+        5,
       );
       const documents = response.documents as SerializedRecipe[];
       const enrichedDocuments = await this.enrichRecipes(documents);

@@ -29,6 +29,7 @@ const submittedBy = computed(() => {
 // Recipe Logic
 const recipeStore = useRecipeStore();
 const localRecipe = ref<Recipe>();
+const localRecipeSuggestions = ref<Recipe[]>();
 const localRecipeIsOriginal = computed(() => {
   return localRecipe.value?.original_recipe_id === localRecipe.value?.$id;
 });
@@ -40,6 +41,19 @@ const setLocalRecipe = async () => {
   localRecipe.value = response as Recipe;
   userPortionsCount.value = localRecipe.value?.portions_count;
 };
+const setLocalRecipeSuggestions = async () => {
+  const categoryId = localRecipe.value?.category_id;
+  if (categoryId) {
+    await recipeStore.syncRecipesByCategory(categoryId as string);
+    localRecipeSuggestions.value = recipeStore.publicRecipesByCategory(
+      categoryId as string,
+    );
+  }
+};
+onMounted(async () => {
+  await setLocalRecipe();
+  await setLocalRecipeSuggestions();
+});
 
 // Ingredients & nutrients logic
 const userPortionsCount = ref<number>();
@@ -68,8 +82,6 @@ const computeIngredientCountForPortion = (ingredient: Ingredient) => {
     return ingredient;
   }
 };
-
-onMounted(async () => await setLocalRecipe());
 </script>
 
 <template>
@@ -149,6 +161,8 @@ onMounted(async () => await setLocalRecipe());
 
       <template v-slot:default>
         <h2 class="mb-4 text-xl">More recipes like this</h2>
+
+        {{ localRecipeSuggestions }}
       </template>
     </app-grid>
   </app-container>
