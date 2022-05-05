@@ -29,6 +29,7 @@ const submittedBy = computed(() => {
 // Recipe Logic
 const recipeStore = useRecipeStore();
 const localRecipe = ref<Recipe>();
+const suggestionCount = ref<number>(5);
 const localRecipeSuggestions = ref<AppGalleryItemType[]>([]);
 const localRecipeByUser = ref<AppGalleryItemType[]>([]);
 const localRecipeIsOriginal = computed(() => {
@@ -42,10 +43,10 @@ const setLocalRecipe = async (recipeId: string) => {
   localRecipe.value = response as Recipe;
   userPortionsCount.value = localRecipe.value?.portions_count;
 };
-const setLocalRecipeSuggestions = async () => {
+const setLocalRecipeSuggestions = async (count: number) => {
   const categoryId = localRecipe.value?.category_id;
   if (categoryId) {
-    await recipeStore.syncRecipesByCategory(categoryId as string);
+    await recipeStore.syncRecipesByCategory(categoryId as string, count);
     const suggestions = recipeStore.publicRecipesByCategoryForGallery(
       categoryId as string,
     );
@@ -69,13 +70,13 @@ const onClickGalleryItem = async (recipe: AppGalleryItemType) => {
     path: `/recipe/${recipe.$id}`,
   });
   await setLocalRecipe(recipe.$id);
-  await setLocalRecipeSuggestions();
+  await setLocalRecipeSuggestions(suggestionCount.value);
   await setLocalRecipeByUser();
 };
 
 onMounted(async () => {
   await setLocalRecipe(router.currentRoute.value.params.recipeId as string);
-  await setLocalRecipeSuggestions();
+  await setLocalRecipeSuggestions(suggestionCount.value);
   await setLocalRecipeByUser();
 });
 
@@ -121,6 +122,13 @@ const computeIngredientCountForPortion = (ingredient: Ingredient) => {
           ></app-image>
           <div class="flex justify-between">
             <p>
+              Category:
+              <router-link
+                class="font-semibold"
+                :to="`/recipe/category/${localRecipe?.category_id}`"
+                >{{ localRecipe?.category_name }}</router-link
+              >
+              <br />
               Submitted by
               <router-link
                 class="font-semibold"

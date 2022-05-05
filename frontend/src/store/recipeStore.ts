@@ -135,11 +135,14 @@ const useRecipeStore = defineStore('recipes', {
       this._publicUserRecipes = enrichedDocuments;
     },
 
-    async syncRecipesByCategory(categoryId: string): Promise<void> {
+    async syncRecipesByCategory(
+      categoryId: string,
+      count: number = 10,
+    ): Promise<void> {
       const response = await appwriteClient.database.listDocuments(
         RECIPES_COLLECTION_ID,
         [Query.equal('category_id', categoryId)],
-        5,
+        count,
       );
       const documents = response.documents as SerializedRecipe[];
       const enrichedDocuments = await this.enrichRecipes(documents);
