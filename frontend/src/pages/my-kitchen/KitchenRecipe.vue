@@ -1,12 +1,5 @@
 <script setup lang="ts">
-import {
-  ref,
-  computed,
-  watch,
-  onBeforeUnmount,
-  onMounted,
-  nextTick,
-} from 'vue';
+import { ref, computed, watch, onBeforeUnmount, onMounted } from 'vue';
 import AppGrid from '../../components/layout/content/AppGrid.vue';
 import AppContainer from '../../components/layout/content/AppContainer.vue';
 import AppPillList from '../../components/lists/pills/AppPillList.vue';
