@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import AppContainer from '../components/layout/content/AppContainer.vue';
-import AppHero from '../components/ui/AppHero.vue';
 import { useRouter } from 'vue-router';
 const router = useRouter();
 </script>

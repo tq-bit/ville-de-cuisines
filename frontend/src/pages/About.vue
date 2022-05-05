@@ -1,6 +1,4 @@
-<script setup lang="ts">
-import AppContainer from '../components/layout/content/AppContainer.vue';
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <app-container page center>

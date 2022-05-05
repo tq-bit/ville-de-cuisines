@@ -2,14 +2,6 @@
 import { ref, computed, onMounted, onUpdated } from 'vue';
 import { useRouter } from 'vue-router';
 import { AppGalleryItemType, Ingredient, Recipe } from '../../@types';
-import AppContainer from '../../components/layout/content/AppContainer.vue';
-import AppGrid from '../../components/layout/content/AppGrid.vue';
-import AppImage from '../../components/ui/AppImage.vue';
-import AppPillList from '../../components/lists/pills/AppPillList.vue';
-import AppGallery from '../../components/lists/gallery/AppGallery.vue';
-import AppButton from '../../components/form/AppButton.vue';
-import AppInput from '../../components/form/AppInput.vue';
-import AppIngredientList from '../../components/lists/ingredients/AppIngredientList.vue';
 
 import useRecipeStore from '../../store/recipeStore';
 import useActiveUserStore from '../../store/activeUserStore';

@@ -1,11 +1,6 @@
 <script setup lang="ts">
 import { AppUploadPayload } from '../../@types/commons';
 import { ref, onMounted } from 'vue';
-import AppGrid from '../../components/layout/content/AppGrid.vue';
-import AppButton from '../../components/form/AppButton.vue';
-import AppImage from '../../components/ui/AppImage.vue';
-import AppFileInput from '../../components/form/AppFileInput.vue';
-import AppCard from '../../components/form/AppCard.vue';
 
 import { useRouter } from 'vue-router';
 import useSessionStore from '../../store/sessionStore';

@@ -2,16 +2,6 @@
 import { ref } from 'vue';
 import { AlertVariant } from '../@types/index';
 
-import AppContainer from '../components/layout/content/AppContainer.vue';
-import AppCard from '../components/form/AppCard.vue';
-import AppInput from '../components/form/AppInput.vue';
-import AppButton from '../components/form/AppButton.vue';
-import AppAlert from '../components/ui/AppAlert.vue';
-
-import iUser from '../components/icons/iUser.vue';
-import iLock from '../components/icons/iLock.vue';
-import iMail from '../components/icons/iMail.vue';
-
 import { useRouter } from 'vue-router';
 import handleUserAuthForm from '../use/form/userAuthForm';
 

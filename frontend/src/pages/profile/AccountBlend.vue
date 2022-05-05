@@ -1,11 +1,4 @@
 <script setup lang="ts">
-import AppGrid from '../../components/layout/content/AppGrid.vue';
-import AppScreenModal from '../../components/layout/AppScreenModal.vue';
-import AppCard from '../../components/form/AppCard.vue';
-import AppAlert from '../../components/ui/AppAlert.vue';
-import AppInput from '../../components/form/AppInput.vue';
-import AppButton from '../../components/form/AppButton.vue';
-
 import { useRouter } from 'vue-router';
 import useUserProfileForm from '../../use/form/userProfileForm';
 

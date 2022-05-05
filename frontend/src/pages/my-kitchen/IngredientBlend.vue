@@ -1,17 +1,8 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import AppGrid from '../../components/layout/content/AppGrid.vue';
-import AppScreenModal from '../../components/layout/AppScreenModal.vue';
-import AppCard from '../../components/form/AppCard.vue';
-import AppAlert from '../../components/ui/AppAlert.vue';
-import AppSelect from '../../components/form/AppSelect.vue';
-import AppInput from '../../components/form/AppInput.vue';
-import AppButton from '../../components/form/AppButton.vue';
-import AppTextArea from '../../components/form/AppTextArea.vue';
+import { useRouter } from 'vue-router';
 
 import useIngredientsStore from '../../store/ingredientsStore';
-
-import { useRouter } from 'vue-router';
 import useIngredientForm from '../../use/form/ingredientForm';
 
 // Router

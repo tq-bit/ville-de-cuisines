@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { onMounted, watch } from 'vue';
-import AppNavigation from './components/layout/navbar/index.vue';
-import AppAlert from './components/ui/AppAlert.vue';
 
 import useSessionStore from './store/sessionStore';
 import useGlobalAlert from './use/globalAlert';
@@ -33,7 +31,7 @@ watch(userTheme, (newTheme) => setTheme(newTheme));
         {{ message }}
       </app-alert>
     </Transition>
-    <app-navigation></app-navigation>
+    <app-navbar></app-navbar>
     <router-view v-slot="{ Component }">
       <transition mode="out-in" name="fade">
         <component :is="Component" />

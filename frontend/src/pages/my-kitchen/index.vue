@@ -1,16 +1,12 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import AppGrid from '../../components/layout/content/AppGrid.vue';
-import AppButton from '../../components/form/AppButton.vue';
-import AppCard from '../../components/form/AppCard.vue';
-import AppGallery from '../../components/lists/gallery/AppGallery.vue';
+import { AppGalleryItemType } from '../../@types';
 import useRecipeStore from '../../store/recipeStore';
 import useActiveUserStore from '../../store/activeUserStore';
 
 import imgCookingManagement from '../../components/img/imgCookingManagement.vue';
 
 import { useRouter } from 'vue-router';
-import { AppGalleryItemType } from '../../@types/commons';
 
 const router = useRouter();
 const recipeStore = useRecipeStore();
