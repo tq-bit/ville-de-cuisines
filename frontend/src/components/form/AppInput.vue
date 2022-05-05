@@ -10,13 +10,11 @@ withDefaults(
     modelValue?: any;
     error?: string;
     required?: boolean;
-    requiredSign?: string;
     variant?: 'default' | 'small';
   }>(),
   {
     hideLabel: false,
     required: false,
-    requiredSign: '*',
     variant: 'default',
   },
 );

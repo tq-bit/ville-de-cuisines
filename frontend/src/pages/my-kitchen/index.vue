@@ -4,8 +4,6 @@ import { AppGalleryItemType } from '../../@types';
 import useRecipeStore from '../../store/recipeStore';
 import useActiveUserStore from '../../store/activeUserStore';
 
-import imgCookingManagement from '../../components/img/imgCookingManagement.vue';
-
 import { useRouter } from 'vue-router';
 
 const router = useRouter();

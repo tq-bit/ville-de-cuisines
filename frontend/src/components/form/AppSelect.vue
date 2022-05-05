@@ -6,9 +6,7 @@ defineProps<{
   label?: string;
   placeholder?: string;
   modelValue?: string | number;
-  error?: string;
   required?: boolean;
-  requiredSign?: string;
 }>();
 
 const emit = defineEmits<{

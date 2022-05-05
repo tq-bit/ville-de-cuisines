@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import AppGrid from '../layout/content/AppGrid.vue';
-import ImgCookingHero from '../img/imgCookingHero.vue';
-import AppButton from '../form/AppButton.vue';
-
 const emit = defineEmits(['clickGetStarted']);
 </script>
 

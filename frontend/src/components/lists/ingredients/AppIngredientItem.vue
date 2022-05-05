@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { Ingredient } from '../../../@types/commons';
+import { Ingredient } from '../../../@types/';
 import { computed } from 'vue';
-import AppInput from '../../form/AppInput.vue';
-import iClose from '../../icons/iClose.vue';
 
 const props = defineProps<{ editable: boolean; ingredient: Ingredient }>();
 const emit = defineEmits(['click-remove']);

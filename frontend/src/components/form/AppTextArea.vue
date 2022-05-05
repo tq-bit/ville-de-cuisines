@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-
 withDefaults(
   defineProps<{
     hideLabel?: boolean;
@@ -10,12 +8,10 @@ withDefaults(
     modelValue?: any;
     error?: string;
     required?: boolean;
-    requiredSign?: string;
   }>(),
   {
     hideLabel: false,
     required: false,
-    requiredSign: '*',
   },
 );
 

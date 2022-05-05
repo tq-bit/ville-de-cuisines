@@ -1,8 +1,5 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import iSearch from '../icons/iSearch.vue';
-import aniLoader from '../img/aniLoader.vue';
-import AniLoader from '../img/aniLoader.vue';
 
 const props = withDefaults(
   defineProps<{

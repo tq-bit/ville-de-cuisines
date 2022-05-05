@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import iClose from '../icons/iClose.vue';
 defineProps<{
   center?: boolean;
   title?: string;

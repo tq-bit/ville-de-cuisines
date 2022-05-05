@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { AppUploadPayload } from '../../@types/commons';
 import { ref } from 'vue';
-import imgUpload from '../img/imgUpload.vue';
 
 const over = ref<boolean>(false);
 const fileData = ref<File>();
