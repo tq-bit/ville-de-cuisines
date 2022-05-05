@@ -11,6 +11,7 @@ import {
 import {
   RECIPES_COLLECTION_ID,
   RECIPE_BUCKET_ID,
+  RECIPE_CATEGORY_BUCKET_ID,
   RECIPE_CATEGORY_ID,
 } from '../constants';
 import { AppwriteException, Models, Query } from 'appwrite';
@@ -101,6 +102,16 @@ const useRecipeStore = defineStore('recipes', {
         } as AppGalleryItemType;
       });
     },
+    recipeCategoriesForGallery: (state) => {
+      return state._recipeCategories.map((recipe) => {
+        return {
+          $id: recipe.$id,
+          src: recipe.primary_image_href,
+          alt: recipe.name,
+          title: recipe.name,
+        } as AppGalleryItemType;
+      });
+    },
   },
 
   actions: {
@@ -133,6 +144,15 @@ const useRecipeStore = defineStore('recipes', {
       const documents = response.documents as SerializedRecipe[];
       const enrichedDocuments = await this.enrichRecipes(documents);
       this._publicUserRecipes = enrichedDocuments;
+    },
+
+    async syncRecipeCategories() {
+      const response = await appwriteClient.database.listDocuments(
+        RECIPE_CATEGORY_ID,
+      );
+      const documents = response.documents as RecipeCategory[];
+      const enrichedDocuments = await this.enrichRecipeCategories(documents);
+      this._recipeCategories = documents;
     },
 
     async syncRecipesByCategory(
@@ -207,6 +227,17 @@ const useRecipeStore = defineStore('recipes', {
       if (fileId) {
         const response = await appwriteClient.storage.getFilePreview(
           RECIPE_BUCKET_ID,
+          fileId,
+        );
+        return response.href;
+      }
+      return '';
+    },
+
+    async fetchRecipeCategoryImage(fileId: string) {
+      if (fileId) {
+        const response = await appwriteClient.storage.getFilePreview(
+          RECIPE_CATEGORY_BUCKET_ID,
           fileId,
         );
         return response.href;
@@ -328,6 +359,21 @@ const useRecipeStore = defineStore('recipes', {
       }
     },
 
+    async uploadRecipeCategoryImage(
+      file: File,
+    ): AppServerResponseOrError<Models.File> {
+      try {
+        const response = await appwriteClient.storage.createFile(
+          RECIPE_CATEGORY_BUCKET_ID,
+          uuid(),
+          file,
+        );
+        return [response, null];
+      } catch (error) {
+        return [null, error as AppwriteException];
+      }
+    },
+
     patchRecipeCreationPayload(
       payload: Recipe,
       id: string,
@@ -373,6 +419,21 @@ const useRecipeStore = defineStore('recipes', {
       );
 
       return enrichedDocuments;
+    },
+
+    async enrichRecipeCategories(documents: RecipeCategory[]) {
+      const enrichedRecipeCategories = await Promise.all(
+        documents.map(async (document) => {
+          const primary_image_href = await this.fetchRecipeCategoryImage(
+            document.primary_image_id as string,
+          );
+          return {
+            ...document,
+            primary_image_href,
+          };
+        }),
+      );
+      return enrichedRecipeCategories;
     },
 
     deserializeRecipe(document: SerializedRecipe): Recipe {

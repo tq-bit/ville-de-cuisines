@@ -13,7 +13,7 @@ defineProps<{
   <Transition name="sidebar">
     <aside
       v-if="show"
-      class="fixed top-0 left-0 w-screen h-screen z-10 px-4 pt-20 bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-gray-50"
+      class="fixed top-0 left-0 z-10 h-screen w-screen bg-gray-50 px-4 pt-20 text-gray-800 dark:bg-gray-800 dark:text-gray-50"
     >
       <!-- Primary navigation -->
       <app-navbar-item

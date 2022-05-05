@@ -9,7 +9,7 @@ defineProps<{
   <router-link
     class="mx-2 p-2 font-semibold"
     :class="{
-      'block mx-auto text-center my-2': direction === 'vertical',
+      'mx-auto my-2 block text-center': direction === 'vertical',
     }"
     :to="to"
   >
@@ -19,6 +19,6 @@ defineProps<{
 
 <style scoped>
 .router-link-active {
-  @apply rounded bg-gray-100 text-green-500 dark:text-green-700 overflow-hidden;
+  @apply overflow-hidden rounded bg-gray-100 text-green-500 dark:text-green-700;
 }
 </style>

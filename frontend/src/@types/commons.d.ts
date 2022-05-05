@@ -72,6 +72,8 @@ export interface Ingredient extends Models.Document {
 
 export interface RecipeCategory extends Models.Document {
   name: string;
+  primary_image_id?: string;
+  primary_image_href?: string;
   subcategory_ids: string[];
   subcategories?: RecipeCategory[];
 }
