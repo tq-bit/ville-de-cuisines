@@ -128,7 +128,6 @@ const useRecipeStore = defineStore('recipes', {
     async syncPublicUserRecipes(userId: string): Promise<void> {
       const response = await appwriteClient.database.listDocuments(
         RECIPES_COLLECTION_ID,
-        // TODO: Add  Query.equal('is_public', true)  here after explanation
         [Query.equal('user_id', userId), Query.equal('is_public', true)],
       );
       const documents = response.documents as SerializedRecipe[];
