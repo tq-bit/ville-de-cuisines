@@ -152,7 +152,8 @@ const useRecipeStore = defineStore('recipes', {
       );
       const documents = response.documents as RecipeCategory[];
       const enrichedDocuments = await this.enrichRecipeCategories(documents);
-      this._recipeCategories = documents;
+      console.log(enrichedDocuments);
+      this._recipeCategories = enrichedDocuments;
     },
 
     async syncRecipesByCategory(
@@ -251,7 +252,7 @@ const useRecipeStore = defineStore('recipes', {
       try {
         const response: RecipeCategory =
           await appwriteClient.database.getDocument(
-            RECIPE_CATEGORY_ID,
+            RECIPE_CATEGORY_BUCKET_ID,
             categoryId,
           );
         return [response, null];
@@ -419,6 +420,7 @@ const useRecipeStore = defineStore('recipes', {
           uuid(),
           file,
         );
+        console.log(response);
         return [response, null];
       } catch (error) {
         return [null, error as AppwriteException];
@@ -500,6 +502,7 @@ const useRecipeStore = defineStore('recipes', {
       return enrichedRecipeCategories;
     },
 
+    // Recipe Util Methods
     deserializeRecipe(document: SerializedRecipe): Recipe {
       return {
         ...document,

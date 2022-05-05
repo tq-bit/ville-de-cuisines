@@ -66,9 +66,10 @@ const onDropRecipeCategoryImage = async (filePayload: AppUploadPayload) => {
       primary_image_id.value as string,
     );
   }
-  const [fileResponse, fileError] = await recipeStore.uploadRecipeImage(
+  const [fileResponse, fileError] = await recipeStore.uploadRecipeCategoryImage(
     filePayload.fileData,
   );
+  console.log(fileResponse);
   primary_image_id.value = fileResponse?.$id as string;
 };
 const cleanUploadedImageIfExists = async () => {
