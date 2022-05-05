@@ -100,6 +100,12 @@ export const routes: RouterOptions['routes'] = [
   },
 
   {
+    path: '/recipe/category/:categoryId',
+    component: () => import('../pages/recipe/RecipeCategory.vue'),
+    meta: { reuse: false },
+  },
+
+  {
     path: '/recipe/:recipeId',
     component: () => import('../pages/recipe/index.vue'),
     meta: { reuse: false },
