@@ -7,7 +7,7 @@ import {
   SerializedRecipe,
   RecipeCategory,
   RecipeMap,
-} from '../@types/commons';
+} from '../@types/index';
 import {
   RECIPES_COLLECTION_ID,
   RECIPE_BUCKET_ID,

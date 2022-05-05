@@ -1,7 +1,4 @@
-import {
-  AppUserLoginPayload,
-  AppServerResponseOrError,
-} from '../@types/commons';
+import { AppUserLoginPayload, AppServerResponseOrError } from '../@types/index';
 import { defineStore } from 'pinia';
 import Cookie from 'js-cookie';
 import { AppwriteException, Models } from 'appwrite';

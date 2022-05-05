@@ -1,4 +1,4 @@
-import { UserTheme } from '../@types/commons';
+import { UserTheme } from '../@types/index';
 import { computed } from 'vue';
 import useActiveUserStore from '../store/activeUserStore';
 

@@ -50,5 +50,9 @@ export interface SerializedRecipe extends Models.Document {
   tags?: string[];
   primary_image_id?: string;
   gallery_image_ids?: string[];
+  primary_image_href?: string;
+  gallery_image_hrefs?: string[];
   is_public: boolean;
+  category_id?: string;
+  category_name?: string;
 }

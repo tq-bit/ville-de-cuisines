@@ -1,7 +1,3 @@
-export * from './recipe.d';
-export * from './api.d';
-export * from './user.d';
-
 export type AlertVariant = 'info' | 'error' | 'success';
 export type AppUserAuthForm = 'login' | 'signup';
 

@@ -2,7 +2,7 @@ import {
   AppServerResponseOrError,
   AppPublicUser,
   AppGalleryItemType,
-} from '../@types/commons';
+} from '../@types/index';
 import { USER_COLLECTION_ID, AVATAR_BUCKET_ID } from '../constants';
 import { Appwrite, AppwriteException, Models, Query } from 'appwrite';
 

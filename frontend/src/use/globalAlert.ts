@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue';
 
-import { AlertVariant } from '../@types/commons';
+import { AlertVariant } from '../@types/index';
 
 export interface AlertComposableConfig {
   variant?: AlertVariant;

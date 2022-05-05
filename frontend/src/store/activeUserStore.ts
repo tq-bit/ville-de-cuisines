@@ -6,7 +6,7 @@ import {
   AppUserPreferences,
   AppPublicUserPayload,
   AppPublicUser,
-} from '../@types/commons';
+} from '../@types/index';
 import { USER_COLLECTION_ID, AVATAR_BUCKET_ID } from '../constants/index';
 import { AppwriteException, Models } from 'appwrite';
 import { v4 as uuid } from 'uuid';

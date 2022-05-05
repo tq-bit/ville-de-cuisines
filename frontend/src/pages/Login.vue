@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { AlertVariant } from '../@types/commons';
+import { AlertVariant } from '../@types/index';
 
 import AppContainer from '../components/layout/content/AppContainer.vue';
 import AppCard from '../components/form/AppCard.vue';
