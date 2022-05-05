@@ -10,6 +10,7 @@ import AppButton from '../../components/form/AppButton.vue';
 import useRecipeStore from '../../store/recipeStore';
 import handleRecipeCategoryForm from '../../use/form/recipeCategoryForm';
 import { useRouter } from 'vue-router';
+import { AppUploadPayload } from '../../@types/commons';
 
 // Router
 const router = useRouter();
@@ -19,6 +20,7 @@ const recipeCategoryId = router.currentRoute.value.params
 // Recipe Category
 const {
   name,
+  primary_image_id,
   hasFormErrors,
   httpError,
   validationErrors,
@@ -58,9 +60,30 @@ onMounted(async () => {
 });
 
 // Image methods
-const onDropRecipeCategoryImage = (payload: any) => {
-  console.log(payload);
+const onDropRecipeCategoryImage = async (filePayload: AppUploadPayload) => {
+  if (primary_image_id.value) {
+    await recipeStore.deleteRecipeCategoryImage(
+      primary_image_id.value as string,
+    );
+  }
+  const [fileResponse, fileError] = await recipeStore.uploadRecipeImage(
+    filePayload.fileData,
+  );
+  primary_image_id.value = fileResponse?.$id as string;
 };
+const cleanUploadedImageIfExists = async () => {
+  const isCreationFormAndHasUploadedImage =
+    primary_image_id.value && !recipeCategoryId;
+
+  if (isCreationFormAndHasUploadedImage) {
+    await recipeStore.deleteRecipeCategoryImage(
+      primary_image_id.value as string,
+    );
+  }
+};
+onBeforeUnmount(async () => {
+  await cleanUploadedImageIfExists();
+});
 </script>
 
 <template>

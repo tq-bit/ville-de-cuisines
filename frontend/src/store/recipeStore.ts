@@ -425,6 +425,18 @@ const useRecipeStore = defineStore('recipes', {
       }
     },
 
+    async deleteRecipeCategoryImage(fileId: string) {
+      try {
+        const deletionResponse = await appwriteClient.storage.deleteFile(
+          RECIPE_CATEGORY_BUCKET_ID,
+          fileId,
+        );
+        return [deletionResponse, null];
+      } catch (error) {
+        return [null, error as AppwriteException];
+      }
+    },
+
     // Recipe monkeypatching
     patchRecipeCreationPayload(
       payload: Recipe,
