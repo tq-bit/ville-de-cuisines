@@ -245,6 +245,21 @@ const useRecipeStore = defineStore('recipes', {
       return '';
     },
 
+    async fetchRecipeCategoryById(
+      categoryId: string,
+    ): AppServerResponseOrError<RecipeCategory> {
+      try {
+        const response: RecipeCategory =
+          await appwriteClient.database.getDocument(
+            RECIPE_CATEGORY_ID,
+            categoryId,
+          );
+        return [response, null];
+      } catch (error) {
+        return [null, error as AppwriteException];
+      }
+    },
+
     async fetchRecipeCategoryName(categoryId: string): Promise<string> {
       if (categoryId) {
         const response: RecipeCategory =
@@ -257,6 +272,7 @@ const useRecipeStore = defineStore('recipes', {
       return '';
     },
 
+    // Recipe CRUD Methods
     async createRecipe(
       payload: Recipe,
       userId: string,
@@ -334,6 +350,40 @@ const useRecipeStore = defineStore('recipes', {
       }
     },
 
+    // Recipe Category CRUD
+    async createRecipeCategory(
+      payload: RecipeCategory,
+    ): AppServerResponseOrError<RecipeCategory> {
+      try {
+        const response: RecipeCategory =
+          await appwriteClient.database.createDocument(
+            RECIPE_CATEGORY_ID,
+            uuid(),
+            payload,
+          );
+        return [response, null];
+      } catch (error) {
+        return [null, error as AppwriteException];
+      }
+    },
+
+    async updateRecipeCategory(
+      payload: RecipeCategory,
+    ): AppServerResponseOrError<RecipeCategory> {
+      try {
+        const response: RecipeCategory =
+          await appwriteClient.database.updateDocument(
+            RECIPE_CATEGORY_ID,
+            payload.$id || '',
+            payload,
+          );
+        return [response, null];
+      } catch (error) {
+        return [null, error as AppwriteException];
+      }
+    },
+
+    // Recipe image CRUD
     async uploadRecipeImage(file: File): AppServerResponseOrError<Models.File> {
       try {
         const response = await appwriteClient.storage.createFile(
@@ -359,6 +409,7 @@ const useRecipeStore = defineStore('recipes', {
       }
     },
 
+    // Recipe Category Image CRUD
     async uploadRecipeCategoryImage(
       file: File,
     ): AppServerResponseOrError<Models.File> {
@@ -374,6 +425,7 @@ const useRecipeStore = defineStore('recipes', {
       }
     },
 
+    // Recipe monkeypatching
     patchRecipeCreationPayload(
       payload: Recipe,
       id: string,
