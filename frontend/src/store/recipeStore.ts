@@ -324,15 +324,11 @@ const useRecipeStore = defineStore('recipes', {
         await this.fetchRecipeById(recipeId);
       const recipeToDelete = fetchRecipeResponse as Recipe;
 
-      // TODO: add a way to check whether an image exists or not
       const [recipeResponse, recipeError] = await this.deleteRecipe(
         recipeToDelete,
       );
-      const [imageResponse, imageError] = await this.deleteRecipeImage(
-        recipeToDelete.primary_image_id as string,
-      );
 
-      if (fetchRecipeError || recipeError || imageError) {
+      if (fetchRecipeError || recipeError) {
         triggerGlobalAlert({
           variant: 'error',
           message: 'Could not delete recipe for ' + recipeToDelete.name,
