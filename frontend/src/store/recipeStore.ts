@@ -481,7 +481,12 @@ const useRecipeStore = defineStore('recipes', {
 
     async enrichRecipes(documents: SerializedRecipe[]): Promise<Recipe[]> {
       const deserializedDocuments = documents.map((document) => {
-        return this.deserializeRecipe(document);
+        const deserializedDocument = this.deserializeRecipe(document);
+        deserializedDocument.total_calories =
+          deserializedDocument.ingredients.reduce((acc, ingredient) => {
+            return (acc += ingredient.calories);
+          }, 0);
+        return deserializedDocument;
       });
 
       const enrichedDocuments = await Promise.all(

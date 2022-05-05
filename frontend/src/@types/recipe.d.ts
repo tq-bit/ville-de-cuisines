@@ -33,6 +33,7 @@ export interface Recipe extends Models.Document {
   is_public: boolean;
   category_id?: string;
   category_name?: string;
+  total_calories: number;
 }
 
 export interface RecipeMap {
@@ -55,4 +56,5 @@ export interface SerializedRecipe extends Models.Document {
   is_public: boolean;
   category_id?: string;
   category_name?: string;
+  total_calories: number;
 }
