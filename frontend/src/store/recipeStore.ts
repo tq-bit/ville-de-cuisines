@@ -458,7 +458,7 @@ const useRecipeStore = defineStore('recipes', {
       const uniqueTags = removeDuplicates(payload?.tags);
       return {
         ...payload,
-        original_recipe_id: id,
+        original_recipe_id: payload.original_recipe_id || id,
         user_id: userId,
         tags: uniqueTags,
         ingredients: uniqueIngredients as string[],

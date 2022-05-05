@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch, onBeforeUnmount, onMounted } from 'vue';
+import { ref, computed, watch, onBeforeUnmount, onMounted, toRef } from 'vue';
 import AppGrid from '../../components/layout/content/AppGrid.vue';
 import AppContainer from '../../components/layout/content/AppContainer.vue';
 import AppPillList from '../../components/lists/pills/AppPillList.vue';
@@ -24,16 +24,24 @@ import {
   Ingredient,
   Recipe,
   RecipeCategory,
-} from '../../@types/commons';
+} from '../../@types';
 
 // Router
 const router = useRouter();
 const recipeId = router.currentRoute.value.params.recipeId as string;
+const isForkMode = computed<boolean>(() => {
+  return !!router.currentRoute.value.path.match('/fork');
+});
+const isEditMode = computed<boolean>(() => {
+  return !!router.currentRoute.value.path.match('/edit');
+});
 const closeRecipeModal = () => router.push({ path: '/my-kitchen' });
 
 // Recipe (main resource)
 const {
+  $id,
   name,
+  original_recipe_id,
   portions_count,
   description,
   category_id,
@@ -85,9 +93,32 @@ const onDeleteRecipe = async () => {
     router.push({ path: '/my-kitchen' });
   }
 };
+
+// Recipe fork (Recipe sub - feature)
+const setRecipeForkToCreate = async (recipeId: string) => {
+  const [response, error] = await recipeStore.fetchRecipeById(recipeId);
+  setRecipeValues({
+    name: response?.name,
+    description: response?.description,
+    is_public: response?.is_public,
+    primary_image_id: response?.primary_image_id,
+    portions_count: response?.portions_count,
+    category_id: response?.category_id,
+    original_recipe_id: recipeId,
+  });
+
+  setLocalIngredientState(response as Recipe);
+  setLocalTagState(response as Recipe);
+  setLocalCategoryState(response as Recipe);
+};
+
 onMounted(async () => {
-  if (recipeId) {
+  if (recipeId && isEditMode.value === true) {
     await setActiveRecipeToUpdate(recipeId);
+  }
+
+  if (recipeId && isForkMode.value === true) {
+    await setRecipeForkToCreate(recipeId);
   }
 });
 
@@ -169,8 +200,11 @@ const commitLocalTagState = () => {
 <template>
   <app-container class="mt-4">
     <h1 class="my-4 text-3xl">
-      <span :title="`RecipeID: ${recipeId}`" v-if="recipeId">
+      <span :title="`RecipeID: ${recipeId}`" v-if="isEditMode">
         Updating recipe for {{ name }}</span
+      >
+      <span :title="`RecipeID: ${recipeId}`" v-else-if="isForkMode">
+        Create your own recipe for {{ name }}</span
       >
       <span v-else> 🍲 Create a new masterpiece</span>
     </h1>
@@ -200,7 +234,7 @@ const commitLocalTagState = () => {
           >
 
           <app-button
-            v-if="recipeId"
+            v-if="isEditMode"
             variant="warning-outline"
             @click="onDeleteRecipe"
             class="mt-4 hidden md:block"
@@ -264,7 +298,7 @@ const commitLocalTagState = () => {
           >
 
           <app-button
-            v-if="recipeId"
+            v-if="isEditMode"
             @click="onDeleteRecipe"
             class="md:hidden"
             block

@@ -71,6 +71,13 @@ export const routes: RouterOptions['routes'] = [
   },
 
   {
+    path: '/my-kitchen/recipe/:recipeId/fork',
+    component: () => import('../pages/my-kitchen/KitchenRecipe.vue'),
+    beforeEnter: redirectToLoginIfUserIsLoggedOut,
+    props: true,
+  },
+
+  {
     path: '/my-kitchen/recipe/:recipeId/edit',
     component: () => import('../pages/my-kitchen/KitchenRecipe.vue'),
     beforeEnter: redirectToLoginIfUserIsLoggedOut,
@@ -91,17 +98,6 @@ export const routes: RouterOptions['routes'] = [
     path: '/my-kitchen',
     component: () => import('../pages/my-kitchen/index.vue'),
     beforeEnter: redirectToLoginIfUserIsLoggedOut,
-    children: [
-      {
-        path: '/my-kitchen/ingredient/:ingredientId/edit',
-        component: () => import('../pages/my-kitchen/IngredientBlend.vue'),
-        props: true,
-      },
-      {
-        path: '/my-kitchen/ingredient',
-        component: () => import('../pages/my-kitchen/IngredientBlend.vue'),
-      },
-    ],
   },
 
   {
