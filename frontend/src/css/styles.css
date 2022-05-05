@@ -15,7 +15,11 @@ body {
 .grow-top-enter-active, .grow-top-leave-active {
   max-height: 12rem;
   overflow: hidden;
-  transition: max-height 1s ease-in-out;
+  transition: max-height 0.5s ease-in-out;
+}
+
+.grow-top-leave-active {
+	transition: none;
 }
 
 .grow-top-enter-from, .grow-top-leave-to {
