@@ -479,23 +479,26 @@ const useRecipeStore = defineStore('recipes', {
       };
     },
 
-    async enrichRecipes(documents: SerializedRecipe[]): Promise<Recipe[]> {
-      const deserializedDocuments = documents.map((document) => {
-        const deserializedDocument = this.deserializeRecipe(document);
-        deserializedDocument.total_calories =
-          deserializedDocument.ingredients.reduce((acc, ingredient) => {
-            return (acc += ingredient.calories);
-          }, 0);
-        return deserializedDocument;
+    /**
+     * @desc Adds remote data and `total calories per recipe` to a list of recipes.
+     * @param recipes The recipes do enrich with data
+     */
+    async enrichRecipes(recipes: SerializedRecipe[]): Promise<Recipe[]> {
+      const deserializedRecipes = recipes.map((document) => {
+        const recipe = this.deserializeRecipe(document);
+        recipe.total_calories = recipe.ingredients.reduce((acc, ingredient) => {
+          return (acc += ingredient.calories);
+        }, 0);
+        return recipe;
       });
 
-      const enrichedDocuments = await Promise.all(
-        deserializedDocuments.map((document) => {
+      const enrichedRecipes = await Promise.all(
+        deserializedRecipes.map((document) => {
           return this.enrichRecipeWithRemoteData(document);
         }),
       );
 
-      return enrichedDocuments;
+      return enrichedRecipes;
     },
 
     async enrichRecipeCategories(documents: RecipeCategory[]) {
