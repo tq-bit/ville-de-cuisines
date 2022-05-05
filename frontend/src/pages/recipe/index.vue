@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, nextTick } from 'vue';
+import { ref, computed, onMounted, onUpdated } from 'vue';
 import { useRouter } from 'vue-router';
 import { AppGalleryItemType, Ingredient, Recipe } from '../../@types';
 import AppContainer from '../../components/layout/content/AppContainer.vue';
@@ -69,12 +69,15 @@ const onClickGalleryItem = async (recipe: AppGalleryItemType) => {
   router.push({
     path: `/recipe/${recipe.$id}`,
   });
-  await setLocalRecipe(recipe.$id);
-  await setLocalRecipeSuggestions(suggestionCount.value);
-  await setLocalRecipeByUser();
 };
 
 onMounted(async () => {
+  await setLocalRecipe(router.currentRoute.value.params.recipeId as string);
+  await setLocalRecipeSuggestions(suggestionCount.value);
+  await setLocalRecipeByUser();
+});
+
+onUpdated(async () => {
   await setLocalRecipe(router.currentRoute.value.params.recipeId as string);
   await setLocalRecipeSuggestions(suggestionCount.value);
   await setLocalRecipeByUser();
@@ -114,7 +117,12 @@ const computeIngredientCountForPortion = (ingredient: Ingredient) => {
     <app-grid class="mt-4" variant="sidebar-right">
       <template v-slot:left>
         <section class="mb-4">
-          <h1 class="mb-2 text-3xl">{{ localRecipe?.name }}</h1>
+          <h1 class="mb-2 text-3xl">
+            {{ localRecipe?.name }}
+            <span class="text-xl" v-if="!localRecipeIsOriginal"
+              >(variation)</span
+            >
+          </h1>
           <app-image
             class="mb-2"
             cover="xlarge"
@@ -122,19 +130,32 @@ const computeIngredientCountForPortion = (ingredient: Ingredient) => {
           ></app-image>
           <div class="flex justify-between">
             <p>
-              Category:
-              <router-link
-                class="font-semibold"
-                :to="`/recipe/category/${localRecipe?.category_id}`"
-                >{{ localRecipe?.category_name }}</router-link
+              <span>
+                Category:
+                <router-link
+                  class="font-semibold"
+                  :to="`/recipe/category/${localRecipe?.category_id}`"
+                  >{{ localRecipe?.category_name }}</router-link
+                ></span
               >
               <br />
-              Submitted by
-              <router-link
-                class="font-semibold"
-                :to="`/user/${localRecipe?.user_id}`"
-                >{{ submittedBy }}</router-link
-              >
+
+              <span>
+                Submitted by
+                <router-link
+                  class="font-semibold"
+                  :to="`/user/${localRecipe?.user_id}`"
+                  >{{ submittedBy }}</router-link
+                >
+              </span>
+
+              <br />
+
+              <span class="font-semibold" v-if="!localRecipeIsOriginal">
+                <router-link :to="`/recipe/${localRecipe?.original_recipe_id}`">
+                  To original recipe
+                </router-link>
+              </span>
             </p>
             <div class="max-w-xs">
               <app-button
