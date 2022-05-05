@@ -30,6 +30,10 @@ const openIngredientModal = () => {
   router.push({ path: '/my-kitchen/ingredient' });
 };
 
+const openRecipeCategoryPage = () => {
+  router.push({ path: '/my-kitchen/recipe-category' });
+};
+
 onMounted(
   async () =>
     await recipeStore.syncActiveUserRecipes(activeUserStore.account.$id),
@@ -47,6 +51,9 @@ onMounted(
         >
         <app-button @click="openIngredientModal" class="mb-4" block>
           Add ingredients</app-button
+        >
+        <app-button @click="openRecipeCategoryPage" class="mb-4" block>
+          Add recipe category</app-button
         >
       </app-card>
     </template>
