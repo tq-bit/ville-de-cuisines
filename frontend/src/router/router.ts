@@ -62,7 +62,12 @@ export const routes: RouterOptions['routes'] = [
 
   {
     path: '/discover/users',
-    component: () => import('../pages/user/userDiscover.vue'),
+    component: () => import('../pages/discover/UserDiscover.vue'),
+  },
+
+  {
+    path: '/discover/categories',
+    component: () => import('../pages/discover/CategoryDiscover.vue'),
   },
 
   {
