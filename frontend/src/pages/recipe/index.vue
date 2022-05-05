@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, nextTick } from 'vue';
 import { useRouter } from 'vue-router';
-import { AppGalleryItemType, Ingredient, Recipe } from '../../@types/commons';
+import { AppGalleryItemType, Ingredient, Recipe } from '../../@types';
 import AppContainer from '../../components/layout/content/AppContainer.vue';
 import AppGrid from '../../components/layout/content/AppGrid.vue';
 import AppImage from '../../components/ui/AppImage.vue';

@@ -105,9 +105,9 @@ export const routes: RouterOptions['routes'] = [
   },
 
   {
-    path: '/recipe/category/:categoryId',
+    path: '/recipe/category/:recipeCategoryId',
     component: () => import('../pages/recipe/RecipeCategory.vue'),
-    meta: { reuse: false },
+    props: true,
   },
 
   {

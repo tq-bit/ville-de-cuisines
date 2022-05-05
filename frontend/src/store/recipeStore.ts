@@ -12,7 +12,7 @@ import {
   RECIPES_COLLECTION_ID,
   RECIPE_BUCKET_ID,
   RECIPE_CATEGORY_BUCKET_ID,
-  RECIPE_CATEGORY_ID,
+  RECIPE_CATEGORY_COLLECTION_ID,
 } from '../constants';
 import { AppwriteException, Models, Query } from 'appwrite';
 import { v4 as uuid } from 'uuid';
@@ -148,11 +148,10 @@ const useRecipeStore = defineStore('recipes', {
 
     async syncRecipeCategories() {
       const response = await appwriteClient.database.listDocuments(
-        RECIPE_CATEGORY_ID,
+        RECIPE_CATEGORY_COLLECTION_ID,
       );
       const documents = response.documents as RecipeCategory[];
       const enrichedDocuments = await this.enrichRecipeCategories(documents);
-      console.log(enrichedDocuments);
       this._recipeCategories = enrichedDocuments;
     },
 
@@ -178,7 +177,7 @@ const useRecipeStore = defineStore('recipes', {
 
     async searchCategories(query: string) {
       const response = await appwriteClient.database.listDocuments(
-        RECIPE_CATEGORY_ID,
+        RECIPE_CATEGORY_COLLECTION_ID,
         [Query.search('name', query)],
       );
       this._recipeCategorySearchResults =
@@ -252,10 +251,17 @@ const useRecipeStore = defineStore('recipes', {
       try {
         const response: RecipeCategory =
           await appwriteClient.database.getDocument(
-            RECIPE_CATEGORY_BUCKET_ID,
+            RECIPE_CATEGORY_COLLECTION_ID,
             categoryId,
           );
-        return [response, null];
+        const primary_image_href = await this.fetchRecipeCategoryImage(
+          response.primary_image_id as string,
+        );
+        const enrichedCategory = {
+          ...response,
+          primary_image_href,
+        };
+        return [enrichedCategory, null];
       } catch (error) {
         return [null, error as AppwriteException];
       }
@@ -265,7 +271,7 @@ const useRecipeStore = defineStore('recipes', {
       if (categoryId) {
         const response: RecipeCategory =
           await appwriteClient.database.getDocument(
-            RECIPE_CATEGORY_ID,
+            RECIPE_CATEGORY_COLLECTION_ID,
             categoryId,
           );
         return response.name;
@@ -358,7 +364,7 @@ const useRecipeStore = defineStore('recipes', {
       try {
         const response: RecipeCategory =
           await appwriteClient.database.createDocument(
-            RECIPE_CATEGORY_ID,
+            RECIPE_CATEGORY_COLLECTION_ID,
             uuid(),
             payload,
           );
@@ -374,7 +380,7 @@ const useRecipeStore = defineStore('recipes', {
       try {
         const response: RecipeCategory =
           await appwriteClient.database.updateDocument(
-            RECIPE_CATEGORY_ID,
+            RECIPE_CATEGORY_COLLECTION_ID,
             payload.$id || '',
             payload,
           );
