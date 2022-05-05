@@ -19,7 +19,7 @@ body {
 }
 
 .grow-top-leave-active {
-	transition: none;
+  transition: max-height 0.25s ease-in-out;
 }
 
 .grow-top-enter-from, .grow-top-leave-to {
