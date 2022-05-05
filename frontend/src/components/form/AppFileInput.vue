@@ -101,7 +101,7 @@ const setFileBuffer = (file: File | null): Promise<void> => {
           class="block cursor-pointer items-center transition-all"
         >
           <span v-if="!fileData">
-            <img-upload></img-upload>Drop a file or browse</span
+            <svg-upload></svg-upload>Drop a file or browse</span
           >
           <span v-else>
             <img

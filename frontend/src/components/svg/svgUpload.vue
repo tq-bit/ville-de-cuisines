@@ -1,14 +1,3 @@
-<script setup lang="ts">
-withDefaults(
-  defineProps<{
-    mainColor?: string;
-  }>(),
-  {
-    mainColor: 'green',
-  },
-);
-</script>
-
 <template>
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -83,7 +72,7 @@ withDefaults(
       transform="translate(-208.9778 -99.05999)"
       fill="#fff"
     />
-    <circle cx="694.19401" cy="614.02963" r="87.85039" :fill="mainColor" />
+    <circle cx="694.19401" cy="614.02963" r="87.85039" class="fill-green-600" />
     <path
       d="M945.18722,701.63087H914.63056V671.07421a11.45875,11.45875,0,0,0-22.9175,0v30.55666H861.1564a11.45875,11.45875,0,0,0,0,22.9175h30.55666V755.105a11.45875,11.45875,0,1,0,22.9175,0V724.54837h30.55666a11.45875,11.45875,0,0,0,0-22.9175Z"
       transform="translate(-208.9778 -99.05999)"
@@ -132,7 +121,7 @@ withDefaults(
     <path
       d="M635.85911,390.6071H506.51316a3.847,3.847,0,0,1-3.84277-3.84277V285.81706a3.847,3.847,0,0,1,3.84277-3.84277H635.85911a3.847,3.847,0,0,1,3.84277,3.84277V386.76433A3.847,3.847,0,0,1,635.85911,390.6071Z"
       transform="translate(-208.9778 -99.05999)"
-      :fill="mainColor"
+      class="fill-green-600"
     />
   </svg>
 </template>

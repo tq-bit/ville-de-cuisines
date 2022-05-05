@@ -10,7 +10,7 @@ const emit = defineEmits(['clickGetStarted']);
   <app-grid variant="equal">
     <template v-slot:left>
       <section>
-        <img-cooking-hero></img-cooking-hero>
+        <svg-cooking-hero></svg-cooking-hero>
       </section>
     </template>
 

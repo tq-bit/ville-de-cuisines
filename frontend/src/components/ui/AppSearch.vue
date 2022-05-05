@@ -71,7 +71,7 @@ const onInput = (ev: Event) =>
         class="absolute top-11 w-full border-b-2 border-green-600 bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200"
       >
         <p class="py-2 px-4" v-if="loading">
-          <ani-loader></ani-loader>
+          <svg-loader></svg-loader>
         </p>
 
         <ul v-else-if="loadingFinishedWithResults">

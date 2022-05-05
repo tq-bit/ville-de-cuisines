@@ -40,7 +40,7 @@ onMounted(
   <app-grid class="mt-4" variant="sidebar-left">
     <template v-slot:left>
       <app-card block title="My kitchen">
-        <img-cooking-management class="mb-4"></img-cooking-management>
+        <svg-cooking-management class="mb-4"></svg-cooking-management>
         <hr class="mb-4" />
         <app-button @click="openRecipeModal" class="mb-4" block>
           Add new recipe</app-button

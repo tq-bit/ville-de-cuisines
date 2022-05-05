@@ -1,16 +1,3 @@
-<script setup lang="ts">
-withDefaults(
-  defineProps<{
-    mainColor?: string;
-    secondaryColor?: string;
-  }>(),
-  {
-    mainColor: 'green',
-    secondaryColor: 'darkgreen',
-  },
-);
-</script>
-
 <template>
   <svg
     xmlns="http://www.w3.org/2000/svg"

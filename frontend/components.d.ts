@@ -46,6 +46,10 @@ declare module '@vue/runtime-core' {
     Navbar: typeof import('./src/components/layout/navbar/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SvgCookingHero: typeof import('./src/components/svg/svgCookingHero.vue')['default']
+    SvgCookingManagement: typeof import('./src/components/svg/svgCookingManagement.vue')['default']
+    SvgLoader: typeof import('./src/components/svg/svgLoader.vue')['default']
+    SvgUpload: typeof import('./src/components/svg/svgUpload.vue')['default']
   }
 }
 
