@@ -103,12 +103,12 @@ const useRecipeStore = defineStore('recipes', {
       });
     },
     recipeCategoriesForGallery: (state) => {
-      return state._recipeCategories.map((recipe) => {
+      return state._recipeCategories.map((recipeCategory) => {
         return {
-          $id: recipe.$id,
-          src: recipe.primary_image_href,
-          alt: recipe.name,
-          title: recipe.name,
+          $id: recipeCategory.$id,
+          src: recipeCategory.primary_image_href,
+          alt: recipeCategory.name,
+          title: recipeCategory.name,
         } as AppGalleryItemType;
       });
     },
