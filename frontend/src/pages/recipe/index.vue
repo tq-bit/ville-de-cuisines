@@ -29,7 +29,7 @@ const submittedBy = computed(() => {
 // Recipe Logic
 const recipeStore = useRecipeStore();
 const localRecipe = ref<Recipe>();
-const suggestionCount = ref<number>(5);
+const suggestionCount = ref<number>(3);
 const localRecipeSuggestions = ref<AppGalleryItemType[]>([]);
 const localRecipeByUser = ref<AppGalleryItemType[]>([]);
 const localRecipeIsOriginal = computed(() => {
@@ -171,7 +171,8 @@ const computeIngredientCountForPortion = (ingredient: Ingredient) => {
                 @click="
                   router.push({ path: `/my-kitchen/recipe/${router.currentRoute.value.params.recipeId as string}/fork` })
                 "
-                >Refine recipe
+              >
+                Create your own variant
               </app-button>
             </div>
           </div>
