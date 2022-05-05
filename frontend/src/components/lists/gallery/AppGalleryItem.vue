@@ -28,11 +28,7 @@ defineProps<{
       >
         <h4 class="text-white">{{ item.title }}</h4>
       </section>
-      <img
-        class="h-48 w-full rounded object-cover"
-        :src="item.src"
-        :alt="item.alt || item.title"
-      />
+      <app-image :src="item.src" rounded cover="medium"></app-image>
     </main>
   </li>
 </template>
