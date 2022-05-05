@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { AppUploadPayload } from '../../@types/commons';
+import { AppUploadPayload } from '../../@types';
 import { ref } from 'vue';
 
 const over = ref<boolean>(false);
