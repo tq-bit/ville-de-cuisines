@@ -50,7 +50,10 @@ const setLocalRecipeSuggestions = async (count: number) => {
 const setLocalRecipeByUser = async () => {
   const userId = localRecipe.value?.user_id;
   if (userId) {
-    await recipeStore.syncRecipesByUser(userId as string);
+    await recipeStore.syncRecipesByUser(
+      userId as string,
+      suggestionCount.value,
+    );
     const recipes = recipeStore.publicRecipesByUserForGallery(userId as string);
     localRecipeByUser.value = recipes.filter((recipe) => {
       return recipe.$id !== localRecipe.value?.$id;

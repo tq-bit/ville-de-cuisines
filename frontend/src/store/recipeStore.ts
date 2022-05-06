@@ -169,8 +169,8 @@ const useRecipeStore = defineStore('recipes', {
       this._publicRecipesByCategory[categoryId] = enrichedDocuments;
     },
 
-    async syncRecipesByUser(userId: string): Promise<void> {
-      const [response, error] = await this.fetchRecipesByUserId(userId);
+    async syncRecipesByUser(userId: string, count: number): Promise<void> {
+      const [response, error] = await this.fetchRecipesByUserId(userId, count);
       if (error) console.error(error);
       this, (this._publicRecipesByUser[userId] = response as Recipe[]);
     },
@@ -209,11 +209,13 @@ const useRecipeStore = defineStore('recipes', {
 
     async fetchRecipesByUserId(
       userId: string,
+      count: number,
     ): AppServerResponseOrError<Recipe[]> {
       try {
         const response = await appwriteClient.database.listDocuments(
           RECIPES_COLLECTION_ID,
           [Query.equal('user_id', userId)],
+          count,
         );
         const documents = response.documents as SerializedRecipe[];
         const enrichedDocuments = await this.enrichRecipes(documents);

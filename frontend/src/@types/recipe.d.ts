@@ -7,6 +7,8 @@ export interface Ingredient extends Models.Document {
   quantity_unit: string;
   calories: number;
   nutrients: string;
+  primary_image_id?: string;
+  primary_image_href?: string;
 }
 
 export interface RecipeCategory extends Models.Document {
