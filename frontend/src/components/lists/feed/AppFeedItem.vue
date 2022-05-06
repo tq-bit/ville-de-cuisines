@@ -32,9 +32,9 @@ withDefaults(
     <img
       class="rounded object-cover"
       :class="{
-        'h-12 rounded-full': size === 'small',
-        'h-24': size === 'medium',
-        'h-32': size === 'large',
+        'h-12 w-12 rounded-full': size === 'small',
+        'h-24 w-24': size === 'medium',
+        'h-32 w-32': size === 'large',
       }"
       :src="item.src"
       :alt="item.alt || item.title"

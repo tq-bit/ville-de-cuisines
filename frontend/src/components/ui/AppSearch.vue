@@ -75,18 +75,16 @@ const onBlur = () =>
     <transition name="grow-top">
       <div
         v-if="isLoadingOrHasResults"
-        class="absolute top-11 w-full border-b-2 border-green-600 bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200"
+        class="absolute top-11 w-full border-b-2 border-green-600 bg-gray-100 py-1 px-2 text-gray-800 dark:bg-gray-800 dark:text-gray-200"
       >
-        <p class="py-2 px-4" v-if="loading">
-          <svg-loader></svg-loader>
-        </p>
-        <div v-else-if="loadingFinishedWithResults">
-          <app-feed
-            @click="(option) => onClickItem(option)"
-            size="small"
-            :items="options"
-          ></app-feed>
-        </div>
+        <svg-loader v-if="loading"></svg-loader>
+
+        <app-feed
+          v-else-if="loadingFinishedWithResults"
+          @click="(option) => onClickItem(option)"
+          size="small"
+          :items="options"
+        ></app-feed>
       </div>
     </transition>
   </div>
