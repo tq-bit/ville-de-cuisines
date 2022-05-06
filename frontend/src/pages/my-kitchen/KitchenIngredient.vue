@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { useRouter } from 'vue-router';
-import { AppUploadPayload } from '../../@types';
+import { AppUploadPayload, AppGalleryItemType, Ingredient } from '../../@types';
 
 import useIngredientsStore from '../../store/ingredientsStore';
 import useIngredientForm from '../../use/form/ingredientForm';
+import useLazyIngredientSearch from '../../use/search/useLazyIngredientSearch';
 
 // Router
 const router = useRouter();
@@ -52,6 +53,23 @@ onMounted(() => {
     setIngredientToEditById(ingredientId);
   }
 });
+
+// Search logic
+const ingredientsQuery = ref<string>('');
+let localIngredientState = ref<Ingredient[]>([]);
+const { handleSearch, loading } = useLazyIngredientSearch(ingredientsQuery);
+const onClickIngredientSearchItem = (ingredient: AppGalleryItemType) => {
+  const ingredientToPush: Ingredient | undefined =
+    ingredientsStore.ingredientSearchResults.find(
+      (item) => item.$id === ingredient.$id,
+    );
+  if (ingredientToPush) {
+    localIngredientState.value.push(ingredientToPush);
+    ingredientsQuery.value = '';
+  }
+};
+watch(ingredientsQuery, handleSearch);
+onMounted(async () => await ingredientsStore.syncIngredients());
 </script>
 
 <template>
@@ -134,6 +152,20 @@ onMounted(() => {
         </template>
       </app-grid>
     </form>
+
+    <h2 class="my-4 text-2xl">
+      Or browse {{ ingredientsStore.ingredients.length }} public ingredients
+    </h2>
+
+    <app-search
+      size="medium"
+      v-model="ingredientsQuery"
+      label-prefix="Start typing to search and "
+      label="Search for ingredients"
+      :options="ingredientsStore.ingredientSearchResultsForGallery"
+      :loading="loading"
+      listKey="name"
+    ></app-search>
   </app-container>
 </template>
 
