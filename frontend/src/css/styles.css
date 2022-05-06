@@ -46,7 +46,7 @@ body {
 .fade-from-bottom-enter-from,
 .fade-from-bottom-leave-to {
 	opacity: 0;
-	transform: translateY(-30px);
+	transform: translateY(30px);
 }
 
 /* Just fade */
