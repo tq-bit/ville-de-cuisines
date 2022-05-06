@@ -3,6 +3,7 @@ import {
   Ingredient,
   AppGalleryItemType,
 } from '../@types/index';
+import ingredients_fallback_url from '../../public/ingredients-fallback.png';
 import { INGREDIENTS_COLLECTION_ID, INGREDIENTS_BUCKET_ID } from '../constants';
 import { AppwriteException, Models, Query } from 'appwrite';
 import { v4 as uuid } from 'uuid';
@@ -164,7 +165,7 @@ const useIngredientsStore = defineStore('ingredients', {
           );
           return {
             ...ingredient,
-            primary_image_href,
+            primary_image_href: primary_image_href || ingredients_fallback_url,
           };
         }),
       );

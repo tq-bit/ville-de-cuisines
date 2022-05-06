@@ -39,6 +39,13 @@
         ><br />
         for the logo and the inspirational talks.
       </p>
+
+      <h2 class="mb-6 text-2xl">Attributions</h2>
+      <a
+        href="https://www.flaticon.com/free-icons/ingredients"
+        title="ingredients icons"
+        >Ingredients icons created by mynamepong - Flaticon</a
+      >
     </div>
   </app-container>
 </template>
