@@ -34,6 +34,7 @@ declare module '@vue/runtime-core' {
     AppSwitch: typeof import('./src/components/form/AppSwitch.vue')['default']
     AppTextArea: typeof import('./src/components/form/AppTextArea.vue')['default']
     IClose: typeof import('./src/components/icons/iClose.vue')['default']
+    IDots: typeof import('./src/components/icons/iDots.vue')['default']
     ILock: typeof import('./src/components/icons/iLock.vue')['default']
     ILogin: typeof import('./src/components/icons/iLogin.vue')['default']
     IMail: typeof import('./src/components/icons/iMail.vue')['default']
