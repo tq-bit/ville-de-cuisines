@@ -134,11 +134,6 @@ onMounted(() => {
         </template>
       </app-grid>
     </form>
-
-    <transition name="fade-from-bottom">
-      <app-suggestion-slide v-if="name" variant="bottom">
-      </app-suggestion-slide>
-    </transition>
   </app-container>
 </template>
 
