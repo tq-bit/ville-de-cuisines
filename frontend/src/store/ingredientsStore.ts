@@ -1,4 +1,8 @@
-import { AppServerResponseOrError, Ingredient } from '../@types/index';
+import {
+  AppServerResponseOrError,
+  Ingredient,
+  AppGalleryItemType,
+} from '../@types/index';
 import { INGREDIENTS_COLLECTION_ID, INGREDIENTS_BUCKET_ID } from '../constants';
 import { AppwriteException, Models, Query } from 'appwrite';
 import { v4 as uuid } from 'uuid';
@@ -23,6 +27,17 @@ const useIngredientsStore = defineStore('ingredients', {
   getters: {
     ingredients: (state) => state._ingredients,
     ingredientSearchResults: (state) => state._ingredientSearchResults,
+
+    ingredientSearchResultsForGallery: (state) => {
+      return state._ingredientSearchResults.map((ingredient) => {
+        return {
+          $id: ingredient.$id,
+          src: ingredient.primary_image_href,
+          alt: ingredient.name,
+          title: ingredient.name,
+        } as AppGalleryItemType;
+      });
+    },
     quantityOptions: (state) => state._quantityOptions,
 
     quantityOptionKeys: (state) => {
@@ -39,9 +54,9 @@ const useIngredientsStore = defineStore('ingredients', {
         INGREDIENTS_COLLECTION_ID,
       );
 
-      const recipes = response.documents as Ingredient[];
-      const enrichedRecipes = await this.enrichIngredients(recipes);
-      this._ingredients = enrichedRecipes;
+      const ingredients = response.documents as Ingredient[];
+      const enrichedIngredients = await this.enrichIngredients(ingredients);
+      this._ingredients = enrichedIngredients;
     },
 
     async searchIngredients(query: string): Promise<void> {
@@ -49,7 +64,10 @@ const useIngredientsStore = defineStore('ingredients', {
         INGREDIENTS_COLLECTION_ID,
         [Query.search('name', query)],
       );
-      this._ingredientSearchResults = response.documents as Ingredient[];
+
+      const ingredients = response.documents as Ingredient[];
+      const enrichedIngredients = await this.enrichIngredients(ingredients);
+      this._ingredientSearchResults = enrichedIngredients as Ingredient[];
     },
 
     resetIngredientSearch(): void {

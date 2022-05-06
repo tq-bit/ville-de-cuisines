@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
+import { AppGalleryItemType } from '../../@types';
+import { APP_DEBOUNCE_TIMEOUT } from '../../constants';
 
 const props = withDefaults(
   defineProps<{
@@ -36,6 +38,14 @@ const emit = defineEmits<{
 
 const onInput = (ev: Event) =>
   emit('update:modelValue', (ev.target as HTMLInputElement).value);
+
+const onClickItem = (item: AppGalleryItemType) => {
+  emit('click-item', item);
+  inputHasFocus.value = false;
+};
+
+const onBlur = () =>
+  setTimeout(() => (inputHasFocus.value = false), APP_DEBOUNCE_TIMEOUT);
 </script>
 
 <template>
@@ -58,7 +68,7 @@ const onInput = (ev: Event) =>
       v-bind="$attrs"
       @input="onInput"
       @focus="inputHasFocus = true"
-      @blur="inputHasFocus = false"
+      @blur="onBlur"
       :value="modelValue"
       :placeholder="labelPrefix ? labelPrefix + label?.toLowerCase() : label || $attrs.placeholder as string"
     />
@@ -70,18 +80,13 @@ const onInput = (ev: Event) =>
         <p class="py-2 px-4" v-if="loading">
           <svg-loader></svg-loader>
         </p>
-
-        <ul v-else-if="loadingFinishedWithResults">
-          <li
-            tabindex="0"
-            v-for="option in options"
-            :key="option"
-            class="cursor-pointer rounded py-2 px-4 transition-all hover:bg-green-500 hover:text-white dark:hover:bg-green-700"
-            @click="emit('click-item', option)"
-          >
-            {{ option[listKey] }}
-          </li>
-        </ul>
+        <div v-else-if="loadingFinishedWithResults">
+          <app-feed
+            @click="(option) => onClickItem(option)"
+            size="small"
+            :items="options"
+          ></app-feed>
+        </div>
       </div>
     </transition>
   </div>

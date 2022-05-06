@@ -112,6 +112,17 @@ const useRecipeStore = defineStore('recipes', {
         } as AppGalleryItemType;
       });
     },
+
+    recipeCategorySearchResultsForGallery: (state) => {
+      return state._recipeCategorySearchResults.map((recipeCategory) => {
+        return {
+          $id: recipeCategory.$id,
+          src: recipeCategory.primary_image_href,
+          alt: recipeCategory.name,
+          title: recipeCategory.name,
+        } as AppGalleryItemType;
+      });
+    },
   },
 
   actions: {
@@ -180,8 +191,10 @@ const useRecipeStore = defineStore('recipes', {
         RECIPE_CATEGORY_COLLECTION_ID,
         [Query.search('name', query)],
       );
-      this._recipeCategorySearchResults =
-        response.documents as RecipeCategory[];
+
+      const categories = response.documents as RecipeCategory[];
+      const enrichedCategories = await this.enrichRecipeCategories(categories);
+      this._recipeCategorySearchResults = enrichedCategories;
     },
 
     resetCategorySearch() {

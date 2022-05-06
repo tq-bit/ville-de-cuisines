@@ -9,6 +9,7 @@ import useRecipeForm from '../../use/form/recipeForm';
 import useLazyIngredientSearch from '../../use/search/useLazyIngredientSearch';
 import useLazyCategorySearch from '../../use/search/useLazyCategorySearch';
 import {
+  AppGalleryItemType,
   AppUploadPayload,
   Ingredient,
   Recipe,
@@ -116,10 +117,10 @@ const categoryQuery = ref<string>('');
 const categoryName = ref<string>('');
 const { handleSearch: handleCategorySearch, loading: categoryLoading } =
   useLazyCategorySearch(categoryQuery);
-const onClickCategorySearchItem = (payload: RecipeCategory) => {
-  categoryName.value = payload.name;
+const onClickCategorySearchItem = (payload: AppGalleryItemType) => {
+  categoryName.value = payload.title;
   category_id.value = payload.$id;
-  categoryQuery.value = payload.name;
+  categoryQuery.value = payload.title;
 };
 const setLocalCategoryState = (recipe: Recipe) => {
   category_id.value = recipe.category_id;
@@ -153,9 +154,15 @@ const ingredientsStore = useIngredientsStore();
 const ingredientsQuery = ref<string>('');
 let localIngredientState = ref<Ingredient[]>([]);
 const { handleSearch, loading } = useLazyIngredientSearch(ingredientsQuery);
-const onClickIngredientSearchItem = (ingredient: Ingredient) => {
-  localIngredientState.value.push(ingredient);
-  ingredientsQuery.value = '';
+const onClickIngredientSearchItem = (ingredient: AppGalleryItemType) => {
+  const ingredientToPush: Ingredient | undefined =
+    ingredientsStore.ingredientSearchResults.find(
+      (item) => item.$id === ingredient.$id,
+    );
+  if (ingredientToPush) {
+    localIngredientState.value.push(ingredientToPush);
+    ingredientsQuery.value = '';
+  }
 };
 const setLocalIngredientState = (recipe: Recipe) => {
   localIngredientState.value = recipe?.ingredients ?? [];
@@ -238,7 +245,7 @@ const commitLocalTagState = () => {
             v-model="categoryQuery"
             label-prefix="Start typing to search and choose a "
             label="Recipe category"
-            :options="recipeStore.recipeCategorySearchResults"
+            :options="recipeStore.recipeCategorySearchResultsForGallery"
             :loading="categoryLoading"
             @click-item="onClickCategorySearchItem"
             listKey="name"
@@ -271,7 +278,7 @@ const commitLocalTagState = () => {
             v-model="ingredientsQuery"
             label-prefix="Start typing to search and "
             label="Add ingredients"
-            :options="ingredientsStore.ingredientSearchResults"
+            :options="ingredientsStore.ingredientSearchResultsForGallery"
             :loading="loading"
             @click-item="onClickIngredientSearchItem"
             listKey="name"
