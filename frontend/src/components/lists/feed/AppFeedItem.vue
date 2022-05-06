@@ -55,6 +55,7 @@ withDefaults(
         {{ item.title }}
       </h2>
       <p
+        v-if="item.text"
         class="overflow-hidden overflow-ellipsis"
         :class="{
           'max-w-xs whitespace-nowrap text-gray-500 dark:text-gray-400':
