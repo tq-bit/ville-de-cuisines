@@ -1,6 +1,7 @@
 import { AppServerResponseOrError, Ingredient } from '../@types/index';
-import { INGREDIENTS_COLLECTION_ID } from '../constants';
+import { INGREDIENTS_COLLECTION_ID, INGREDIENTS_BUCKET_ID } from '../constants';
 import { AppwriteException, Models, Query } from 'appwrite';
+import { v4 as uuid } from 'uuid';
 
 import { defineStore } from 'pinia';
 import appwriteClient from '../api/appwrite';
@@ -37,7 +38,10 @@ const useIngredientsStore = defineStore('ingredients', {
       const response = await appwriteClient.database.listDocuments(
         INGREDIENTS_COLLECTION_ID,
       );
-      this._ingredients = response.documents as Ingredient[];
+
+      const recipes = response.documents as Ingredient[];
+      const enrichedRecipes = await this.enrichIngredients(recipes);
+      this._ingredients = enrichedRecipes;
     },
 
     async searchIngredients(query: string): Promise<void> {
@@ -59,7 +63,7 @@ const useIngredientsStore = defineStore('ingredients', {
         const response: Ingredient =
           await appwriteClient.database.createDocument(
             INGREDIENTS_COLLECTION_ID,
-            'unique()',
+            uuid(),
             payload,
           );
         this.addIngredient(response);
@@ -95,6 +99,47 @@ const useIngredientsStore = defineStore('ingredients', {
       } catch (error) {
         return [null, error as AppwriteException];
       }
+    },
+
+    async uploadIngredientImage(
+      file: File,
+    ): AppServerResponseOrError<Models.File> {
+      try {
+        const response = await appwriteClient.storage.createFile(
+          INGREDIENTS_BUCKET_ID,
+          uuid(),
+          file,
+        );
+        return [response, null];
+      } catch (error) {
+        return [null, error as AppwriteException];
+      }
+    },
+
+    async fetchIngredientImage(fileId: string): Promise<string> {
+      if (fileId) {
+        const response = await appwriteClient.storage.getFilePreview(
+          INGREDIENTS_BUCKET_ID,
+          fileId,
+        );
+        return response.href;
+      }
+      return '';
+    },
+
+    async enrichIngredients(ingredients: Ingredient[]): Promise<Ingredient[]> {
+      const enrichedIngredients = await Promise.all(
+        ingredients.map(async (ingredient) => {
+          const primary_image_href = await this.fetchIngredientImage(
+            ingredient.primary_image_id as string,
+          );
+          return {
+            ...ingredient,
+            primary_image_href,
+          };
+        }),
+      );
+      return enrichedIngredients;
     },
 
     // Local methods
