@@ -52,7 +52,7 @@ onMounted(async () => {
         >
           <app-gallery
             :columns="3"
-            :gallery-items="recipeStore.publicUserRecipesForGallery"
+            :items="recipeStore.publicUserRecipesForGallery"
             @click="onGalleryItemClick"
           ></app-gallery>
         </app-card>

@@ -212,14 +212,14 @@ const computeIngredientCountForPortion = (ingredient: Ingredient) => {
         <h2 class="mb-4 text-xl">More recipes like this</h2>
         <app-gallery
           class="mb-8"
-          :gallery-items="localRecipeSuggestions"
+          :items="localRecipeSuggestions"
           :columns="1"
           @click="onClickGalleryItem"
         ></app-gallery>
 
         <h2 class="mb-4 text-xl">More recipes from {{ submittedBy }}</h2>
         <app-gallery
-          :gallery-items="localRecipeByUser"
+          :items="localRecipeByUser"
           :columns="1"
           @click="onClickGalleryItem"
         ></app-gallery>

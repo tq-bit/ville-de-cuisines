@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { AppGalleryItemType } from '../../../@types/commons';
+import { AppGalleryItemType } from '../../../@types';
 import AppFeedItem from './AppFeedItem.vue';
 
 defineProps<{

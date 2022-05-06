@@ -10,6 +10,7 @@ declare module '@vue/runtime-core' {
     AppButton: typeof import('./src/components/form/AppButton.vue')['default']
     AppCard: typeof import('./src/components/form/AppCard.vue')['default']
     AppContainer: typeof import('./src/components/layout/content/AppContainer.vue')['default']
+    AppFeed: typeof import('./src/components/lists/feed/AppFeed.vue')['default']
     AppFeedItem: typeof import('./src/components/lists/feed/AppFeedItem.vue')['default']
     AppFeedList: typeof import('./src/components/lists/feed/AppFeedList.vue')['default']
     AppFileInput: typeof import('./src/components/form/AppFileInput.vue')['default']

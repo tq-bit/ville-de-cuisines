@@ -24,7 +24,7 @@ onMounted(async () => {
     <app-gallery
       @click="onClickGalleryCategoryItem"
       :columns="3"
-      :gallery-items="recipeStore.recipeCategoriesForGallery"
+      :items="recipeStore.recipeCategoriesForGallery"
     ></app-gallery>
   </app-container>
 </template>
