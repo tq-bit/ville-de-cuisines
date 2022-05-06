@@ -11,7 +11,7 @@ const router = useRouter();
 const closeIngredientsModal = () => router.push({ path: '/my-kitchen' });
 
 // Ingredient (main resource)
-const { quantityOptions } = useIngredientsStore();
+const ingredientsStore = useIngredientsStore();
 const {
   $id,
   name,
@@ -19,6 +19,7 @@ const {
   calories,
   quantity,
   quantity_unit,
+  primary_image_id,
   hasFormErrors,
   httpError,
   validationErrors,
@@ -33,8 +34,15 @@ const onSubmitIngredient = async () => {
   }
 };
 
-const onDropIngredientImage = async (file: AppUploadPayload) => {
-  console.log(file);
+const onDropIngredientImage = async (filePayload: AppUploadPayload) => {
+  if (primary_image_id.value) {
+    await ingredientsStore.deleteIngredientImage(
+      primary_image_id.value as string,
+    );
+  }
+  const [fileResponse, fileError] =
+    await ingredientsStore.uploadIngredientImage(filePayload.fileData);
+  primary_image_id.value = fileResponse?.$id as string;
 };
 
 onMounted(() => {
@@ -95,7 +103,7 @@ onMounted(() => {
 
             <app-select
               v-model="quantity_unit"
-              :options="quantityOptions"
+              :options="ingredientsStore.quantityOptions"
               class="mb-2"
               name="quantity_unit"
               label-prefix="Choose a "

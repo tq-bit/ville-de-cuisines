@@ -115,6 +115,18 @@ const useIngredientsStore = defineStore('ingredients', {
       }
     },
 
+    async deleteIngredientImage(fileId: string) {
+      try {
+        const deletionResponse = await appwriteClient.storage.deleteFile(
+          INGREDIENTS_BUCKET_ID,
+          fileId,
+        );
+        return [deletionResponse, null];
+      } catch (error) {
+        return [null, error as AppwriteException];
+      }
+    },
+
     async fetchIngredientImage(fileId: string): Promise<string> {
       if (fileId) {
         const response = await appwriteClient.storage.getFilePreview(
@@ -139,11 +151,6 @@ const useIngredientsStore = defineStore('ingredients', {
         }),
       );
       return enrichedIngredients;
-    },
-
-    // Local methods
-    addIngredient(ingredient: Ingredient) {
-      this._ingredients.push(ingredient);
     },
   },
 });

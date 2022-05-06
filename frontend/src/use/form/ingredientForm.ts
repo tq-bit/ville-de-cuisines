@@ -1,4 +1,4 @@
-import { AppServerErrorResponse, Ingredient } from '../../@types/commons';
+import { AppServerErrorResponse, Ingredient } from '../../@types';
 import { ref } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField, FieldContext } from 'vee-validate';
@@ -20,7 +20,11 @@ const ingredientSchema = yup.object({
   quantity: yup.number().required().label('Quantity'),
   quantity_unit: yup.string().oneOf(quantityOptionKeys).label('Quantity unit'),
   calories: yup.number().required().label('Calories'),
-  nutrients: yup.string().label('Nutrients'),
+  primary_image_id: yup
+    .string()
+    .optional()
+    .nullable()
+    .label('Primary image ID'),
 });
 
 export default function handleIngredientForm() {
@@ -36,6 +40,9 @@ export default function handleIngredientForm() {
     'description',
   ) as FieldContext<string>;
   const { value: quantity } = useField('quantity') as FieldContext<number>;
+  const { value: primary_image_id } = useField(
+    'primary_image_id',
+  ) as FieldContext<string>;
   const { value: quantity_unit } = useField(
     'quantity_unit',
   ) as FieldContext<string>;
@@ -54,6 +61,7 @@ export default function handleIngredientForm() {
     description.value = ingredient?.description || '';
     quantity.value = ingredient?.quantity || 0;
     quantity_unit.value = ingredient?.quantity_unit || '';
+    primary_image_id.value = ingredient?.primary_image_id || '';
     calories.value = ingredient?.calories || 0;
   };
 
@@ -110,6 +118,7 @@ export default function handleIngredientForm() {
     quantity,
     quantity_unit,
     calories,
+    primary_image_id,
     hasFormErrors,
     httpError,
     validationErrors,
