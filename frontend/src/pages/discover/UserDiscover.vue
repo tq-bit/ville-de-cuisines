@@ -20,10 +20,26 @@ onMounted(async () => {
 
 <template>
   <app-container tag="main" class="mt-4">
-    <app-gallery
+    SMall
+    <app-feed
+      size="small"
       @click="onClickUserItem"
-      :columns="3"
       :items="publicUserStore.publicUserFeedItems"
-    ></app-gallery>
+    ></app-feed>
+
+    <hr />
+    Medium
+    <app-feed
+      size="medium"
+      @click="onClickUserItem"
+      :items="publicUserStore.publicUserFeedItems"
+    ></app-feed>
+    <hr />
+    Large
+    <app-feed
+      size="large"
+      @click="onClickUserItem"
+      :items="publicUserStore.publicUserFeedItems"
+    ></app-feed>
   </app-container>
 </template>

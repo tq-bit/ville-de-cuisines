@@ -4,6 +4,7 @@ import AppFeedItem from './AppFeedItem.vue';
 
 defineProps<{
   items: AppGalleryItemType[];
+  size?: 'small' | 'medium' | 'large';
 }>();
 
 const emit = defineEmits<{
@@ -18,6 +19,7 @@ const emit = defineEmits<{
       v-for="item in items"
       :key="item.title"
       :item="item"
+      :size="size"
     ></app-feed-item>
   </ul>
 </template>

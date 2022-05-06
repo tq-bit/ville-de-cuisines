@@ -9,6 +9,7 @@ const setIsHovered = (value: boolean) => {
 
 defineProps<{
   item: AppGalleryItemType;
+  size?: 'small' | 'medium' | 'large';
 }>();
 </script>
 
