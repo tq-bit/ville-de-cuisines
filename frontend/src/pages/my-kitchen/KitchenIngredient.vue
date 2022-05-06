@@ -8,7 +8,7 @@ import useIngredientForm from '../../use/form/ingredientForm';
 
 // Router
 const router = useRouter();
-const closeIngredientsModal = () => router.push({ path: '/my-kitchen' });
+const navToMyKitchen = () => router.push({ path: '/my-kitchen' });
 
 // Ingredient (main resource)
 const ingredientsStore = useIngredientsStore();
@@ -30,7 +30,7 @@ const {
 const onSubmitIngredient = async () => {
   await handleIngredientSubmit();
   if (!hasFormErrors.value && !httpError.value) {
-    closeIngredientsModal();
+    navToMyKitchen();
   }
 };
 
