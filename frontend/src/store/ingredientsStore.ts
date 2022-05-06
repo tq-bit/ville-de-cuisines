@@ -66,7 +66,6 @@ const useIngredientsStore = defineStore('ingredients', {
             uuid(),
             payload,
           );
-        this.addIngredient(response);
         return [response, null];
       } catch (error) {
         return [null, error as AppwriteException];
