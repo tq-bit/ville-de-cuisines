@@ -42,9 +42,9 @@
 
       <h2 class="mb-6 text-2xl">Attributions</h2>
       <a
-        href="https://www.flaticon.com/free-icons/ingredients"
-        title="ingredients icons"
-        >Ingredients icons created by mynamepong - Flaticon</a
+        href="https://www.flaticon.com/free-icons/grocery"
+        title="grocery icons"
+        >Grocery icons created by ultimatearm - Flaticon</a
       >
     </div>
   </app-container>
