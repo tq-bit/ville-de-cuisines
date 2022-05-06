@@ -20,24 +20,12 @@ onMounted(async () => {
 
 <template>
   <app-container tag="main" class="mt-4">
-    SMall
+    <h1 class="mb-4 text-3xl">
+      Browse through
+      {{ publicUserStore.publicUserFeedItems.length }} users
+    </h1>
     <app-feed
       size="small"
-      @click="onClickUserItem"
-      :items="publicUserStore.publicUserFeedItems"
-    ></app-feed>
-
-    <hr />
-    Medium
-    <app-feed
-      size="medium"
-      @click="onClickUserItem"
-      :items="publicUserStore.publicUserFeedItems"
-    ></app-feed>
-    <hr />
-    Large
-    <app-feed
-      size="large"
       @click="onClickUserItem"
       :items="publicUserStore.publicUserFeedItems"
     ></app-feed>

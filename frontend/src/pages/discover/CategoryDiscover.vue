@@ -20,11 +20,25 @@ onMounted(async () => {
 </script>
 
 <template>
-  <app-container tag="main" class="mt-4">
+  <app-container tag="main" class="my-4">
+    <h1 class="mb-4 text-3xl">
+      Browse through
+      {{ recipeStore.recipeCategoriesForGallery.length }} categories
+    </h1>
     <app-gallery
       @click="onClickGalleryCategoryItem"
       :columns="3"
       :items="recipeStore.recipeCategoriesForGallery"
     ></app-gallery>
+
+    <section class="text-center">
+      <h2 class="mt-8 mb-4 text-lg font-semibold">
+        Did't find the category you're looking for?
+      </h2>
+
+      <app-button @click="router.push('/my-kitchen/recipe-category')"
+        >Create your own</app-button
+      >
+    </section>
   </app-container>
 </template>
