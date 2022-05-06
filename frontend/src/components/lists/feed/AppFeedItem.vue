@@ -7,26 +7,63 @@ const setIsHovered = (value: boolean) => {
   isHovered.value = value;
 };
 
-defineProps<{
-  item: AppGalleryItemType;
-  size?: 'small' | 'medium' | 'large';
-}>();
+withDefaults(
+  defineProps<{
+    item: AppGalleryItemType;
+    size?: 'small' | 'medium' | 'large';
+  }>(),
+  {
+    size: 'medium',
+  },
+);
 </script>
 
 <template>
   <li
     @mouseenter="setIsHovered(true)"
     @mouseleave="setIsHovered(false)"
-    class="my-4 flex h-24 cursor-pointer rounded border border-gray-600"
+    class="my-4 flex cursor-pointer"
+    :class="{
+      'h-12': size === 'small',
+      'h-24': size === 'medium',
+      'h-32': size === 'large',
+    }"
   >
     <img
-      class="h-24 w-24 rounded-l object-cover"
+      class="rounded object-cover"
+      :class="{
+        'h-12 rounded-full': size === 'small',
+        'h-24': size === 'medium',
+        'h-32': size === 'large',
+      }"
       :src="item.src"
       :alt="item.alt || item.title"
     />
-    <section class="w-full px-4 py-2">
-      <h4 class="mb-2 text-lg text-white">{{ item.title }}</h4>
-      <p>{{ item.text }}</p>
+    <section
+      class="ml-4 flex w-full"
+      :class="{
+        'my-auto justify-between': size === 'small',
+        'flex-col': size !== 'small',
+      }"
+    >
+      <h2
+        :class="{
+          'text-xl': size === 'medium',
+          'text-2xl': size === 'large',
+        }"
+      >
+        {{ item.title }}
+      </h2>
+      <p
+        class="overflow-hidden overflow-ellipsis"
+        :class="{
+          'max-w-xs whitespace-nowrap text-gray-500 dark:text-gray-400':
+            size === 'small',
+          'max-h-12': size === 'medium',
+        }"
+      >
+        {{ item.text }}
+      </p>
     </section>
   </li>
 </template>
