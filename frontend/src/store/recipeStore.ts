@@ -32,6 +32,7 @@ const useRecipeStore = defineStore('recipes', {
     _publicUserRecipes: [] as Recipe[], // @see ./publicUserStore
     _publicRecipesByCategory: {} as RecipeMap,
     _publicRecipesByUser: {} as RecipeMap,
+    _publicRecipesByIngredient: {} as RecipeMap,
     _activeUserRecipes: [] as Recipe[],
     _recipeCategories: [] as RecipeCategory[],
     _recipeCategorySearchResults: [] as RecipeCategory[],
@@ -45,6 +46,9 @@ const useRecipeStore = defineStore('recipes', {
       state._publicRecipesByCategory[categoryId],
     publicRecipesByUser: (state) => (userId: string) =>
       state._publicRecipesByUser[userId],
+    publicRecipesByIngredient: (state) => (ingredientId: string) => {
+      state._publicRecipesByIngredient[ingredientId];
+    },
     recipeCategories: (state) => state._recipeCategories,
     recipeCategorySearchResults: (state) => state._recipeCategorySearchResults,
 
@@ -90,6 +94,20 @@ const useRecipeStore = defineStore('recipes', {
             title: recipe.name,
           } as AppGalleryItemType;
         });
+      };
+    },
+    publicRecipesByIngredientForGallery: (state) => {
+      return (ingredientId: string) => {
+        return state._publicRecipesByIngredient[ingredientId].map(
+          (ingredient) => {
+            return {
+              $id: ingredient.$id,
+              src: ingredient.primary_image_href,
+              alt: ingredient.name,
+              title: ingredient.name,
+            } as AppGalleryItemType;
+          },
+        );
       };
     },
     publicUserRecipesForGallery: (state) => {
@@ -166,6 +184,7 @@ const useRecipeStore = defineStore('recipes', {
       this._recipeCategories = enrichedDocuments;
     },
 
+    // TODO: refactor into separate fetch function
     async syncRecipesByCategory(
       categoryId: string,
       count: number = 10,
@@ -184,6 +203,16 @@ const useRecipeStore = defineStore('recipes', {
       const [response, error] = await this.fetchRecipesByUserId(userId, count);
       if (error) console.error(error);
       this, (this._publicRecipesByUser[userId] = response as Recipe[]);
+    },
+
+    async syncRecipesByIngredient(ingredientId: string, count: number = 9) {
+      const [response, error] = await this.fetchRecipesByIngredientId(
+        ingredientId,
+        count,
+      );
+      if (error) console.error(error);
+      this,
+        (this._publicRecipesByIngredient[ingredientId] = response as Recipe[]);
     },
 
     async searchCategories(query: string) {
@@ -233,6 +262,22 @@ const useRecipeStore = defineStore('recipes', {
         const documents = response.documents as SerializedRecipe[];
         const enrichedDocuments = await this.enrichRecipes(documents);
         return [enrichedDocuments, null];
+      } catch (error) {
+        return [null, error as AppwriteException];
+      }
+    },
+
+    async fetchRecipesByIngredientId(ingredientId: string, count: number) {
+      try {
+        const response = await appwriteClient.database.listDocuments(
+          RECIPES_COLLECTION_ID,
+          [Query.search('ingredients', ingredientId)],
+          count,
+        );
+
+        const documents = response.documents as SerializedRecipe[];
+        const enrichedRecipes = await this.enrichRecipes(documents);
+        return [enrichedRecipes, null];
       } catch (error) {
         return [null, error as AppwriteException];
       }

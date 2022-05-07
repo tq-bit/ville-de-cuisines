@@ -112,6 +112,12 @@ export const routes: RouterOptions['routes'] = [
   },
 
   {
+    path: '/recipe/ingredient/:ingredientId',
+    component: () => import('../pages/recipe/RecipeIngredient.vue'),
+    props: true,
+  },
+
+  {
     path: '/recipe/:recipeId',
     component: () => import('../pages/recipe/index.vue'),
     meta: { reuse: false },

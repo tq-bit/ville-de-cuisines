@@ -54,6 +54,7 @@ export default function handleIngredientForm() {
 
   const hasFormErrors = getFormErrors(validationErrors, httpError);
 
+  // TODO: Remove this? Or keep it in?
   const setIngredientToEditById = (id: string) => {
     const ingredient = getIngredientById(id);
     $id.value = ingredient?.$id || id;

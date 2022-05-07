@@ -53,6 +53,7 @@ const useIngredientsStore = defineStore('ingredients', {
   },
 
   actions: {
+    // TODO: Chores - abstract fetchIngredient into separate function
     async syncIngredients(): Promise<void> {
       const response = await appwriteClient.database.listDocuments(
         INGREDIENTS_COLLECTION_ID,
@@ -61,6 +62,21 @@ const useIngredientsStore = defineStore('ingredients', {
       const ingredients = response.documents as Ingredient[];
       const enrichedIngredients = await this.enrichIngredients(ingredients);
       this._ingredients = enrichedIngredients;
+    },
+
+    async fetchIngredientById(
+      ingredientId: string,
+    ): AppServerResponseOrError<Ingredient> {
+      try {
+        const response: Ingredient = await appwriteClient.database.getDocument(
+          INGREDIENTS_COLLECTION_ID,
+          ingredientId,
+        );
+        const enrichedIngredient = await this.enrichIngredient(response);
+        return [enrichedIngredient, null];
+      } catch (error) {
+        return [null, error as AppwriteException];
+      }
     },
 
     async searchIngredients(query: string): Promise<void> {
@@ -163,16 +179,20 @@ const useIngredientsStore = defineStore('ingredients', {
     async enrichIngredients(ingredients: Ingredient[]): Promise<Ingredient[]> {
       const enrichedIngredients = await Promise.all(
         ingredients.map(async (ingredient) => {
-          const primary_image_href = await this.fetchIngredientImage(
-            ingredient.primary_image_id as string,
-          );
-          return {
-            ...ingredient,
-            primary_image_href: primary_image_href || ingredients_fallback_url,
-          };
+          return await this.enrichIngredient(ingredient);
         }),
       );
       return enrichedIngredients;
+    },
+
+    async enrichIngredient(ingredient: Ingredient): Promise<Ingredient> {
+      const primary_image_href = await this.fetchIngredientImage(
+        ingredient.primary_image_id as string,
+      );
+      return {
+        ...ingredient,
+        primary_image_href: primary_image_href || ingredients_fallback_url,
+      };
     },
   },
 });

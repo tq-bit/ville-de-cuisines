@@ -46,6 +46,7 @@ const onDropIngredientImage = async (filePayload: AppUploadPayload) => {
   primary_image_id.value = fileResponse?.$id as string;
 };
 
+// TODO: Remove this?
 onMounted(() => {
   const params = router.currentRoute.value.params;
   const ingredientId = params.ingredientId as string;
