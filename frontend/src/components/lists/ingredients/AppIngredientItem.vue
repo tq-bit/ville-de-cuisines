@@ -9,9 +9,12 @@ const localIngredient = computed(() => props.ingredient);
 
 <template>
   <li class="flex w-full flex-row items-center px-2 py-2">
-    <p>
+    <router-link
+      class="font-semibold"
+      :to="`/recipe/ingredient/${ingredient.$id}`"
+    >
       {{ ingredient.name }}
-    </p>
+    </router-link>
 
     <div class="ml-auto">
       <div class="flex w-36 items-center justify-between" v-if="editable">
