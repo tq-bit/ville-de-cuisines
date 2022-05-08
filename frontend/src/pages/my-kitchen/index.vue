@@ -38,7 +38,9 @@ onMounted(
   <app-grid class="mt-4" variant="sidebar-left">
     <template v-slot:left>
       <app-card block title="My kitchen">
-        <svg-cooking-management class="mb-4"></svg-cooking-management>
+        <svg-cooking-management
+          class="mx-auto mb-4 w-10/12"
+        ></svg-cooking-management>
         <hr class="mb-4" />
         <app-button @click="openRecipeModal" class="mb-4" block>
           Add new recipe</app-button
@@ -58,8 +60,6 @@ onMounted(
           <component :is="Component" />
         </transition>
       </router-view>
-
-      <app-card class="mb-8" block title="Schedule"></app-card>
       <app-card block title="My recipes">
         <app-gallery
           :columns="3"
