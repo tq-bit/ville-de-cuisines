@@ -32,8 +32,8 @@ onMounted(async () => {
     ></app-gallery>
 
     <section class="text-center">
-      <h2 class="mt-8 mb-4 text-lg font-semibold">
-        Did't find the category you're looking for?
+      <h2 class="text-md mt-8 mb-4 font-semibold">
+        Didn't find the category you're looking for?
       </h2>
 
       <app-button @click="router.push('/my-kitchen/recipe-category')"
