@@ -20,7 +20,7 @@ import {
 const router = useRouter();
 const recipeId = router.currentRoute.value.params.recipeId as string;
 const isForkMode = computed<boolean>(() => {
-  return !!router.currentRoute.value.path.match('/fork');
+  return !!router.currentRoute.value.path.match('/refine');
 });
 const isEditMode = computed<boolean>(() => {
   return !!router.currentRoute.value.path.match('/edit');

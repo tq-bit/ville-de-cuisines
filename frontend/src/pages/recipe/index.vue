@@ -164,10 +164,10 @@ const computeIngredientCountForPortion = (ingredient: Ingredient) => {
               <app-button
                 v-else
                 @click="
-                  router.push({ path: `/my-kitchen/recipe/${router.currentRoute.value.params.recipeId as string}/fork` })
+                  router.push({ path: `/my-kitchen/recipe/${router.currentRoute.value.params.recipeId as string}/refine` })
                 "
               >
-                Create your own variant
+                Refine {{ localRecipe?.name }}
               </app-button>
             </div>
           </div>

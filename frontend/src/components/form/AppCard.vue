@@ -10,7 +10,7 @@ const emit = defineEmits(['close']);
 
 <template>
   <div
-    class="relative mx-auto h-auto w-full rounded border bg-white p-4 shadow-md dark:border-gray-600 dark:bg-gray-800"
+    class="relative mx-auto h-auto w-full rounded border bg-white p-4 shadow dark:border-gray-600 dark:bg-gray-800"
     :class="{ 'text-center': center, 'max-w-md': !block }"
   >
     <span

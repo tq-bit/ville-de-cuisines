@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { toRefs } from 'vue';
+import Logo from '../../../../public/iCuisine-logo.png';
 
 import useSessionStore from '../../../store/sessionStore';
 const { isUserLoggedIn } = toRefs(useSessionStore());
@@ -10,7 +11,7 @@ defineEmits(['toggleSidebar']);
 <template>
   <header class="pb-16 md:pb-32">
     <nav
-      class="absolute top-0 left-0 z-50 h-16 w-full bg-gradient-to-bl from-green-400 to-green-500 px-4 text-gray-50 dark:from-green-600 dark:to-green-700 md:h-32 md:pb-32"
+      class="absolute top-0 left-0 z-50 h-16 w-full border-b-2 bg-gray-50 px-4 dark:border-gray-600 dark:bg-gray-800 md:h-32 md:pb-32"
     >
       <button
         class="my-3 block h-10 w-10 md:hidden"
@@ -21,12 +22,12 @@ defineEmits(['toggleSidebar']);
 
       <section class="mx-auto w-full max-w-screen-xl">
         <!-- Icon or its placeholder -->
-        <div class="mt-4 hidden h-16 w-1/12 md:inline-block xl:w-2/12">
-          <span class="hidden md:block"> Icon </span>
+        <div class="mt-4 hidden h-16 w-3/12 md:inline-block xl:w-2/12">
+          <img class="hidden md:inline-block" :src="Logo" alt="iCuisine logo" />
         </div>
 
         <!-- Applicationwide search -->
-        <div class="mt-4 hidden h-16 w-8/12 md:inline-block">
+        <div class="mt-4 hidden h-16 w-6/12 md:inline-block xl:w-8/12">
           <app-search :options="[]"></app-search>
         </div>
 
@@ -47,7 +48,9 @@ defineEmits(['toggleSidebar']);
           </app-navbar-item>
         </div>
 
-        <div class="hidden h-8 w-full text-center md:block">
+        <div
+          class="hidden h-10 w-full items-center justify-center text-center md:flex"
+        >
           <app-navbar-item v-if="isUserLoggedIn" to="/my-kitchen">
             My kitchen</app-navbar-item
           >
