@@ -94,6 +94,30 @@ const usePublicUserStore = defineStore('public_user', {
       }
     },
 
+    async searchPublicUsers(query: string) {
+      const response = await appwriteClient.database.listDocuments(
+        USER_COLLECTION_ID,
+        [Query.search('name', query)],
+      );
+      const users = response.documents as AppPublicUser[];
+      const patchedUsers = await Promise.all(
+        users.map(async (user) => {
+          const avatar_href = await this.fetchPublicUserAvatar(
+            user.avatar_id as string,
+          );
+          return {
+            ...user,
+            avatar_href,
+          };
+        }),
+      );
+      this._publicUserSearchResults = patchedUsers;
+    },
+
+    resetPublicUserSearch() {
+      this._publicUserSearchResults = [];
+    },
+
     async fetchPublicUserAvatar(fileId: string) {
       const fetchUploadedAvatarImage = async (
         fileId: string,
