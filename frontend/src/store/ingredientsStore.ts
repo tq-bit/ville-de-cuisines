@@ -3,7 +3,7 @@ import {
   Ingredient,
   AppGalleryItemType,
 } from '../@types/index';
-import ingredients_fallback_url from '../../public/ingredients-fallback.png';
+import ingredients_fallback_url from '/ingredients-fallback.png';
 import { INGREDIENTS_COLLECTION_ID, INGREDIENTS_BUCKET_ID } from '../constants';
 import { AppwriteException, Models, Query } from 'appwrite';
 import { v4 as uuid } from 'uuid';

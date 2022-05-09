@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { toRefs } from 'vue';
-import Logo from '../../../../public/iCuisine-logo.png';
+import Logo from '/iCuisine-logo.png';
 
 import useSessionStore from '../../../store/sessionStore';
 const { isUserLoggedIn } = toRefs(useSessionStore());

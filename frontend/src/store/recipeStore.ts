@@ -14,6 +14,7 @@ import {
   RECIPE_CATEGORY_BUCKET_ID,
   RECIPE_CATEGORY_COLLECTION_ID,
 } from '../constants';
+import recipe_fallback_url from '/recipe-fallback.png';
 import { AppwriteException, Models, Query } from 'appwrite';
 import { v4 as uuid } from 'uuid';
 import useAppAlert from '../use/globalAlert';
@@ -611,9 +612,9 @@ const useRecipeStore = defineStore('recipes', {
 
     async enrichRecipeWithRemoteData(document: Recipe): Promise<Recipe> {
       const userStore = usePublicUserStore();
-      const primary_image_href = await this.fetchRecipeImage(
-        document.primary_image_id as string,
-      );
+      const primary_image_href =
+        (await this.fetchRecipeImage(document.primary_image_id as string)) ||
+        recipe_fallback_url;
 
       const category_name = await this.fetchRecipeCategoryName(
         document.category_id as string,
