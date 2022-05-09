@@ -7,9 +7,12 @@ import ingredients_fallback_url from '/ingredients-fallback.png';
 import { INGREDIENTS_COLLECTION_ID, INGREDIENTS_BUCKET_ID } from '../constants';
 import { AppwriteException, Models, Query } from 'appwrite';
 import { v4 as uuid } from 'uuid';
+import IngredientsApi from '../api/resources/ingredients.api';
 
 import { defineStore } from 'pinia';
 import { appwriteClient } from '../api/appwrite';
+
+const api = new IngredientsApi();
 
 const useIngredientsStore = defineStore('ingredients', {
   state: () => ({
@@ -54,15 +57,11 @@ const useIngredientsStore = defineStore('ingredients', {
   },
 
   actions: {
-    // TODO: Chores - abstract fetchIngredient into separate function
     async syncIngredients(): Promise<void> {
-      const response = await appwriteClient.database.listDocuments(
-        INGREDIENTS_COLLECTION_ID,
-      );
-
-      const ingredients = response.documents as Ingredient[];
-      const enrichedIngredients = await this.enrichIngredients(ingredients);
-      this._ingredients = enrichedIngredients;
+      const [response, error] = await api.fetchIngredients();
+      if (response) {
+        this._ingredients = response;
+      }
     },
 
     async fetchIngredientById(
@@ -81,14 +80,10 @@ const useIngredientsStore = defineStore('ingredients', {
     },
 
     async searchIngredients(query: string): Promise<void> {
-      const response = await appwriteClient.database.listDocuments(
-        INGREDIENTS_COLLECTION_ID,
-        [Query.search('name', query)],
-      );
-
-      const ingredients = response.documents as Ingredient[];
-      const enrichedIngredients = await this.enrichIngredients(ingredients);
-      this._ingredientSearchResults = enrichedIngredients as Ingredient[];
+      const [response, error] = await api.searchIngredientsByName(query);
+      if (response) {
+        this._ingredientSearchResults = response;
+      }
     },
 
     resetIngredientSearch(): void {

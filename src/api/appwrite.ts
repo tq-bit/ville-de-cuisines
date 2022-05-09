@@ -147,6 +147,7 @@ export default class Api {
       const result: T = await fn();
       return [result, null];
     } catch (error) {
+      console.error(error);
       return [null, error as AppwriteException];
     }
   }

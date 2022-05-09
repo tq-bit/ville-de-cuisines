@@ -12,17 +12,13 @@ export default class IngredientsApi extends Api {
     super(INGREDIENTS_COLLECTION_ID, INGREDIENTS_BUCKET_ID);
   }
 
-  public async createIngredient(
-    ingredient: Ingredient,
-  ): AppServerResponseOrError<Ingredient> {
+  public async createIngredient(ingredient: Ingredient) {
     return this.stateful(async () => {
       return (await this.createDocument(ingredient)) as Ingredient;
     });
   }
 
-  public async updateIngredient(
-    ingredient: Ingredient,
-  ): AppServerResponseOrError<Ingredient> {
+  public async updateIngredient(ingredient: Ingredient) {
     return this.stateful(async () => {
       return (await this.updateDocument(ingredient)) as Ingredient;
     });
@@ -35,7 +31,7 @@ export default class IngredientsApi extends Api {
   }
 
   public async fetchIngredients() {
-    return this.stateful(async () => {
+    return this.stateful<Ingredient[]>(async () => {
       const response = await this.listDocuments();
       const ingredients = response.documents as Ingredient[];
       const enrichedIngredients = await this.enrichIngredients(ingredients);
@@ -43,9 +39,7 @@ export default class IngredientsApi extends Api {
     });
   }
 
-  public async fetchIngredientById(
-    ingredientId: string,
-  ): AppServerResponseOrError<Ingredient> {
+  public async fetchIngredientById(ingredientId: string) {
     return this.stateful(async () => {
       const response = (await this.getDocument(ingredientId)) as Ingredient;
       const enrichedIngredient = await this.enrichIngredient(response);
