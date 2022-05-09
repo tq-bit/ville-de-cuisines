@@ -5,10 +5,10 @@ const emit = defineEmits(['click-blend']);
 <template>
   <section
     @click.self="emit('click-blend')"
-    class="fixed top-0 left-0 h-full w-full bg-black bg-opacity-50 z-50"
+    class="fixed top-0 left-0 z-50 h-full w-full bg-black bg-opacity-50"
   >
     <div
-      class="absolute md:top-24 max-h-screen overflow-auto left-0 right-0 max-w-xl mx-auto"
+      class="absolute left-0 right-0 mx-auto max-h-screen max-w-xl overflow-auto md:top-24"
     >
       <slot />
     </div>
