@@ -81,7 +81,6 @@ export default function handleIngredientForm() {
 
   const handleRecipeCreate = async (payload: Recipe) => {
     httpError.value = null;
-    console.log(activeUserStore.account.$id);
     const [response, error] = await createRecipe(
       payload,
       activeUserStore.account.$id,

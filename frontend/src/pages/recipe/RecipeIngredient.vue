@@ -27,7 +27,6 @@ const setLocalIngredient = async (categoryId: string) => {
   localIngredient.value = response as Ingredient;
 };
 const setLocalRecipeSuggestions = async (count: number) => {
-  console.log(count);
   if (router.currentRoute.value.params.ingredientId) {
     await recipeStore.syncRecipesByIngredient(
       router.currentRoute.value.params.ingredientId as string,

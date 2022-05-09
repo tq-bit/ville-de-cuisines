@@ -32,10 +32,6 @@ const onSubmitRecipeCategory = async () => {
   }
 };
 
-const onDeleteRecipeCategory = () => {
-  console.log('deleting category');
-};
-
 const setActiveRecipeCategoryToUpdate = async (recipeCategoryId: string) => {
   const [response, error] = await recipeStore.fetchRecipeCategoryById(
     recipeCategoryId,
@@ -63,7 +59,6 @@ const onDropRecipeCategoryImage = async (filePayload: AppUploadPayload) => {
   const [fileResponse, fileError] = await recipeStore.uploadRecipeCategoryImage(
     filePayload.fileData,
   );
-  console.log(fileResponse);
   primary_image_id.value = fileResponse?.$id as string;
 };
 const cleanUploadedImageIfExists = async () => {
@@ -109,16 +104,6 @@ onBeforeUnmount(async () => {
           <app-button class="hidden md:block" block type="submit"
             >Submit Recipe Category</app-button
           >
-
-          <app-button
-            v-if="recipeCategoryId"
-            variant="warning-outline"
-            @click="onDeleteRecipeCategory"
-            class="mt-4 hidden md:block"
-            block
-            type="button"
-            >Delete Category</app-button
-          >
         </template>
 
         <template v-slot:default>
@@ -130,15 +115,6 @@ onBeforeUnmount(async () => {
 
           <app-button class="md:hidden" block type="submit"
             >Submit Recipe</app-button
-          >
-
-          <app-button
-            v-if="recipeCategoryId"
-            @click="onDeleteRecipeCategory"
-            class="md:hidden"
-            block
-            type="button"
-            >Delete Recipe</app-button
           >
         </template>
       </app-grid>

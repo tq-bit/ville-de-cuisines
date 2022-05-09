@@ -234,8 +234,6 @@ const useRecipeStore = defineStore('recipes', {
         [Query.search('name', query)],
       );
 
-      console.log(response1);
-
       const recipes = response.documents as SerializedRecipe[];
       const enrichedRecipes = await this.enrichRecipes(recipes);
       this._publicRecipeSearchResults = enrichedRecipes;
@@ -512,7 +510,6 @@ const useRecipeStore = defineStore('recipes', {
           uuid(),
           file,
         );
-        console.log(response);
         return [response, null];
       } catch (error) {
         return [null, error as AppwriteException];
