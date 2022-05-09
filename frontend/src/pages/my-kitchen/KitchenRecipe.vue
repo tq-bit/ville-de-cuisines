@@ -197,7 +197,7 @@ const commitLocalTagState = () => {
 
 <template>
   <app-container class="mt-4">
-    <h1 class="my-4 text-3xl">
+    <h1>
       <span :title="`RecipeID: ${recipeId}`" v-if="isEditMode">
         Updating recipe for {{ name }}</span
       >

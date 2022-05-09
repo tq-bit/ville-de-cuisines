@@ -15,7 +15,7 @@ const emit = defineEmits(['clickGetStarted', 'clickLearnMore']);
         class="mt-12 flex h-full w-full items-center justify-center md:mt-0"
       >
         <div>
-          <h1 class="mb-4 text-left text-3xl md:text-4xl">Ville de cuisines</h1>
+          <h1 class="text-left">Ville de cuisines</h1>
 
           <hr class="mb-4 w-12 border border-green-600" />
           <ul class="mb-4">

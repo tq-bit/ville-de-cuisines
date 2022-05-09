@@ -75,7 +75,7 @@ onMounted(async () => await ingredientsStore.syncIngredients());
 
 <template>
   <app-container class="mt-4">
-    <h1 class="mb-4 text-3xl">
+    <h1>
       <span> 🍲 Create a new ingredient</span>
     </h1>
     <app-alert class="mb-6" v-if="hasFormErrors" variant="error">

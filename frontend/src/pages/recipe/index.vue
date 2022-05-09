@@ -112,7 +112,7 @@ const computeIngredientCountForPortion = (ingredient: Ingredient) => {
     <app-grid class="mt-4" variant="sidebar-right">
       <template v-slot:left>
         <section class="mb-4">
-          <h1 class="mb-2 text-3xl">
+          <h1>
             {{ localRecipe?.name }}
             <span class="text-xl" v-if="!localRecipeIsOriginal"
               >(variation)</span

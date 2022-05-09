@@ -78,7 +78,7 @@ onBeforeUnmount(async () => {
 
 <template>
   <app-container class="mt-4">
-    <h1 class="my-4 text-3xl">
+    <h1>
       <span :title="`Category Id: ${recipeCategoryId}`" v-if="recipeCategoryId">
         Updating recipe for {{ recipeCategoryId }}</span
       >

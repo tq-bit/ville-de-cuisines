@@ -60,7 +60,7 @@ onMounted(
           <component :is="Component" />
         </transition>
       </router-view>
-      <h1 class="mb-4 text-3xl">My recipes</h1>
+      <h1>My recipes</h1>
       <app-gallery
         :columns="3"
         :items="recipeStore.activeUserPublicRecipesForGallery"

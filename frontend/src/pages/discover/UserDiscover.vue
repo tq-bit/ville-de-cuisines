@@ -19,7 +19,7 @@ onMounted(async () => {
 
 <template>
   <app-container tag="main" class="mt-4">
-    <h1 class="mb-4 text-3xl">
+    <h1>
       Browse through
       {{ publicUserStore.publicUserFeedItems.length }} users
     </h1>

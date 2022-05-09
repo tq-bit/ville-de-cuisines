@@ -58,7 +58,7 @@ onMounted(async () => {
             size="xsmall"
             :src="(localIngredient?.primary_image_href as string)"
           ></app-image>
-          <h1 class="mb-4">
+          <h1>
             <span class="font-semibold">Ingredient: </span
             >{{ localIngredient?.name }}
           </h1>
@@ -73,9 +73,7 @@ onMounted(async () => {
       </template>
 
       <template v-slot:default>
-        <h1 class="mb-4 text-3xl md:text-4xl">
-          Recipes where "{{ localIngredient?.name }}" is used:
-        </h1>
+        <h1>Recipes where "{{ localIngredient?.name }}" is used:</h1>
         <app-gallery
           :items="localRecipesByIngredient"
           :cols="2"
