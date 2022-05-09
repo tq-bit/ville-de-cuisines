@@ -91,6 +91,7 @@ export default class IngredientsApi extends Api {
     };
   }
 
+  // TODO: Does this have to be async?
   private async getIngredientImagePreview(fileId: string): Promise<string> {
     if (fileId) {
       const response = this.getFilePreview(fileId);
