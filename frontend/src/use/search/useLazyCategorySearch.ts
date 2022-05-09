@@ -6,7 +6,7 @@ import { APP_DEBOUNCE_TIMEOUT } from '../../constants';
 
 const { searchCategories, resetCategorySearch } = recipeStore();
 
-export default function useLazyIngredientSearch(query: Ref<string>) {
+export default function useLazyCategorySearch(query: Ref<string>) {
   const { handleSearch, loading } = useLazySearch(
     () => searchCategories(query.value),
     () => resetCategorySearch(),
