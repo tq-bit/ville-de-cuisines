@@ -20,15 +20,20 @@ onMounted(async () => await followsStore.syncActiveUserFollows());
 
 <template>
   <app-container tag="main" class="mt-4">
-    <h1 class="mb-4 text-3xl">
-      You're following
-      {{ followingUsers }} user{{ followingUsers > 1 ? 's' : '' }}
-    </h1>
-    <app-feed
-      @click="onClickUserItem"
-      size="large"
-      :items="followsStore.activeUserFollowsUserEntitiesFeedItems"
-    ></app-feed>
+    <div v-if="followingUsers > 1">
+      <h1 class="mb-4 text-3xl">
+        You're following
+        {{ followingUsers }} user{{ followingUsers > 1 ? 's' : '' }}
+      </h1>
+      <app-feed
+        @click="onClickUserItem"
+        size="large"
+        :items="followsStore.activeUserFollowsUserEntitiesFeedItems"
+      ></app-feed>
+    </div>
+    <div v-else>
+      <h1 class="mb-4 text-3xl">You're not following anybody yet.</h1>
+    </div>
   </app-container>
 </template>
 
