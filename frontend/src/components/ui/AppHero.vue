@@ -14,12 +14,18 @@ const emit = defineEmits(['clickGetStarted', 'clickLearnMore']);
       <section
         class="mt-12 flex h-full w-full items-center justify-center md:mt-0"
       >
-        <div class="text-center">
-          <h1 class="mb-4 text-3xl md:text-4xl">Ville de cuisines</h1>
-          <h2 class="mb-4 text-lg md:text-xl">
-            Create culinary masterpieces. <br />
-            Then share them with the world.
-          </h2>
+        <div>
+          <h1 class="mb-4 text-left text-3xl md:text-4xl">Ville de cuisines</h1>
+
+          <hr class="mb-4 w-12 border border-green-600" />
+          <ul class="mb-4">
+            <li class="mb-2 text-lg">🧑 Create your profile</li>
+            <li class="mb-2 text-lg">🥫 Maintain public ingredients</li>
+            <li class="mb-2 text-lg">🍲 Save your favorite recipes</li>
+            <li class="mb-2 text-lg">
+              🌟 Invent and discover culinary masterpieces
+            </li>
+          </ul>
           <app-button @click="emit('clickGetStarted')">Signup now</app-button>
           <app-button class="ml-4" @click="emit('clickLearnMore')"
             >Learn more</app-button
