@@ -43,11 +43,11 @@ onMounted(async () => {
             :src="publicUserStore.publicUserProfile.avatar_href || ''"
           ></app-image>
 
-          <h4 class="font-semibold">Bio:</h4>
+          <h3 class="font-semibold">About me:</h3>
           <p class="mb-4">{{ publicUserStore._publicUserProfile.bio }}</p>
 
           <div class="mb-4" v-if="hasSocialMediaUrls">
-            <h4 class="mb-2 font-semibold">Social Media:</h4>
+            <h3 class="mb-2 font-semibold">Find me on other platforms:</h3>
             <a
               v-if="publicUserStore._publicUserProfile.facebook_url"
               :href="publicUserStore._publicUserProfile.facebook_url"
