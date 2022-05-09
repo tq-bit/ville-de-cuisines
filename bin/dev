@@ -25,14 +25,20 @@ install() {
   echo "Installing appwrite cli ..."
   npm install -g appwrite-cli
 
+  echo "Installing node modules for frontend"
+  cd ./frontend && sudo npm install &
+  cd ..
+
   echo "Logging in to API ..."
   appwrite login
 
-  echo "Initializing Project"
   appwrite init --all
 }
 
-
+deploy() {
+  echo "Deploying Project"
+  appwrite deploy --all
+}
 
 # Commando functions
 initServices() {
@@ -54,6 +60,11 @@ stopServices() {
   stopAppwrite
 }
 
+deploySettings() {
+  echo "Deploying settings"
+  appwrite deploy
+}
+
 # Command execution
 case "$COMMAND" in
 
@@ -65,6 +76,9 @@ down)
   ;;
 [iI]*)
   install
+  ;;
+deploy)
+  deploy
   ;;
 *)
   echo "No command recognized. "

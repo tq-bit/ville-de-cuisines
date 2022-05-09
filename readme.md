@@ -36,12 +36,19 @@ Ville de Cuisines is my submission to the [dev.to Appwrite Hackathon](https://de
 
 ## Quickstart
 
-Clone the repos and run the start script
+Clone the repos and run the start script. It might take a few minutes for all AppWrite services to download.
 
 ```bash
-git clone https://github.com/tq-bit/ville-de-cuisines
+git clone https://github.com/tq-bit/ville-de-cuisines.git
+cd ville-de-cuisines
 sudo bin/dev up
 ```
+
+* When prompted, confirm all the default settings.
+* After downloading the appwrite-cli, open your browser under `localhost` and create your admin account.
+* Then, use the appwrite-cli to sync the `appwrite.json` file with the backend services.
+* If you run into problems, please visit the [official docs](https://appwrite.io/docs/installation)
+
 
 ### Current features
 - User signup and profile maintenance
