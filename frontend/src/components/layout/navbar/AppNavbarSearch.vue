@@ -6,6 +6,7 @@ import useIngredientsStore from '../../../store/ingredientsStore';
 import useRecipeStore from '../../../store/recipeStore';
 import usePublicUserStore from '../../../store/publicUserStore';
 
+import useLazyRecipeSearch from '../../../use/search/useLazyRecipeSearch';
 import useLazyIngredientSearch from '../../../use/search/useLazyIngredientSearch';
 import useLazyCategorySearch from '../../../use/search/useLazyCategorySearch';
 import useLazyPublicUserSearch from '../../../use/search/useLazyPublicUserSearch';
@@ -19,21 +20,31 @@ const router = useRouter();
 
 const query = ref<string>('');
 
+const { handleSearch: handleRecipeSearch, loading: loadingRecipes } =
+  useLazyRecipeSearch(query);
 const { handleSearch: handleIngredientsSearch, loading: loadingIngredients } =
   useLazyIngredientSearch(query);
-const { handleSearch: handleRecipesSearch, loading: loadingRecipes } =
-  useLazyCategorySearch(query);
+const {
+  handleSearch: handleRecipeCategorySearch,
+  loading: loadingRecipeCategories,
+} = useLazyCategorySearch(query);
 const { handleSearch: handlePublicUserSearch, loading: loadingPublicUsers } =
   useLazyPublicUserSearch(query);
 
 const results = computed<AppGalleryItemType[]>(() => {
   return [
+    ...recipeStore.publicRecipeSearchResultsForGallery,
     ...ingredientsStore.ingredientSearchResultsForGallery,
     ...recipeStore.recipeCategorySearchResultsForGallery,
     ...publicUserStore.publicUserSearchResultsFeedItems,
   ];
 });
-const loading = loadingIngredients || loadingPublicUsers || loadingRecipes;
+
+const loading =
+  loadingRecipes ||
+  loadingIngredients ||
+  loadingPublicUsers ||
+  loadingRecipeCategories;
 
 const onClickSearchItem = (clickedItem: AppGalleryItemType) => {
   const path: string = getSearchPathFromGalleryItem(clickedItem);
@@ -41,8 +52,9 @@ const onClickSearchItem = (clickedItem: AppGalleryItemType) => {
 };
 
 watch(query, (value) => {
+  handleRecipeSearch(value);
   handleIngredientsSearch(value);
-  handleRecipesSearch(value);
+  handleRecipeCategorySearch(value);
   handlePublicUserSearch(value);
 });
 </script>

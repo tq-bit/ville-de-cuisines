@@ -29,6 +29,7 @@ const useRecipeStore = defineStore('recipes', {
   state: () => ({
     _count: 0,
     _publicRecipes: [] as Recipe[],
+    _publicRecipeSearchResults: [] as Recipe[],
     _publicUserRecipes: [] as Recipe[], // @see ./publicUserStore
     _publicRecipesByCategory: {} as RecipeMap,
     _publicRecipesByUser: {} as RecipeMap,
@@ -131,6 +132,17 @@ const useRecipeStore = defineStore('recipes', {
       });
     },
 
+    publicRecipeSearchResultsForGallery: (state) => {
+      return state._publicRecipeSearchResults.map((recipe) => {
+        return {
+          $id: recipe.$id,
+          src: recipe.primary_image_href,
+          alt: recipe.name,
+          title: recipe.name,
+          type: 'recipe',
+        } as AppGalleryItemType;
+      });
+    },
     recipeCategorySearchResultsForGallery: (state) => {
       return state._recipeCategorySearchResults.map((recipeCategory) => {
         return {
@@ -214,6 +226,23 @@ const useRecipeStore = defineStore('recipes', {
       if (error) console.error(error);
       this,
         (this._publicRecipesByIngredient[ingredientId] = response as Recipe[]);
+    },
+
+    async searchRecipes(query: string) {
+      const response = await appwriteClient.database.listDocuments(
+        RECIPES_COLLECTION_ID,
+        [Query.search('name', query)],
+      );
+
+      console.log(response1);
+
+      const recipes = response.documents as SerializedRecipe[];
+      const enrichedRecipes = await this.enrichRecipes(recipes);
+      this._publicRecipeSearchResults = enrichedRecipes;
+    },
+
+    resetRecipeSearch() {
+      this._publicRecipeSearchResults = [];
     },
 
     async searchCategories(query: string) {
