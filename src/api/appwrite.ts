@@ -1,5 +1,6 @@
-import { Appwrite, Models } from 'appwrite';
+import { Appwrite, Models, AppwriteException } from 'appwrite';
 import { v4 as uuid } from 'uuid';
+import { AppServerResponseOrError } from '../@types';
 
 const appwriteClient = new Appwrite();
 appwriteClient
@@ -29,6 +30,14 @@ export default class Api {
       payload,
       read,
       write,
+    );
+    return response;
+  }
+
+  protected async getDocument(documentId: string) {
+    const response = await this.client.database.getDocument(
+      this.collectionId,
+      documentId,
     );
     return response;
   }
@@ -99,5 +108,46 @@ export default class Api {
       fileId,
     );
     return response;
+  }
+
+  protected getFilePreview(
+    fileId: string,
+    width?: number | undefined,
+    height?: number | undefined,
+    gravity?: string | undefined,
+    quality?: number | undefined,
+    borderWidth?: number | undefined,
+    borderColor?: string | undefined,
+    borderRadius?: number | undefined,
+    opacity?: number | undefined,
+    rotation?: number | undefined,
+    background?: string | undefined,
+    output?: string | undefined,
+  ) {
+    const response = this.client.storage.getFilePreview(
+      this.bucketId,
+      fileId,
+      width,
+      height,
+      gravity,
+      quality,
+      borderWidth,
+      borderColor,
+      borderRadius,
+      opacity,
+      rotation,
+      background,
+      output,
+    );
+    return response;
+  }
+
+  protected async stateful<T>(fn: Function): AppServerResponseOrError<T> {
+    try {
+      const result: T = await fn();
+      return [result, null];
+    } catch (error) {
+      return [null, error as AppwriteException];
+    }
   }
 }
