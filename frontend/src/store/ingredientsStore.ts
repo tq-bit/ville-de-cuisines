@@ -39,6 +39,7 @@ const useIngredientsStore = defineStore('ingredients', {
           text: `Adds ${(ingredient.calories / ingredient.quantity).toFixed(
             2,
           )} kcal / ${ingredient.quantity_unit}`,
+          type: 'ingredient',
         } as AppGalleryItemType;
       });
     },

@@ -1,5 +1,10 @@
 export type AlertVariant = 'info' | 'error' | 'success';
 export type AppUserAuthForm = 'login' | 'signup';
+export type AppGalleryItemEntity =
+  | 'user'
+  | 'recipe'
+  | 'ingredient'
+  | 'category';
 
 export interface AppGalleryItemType {
   $id: string;
@@ -8,6 +13,7 @@ export interface AppGalleryItemType {
   title: string;
   text?: string;
   count?: number;
+  type: AppGalleryItemEntity;
 }
 export interface AppUploadPayload {
   fileData: File;

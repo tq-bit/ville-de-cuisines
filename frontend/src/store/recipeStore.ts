@@ -138,6 +138,7 @@ const useRecipeStore = defineStore('recipes', {
           src: recipeCategory.primary_image_href,
           alt: recipeCategory.name,
           title: recipeCategory.name,
+          type: 'category',
         } as AppGalleryItemType;
       });
     },

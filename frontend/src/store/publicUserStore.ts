@@ -12,6 +12,7 @@ import appwriteClient from '../api/appwrite';
 const usePublicUserStore = defineStore('public_user', {
   state: () => ({
     _publicUserProfile: {} as AppPublicUser,
+    _publicUserSearchResults: [] as AppPublicUser[],
     _publicUsers: [] as AppPublicUser[],
   }),
 
@@ -27,6 +28,17 @@ const usePublicUserStore = defineStore('public_user', {
           title: user.name,
           text: user.bio,
           src: user.avatar_href,
+        } as AppGalleryItemType;
+      });
+    },
+    publicUserSearchResultsFeedItems: (state) => {
+      return state._publicUserSearchResults.map((user) => {
+        return {
+          $id: user.$id,
+          title: user.name,
+          text: user.bio,
+          src: user.avatar_href,
+          type: 'user',
         } as AppGalleryItemType;
       });
     },
