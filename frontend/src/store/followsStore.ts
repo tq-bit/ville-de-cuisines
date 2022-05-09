@@ -8,7 +8,7 @@ import usePublicUserStore from './publicUserStore';
 
 import { defineStore } from 'pinia';
 import appwriteClient from '../api/appwrite';
-import { AppServerResponseOrError } from '../@types';
+import { AppServerResponseOrError, AppGalleryItemType } from '../@types';
 
 const useFollowsStore = defineStore('follows', {
   state: () => ({
@@ -17,6 +17,24 @@ const useFollowsStore = defineStore('follows', {
 
   getters: {
     activeUserFollows: (state) => state._activeUserFollows,
+    activeUserFollowsUserEntities: (state) =>
+      state._activeUserFollows.filter(
+        (follow) => follow?.entity_type === 'user',
+      ),
+    activeUserFollowsUserEntitiesFeedItems: (state) => {
+      const userEntities = state._activeUserFollows.filter(
+        (follow) => follow?.entity_type === 'user',
+      );
+      return userEntities.map((userEntity) => {
+        return {
+          $id: userEntity.data?.$id,
+          src: userEntity.data?.src,
+          alt: userEntity.data?.title,
+          title: userEntity.data?.title,
+          text: userEntity.data?.text,
+        } as AppGalleryItemType;
+      });
+    },
   },
 
   actions: {
@@ -115,7 +133,7 @@ const useFollowsStore = defineStore('follows', {
       ): Promise<AppFollowEntity> {
         const userStore = usePublicUserStore();
         const [userResponse, userError] = await userStore.fetchPublicUserById(
-          user.$id,
+          user.entity_id,
         );
         if (userError) console.log(userError);
         const avatar_href = await userStore.fetchPublicUserAvatar(
