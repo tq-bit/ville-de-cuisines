@@ -66,7 +66,7 @@ watch(query, (value) => {
     size="small"
     v-model="query"
     :options="results"
-    label="Browse Ville de Cuisines"
+    label="Find recipes, ingredients or chefs"
     :hide-label="true"
   ></app-search>
 </template>

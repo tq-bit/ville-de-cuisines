@@ -3,7 +3,7 @@
 <template>
   <app-container class="mt-8" center>
     <div class="max-w-2xl">
-      <h1 class="mb-6 text-3xl">About Ville de Cuisines</h1>
+      <h1 class="mb-6 text-3xl">About this project</h1>
       <p class="mb-4 text-lg">
         Ville de Cuisines is my submission to the Dev.to Hackerthon of
         <a
