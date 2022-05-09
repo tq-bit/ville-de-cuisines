@@ -22,12 +22,12 @@ stopFrontend() {
 }
 
 install() {
-  echo "Installing appwrite cli ..."
-  npm install -g appwrite-cli
 
   echo "Installing node modules for frontend"
-  cd ./frontend && sudo npm install &
-  cd ..
+  cd ./frontend && sudo npm install && cd ..
+
+  echo "Installing appwrite cli ..."
+  npm install -g appwrite-cli
 
   echo "Logging in to API ..."
   appwrite login

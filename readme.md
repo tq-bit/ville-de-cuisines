@@ -1,7 +1,5 @@
 <div id="top"></div>
 
-
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
@@ -38,16 +36,19 @@ Ville de Cuisines is my submission to the [dev.to Appwrite Hackathon](https://de
 
 Clone the repos and run the start script. It might take a few minutes for all AppWrite services to download.
 
+> Make sure to have docker, docker-compose and node.js installed!
+
 ```bash
 git clone https://github.com/tq-bit/ville-de-cuisines.git
 cd ville-de-cuisines
 sudo bin/dev up
+sudo bin/dev deploy
 ```
 
 * When prompted, confirm all the default settings.
 * After downloading the appwrite-cli, open your browser under `localhost` and create your admin account.
-* Then, use the appwrite-cli to sync the `appwrite.json` file with the backend services.
-* If you run into problems, please visit the [official docs](https://appwrite.io/docs/installation)
+* Login and sync the `appwrite.json` file with the backend services.
+* If you run into problems, please visit the [official docs](https://appwrite.io/docs/installation) and the docs on [appwrite-cli](https://appwrite.io/docs/command-line)
 
 
 ### Current features
@@ -68,6 +69,7 @@ sudo bin/dev up
 - Add user actions and a user feed
 - SSR, Vue meta and social sharing (Facebook, Instagram, Pinterest)
 - Plugin to add recipe ingredients to your grocery list
+- Use edge functions to suggest ingredients from a 3rd party API (still looking for one)
 
 ### Built With
 
