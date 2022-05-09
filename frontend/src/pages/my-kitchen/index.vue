@@ -65,6 +65,7 @@ onMounted(
         :columns="3"
         :items="recipeStore.activeUserPublicRecipesForGallery"
         @click="onGalleryItemClick"
+        @click-create="router.push({ path: '/my-kitchen/recipe' })"
       ></app-gallery>
     </template>
   </app-grid>

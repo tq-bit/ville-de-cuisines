@@ -5,19 +5,22 @@ withDefaults(
   defineProps<{
     columns?: 1 | 2 | 3;
     items: AppGalleryItemType[];
+    buttonText: string;
   }>(),
   {
     columns: 2,
+    buttonText: 'Be the first to create something!',
   },
 );
 
 const emit = defineEmits<{
   (event: 'click', item: AppGalleryItemType): void;
+  (event: 'click-create'): void;
 }>();
 </script>
 
 <template>
-  <ul class="grid grid-cols-12 gap-8">
+  <ul v-if="items.length > 0" class="grid grid-cols-12 gap-8">
     <app-gallery-item
       @click="emit('click', item)"
       class="col-span-12 sm:col-span-12"
@@ -31,6 +34,12 @@ const emit = defineEmits<{
       :item="item"
     ></app-gallery-item>
   </ul>
+  <div v-else class="text-center">
+    <h2 class="mb-4 text-xl font-semibold">
+      Seems there's no content here yet.
+    </h2>
+    <app-button>{{ buttonText }}</app-button>
+  </div>
 </template>
 
 <style scoped></style>
