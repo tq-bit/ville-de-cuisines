@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue';
 import { useRouter } from 'vue-router';
+import { getSearchPathFromGalleryItem } from '../../../router/globalSearchPathMap';
 import useIngredientsStore from '../../../store/ingredientsStore';
 import useRecipeStore from '../../../store/recipeStore';
 import usePublicUserStore from '../../../store/publicUserStore';
@@ -34,31 +35,8 @@ const results = computed<AppGalleryItemType[]>(() => {
 });
 const loading = loadingIngredients || loadingPublicUsers || loadingRecipes;
 
-const onClickSearchItem = (payload: AppGalleryItemType) => {
-  const getSearchPath = ($id: string) => {
-    const map = [
-      {
-        type: 'user',
-        path: `/user/${$id}`,
-      },
-      {
-        type: 'recipe',
-        path: `/recipe/${$id}`,
-      },
-      {
-        type: 'ingredient',
-        path: `/recipe/ingredient/${$id}`,
-      },
-      {
-        type: 'category',
-        path: `/recipe/category/${$id}`,
-      },
-    ];
-
-    return map.find(({ type }) => type === payload.type)?.path || '/error';
-  };
-
-  const path: string = getSearchPath(payload.$id);
+const onClickSearchItem = (clickedItem: AppGalleryItemType) => {
+  const path: string = getSearchPathFromGalleryItem(clickedItem);
   router.push({ path });
 };
 

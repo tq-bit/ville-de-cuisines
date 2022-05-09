@@ -12,7 +12,6 @@ const props = withDefaults(
     modelValue?: any;
     options: any[];
     loading: boolean;
-    listKey: string;
     size: 'small' | 'medium' | 'large';
   }>(),
   {
