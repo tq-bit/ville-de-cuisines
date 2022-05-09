@@ -21,7 +21,7 @@ import useAppAlert from '../use/globalAlert';
 import { removeDuplicates } from '../util/array_util';
 
 import { defineStore } from 'pinia';
-import appwriteClient from '../api/appwrite';
+import { appwriteClient } from '../api/appwrite';
 import usePublicUserStore from './publicUserStore';
 
 const { triggerGlobalAlert } = useAppAlert();

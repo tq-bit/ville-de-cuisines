@@ -9,7 +9,7 @@ import { AppwriteException, Models, Query } from 'appwrite';
 import { v4 as uuid } from 'uuid';
 
 import { defineStore } from 'pinia';
-import appwriteClient from '../api/appwrite';
+import { appwriteClient } from '../api/appwrite';
 
 const useIngredientsStore = defineStore('ingredients', {
   state: () => ({

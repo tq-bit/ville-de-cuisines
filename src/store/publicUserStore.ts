@@ -7,7 +7,7 @@ import { USER_COLLECTION_ID, AVATAR_BUCKET_ID } from '../constants';
 import { Appwrite, AppwriteException, Models, Query } from 'appwrite';
 
 import { defineStore } from 'pinia';
-import appwriteClient from '../api/appwrite';
+import { appwriteClient } from '../api/appwrite';
 
 const usePublicUserStore = defineStore('public_user', {
   state: () => ({
