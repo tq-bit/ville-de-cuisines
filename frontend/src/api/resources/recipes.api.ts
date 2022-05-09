@@ -6,14 +6,91 @@ import {
   Recipe,
   Ingredient,
   SerializedRecipe,
+  RecipeCategory,
 } from '../../@types';
 import { removeDuplicates } from '../../util/array_util';
-
+import { v4 as uuid } from 'uuid';
 export default class RecipesApi extends Api {
   constructor() {
     super(RECIPES_COLLECTION_ID, RECIPE_BUCKET_ID);
   }
 
+  public async createRecipe(recipe: Recipe, userId: string) {
+    return this.stateful<Recipe>(async () => {
+      const id = uuid();
+      const patchedRecipe = this.patchRecipeCreationPayload(recipe, id, userId);
+      return this.createDocument(id, patchedRecipe);
+    });
+  }
+
+  public async updateRecipe(recipe: Recipe) {
+    return this.stateful<Recipe>(async () => {
+      const patchedRecipe = this.patchRecipeUpdatePayload(recipe);
+      return this.updateDocument(patchedRecipe);
+    });
+  }
+
+  public async deleteRecipe(recipeId: string) {
+    return this.stateful(async () => {
+      return this.deleteDocument(recipeId);
+    });
+  }
+
+  public async fetchPublicRecipes() {
+    return this.stateful<Recipe[]>(async () => {
+      const response = await this.listDocuments();
+      const recipes = response.documents as SerializedRecipe[];
+      return this.enrichRecipeList(recipes);
+    });
+  }
+
+  public async fetchPublicRecipeById(recipeId: string) {
+    return this.stateful<Recipe>(async () => {
+      const response = (await this.getDocument(recipeId)) as SerializedRecipe;
+      const enrichedRecipe = await this.enrichRecipe(response);
+      return enrichedRecipe;
+    });
+  }
+
+  public async fetchPublicRecipesByCategory(categoryId: string, count: number) {
+    return this.stateful<Recipe[]>(async () => {
+      const response = await this.listDocuments(
+        [Query.equal('category_id', categoryId)],
+        count,
+      );
+      const recipes = response.documents as SerializedRecipe[];
+      const enrichedRecipes = this.enrichRecipeList(recipes);
+      return enrichedRecipes;
+    });
+  }
+
+  public async fetchPublicRecipesByUser(userId: string, count: number) {
+    return this.stateful<Recipe[]>(async () => {
+      const response = await this.listDocuments(
+        [Query.equal('user_id', userId)],
+        count,
+      );
+      const recipes = response.documents as SerializedRecipe[];
+      const enrichedRecipes = this.enrichRecipeList(recipes);
+      return enrichedRecipes;
+    });
+  }
+
+  public async fetchPublicRecipesByIngredient(
+    ingredientId: string,
+    count: number,
+  ) {
+    return this.stateful<Recipe[]>(async () => {
+      const response = await this.listDocuments(
+        [Query.search('ingredients', ingredientId)],
+        count,
+      );
+      const recipes = response.documents as SerializedRecipe[];
+      return this.enrichRecipeList(recipes);
+    });
+  }
+
+  // Recipe Image CRUD
   public uploadRecipeImage(file: File) {
     return this.stateful<Models.File>(async () => {
       return this.uploadFile(file);
@@ -26,6 +103,17 @@ export default class RecipesApi extends Api {
     });
   }
 
+  // Recipe search methods
+  public async searchRecipes(query: string) {
+    return this.stateful<Recipe[]>(async () => {
+      const response = await this.listDocuments([Query.search('name', query)]);
+      const recipes = response.documents as SerializedRecipe[];
+      const enrichedRecipes = this.enrichRecipeList(recipes);
+      return enrichedRecipes;
+    });
+  }
+
+  // Recipe patching methods
   private patchRecipeCreationPayload(
     recipe: Recipe,
     id: string,
@@ -38,6 +126,10 @@ export default class RecipesApi extends Api {
     );
     const uniqueIngredients = removeDuplicates(serializedIngredients);
     const uniqueTags = removeDuplicates(recipe?.tags);
+
+    console.log(recipe);
+    console.log(recipe.original_recipe_id);
+    console.log(id);
 
     return {
       ...recipe,
@@ -64,6 +156,7 @@ export default class RecipesApi extends Api {
     };
   }
 
+  // Recipe enrichment methods
   private async enrichRecipeList(
     recipes: SerializedRecipe[],
   ): Promise<Recipe[]> {
@@ -78,19 +171,49 @@ export default class RecipesApi extends Api {
       },
       0,
     );
-    const primaryImageHref = this.getRecipeImagePreview(
-      deserlializedRecipe.primary_image_href,
+    const primaryImageHref = await this.getRecipeImagePreview(
+      deserlializedRecipe.primary_image_id,
     );
 
+    // TODO: Add recipe category here
     return {
       ...deserlializedRecipe,
       primary_image_href: primaryImageHref,
       total_calories: totalCalories,
+      category_name: 'MUST BE ADDED STILL',
     };
+  }
+
+  private async getRecipeImagePreview(fileId?: string): Promise<string> {
+    if (fileId) {
+      const response = await this.getFilePreview(fileId);
+      return response.href;
+    }
+    return '';
+  }
+
+  // Serialization methods
+  private serializeRecipeList(recipes: Recipe[]): SerializedRecipe[] {
+    return recipes.map((recipe) => this.serializeRecipe(recipe));
   }
 
   private deserializeRecipeList(recipes: SerializedRecipe[]): Recipe[] {
     return recipes.map((recipe) => this.deserializeRecipe(recipe));
+  }
+
+  private serializeRecipe(recipe: Recipe): SerializedRecipe {
+    const serializedIngredients = recipe.ingredients.map(
+      (ingredient: Ingredient) => {
+        return JSON.stringify(ingredient);
+      },
+    );
+    const uniqueIngredients = removeDuplicates(serializedIngredients);
+    const uniqueTags = removeDuplicates(recipe?.tags);
+    return {
+      ...recipe,
+      tags: uniqueTags,
+      ingredients: uniqueIngredients || [],
+    };
   }
 
   private deserializeRecipe(recipe: SerializedRecipe): Recipe {
@@ -101,17 +224,5 @@ export default class RecipesApi extends Api {
       ...recipe,
       ingredients,
     };
-  }
-
-  private getRecipeImagePreview(fileId?: string): string {
-    if (fileId) {
-      const response = this.getFilePreview(fileId);
-      return response.href;
-    }
-    return '';
-  }
-
-  private serializeRecipeIngredients(ingredient: Ingredient): string {
-    return JSON.stringify(ingredient);
   }
 }

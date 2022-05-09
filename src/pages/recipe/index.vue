@@ -2,9 +2,12 @@
 import { ref, computed, onMounted, onUpdated } from 'vue';
 import { useRouter } from 'vue-router';
 import { AppGalleryItemType, Ingredient, Recipe } from '../../@types';
+import RecipesApi from '../../api/resources/recipes.api';
 
 import useRecipeStore from '../../store/recipeStore';
 import useActiveUserStore from '../../store/activeUserStore';
+
+const recipesApi = new RecipesApi();
 
 // Router logic
 const router = useRouter();
@@ -28,7 +31,7 @@ const localRecipeIsOriginal = computed(() => {
   return localRecipe.value?.original_recipe_id === localRecipe.value?.$id;
 });
 const setLocalRecipe = async (recipeId: string) => {
-  const [response, error] = await recipeStore.fetchRecipeById(recipeId);
+  const [response, error] = await recipesApi.fetchPublicRecipeById(recipeId);
   if (error) {
     console.error(error);
   }

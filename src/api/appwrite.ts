@@ -20,13 +20,14 @@ export default class Api {
   }
 
   protected async createDocument(
+    id: string,
     payload: any,
     read?: string[] | undefined,
     write?: string[] | undefined,
   ): Promise<Models.Document> {
     const response = await this.client.database.createDocument(
       this.collectionId,
-      uuid(),
+      id,
       payload,
       read,
       write,

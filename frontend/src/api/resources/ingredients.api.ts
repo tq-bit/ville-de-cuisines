@@ -6,6 +6,7 @@ import {
 } from '../../constants';
 import ingredientsFallbackUrl from '../../../public/ingredients-fallback.png';
 import { AppServerResponseOrError, Ingredient } from '../../@types';
+import { v4 as uuid } from 'uuid';
 
 export default class IngredientsApi extends Api {
   constructor() {
@@ -14,7 +15,8 @@ export default class IngredientsApi extends Api {
 
   public async createIngredient(ingredient: Ingredient) {
     return this.stateful<Ingredient>(async () => {
-      return (await this.createDocument(ingredient)) as Ingredient;
+      const id = uuid();
+      return (await this.createDocument(id, ingredient)) as Ingredient;
     });
   }
 
@@ -91,7 +93,6 @@ export default class IngredientsApi extends Api {
     };
   }
 
-  // TODO: Does this have to be async?
   private async getIngredientImagePreview(fileId: string): Promise<string> {
     if (fileId) {
       const response = this.getFilePreview(fileId);

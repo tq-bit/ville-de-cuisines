@@ -6,8 +6,10 @@ import useRecipeStore from '../../store/recipeStore';
 import useActiveUserStore from '../../store/activeUserStore';
 import useAppAlert from '../globalAlert';
 import { getFormErrors } from '../util/error';
+import RecipesApi from '../../api/resources/recipes.api';
 
-const { createRecipe, updateRecipe } = useRecipeStore();
+const recipesApi = new RecipesApi();
+
 const activeUserStore = useActiveUserStore();
 
 const recipeSchema = yup.object({
@@ -81,7 +83,7 @@ export default function handleIngredientForm() {
 
   const handleRecipeCreate = async (payload: Recipe) => {
     httpError.value = null;
-    const [response, error] = await createRecipe(
+    const [response, error] = await recipesApi.createRecipe(
       payload,
       activeUserStore.account.$id,
     );
@@ -97,7 +99,7 @@ export default function handleIngredientForm() {
 
   const handleRecipeUpdate = async (payload: Recipe) => {
     httpError.value = null;
-    const [response, error] = await updateRecipe(payload);
+    const [response, error] = await recipesApi.updateRecipe(payload);
     if (error) {
       httpError.value = {
         message: error.message,
