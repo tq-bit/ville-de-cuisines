@@ -43,6 +43,7 @@ Ville de Cuisines is my submission to the [dev.to Appwrite Hackathon](https://de
 ### Current features
 - User signup and profile maintenance
 - Public ingredient- and recipe-category creation
+- Global search for several content types
 - Private and public recipe creation
 - User following
 - Recipe suggestions*

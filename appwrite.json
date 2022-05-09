@@ -69,7 +69,7 @@
                     "default": null
                 },
                 {
-                    "key": "nutrients",
+                    "key": "primary_image_id",
                     "type": "string",
                     "status": "available",
                     "required": false,
@@ -213,20 +213,29 @@
                     "array": false,
                     "size": 255,
                     "default": null
+                },
+                {
+                    "key": "cooking_time_minutes",
+                    "type": "integer",
+                    "status": "available",
+                    "required": false,
+                    "array": false,
+                    "min": -9223372036854776000,
+                    "max": 9223372036854776000,
+                    "default": null
+                },
+                {
+                    "key": "preparation_time_minutes",
+                    "type": "integer",
+                    "status": "available",
+                    "required": false,
+                    "array": false,
+                    "min": -9223372036854776000,
+                    "max": 9223372036854776000,
+                    "default": null
                 }
             ],
             "indexes": [
-                {
-                    "key": "search_by_name",
-                    "type": "fulltext",
-                    "status": "available",
-                    "attributes": [
-                        "name"
-                    ],
-                    "orders": [
-                        "ASC"
-                    ]
-                },
                 {
                     "key": "user_id",
                     "type": "key",
@@ -244,6 +253,52 @@
                     "status": "available",
                     "attributes": [
                         "is_public"
+                    ],
+                    "orders": [
+                        "ASC"
+                    ]
+                },
+                {
+                    "key": "category_id",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": [
+                        "category_id"
+                    ],
+                    "orders": [
+                        "DESC"
+                    ]
+                },
+                {
+                    "key": "by_user_id_and_public",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": [
+                        "user_id",
+                        "is_public"
+                    ],
+                    "orders": [
+                        "DESC",
+                        "DESC"
+                    ]
+                },
+                {
+                    "key": "ingredients",
+                    "type": "fulltext",
+                    "status": "available",
+                    "attributes": [
+                        "ingredients"
+                    ],
+                    "orders": [
+                        "ASC"
+                    ]
+                },
+                {
+                    "key": "name",
+                    "type": "fulltext",
+                    "status": "available",
+                    "attributes": [
+                        "name"
                     ],
                     "orders": [
                         "ASC"
@@ -289,9 +344,48 @@
                     "array": false,
                     "size": 255,
                     "default": null
+                },
+                {
+                    "key": "facebook_url",
+                    "type": "string",
+                    "status": "available",
+                    "required": false,
+                    "array": false,
+                    "format": "url",
+                    "default": null
+                },
+                {
+                    "key": "instagram_url",
+                    "type": "string",
+                    "status": "available",
+                    "required": false,
+                    "array": false,
+                    "format": "url",
+                    "default": null
+                },
+                {
+                    "key": "pinterest_url",
+                    "type": "string",
+                    "status": "available",
+                    "required": false,
+                    "array": false,
+                    "format": "url",
+                    "default": null
                 }
             ],
-            "indexes": []
+            "indexes": [
+                {
+                    "key": "name",
+                    "type": "fulltext",
+                    "status": "available",
+                    "attributes": [
+                        "name"
+                    ],
+                    "orders": [
+                        "DESC"
+                    ]
+                }
+            ]
         },
         {
             "$id": "625d5401d338cc0529e1",
@@ -306,16 +400,16 @@
             "permission": "collection",
             "attributes": [
                 {
-                    "key": "followed_by",
+                    "key": "entity_id",
                     "type": "string",
                     "status": "available",
-                    "required": false,
-                    "array": true,
+                    "required": true,
+                    "array": false,
                     "size": 255,
                     "default": null
                 },
                 {
-                    "key": "entity_id",
+                    "key": "followed_by",
                     "type": "string",
                     "status": "available",
                     "required": true,
@@ -327,18 +421,42 @@
                     "key": "entity_type",
                     "type": "string",
                     "status": "available",
-                    "required": false,
+                    "required": true,
                     "array": false,
                     "elements": [
                         "user",
                         "recipe",
-                        "ingredients"
+                        "ingredient",
+                        "category"
                     ],
                     "format": "enum",
                     "default": null
                 }
             ],
-            "indexes": []
+            "indexes": [
+                {
+                    "key": "followed_by",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": [
+                        "followed_by"
+                    ],
+                    "orders": [
+                        "DESC"
+                    ]
+                },
+                {
+                    "key": "entity_id",
+                    "type": "key",
+                    "status": "available",
+                    "attributes": [
+                        "entity_id"
+                    ],
+                    "orders": [
+                        "DESC"
+                    ]
+                }
+            ]
         },
         {
             "$id": "62727e96c4da6df1071f",
@@ -367,6 +485,15 @@
                     "status": "available",
                     "required": false,
                     "array": true,
+                    "size": 255,
+                    "default": null
+                },
+                {
+                    "key": "primary_image_id",
+                    "type": "string",
+                    "status": "available",
+                    "required": false,
+                    "array": false,
                     "size": 255,
                     "default": null
                 }

@@ -56,7 +56,7 @@ const onBlur = () =>
   >
     {{ label }}
   </label>
-  <div class="relative mb-4">
+  <div class="relative z-50 mb-4">
     <span class="absolute right-0 m-2 ml-3 h-8 w-8 rounded text-green-600">
       <i-search></i-search>
     </span>
