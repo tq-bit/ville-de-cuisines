@@ -37,7 +37,7 @@ onMounted(
 <template>
   <app-grid class="mt-4" variant="sidebar-left">
     <template v-slot:left>
-      <app-card block title="My kitchen">
+      <app-card block>
         <svg-cooking-management
           class="mx-auto mb-4 w-10/12"
         ></svg-cooking-management>
@@ -60,13 +60,12 @@ onMounted(
           <component :is="Component" />
         </transition>
       </router-view>
-      <app-card block title="My recipes">
-        <app-gallery
-          :columns="3"
-          :items="recipeStore.activeUserPublicRecipesForGallery"
-          @click="onGalleryItemClick"
-        ></app-gallery>
-      </app-card>
+      <h1 class="mb-4 text-3xl">My recipes</h1>
+      <app-gallery
+        :columns="3"
+        :items="recipeStore.activeUserPublicRecipesForGallery"
+        @click="onGalleryItemClick"
+      ></app-gallery>
     </template>
   </app-grid>
 </template>

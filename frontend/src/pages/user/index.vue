@@ -121,18 +121,16 @@ onUpdated(async () => {
         </app-card>
       </template>
 
-      <template v-slot:default
-        ><app-card
-          class="mb-4"
-          :title="`${publicUserStore.publicUserProfileFirstName}'s Recipes`"
-          block
-        >
-          <app-gallery
-            :columns="3"
-            :items="recipeStore.publicUserRecipesForGallery"
-            @click="onGalleryItemClick"
-          ></app-gallery>
-        </app-card>
+      <template v-slot:default>
+        <h1 class="mb-4 text-3xl">
+          {{ publicUserStore.publicUserProfileFirstName }}'s Recipes
+        </h1>
+
+        <app-gallery
+          :columns="3"
+          :items="recipeStore.publicUserRecipesForGallery"
+          @click="onGalleryItemClick"
+        ></app-gallery>
       </template>
     </app-grid>
   </div>

@@ -26,7 +26,7 @@ defineProps<{
         v-if="isUserLoggedIn"
         direction="vertical"
         to="/my-follows"
-        >My follows</app-navbar-item
+        >Following</app-navbar-item
       >
 
       <!-- Secondary navigation -->

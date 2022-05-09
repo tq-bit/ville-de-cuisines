@@ -55,7 +55,7 @@ defineEmits(['toggleSidebar']);
             My kitchen</app-navbar-item
           >
           <app-navbar-item v-if="isUserLoggedIn" to="/my-follows"
-            >My follows</app-navbar-item
+            >Following</app-navbar-item
           >
           <app-navbar-item to="/discover/users">Chefs</app-navbar-item>
           <app-navbar-item to="/discover/categories"

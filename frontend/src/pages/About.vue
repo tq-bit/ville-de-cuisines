@@ -1,47 +1,60 @@
 <script setup lang="ts"></script>
 
 <template>
-  <app-container page center>
+  <app-container class="mt-8" center>
     <div class="max-w-2xl">
-      <h1 class="mb-6 text-3xl">About Chattergram</h1>
+      <h1 class="mb-6 text-3xl">About Ville de Cuisines</h1>
       <p class="mb-4 text-lg">
-        Chattergram is my submission to the Dev.to Hackerthon of
+        Ville de Cuisines is my submission to the Dev.to Hackerthon of
         <a
-          class="font-semibold text-violet-800 dark:text-violet-400"
-          href="https://dev.to/devteam/join-us-for-a-new-kind-of-hackathon-on-dev-brought-to-you-by-deepgram-2bjd"
+          class="font-semibold text-green-400 dark:text-green-600"
+          href="https://dev.to/devteam/announcing-the-appwrite-hackathon-on-dev-1oc0"
         >
-          Deepgram. </a
+          AppWrite. </a
         ><br />
-        Its purpose is to take recorded voicemails and transcribe them into
-        readable text.
+        It started as the idea of a diet planner and grew into a social network
+        for chefs to share their culinary masterpieces.
       </p>
-      <hr class="mb-4 w-12 border border-purple-600" />
-      <p class="mb-4">This app was inspired by two ideas.</p>
+      <hr class="mb-4 w-12 border border-green-600" />
+      <p class="mb-4">
+        There are plenty of cooking platforms on the internet. Each of which
+        holds an uncounted number of recipes. And there are even more apps to
+        track your calorie intake. Ville de Cuisines aims to bring together the
+        best of both into a single, social platform.
+      </p>
 
       <p class="mb-4">
-        First and foremost: Make voicemails accessible. There are situations in
-        which you simple cannot listen to recorded messages. Why not have the
-        opportunity to read them?
+        First and foremost however, it was designed to be <b>public</b>. All
+        content, except for the recipes, is meant to be curatable by its
+        members.
       </p>
 
       <p class="mb-4">
-        The second one: My impatience to listen to other peoples 5-minute
-        pre-recorded nightmares (hence the slogan). A call might get the problem
-        out of the way more quickly.
+        You can learn more about the app on its
+        <a
+          class="text-green-400 dark:text-green-600"
+          href="https://github.com/tq-bit/ville-de-cuisines"
+          target="_blank"
+          >Github repos</a
+        >. Or by
+        <router-link class="text-green-400 dark:text-green-600" to="/signup"
+          >just trying it out</router-link
+        >
       </p>
 
       <p class="mb-4 mt-8 rounded border py-2 text-center">
         Finally, thank you
         <a
-          class="font-semibold text-violet-800 dark:text-violet-400"
+          class="font-semibold text-green-400 dark:text-green-600"
           href="https://www.linkedin.com/in/tsvetomira-dichevska/"
           >@Tsvetomira Dichevska</a
         ><br />
         for the logo and the inspirational talks.
       </p>
 
-      <h2 class="mb-6 text-2xl">Attributions</h2>
+      <h2 class="mb-2 text-2xl">Attributions</h2>
       <a
+        class="text-green-400 dark:text-green-600"
         href="https://www.flaticon.com/free-icons/grocery"
         title="grocery icons"
         >Grocery icons created by ultimatearm - Flaticon</a

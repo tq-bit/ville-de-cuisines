@@ -2,7 +2,6 @@
 import { ref, onMounted } from 'vue';
 
 import usePublicUserStore from '../../store/publicUserStore';
-import useRecipeStore from '../../store/recipeStore';
 import { useRouter } from 'vue-router';
 import { AppGalleryItemType } from '../../@types/commons';
 
