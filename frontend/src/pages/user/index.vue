@@ -5,6 +5,7 @@ import { AppGalleryItemType } from '../../@types/commons';
 import usePublicUserStore from '../../store/publicUserStore';
 import useRecipeStore from '../../store/recipeStore';
 import { useRouter } from 'vue-router';
+import { computed } from '@vue/reactivity';
 
 const publicUserStore = usePublicUserStore();
 const recipeStore = useRecipeStore();
@@ -15,6 +16,13 @@ const onGalleryItemClick = (payload: AppGalleryItemType) => {
     path: `/recipe/${payload.$id}`,
   });
 };
+
+const hasSocialMediaUrls = computed<boolean>(() => {
+  const profile = publicUserStore._publicUserProfile;
+  return (
+    !!profile.facebook_url || !!profile.instagram_url || !!profile.pinterest_url
+  );
+});
 
 onMounted(async () => {
   const userId = router.currentRoute.value.params.userId as string;
@@ -37,6 +45,32 @@ onMounted(async () => {
 
           <h4 class="font-semibold">Bio:</h4>
           <p class="mb-4">{{ publicUserStore._publicUserProfile.bio }}</p>
+
+          <div class="mb-4" v-if="hasSocialMediaUrls">
+            <h4 class="mb-2 font-semibold">Social Media:</h4>
+            <a
+              v-if="publicUserStore._publicUserProfile.facebook_url"
+              :href="publicUserStore._publicUserProfile.facebook_url"
+              class="mx-2 inline-block"
+            >
+              <i-facebook></i-facebook>
+            </a>
+
+            <a
+              v-if="publicUserStore._publicUserProfile.instagram_url"
+              :href="publicUserStore._publicUserProfile.instagram_url"
+              class="mx-2 inline-block"
+            >
+              <i-instagram></i-instagram>
+            </a>
+            <a
+              v-if="publicUserStore._publicUserProfile.pinterest_url"
+              :href="publicUserStore._publicUserProfile.pinterest_url"
+              class="mx-2 inline-block"
+            >
+              <i-pinterest></i-pinterest>
+            </a>
+          </div>
 
           <app-button class="mb-4" block
             >Follow {{ publicUserStore.publicUserProfileFirstName }}</app-button

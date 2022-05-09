@@ -172,6 +172,7 @@ While developing, I fell in love with AppWrite's simplicity. If you're reading t
 * [Othneildrew's Best-README-Template](https://github.com/othneildrew/Best-README-Template) which was used to write this template
 * [Heroicons](https://heroicons.com/) which are used throughout the application
 * [Grocery icons created by ultimatearm - Flaticon](https://www.flaticon.com/free-icons/grocery)
+* [Social media logos (Facebook, Instagram, Pinterest) from Simpleicons](https://simpleicons.org/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
