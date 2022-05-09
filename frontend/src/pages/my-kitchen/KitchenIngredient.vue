@@ -165,7 +165,6 @@ onMounted(async () => await ingredientsStore.syncIngredients());
       label="Search for ingredients"
       :options="ingredientsStore.ingredientSearchResultsForGallery"
       :loading="loading"
-      listKey="name"
     ></app-search>
   </app-container>
 </template>

@@ -25,6 +25,7 @@ declare module '@vue/runtime-core' {
     AppInput: typeof import('./src/components/form/AppInput.vue')['default']
     AppNavbar: typeof import('./src/components/layout/navbar/AppNavbar.vue')['default']
     AppNavbarItem: typeof import('./src/components/layout/navbar/AppNavbarItem.vue')['default']
+    AppNavbarSearch: typeof import('./src/components/layout/navbar/AppNavbarSearch.vue')['default']
     AppPill: typeof import('./src/components/lists/pills/AppPill.vue')['default']
     AppPillList: typeof import('./src/components/lists/pills/AppPillList.vue')['default']
     AppScreenModal: typeof import('./src/components/layout/AppScreenModal.vue')['default']

@@ -28,7 +28,7 @@ defineEmits(['toggleSidebar']);
 
         <!-- Applicationwide search -->
         <div class="mt-4 hidden h-16 w-6/12 md:inline-block xl:w-8/12">
-          <app-search :options="[]"></app-search>
+          <app-navbar-search></app-navbar-search>
         </div>
 
         <!-- User profile navigation -->
