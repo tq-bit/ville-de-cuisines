@@ -9,7 +9,7 @@
     Logo
   </a>
 
-  <h3 align="center">Ville de Cuisines (VDC)</h3>
+  <h1 align="center">Ville de Cuisines (VDC)</h1>
 
   <p align="center">
     Share and refine your culinary masterpieces.
@@ -17,13 +17,7 @@
   <div align="center">
     <a href=""></a>
     <img alt="GitHub" src="https://img.shields.io/github/license/tq-bit/ville-de-cuisines?style=plastic&logo=apache"/>
-    <a href="https://chat.q-bit.me">
-      <img alt="Demo" src="https://img.shields.io/badge/Demo-Hosted%20on%20DO-blue?style=plastic&logo=digitalocean"/>
-    </a>
     <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/tq-bit/ville-de-cuisines?style=plastic&logo=git"/>
-    <a href="https://chat.q-bit.me/api/docs/static/index.html">
-      <img alt="Swagger Validator" src="https://img.shields.io/swagger/valid/3.0?specUrl=https%3A%2F%2Fchat.q-bit.me%2Fapi%2Fdocs%2Fjson&style=plastic&logo=swagger"/>
-    </a>
   </div>
 </div>
 
@@ -39,6 +33,15 @@ Ville de Cuisines is my submission to the [dev.to Appwrite Hackathon](https://de
 
 [![ville-de-cuisines audio recording][example-screenshot-I]](#)
 <div align="center"> Caption </div>
+
+## Quickstart
+
+Clone the repos and run the start script
+
+```bash
+git clone https://github.com/tq-bit/ville-de-cuisines
+sudo bin/dev up
+```
 
 ### Current features
 - User signup and profile maintenance
@@ -56,16 +59,8 @@ Ville de Cuisines is my submission to the [dev.to Appwrite Hackathon](https://de
 - Enhance ingredient data structure, e.g. nutrients, brand and retailer
 - Add a personal diet calender*
 - Add user actions and a user feed
-- Social sharing (Facebook, Instagram, Pinterest)
+- SSR, Vue meta and social sharing (Facebook, Instagram, Pinterest)
 - Plugin to add recipe ingredients to your grocery list
-
-### Demo
-
-You can try ville-de-cuisines under https://chat.q-bit.me/.
-
-> The demo will remain up till the 31. of April or until my free Deepgram credit expires. It runs on a 2GB DO Droplet.
-
-<p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Built With
 
@@ -73,7 +68,7 @@ You can try ville-de-cuisines under https://chat.q-bit.me/.
 
 * [Vue 3](https://vuejs.org/)
 * [Tailwind CSS](https://tailwindcss.com/)
-* [Nginx](https://www.nginx.com/) (or Traefic integration)
+* [Nginx](https://www.nginx.com/) (planned: Traefic integration)
 
 #### Backend
 
