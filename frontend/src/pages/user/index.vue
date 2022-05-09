@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUpdated } from 'vue';
 import { AppGalleryItemType } from '../../@types/commons';
 
 import usePublicUserStore from '../../store/publicUserStore';
@@ -29,6 +29,12 @@ onMounted(async () => {
   await publicUserStore.syncPublicUserById(userId);
   await recipeStore.syncPublicUserRecipes(userId);
 });
+
+onUpdated(async () => {
+  const userId = router.currentRoute.value.params.userId as string;
+  await publicUserStore.syncPublicUserById(userId);
+  await recipeStore.syncPublicUserRecipes(userId);
+});
 </script>
 
 <template>
@@ -51,6 +57,7 @@ onMounted(async () => {
             <a
               v-if="publicUserStore._publicUserProfile.facebook_url"
               :href="publicUserStore._publicUserProfile.facebook_url"
+              target="_blank"
               class="mx-2 inline-block"
             >
               <i-facebook></i-facebook>
@@ -59,6 +66,7 @@ onMounted(async () => {
             <a
               v-if="publicUserStore._publicUserProfile.instagram_url"
               :href="publicUserStore._publicUserProfile.instagram_url"
+              target="_blank"
               class="mx-2 inline-block"
             >
               <i-instagram></i-instagram>
@@ -66,6 +74,7 @@ onMounted(async () => {
             <a
               v-if="publicUserStore._publicUserProfile.pinterest_url"
               :href="publicUserStore._publicUserProfile.pinterest_url"
+              target="_blank"
               class="mx-2 inline-block"
             >
               <i-pinterest></i-pinterest>
