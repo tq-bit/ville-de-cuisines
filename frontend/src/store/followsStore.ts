@@ -1,4 +1,4 @@
-import { AppFollowEntity, AppFollowEntityData } from '../@types/follows';
+import { AppFollowEntity, AppFollowEntityPayload } from '../@types/follows';
 import { FOLLOWES_COLLECTION_ID } from '../constants';
 import { Appwrite, AppwriteException, Models, Query } from 'appwrite';
 import { v4 as uuid } from 'uuid';
@@ -23,11 +23,11 @@ const useFollowsStore = defineStore('follows', {
     async syncActiveUserFollows() {
       const activeUserStore = useActiveUserStore();
       const userId = activeUserStore.account.$id;
-      const [follows, error] = await this.getFollowsByUserId(userId);
+      const [follows, error] = await this.fetchFollowsByUserId(userId);
       this._activeUserFollows = follows as AppFollowEntity[];
     },
 
-    async getFollowsByUserId(
+    async fetchFollowsByUserId(
       userId: string,
     ): Promise<AppServerResponseOrError<AppFollowEntity[]>> {
       try {
@@ -44,7 +44,24 @@ const useFollowsStore = defineStore('follows', {
       }
     },
 
-    async createFollow(followEntity: AppFollowEntity) {
+    async fetchFollowByEntityId(
+      entityId: string,
+    ): Promise<AppServerResponseOrError<AppFollowEntity>> {
+      try {
+        const response = await appwriteClient.database.listDocuments(
+          FOLLOWES_COLLECTION_ID,
+          [Query.equal('entity_id', entityId)],
+        );
+        const follows = await this.enrichFollows(
+          response.documents as AppFollowEntity[],
+        );
+        return [follows[0], null];
+      } catch (error) {
+        return [null, error as AppwriteException];
+      }
+    },
+
+    async createFollow(followEntity: AppFollowEntityPayload) {
       try {
         const activeUserStore = useActiveUserStore();
         followEntity.followed_by = activeUserStore.account.$id;
@@ -54,6 +71,26 @@ const useFollowsStore = defineStore('follows', {
           followEntity,
         );
         return [response, null];
+      } catch (error) {
+        return [null, error as AppwriteException];
+      }
+    },
+
+    async deleteFollow(entityId: string) {
+      try {
+        const [entityEntry, entityError] = await this.fetchFollowByEntityId(
+          entityId,
+        );
+        console.log(entityEntry);
+        if (entityEntry) {
+          const response = await appwriteClient.database.deleteDocument(
+            FOLLOWES_COLLECTION_ID,
+            entityEntry.$id,
+          );
+          return [response, null];
+        } else {
+          throw entityError;
+        }
       } catch (error) {
         return [null, error as AppwriteException];
       }

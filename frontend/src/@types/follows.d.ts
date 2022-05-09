@@ -11,6 +11,12 @@ export interface AppFollowEntityData {
   count?: number;
 }
 
+export interface AppFollowEntityPayload {
+  entity_id: string;
+  followed_by?: string;
+  entity_type: AppFollowEntityType;
+}
+
 export interface AppFollowEntity extends Models.Document {
   entity_id: string;
   followed_by?: string;

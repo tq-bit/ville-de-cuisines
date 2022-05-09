@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import { ref, onMounted, onUpdated } from 'vue';
-import { AppGalleryItemType } from '../../@types/commons';
+import { AppGalleryItemType, AppFollowEntityPayload } from '../../@types';
 
 import usePublicUserStore from '../../store/publicUserStore';
 import useRecipeStore from '../../store/recipeStore';
+import useFollowsStore from '../../store/followsStore';
 import { useRouter } from 'vue-router';
 import { computed } from '@vue/reactivity';
 
 const publicUserStore = usePublicUserStore();
 const recipeStore = useRecipeStore();
+const followsStore = useFollowsStore();
 const router = useRouter();
 
 const onGalleryItemClick = (payload: AppGalleryItemType) => {
@@ -24,16 +26,47 @@ const hasSocialMediaUrls = computed<boolean>(() => {
   );
 });
 
-onMounted(async () => {
+const activeUserIsFollowingThisUser = computed<boolean>(() => {
+  return followsStore.activeUserFollows?.some((user) => {
+    return user.entity_id === publicUserStore._publicUserProfile.$id;
+  });
+});
+
+const onClickFollowButton = async () => {
+  const payload: AppFollowEntityPayload = {
+    entity_id: publicUserStore._publicUserProfile.$id,
+    entity_type: 'user',
+  };
+  if (activeUserIsFollowingThisUser.value) {
+    const [response, error] = await followsStore.deleteFollow(
+      payload.entity_id,
+    );
+    if (error) {
+      console.error(error);
+    }
+  } else {
+    const [response, error] = await followsStore.createFollow(payload);
+    if (error) {
+      console.error(error);
+    }
+  }
+
+  await syncPublicUser();
+};
+
+const syncPublicUser = async () => {
   const userId = router.currentRoute.value.params.userId as string;
   await publicUserStore.syncPublicUserById(userId);
+  await followsStore.syncActiveUserFollows();
   await recipeStore.syncPublicUserRecipes(userId);
+};
+
+onMounted(async () => {
+  await syncPublicUser();
 });
 
 onUpdated(async () => {
-  const userId = router.currentRoute.value.params.userId as string;
-  await publicUserStore.syncPublicUserById(userId);
-  await recipeStore.syncPublicUserRecipes(userId);
+  await syncPublicUser();
 });
 </script>
 
@@ -81,8 +114,9 @@ onUpdated(async () => {
             </a>
           </div>
 
-          <app-button class="mb-4" block
-            >Follow {{ publicUserStore.publicUserProfileFirstName }}</app-button
+          <app-button class="mb-4" block @click="onClickFollowButton">
+            {{ activeUserIsFollowingThisUser ? 'Unfollow' : 'Follow' }}
+            {{ publicUserStore.publicUserProfileFirstName }}</app-button
           >
         </app-card>
       </template>
