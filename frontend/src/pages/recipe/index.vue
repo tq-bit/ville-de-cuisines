@@ -151,7 +151,9 @@ const computeIngredientCountForPortion = (ingredient: Ingredient) => {
                   To original recipe
                 </router-link>
               </span>
+              <br />
             </p>
+
             <div class="max-w-xs">
               <app-button
                 v-if="activeUserIsSubmitter"
@@ -171,6 +173,14 @@ const computeIngredientCountForPortion = (ingredient: Ingredient) => {
               </app-button>
             </div>
           </div>
+          <app-pill
+            v-if="localRecipe?.preparation_time_minutes"
+            :text="`Preparation: ${localRecipe?.preparation_time_minutes} min.`"
+          ></app-pill>
+          <app-pill
+            v-if="localRecipe?.cooking_time_minutes"
+            :text="`Cooking: ${localRecipe?.cooking_time_minutes} min.`"
+          ></app-pill>
         </section>
 
         <section class="my-8">

@@ -35,7 +35,9 @@ export interface Recipe extends Models.Document {
   is_public: boolean;
   category_id?: string;
   category_name?: string;
-  total_calories: number;
+  total_calories?: number;
+  preparation_time_minutes?: number;
+  cooking_time_minutes?: number;
 }
 
 export interface RecipeMap {
@@ -58,5 +60,7 @@ export interface SerializedRecipe extends Models.Document {
   is_public: boolean;
   category_id?: string;
   category_name?: string;
-  total_calories: number;
+  total_calories?: number;
+  preparation_time_minutes?: number;
+  cooking_time_minutes?: number;
 }

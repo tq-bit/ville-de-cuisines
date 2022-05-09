@@ -35,6 +35,8 @@ const recipeSchema = yup.object({
     .nullable()
     .label('Recipe primary image'),
   is_public: yup.boolean().label('Recipe publicity'),
+  cooking_time_minutes: yup.number().label('Recipe cooking time'),
+  preparation_time_minutes: yup.number().label('Recipe preparation time'),
 });
 
 export default function handleIngredientForm() {
@@ -66,6 +68,10 @@ export default function handleIngredientForm() {
   const { value: portions_count } = useField('portions_count');
   const { value: primary_image_id } = useField('primary_image_id');
   const { value: isPublic } = useField('is_public');
+  const { value: cooking_time_minutes } = useField('cooking_time_minutes');
+  const { value: preparation_time_minutes } = useField(
+    'preparation_time_minutes',
+  );
 
   const validationErrors = ref<any>(null);
   const httpError = ref<AppServerErrorResponse | null>(null);
@@ -133,6 +139,8 @@ export default function handleIngredientForm() {
     pushIngredient,
     removeIngredient,
     recipeIngredients,
+    cooking_time_minutes,
+    preparation_time_minutes,
     pushTag,
     removeTag,
     recipeTags,

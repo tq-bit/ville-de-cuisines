@@ -32,6 +32,8 @@ const {
   $id,
   name,
   original_recipe_id,
+  cooking_time_minutes,
+  preparation_time_minutes,
   portions_count,
   description,
   category_id,
@@ -264,7 +266,24 @@ const commitLocalTagState = () => {
             label-prefix="Add comma-separated "
             label="Tags"
           ></app-input>
-          <app-pill-list :texts="(localTagState as string[])"></app-pill-list>
+          <app-pill-list
+            class="mb-4"
+            :texts="(localTagState as string[])"
+          ></app-pill-list>
+
+          <app-input
+            type="number"
+            v-model="preparation_time_minutes"
+            label="Preparation time in minutes"
+          ></app-input>
+
+          <app-input
+            type="number"
+            v-model="cooking_time_minutes"
+            label="Cooking time in minutes"
+          ></app-input>
+
+          <!-- cooking_time_minutes -->
 
           <app-text-area
             v-model="description"

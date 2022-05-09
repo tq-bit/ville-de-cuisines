@@ -5,7 +5,7 @@ defineProps<{ text: string }>();
 <template>
   <li
     v-if="text"
-    class="m-1 mx-1 rounded border border-green-600 px-2 py-1 text-sm text-green-600"
+    class="m-1 mx-1 inline list-none rounded border border-green-600 px-2 py-1 text-sm text-green-600"
   >
     {{ text }}
   </li>
