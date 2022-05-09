@@ -25,7 +25,6 @@ const isForkMode = computed<boolean>(() => {
 const isEditMode = computed<boolean>(() => {
   return !!router.currentRoute.value.path.match('/edit');
 });
-const closeRecipeModal = () => router.push({ path: '/my-kitchen' });
 
 // Recipe (main resource)
 const {
@@ -56,7 +55,7 @@ const onSubmitRecipe = async () => {
   await handleRecipeSubmit();
   if (!hasFormErrors.value && !httpError.value) {
     handleRecipeReset();
-    closeRecipeModal();
+    router.go(-1);
   }
 };
 const setActiveRecipeToUpdate = async (recipeId: string) => {

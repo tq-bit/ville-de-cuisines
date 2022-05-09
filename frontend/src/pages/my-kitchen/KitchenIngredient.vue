@@ -9,7 +9,6 @@ import useLazyIngredientSearch from '../../use/search/useLazyIngredientSearch';
 
 // Router
 const router = useRouter();
-const navToMyKitchen = () => router.push({ path: '/my-kitchen' });
 
 // Ingredient (main resource)
 const ingredientsStore = useIngredientsStore();
@@ -31,7 +30,7 @@ const {
 const onSubmitIngredient = async () => {
   await handleIngredientSubmit();
   if (!hasFormErrors.value && !httpError.value) {
-    navToMyKitchen();
+    router.go(-1);
   }
 };
 

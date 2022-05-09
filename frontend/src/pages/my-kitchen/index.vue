@@ -16,15 +16,15 @@ const onGalleryItemClick = (payload: AppGalleryItemType) => {
   });
 };
 
-const openRecipeModal = () => {
+const navToRecipeCreation = () => {
   router.push({ path: '/my-kitchen/recipe' });
 };
 
-const openIngredientModal = () => {
+const navToIngredientCreation = () => {
   router.push({ path: '/my-kitchen/ingredient' });
 };
 
-const openRecipeCategoryPage = () => {
+const navToRecipeCategoryCreation = () => {
   router.push({ path: '/my-kitchen/recipe-category' });
 };
 
@@ -42,13 +42,13 @@ onMounted(
           class="mx-auto mb-4 w-10/12"
         ></svg-cooking-management>
         <hr class="mb-4" />
-        <app-button @click="openRecipeModal" class="mb-4" block>
+        <app-button @click="navToRecipeCreation" class="mb-4" block>
           Add new recipe</app-button
         >
-        <app-button @click="openIngredientModal" class="mb-4" block>
+        <app-button @click="navToIngredientCreation" class="mb-4" block>
           Add ingredients</app-button
         >
-        <app-button @click="openRecipeCategoryPage" class="mb-4" block>
+        <app-button @click="navToRecipeCategoryCreation" class="mb-4" block>
           Add recipe category</app-button
         >
       </app-card>

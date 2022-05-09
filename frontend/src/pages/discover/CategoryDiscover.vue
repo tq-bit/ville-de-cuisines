@@ -33,9 +33,9 @@ onMounted(async () => {
     ></app-gallery>
 
     <section class="text-center">
-      <h2 class="text-md mt-8 mb-4 font-semibold">
+      <h3 class="mt-8 font-semibold">
         Didn't find the category you're looking for?
-      </h2>
+      </h3>
 
       <app-button @click="router.push('/my-kitchen/recipe-category')"
         >Create your own</app-button

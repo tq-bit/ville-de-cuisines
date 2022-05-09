@@ -10,7 +10,7 @@ const parsedText = computed(() => parser.render(props.text));
 </script>
 
 <template>
-  <div class="markdown" v-html="parsedText"></div>
+  <article class="markdown" v-html="parsedText"></article>
 </template>
 
 <style>

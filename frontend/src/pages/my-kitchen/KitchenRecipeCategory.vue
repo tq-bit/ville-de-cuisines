@@ -28,7 +28,7 @@ const onSubmitRecipeCategory = async () => {
   await handleRecipeCategorySubmit();
   if (!hasFormErrors.value && !httpError.value) {
     handleRecipeCategoryReset();
-    router.push({ path: '/my-kitchen' });
+    router.go(-1);
   }
 };
 
