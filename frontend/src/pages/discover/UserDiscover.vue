@@ -24,7 +24,7 @@ onMounted(async () => {
       {{ publicUserStore.publicUserFeedItems.length }} users
     </h1>
     <app-feed
-      size="small"
+      size="medium"
       @click="onClickUserItem"
       :items="publicUserStore.publicUserFeedItems"
     ></app-feed>
