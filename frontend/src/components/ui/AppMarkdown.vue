@@ -10,7 +10,19 @@ const parsedText = computed(() => parser.render(props.text));
 </script>
 
 <template>
-  <div v-html="parsedText"></div>
+  <div class="markdown" v-html="parsedText"></div>
 </template>
 
-<style scoped></style>
+<style>
+.markdown ul {
+  @apply ml-6 list-disc;
+}
+
+.markdown ol {
+  @apply ml-6 list-decimal;
+}
+
+.markdown blockquote {
+  @apply border-l-4 border-green-400 pl-6 dark:border-green-600;
+}
+</style>
