@@ -9,6 +9,9 @@ const closePreferencesModal = () => router.push({ path: '/profile' });
 const {
   bio,
   theme,
+  facebook_url,
+  instagram_url,
+  pinterest_url,
   themeOptions,
   hasFormErrors,
   httpError,
@@ -44,6 +47,21 @@ const onSubmitPreferences = async () => {
         </ul>
       </app-alert>
       <form @submit.prevent="onSubmitPreferences">
+        <app-input
+          name="facebook_url"
+          v-model="facebook_url"
+          label="Facebook Profile"
+        ></app-input>
+        <app-input
+          name="instagram_url"
+          v-model="instagram_url"
+          label="Instagram Profile"
+        ></app-input>
+        <app-input
+          name="pinterest_url"
+          v-model="pinterest_url"
+          label="Pinterest Profile"
+        ></app-input>
         <app-select
           class="mb-4"
           name="theme"

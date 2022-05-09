@@ -1,4 +1,4 @@
-import { AppServerErrorResponse, UserTheme } from '../../@types/commons';
+import { AppServerErrorResponse, UserTheme } from '../../@types';
 import { ref } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField, FieldContext } from 'vee-validate';
@@ -16,6 +16,9 @@ const preferencesSchema = yup.object({
   bio: yup.string().label('Bio'),
   location: yup.string().label('Location'),
   theme: yup.string().oneOf(themeOptions).label('Theme'),
+  facebook_url: yup.string().url().nullable().label('Facebook URL'),
+  instagram_url: yup.string().url().nullable().label('Instagram URL'),
+  pinterest_url: yup.string().url().nullable().label('Pinterest URL'),
 });
 
 // Main exported function
@@ -39,12 +42,24 @@ export default function handleUserProfileForm() {
       bio: activeUserStore.user.bio,
       location: activeUserStore.user.location,
       theme: activeUserStore.prefs.theme,
+      facebook_url: activeUserStore.user.facebook_url,
+      instagram_url: activeUserStore.user.instagram_url,
+      pinterest_url: activeUserStore.user.pinterest_url,
     },
   });
 
   const { value: bio } = useField('bio') as FieldContext<string>;
   const { value: location } = useField('location') as FieldContext<string>;
   const { value: theme } = useField('theme') as FieldContext<UserTheme>;
+  const { value: facebook_url } = useField(
+    'facebook_url',
+  ) as FieldContext<UserTheme>;
+  const { value: instagram_url } = useField(
+    'instagram_url',
+  ) as FieldContext<UserTheme>;
+  const { value: pinterest_url } = useField(
+    'pinterest_url',
+  ) as FieldContext<UserTheme>;
 
   const handleUpdatePreferences = async () => {
     httpError.value = null;
@@ -55,6 +70,9 @@ export default function handleUserProfileForm() {
       await activeUserStore.updateActivePublicUserData({
         bio: bio.value,
         location: location.value,
+        facebook_url: facebook_url.value,
+        instagram_url: instagram_url.value,
+        pinterest_url: pinterest_url.value,
       });
     const error = prefError || userError;
     if (error) {
@@ -92,6 +110,9 @@ export default function handleUserProfileForm() {
     bio,
     location,
     theme,
+    facebook_url,
+    instagram_url,
+    pinterest_url,
     handleUpdatePreferencesSubmit,
     httpError,
     validationErrors,

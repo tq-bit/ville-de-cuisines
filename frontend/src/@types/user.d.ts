@@ -14,6 +14,9 @@ export interface AppPublicUserPayload {
   bio?: string;
   location?: string;
   avatar_id?: string;
+  facebook_url?: string;
+  instagram_url?: string;
+  pinterest_url?: string;
 }
 
 export interface AppUserUpdateUsernamePayload {
@@ -40,4 +43,7 @@ export interface AppPublicUser extends Models.Document {
   location: string;
   avatar_id?: string;
   avatar_href?: string;
+  facebook_url?: string;
+  instagram_url?: string;
+  pinterest_url?: string;
 }
