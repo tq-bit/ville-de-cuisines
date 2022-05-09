@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { Ingredient } from '../../../@types/commons';
+import { Ingredient } from '../../../@types';
 import AppIngredientItem from './AppIngredientItem.vue';
 
 const props = defineProps<{
@@ -22,7 +22,7 @@ const summedCalories = computed(() => {
 
 <template>
   <section
-    class="mb-2 rounded border-l-4 bg-gray-50 py-2 pl-2 dark:border-gray-700 dark:bg-gray-800"
+    class="rounded border-l-4 bg-gray-50 py-2 pl-2 dark:border-gray-700 dark:bg-gray-800"
     :class="{
       'border-green-600 dark:border-green-600': hasIngredients,
     }"
@@ -47,8 +47,8 @@ const summedCalories = computed(() => {
       class="mt-2 flex justify-between border-t border-green-600 px-2 py-4 dark:border-green-600"
       v-if="showCalories"
     >
-      <p>Total energy</p>
-      <p class="font-semibold underline">{{ summedCalories }} kcal</p>
+      <p class="mb-0">Total energy</p>
+      <p class="mb-0 font-semibold underline">{{ summedCalories }} kcal</p>
     </div>
   </section>
 </template>
