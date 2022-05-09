@@ -1,4 +1,5 @@
 import { AppServerErrorResponse, Ingredient } from '../../@types';
+import IngredientsApi from '../../api/resources/ingredients.api';
 import { ref } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField, FieldContext } from 'vee-validate';
@@ -6,12 +7,9 @@ import useIngredientsStore from '../../store/ingredientsStore';
 import useAppAlert from '../globalAlert';
 import { getFormErrors } from '../util/error';
 
-const {
-  createIngredient,
-  updateIngredient,
-  quantityOptionKeys,
-  getIngredientById,
-} = useIngredientsStore();
+const ingredientApi = new IngredientsApi();
+
+const { quantityOptionKeys } = useIngredientsStore();
 
 const ingredientSchema = yup.object({
   $id: yup.string().optional().label('ID'),
@@ -55,8 +53,8 @@ export default function handleIngredientForm() {
   const hasFormErrors = getFormErrors(validationErrors, httpError);
 
   // TODO: Remove this? Or keep it in?
-  const setIngredientToEditById = (id: string) => {
-    const ingredient = getIngredientById(id);
+  const setIngredientToEditById = async (id: string) => {
+    const [ingredient, error] = await ingredientApi.fetchIngredientById(id);
     $id.value = ingredient?.$id || id;
     name.value = ingredient?.name || '';
     description.value = ingredient?.description || '';
@@ -68,7 +66,7 @@ export default function handleIngredientForm() {
 
   const handleIngredientCreate = async (payload: Ingredient) => {
     httpError.value = null;
-    const [response, error] = await createIngredient(payload);
+    const [response, error] = await ingredientApi.createIngredient(payload);
     if (error) {
       httpError.value = {
         message: error.message,
@@ -81,7 +79,7 @@ export default function handleIngredientForm() {
 
   const handleIngredientUpdate = async (payload: Ingredient) => {
     httpError.value = null;
-    const [response, error] = await updateIngredient(payload);
+    const [response, error] = await ingredientApi.updateIngredient(payload);
     if (error) {
       httpError.value = {
         message: error.message,

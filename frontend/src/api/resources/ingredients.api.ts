@@ -1,4 +1,4 @@
-import { Query } from 'appwrite';
+import { Models, Query } from 'appwrite';
 import Api from '../appwrite';
 import {
   INGREDIENTS_BUCKET_ID,
@@ -13,20 +13,32 @@ export default class IngredientsApi extends Api {
   }
 
   public async createIngredient(ingredient: Ingredient) {
-    return this.stateful(async () => {
+    return this.stateful<Ingredient>(async () => {
       return (await this.createDocument(ingredient)) as Ingredient;
     });
   }
 
+  public async uploadIngredientImage(file: File) {
+    return this.stateful<Models.File>(async () => {
+      return await this.uploadFile(file);
+    });
+  }
+
   public async updateIngredient(ingredient: Ingredient) {
-    return this.stateful(async () => {
+    return this.stateful<Ingredient>(async () => {
       return (await this.updateDocument(ingredient)) as Ingredient;
     });
   }
 
   public async deleteIngredient(ingredient: Ingredient) {
     return this.stateful(async () => {
-      return (await this.deleteDocument(ingredient.$id)) as Ingredient;
+      return await this.deleteDocument(ingredient.$id);
+    });
+  }
+
+  public async deleteIngredientImage(fileId: string) {
+    return this.stateful(async () => {
+      return await this.deleteFile(fileId);
     });
   }
 
@@ -40,7 +52,7 @@ export default class IngredientsApi extends Api {
   }
 
   public async fetchIngredientById(ingredientId: string) {
-    return this.stateful(async () => {
+    return this.stateful<Ingredient>(async () => {
       const response = (await this.getDocument(ingredientId)) as Ingredient;
       const enrichedIngredient = await this.enrichIngredient(response);
       return enrichedIngredient;
@@ -50,7 +62,7 @@ export default class IngredientsApi extends Api {
   public searchIngredientsByName(
     query: string,
   ): AppServerResponseOrError<Ingredient[]> {
-    return this.stateful(async () => {
+    return this.stateful<Ingredient[]>(async () => {
       const response = await this.listDocuments([Query.search('name', query)]);
       const ingredients = response.documents as Ingredient[];
       const enrichedIngredients = await this.enrichIngredients(ingredients);
