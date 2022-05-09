@@ -208,9 +208,7 @@ const computeIngredientCountForPortion = (ingredient: Ingredient) => {
 
         <section class="mb-8">
           <h2 class="my-4 text-2xl">Preparation steps</h2>
-          <p>
-            {{ localRecipe?.description }}
-          </p>
+          <app-markdown :text="localRecipe?.description || ''"> </app-markdown>
         </section>
         <section class="mb-8">
           <h2 class="mb-4 text-2xl">Tagged as</h2>

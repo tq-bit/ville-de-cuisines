@@ -23,6 +23,7 @@ declare module '@vue/runtime-core' {
     AppIngredientItem: typeof import('./src/components/lists/ingredients/AppIngredientItem.vue')['default']
     AppIngredientList: typeof import('./src/components/lists/ingredients/AppIngredientList.vue')['default']
     AppInput: typeof import('./src/components/form/AppInput.vue')['default']
+    AppMarkdown: typeof import('./src/components/ui/AppMarkdown.vue')['default']
     AppNavbar: typeof import('./src/components/layout/navbar/AppNavbar.vue')['default']
     AppNavbarItem: typeof import('./src/components/layout/navbar/AppNavbarItem.vue')['default']
     AppNavbarSearch: typeof import('./src/components/layout/navbar/AppNavbarSearch.vue')['default']
