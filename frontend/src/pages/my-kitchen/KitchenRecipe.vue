@@ -290,7 +290,7 @@ const commitLocalTagState = () => {
             name="description"
             label-prefix="Add the recipe's "
             label="Preparation steps"
-            rows="5"
+            rows="10"
           ></app-text-area>
 
           <app-search

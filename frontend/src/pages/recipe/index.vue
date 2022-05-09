@@ -124,7 +124,7 @@ const computeIngredientCountForPortion = (ingredient: Ingredient) => {
             :src="(localRecipe?.primary_image_href as string)"
           ></app-image>
           <div class="flex justify-between">
-            <p>
+            <div>
               <span>
                 Category:
                 <router-link
@@ -142,17 +142,16 @@ const computeIngredientCountForPortion = (ingredient: Ingredient) => {
                   :to="`/user/${localRecipe?.user_id}`"
                   >{{ submittedBy }}</router-link
                 >
+                <br />
               </span>
-
-              <br />
 
               <span class="font-semibold" v-if="!localRecipeIsOriginal">
                 <router-link :to="`/recipe/${localRecipe?.original_recipe_id}`">
                   To original recipe
                 </router-link>
+                <br />
               </span>
-              <br />
-            </p>
+            </div>
 
             <div class="max-w-xs">
               <app-button
