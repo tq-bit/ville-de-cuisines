@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { AppUploadPayload } from '../../@types/commons';
+import { AppUploadPayload, AppGalleryItemType } from '../../@types';
+import ingredientsFallback from '/ingredients-fallback.webp';
+import recipeFallback from '/recipe-fallback.webp';
 import { ref, onMounted } from 'vue';
 
 import { useRouter } from 'vue-router';
@@ -12,6 +14,33 @@ const { destroyServerSession } = useSessionStore();
 const activeUserStore = useActiveUserStore();
 const { triggerGlobalAlert } = useGlobalAlert();
 const router = useRouter();
+
+const mockFeed: AppGalleryItemType[] = [
+  {
+    $id: '1',
+    alt: 'New public ingredient',
+    type: 'ingredient',
+    title: 'New public ingredient',
+    src: ingredientsFallback,
+    text: 'John Doe created a new ingredient: Chicken Breast',
+  },
+  {
+    $id: '2',
+    alt: 'New public recipe',
+    type: 'recipe',
+    title: 'New public recipe',
+    src: recipeFallback,
+    text: 'Jane Doe created a new recipe: Chicken Breast',
+  },
+  {
+    $id: '3',
+    alt: 'New recipe variant',
+    type: 'recipe',
+    title: 'New recipe variant',
+    src: recipeFallback,
+    text: 'John Smith created a new recipe variant: Garlic bread with tomato sauce',
+  },
+];
 
 const logout = async () => {
   await destroyServerSession();
@@ -86,20 +115,8 @@ onMounted(async () => {
       </template>
 
       <template v-slot:default
-        ><app-card class="mb-4" title="Feed" block> </app-card>
-
-        <app-card class="mb-4" title="First item" block>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit
-          consequatur culpa tempore vero perspiciatis omnis quod quam ullam
-          quibusdam alias dolor illum consequuntur laboriosam, cum
-          necessitatibus, nulla rem officia impedit!
-        </app-card>
-
-        <app-card class="mb-4" title="Second item" block>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit
-          consequatur culpa tempore vero perspiciatis omnis quod quam ullam
-          quibusdam alias dolor illum consequuntur laboriosam, cum
-          necessitatibus, nulla rem officia impedit!
+        ><app-card class="mb-4" title="Feed" block>
+          <app-feed :items="mockFeed"></app-feed>
         </app-card>
       </template>
     </app-grid>
