@@ -84,7 +84,7 @@ onBeforeUnmount(async () => {
       <span :title="`Category Id: ${recipeCategoryId}`" v-if="recipeCategoryId">
         Updating recipe for {{ recipeCategoryId }}</span
       >
-      <span v-else> 🍲 Create a new category</span>
+      <span v-else> Create a category</span>
     </h1>
     <app-alert class="mb-6" v-if="hasFormErrors" variant="error">
       <ul>

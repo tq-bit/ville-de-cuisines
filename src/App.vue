@@ -14,7 +14,6 @@ const { userTheme, setTheme } = useAppTheme();
 const showSidebar = ref<boolean>(false);
 
 const onToggleSidebar = () => {
-  console.log(showSidebar);
   showSidebar.value = !showSidebar.value;
 };
 
@@ -43,7 +42,7 @@ watch(userTheme, (newTheme) => setTheme(newTheme));
       @toggle-sidebar="onToggleSidebar"
     ></app-navbar>
 
-    <app-sidebar :show="showSidebar"> </app-sidebar>
+    <app-sidebar @click-navbar-item="onToggleSidebar" :show="showSidebar"> </app-sidebar>
     <router-view v-slot="{ Component }">
       <transition mode="out-in" name="fade">
         <component :is="Component" />

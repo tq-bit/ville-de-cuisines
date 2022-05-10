@@ -7,6 +7,7 @@ const { isUserLoggedIn } = toRefs(useSessionStore());
 defineProps<{
   show: boolean;
 }>();
+const emit = defineEmits(['click-navbar-item']);
 </script>
 
 <template>
@@ -18,12 +19,14 @@ defineProps<{
       <app-navbar-search></app-navbar-search>
       <!-- Primary navigation -->
       <app-navbar-item
+        @click="emit('click-navbar-item')"
         v-if="isUserLoggedIn"
         direction="vertical"
         to="/my-kitchen"
         >My kitchen</app-navbar-item
       >
       <app-navbar-item
+        @click="emit('click-navbar-item')"
         v-if="isUserLoggedIn"
         direction="vertical"
         to="/my-follows"
@@ -31,12 +34,14 @@ defineProps<{
       >
 
       <app-navbar-item
+        @click="emit('click-navbar-item')"
         v-if="isUserLoggedIn"
         direction="vertical"
         to="/discover/users"
         >Chefs</app-navbar-item
       >
       <app-navbar-item
+        @click="emit('click-navbar-item')"
         v-if="isUserLoggedIn"
         direction="vertical"
         to="/discover/categories"
@@ -44,14 +49,27 @@ defineProps<{
       >
 
       <!-- Secondary navigation -->
-      <app-navbar-item v-if="isUserLoggedIn" direction="vertical" to="/profile"
+      <app-navbar-item
+        @click="emit('click-navbar-item')"
+        v-if="isUserLoggedIn"
+        direction="vertical"
+        to="/profile"
         >Profile</app-navbar-item
       >
-      <app-navbar-item v-if="!isUserLoggedIn" direction="vertical" to="/login">
+      <app-navbar-item
+        @click="emit('click-navbar-item')"
+        v-if="!isUserLoggedIn"
+        direction="vertical"
+        to="/login"
+      >
         <i-login class="mb-1 mr-1 inline h-4 w-4"></i-login
         >Login</app-navbar-item
       >
-      <app-navbar-item v-if="!isUserLoggedIn" direction="vertical" to="/signup"
+      <app-navbar-item
+        @click="emit('click-navbar-item')"
+        v-if="!isUserLoggedIn"
+        direction="vertical"
+        to="/signup"
         ><i-user class="mb-1 mr-1 inline h-4 w-4"></i-user
         >Signup</app-navbar-item
       >
