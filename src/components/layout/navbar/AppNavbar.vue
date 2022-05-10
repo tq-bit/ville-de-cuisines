@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { toRefs } from 'vue';
-import Logo from '/iCuisine-logo.png';
 
 import useSessionStore from '../../../store/sessionStore';
 const { isUserLoggedIn } = toRefs(useSessionStore());
@@ -23,7 +22,8 @@ const emit = defineEmits(['toggle-sidebar']);
       <section class="mx-auto w-full max-w-screen-xl">
         <!-- Icon or its placeholder -->
         <div class="mt-4 hidden h-16 w-3/12 md:inline-block xl:w-2/12">
-          <img class="hidden md:inline-block" :src="Logo" alt="iCuisine logo" />
+          <i-vdc-logo class="inline-block dark:hidden"></i-vdc-logo>
+          <i-vdc-logo-dark class="hidden dark:inline-block"></i-vdc-logo-dark>
         </div>
 
         <!-- Applicationwide search -->
