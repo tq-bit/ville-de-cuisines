@@ -3,8 +3,8 @@ import { v4 as uuid } from 'uuid';
 import { AppServerResponseOrError } from '../@types';
 
 const appwriteClient = new Appwrite();
-const PROD_URL = 'https://kitchen.q-bit.me/v1'
-const DEV_URL = 'http://localhost/v1'
+const PROD_URL = 'https://kitchen.q-bit.me/v1';
+const DEV_URL = 'http://localhost/v1';
 
 appwriteClient
   .setEndpoint(import.meta.env.DEV ? DEV_URL : PROD_URL)
@@ -154,5 +154,9 @@ export default class Api {
       console.error(error);
       return [null, error as AppwriteException];
     }
+  }
+
+  protected getClient() {
+    return this.client;
   }
 }

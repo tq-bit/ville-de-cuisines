@@ -5,8 +5,11 @@ import { Recipe, Ingredient, SerializedRecipe } from '../../@types';
 import { removeDuplicates } from '../../util/array_util';
 import { v4 as uuid } from 'uuid';
 import CategoriesApi from './recipeCategories.api';
+import PublicUserApi from './publicUser.api';
 
 const categoriesApi = new CategoriesApi();
+const publicUserApi = new PublicUserApi();
+
 export default class RecipesApi extends Api {
   constructor() {
     super(RECIPES_COLLECTION_ID, RECIPE_BUCKET_ID);
@@ -164,12 +167,15 @@ export default class RecipesApi extends Api {
       },
       0,
     );
-    const [category, error] = await categoriesApi.fetchRecipeCategoryById(
-      recipe.category_id || '',
-    );
+    const [category, categoryError] =
+      await categoriesApi.fetchRecipeCategoryById(recipe.category_id || '');
 
     const primaryImageHref = await this.getRecipeImagePreview(
       deserlializedRecipe.primary_image_id,
+    );
+
+    const [user, userError] = await publicUserApi.fetchPublicUserById(
+      recipe.user_id,
     );
 
     // TODO: Add recipe category here
@@ -178,7 +184,7 @@ export default class RecipesApi extends Api {
       primary_image_href: primaryImageHref,
       total_calories: totalCalories,
       category_name: category?.name,
-      username: 'TO BE ADDED',
+      username: user?.name || '',
     };
   }
 
