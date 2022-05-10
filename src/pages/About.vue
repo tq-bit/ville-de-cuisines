@@ -52,13 +52,8 @@
         for the logo and the inspirational talks.
       </p>
 
-      <h2 class="mb-2 text-2xl">Attributions</h2>
-      <a
-        class="text-green-400 dark:text-green-600"
-        href="https://www.flaticon.com/free-icons/grocery"
-        title="grocery icons"
-        >Grocery icons created by ultimatearm - Flaticon</a
-      >
+      <h2 class="mb-2 text-2xl">Acknowledgements</h2>
+      You can find a <a href="https://github.com/tq-bit/ville-de-cuisines#acknowledgments"> list of acknowledgements on Github</a>
     </div>
   </app-container>
 </template>
