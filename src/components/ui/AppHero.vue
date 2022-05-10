@@ -6,30 +6,41 @@ const emit = defineEmits(['clickGetStarted', 'clickLearnMore']);
   <app-grid variant="equal">
     <template v-slot:left>
       <section>
-        <svg-cooking-hero></svg-cooking-hero>
+        <svg-cooking-hero class="md:w-full w-8/12 mx-auto"></svg-cooking-hero>
       </section>
     </template>
 
     <template v-slot:default>
       <section
-        class="mt-12 flex h-full w-full items-center justify-center md:mt-0"
+        class="mt-8 flex h-full w-full items-center justify-center md:mt-0"
       >
         <div>
-          <h1 class="mb-2 text-left">Ville de cuisines</h1>
+          <h1 class="mb-2 text-center md:text-left">Ville de cuisines</h1>
 
-          <hr class="mb-4 w-12 border border-green-600" />
+          <hr class="mb-4 mx-auto w-12 border border-green-600 md:block" />
           <ul class="mb-4">
-            <li class="mb-2 text-lg">🧑 Create your profile</li>
-            <li class="mb-2 text-lg">🥫 Maintain public ingredients</li>
-            <li class="mb-2 text-lg">🍲 Save your favorite recipes</li>
-            <li class="mb-2 text-lg">
-              🌟 Invent and discover culinary masterpieces
+            <li class="mb-2 text-center text-lg md:text-left">
+              🧑 Create your profile
+            </li>
+            <li class="mb-2 text-center text-lg md:text-left">
+              🥫 Maintain public ingredients
+            </li>
+            <li class="mb-2 text-center text-lg md:text-left">
+              🍲 Save your favorite recipes
+            </li>
+            <li class="mb-2 text-center text-lg md:text-left">
+              🌟 Discover culinary masterpieces
             </li>
           </ul>
-          <app-button @click="emit('clickGetStarted')">Signup now</app-button>
-          <app-button class="ml-4" @click="emit('clickLearnMore')"
+          <div class="text-center">
+
+          <app-button class="mx-1 md:mx-0" @click="emit('clickGetStarted')"
+            >Signup now</app-button
+          >
+          <app-button class="mx-1 md:ml-4 md:mx-0" @click="emit('clickLearnMore')"
             >Learn more</app-button
           >
+          </div>
         </div>
       </section>
     </template>
