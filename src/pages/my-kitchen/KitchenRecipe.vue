@@ -57,7 +57,7 @@ const onSubmitRecipe = async () => {
   await handleRecipeSubmit();
   if (!hasFormErrors.value && !httpError.value) {
     handleRecipeReset();
-    router.go(-1);
+    router.push({ path: '/my-kitchen/' });
   }
 };
 const setActiveRecipeToUpdate = async (recipeId: string) => {
@@ -284,16 +284,6 @@ const commitLocalTagState = () => {
             label="Cooking time in minutes"
           ></app-input>
 
-          <!-- cooking_time_minutes -->
-
-          <app-text-area
-            v-model="description"
-            name="description"
-            label-prefix="Add the recipe's "
-            label="Preparation steps"
-            rows="10"
-          ></app-text-area>
-
           <app-search
             v-model="ingredientsQuery"
             label-prefix="Start typing to search and "
@@ -304,10 +294,19 @@ const commitLocalTagState = () => {
             listKey="name"
           ></app-search>
           <app-ingredient-list
+          class="mb-4"
             :editable="true"
             :ingredients="localIngredientState"
             @remove-ingredient="onRemoveLocalIngredientItem"
           ></app-ingredient-list>
+
+          <app-text-area
+            v-model="description"
+            name="description"
+            label-prefix="Add the recipe's "
+            label="Preparation steps"
+            rows="10"
+          ></app-text-area>
 
           <app-button class="md:hidden" block type="submit"
             >Submit Recipe</app-button

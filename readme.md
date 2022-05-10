@@ -38,6 +38,7 @@ Unfortunatly, I was not able to implement all the features during the time of th
 - Public ingredient- and recipe-category creation
 - Global search for several content types
 - Private and public recipe creation
+- Markdown support for recipe preparation steps
 - User following
 - Recipe suggestions*
 - Recipe refinement*
