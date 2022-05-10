@@ -151,25 +151,7 @@ While developing, I fell in love with AppWrite's simplicity. If you're reading t
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/tq-bit/ville-de-cuisines.svg??style=plastic&logo=appveyor
-[contributors-url]: https://github.com/tq-bit/ville-de-cuisines/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/tq-bit/ville-de-cuisines.svg??style=plastic&logo=appveyor
-[forks-url]: https://github.com/tq-bit/ville-de-cuisines/network/members
-[stars-shield]: https://img.shields.io/github/stars/tq-bit/ville-de-cuisines.svg??style=plastic&logo=appveyor
-[stars-url]: https://github.com/tq-bit/ville-de-cuisines/stargazers
-[issues-shield]: https://img.shields.io/github/issues/tq-bit/ville-de-cuisines.svg??style=plastic&logo=appveyor
-[issues-url]: https://github.com/tq-bit/ville-de-cuisines/issues
-[license-shield]: https://img.shields.io/github/license/tq-bit/ville-de-cuisines.svg??style=plastic&logo=appveyor
-[license-url]: https://github.com/tq-bit/ville-de-cuisines/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg??style=social&logo=appveyor&logo=linkedin&colorB=555
-[linkedin-url]: https://www.linkedin.com/in/tobias-quante-764aa1140/
-[product-logo]: assets/logo.gif
 [product-screenshot]: public/github-assets/twilight-vdc.png
-[example-screenshot-I]: assets/ville-de-cuisines_chat_I.png
-[example-screenshot-II]: assets/ville-de-cuisines_chat_II.png
-[onboarding-screenshot-I]: assets/ville-de-cuisines_signup.gif
-[onboarding-screenshot-II]: assets/ville-de-cuisines_transcribe.gif
-
 [gif-update-preferences]: public/github-assets/update-preferences.gif
 [gif-signup]: public/github-assets/signup.gif
 [gif-refine-recipe]: public/github-assets/refine-recipe.gif
