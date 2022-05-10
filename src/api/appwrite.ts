@@ -1,10 +1,9 @@
 import { Appwrite, Models, AppwriteException } from 'appwrite';
 import { v4 as uuid } from 'uuid';
 import { AppServerResponseOrError } from '../@types';
+import { DEV_URL, PROD_URL } from '../constants';
 
 const appwriteClient = new Appwrite();
-const PROD_URL = 'https://kitchen.q-bit.me/v1';
-const DEV_URL = 'http://localhost/v1';
 
 appwriteClient
   .setEndpoint(import.meta.env.DEV ? DEV_URL : PROD_URL)

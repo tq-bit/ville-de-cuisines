@@ -1,9 +1,8 @@
-import { Models, Query } from 'appwrite';
+import { Query } from 'appwrite';
 import Api from '../appwrite';
 import { FOLLOWES_COLLECTION_ID } from '../../constants';
 import PublicUserApi from './publicUser.api';
 import {
-  AppFollowEntityType,
   AppFollowEntity,
   AppFollowEntityPayload,
 } from '../../@types';

@@ -4,7 +4,6 @@ import {
   RECIPE_CATEGORY_BUCKET_ID,
   RECIPE_CATEGORY_COLLECTION_ID,
 } from '../../constants';
-// TODO: Add a separate image here
 import { RecipeCategory } from '../../@types';
 import { v4 as uuid } from 'uuid';
 
