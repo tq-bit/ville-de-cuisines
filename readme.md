@@ -101,14 +101,14 @@ I tried to design the app in an intuitive way. Naturally, there's always somethi
 
 ### Signup
 
-[![update-your-user-preferences][screenshot-signup]](#)
+[![update-your-user-preferences][gif-signup]](#)
 
 ### Maintain your user preferences
 
-[![update-your-user-preferences][screenshot-update-preferences]](#)
+[![update-your-user-preferences][gif-update-preferences]](#)
 
 ### Refine a recipe and make it your own
-[![update-your-user-preferences][screenshot-refine-recipe]](#)
+[![update-your-user-preferences][gif-refine-recipe]](#)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -171,6 +171,6 @@ While developing, I fell in love with AppWrite's simplicity. If you're reading t
 [onboarding-screenshot-I]: assets/ville-de-cuisines_signup.gif
 [onboarding-screenshot-II]: assets/ville-de-cuisines_transcribe.gif
 
-[screenshot-update-preferences]: public/github-assets/update-preferences.gif
-[screenshot-signup]: public/github-assets/signup.gif
-[screenshot-refine-recipe]: public/github-assets/refine-recipe.gif
+[gif-update-preferences]: public/github-assets/update-preferences.gif
+[gif-signup]: public/github-assets/signup.gif
+[gif-refine-recipe]: public/github-assets/refine-recipe.gif
