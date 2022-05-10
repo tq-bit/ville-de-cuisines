@@ -95,25 +95,20 @@ Since AppWrite's backend is hosted on a rather small VM, this demo comes with a 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
-## Usage
+## Usage examples
+
+I tried to design the app in an intuitive way. Naturally, there's always something that simply isn't. So in the following, you can find a few basic, first steps to get started.
 
 ### Signup
 
+[![update-your-user-preferences][screenshot-signup]](#)
+
 ### Maintain your user preferences
 
-### Create your first public ingredient
-
-### Create a recipe category
-
-### Create a recipe and share it
-
-### Share your recipe on social media
-
-### Follow another user
+[![update-your-user-preferences][screenshot-update-preferences]](#)
 
 ### Refine a recipe and make it your own
-
-### Calculate needed ingredients for your visitors
+[![update-your-user-preferences][screenshot-refine-recipe]](#)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -175,3 +170,7 @@ While developing, I fell in love with AppWrite's simplicity. If you're reading t
 [example-screenshot-II]: assets/ville-de-cuisines_chat_II.png
 [onboarding-screenshot-I]: assets/ville-de-cuisines_signup.gif
 [onboarding-screenshot-II]: assets/ville-de-cuisines_transcribe.gif
+
+[screenshot-update-preferences]: public/github-assets/update-preferences.gif
+[screenshot-signup]: public/github-assets/signup.gif
+[screenshot-refine-recipe]: public/github-assets/refine-recipe.gif
