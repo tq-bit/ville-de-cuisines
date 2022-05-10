@@ -1,4 +1,4 @@
-import { AppServerErrorResponse } from '../../@types/commons';
+import { AppServerErrorResponse } from '../../@types';
 
 import { ref } from 'vue';
 import * as yup from 'yup';
