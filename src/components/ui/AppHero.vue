@@ -16,19 +16,20 @@ const emit = defineEmits(['clickGetStarted', 'clickLearnMore']);
       >
         <div>
           <h1 class="mb-2 text-center md:text-left">Ville de cuisines</h1>
+          <p class="mb-2 text-center  text-lg  md:text-left">Your kitchen's digital twin</p>
 
-          <hr class="mb-4 mx-auto w-12 border border-green-600 md:block" />
+          <hr class="mb-4 mx-auto md:mx-0 w-12 border border-green-600 md:block" />
           <ul class="mb-4">
-            <li class="mb-2 text-center text-lg md:text-left">
+            <li class="mb-2 text-center md:text-left">
               🧑 Create your profile
             </li>
-            <li class="mb-2 text-center text-lg md:text-left">
+            <li class="mb-2 text-center md:text-left">
               🥫 Maintain public ingredients
             </li>
-            <li class="mb-2 text-center text-lg md:text-left">
+            <li class="mb-2 text-center md:text-left">
               🍲 Save your favorite recipes
             </li>
-            <li class="mb-2 text-center text-lg md:text-left">
+            <li class="mb-2 text-center md:text-left">
               🌟 Discover culinary masterpieces
             </li>
           </ul>
