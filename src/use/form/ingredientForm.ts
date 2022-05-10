@@ -52,18 +52,6 @@ export default function handleIngredientForm() {
 
   const hasFormErrors = getFormErrors(validationErrors, httpError);
 
-  // TODO: Remove this? Or keep it in?
-  const setIngredientToEditById = async (id: string) => {
-    const [ingredient, error] = await ingredientApi.fetchIngredientById(id);
-    $id.value = ingredient?.$id || id;
-    name.value = ingredient?.name || '';
-    description.value = ingredient?.description || '';
-    quantity.value = ingredient?.quantity || 0;
-    quantity_unit.value = ingredient?.quantity_unit || '';
-    primary_image_id.value = ingredient?.primary_image_id || '';
-    calories.value = ingredient?.calories || 0;
-  };
-
   const handleIngredientCreate = async (payload: Ingredient) => {
     httpError.value = null;
     const [response, error] = await ingredientApi.createIngredient(payload);
@@ -122,6 +110,5 @@ export default function handleIngredientForm() {
     httpError,
     validationErrors,
     handleIngredientSubmit,
-    setIngredientToEditById,
   };
 }
