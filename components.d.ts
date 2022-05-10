@@ -43,6 +43,8 @@ declare module '@vue/runtime-core' {
     IPinterest: typeof import('./src/components/assets/icons/brands/iPinterest.vue')['default']
     ISearch: typeof import('./src/components/assets/icons/iSearch.vue')['default']
     IUser: typeof import('./src/components/assets/icons/iUser.vue')['default']
+    IVdcLogo: typeof import('./src/components/assets/icons/brands/iVdcLogo.vue')['default']
+    IVdcLogoDark: typeof import('./src/components/assets/icons/brands/iVdcLogoDark.vue')['default']
     Navbar: typeof import('./src/components/layout/navbar/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

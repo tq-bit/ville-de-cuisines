@@ -4,7 +4,8 @@
 <br />
 <div align="center">
   <a href="https://github.com/tq-bit/ville-de-cuisines">
-    Logo
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40" height="43" viewBox="0 0 40 43">
+  <image width="40" height="43" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAArCAYAAAAKasrDAAAFCUlEQVRYhbWYC4gVVRzGf7N3c1fXbdfdVTNtFVtr3WLXjIgKKtqCVExQCCXMMC0iekpED3pIL4LAoCJ6UlEqSGSoUQQlaqxGaGWpvcNdS6V1a7N8XTf++R2YbnPPzN2Z+8Ew986ZOfPN//zP9//OCca8OR3gJOBsYBswQHqcDDwB3KSeVgOfADuArUB30jdU6vwAcBUwJQNyhveAC4EH9Y55wCy1HQeeBW4theB1wFMZRa9D5G4EXtA1C8Ao4BzgauAWveu2pATXAYuBi4EPgOcTkqkCTgXGAEOBXmCR2j4GKhQxwz7gfR1DFMFHgP1JCNrXPqxhvh6YrWH5LeKZCxShS4A2YCQwDMgBh4Fq3bcR2At8A3yq/P5MhLYDx/SMFzZJAuAhYCmQ180W/muAt0IPz9RXX54wulHYDbwNzFFEz417wIbgJeBaoFbX7gV6NEQuypZL76YkZzhNeTcOGKt0qIkjuBC4GegDlgGPAlcAeyzCwDvKz6wxGngR2ALM9RF8ElgLLFGUxkmvDPcDM8pALgzL4+XAy8rl/xG8W6E2qbkdOKS2EcBdZSYXxkJFc1L4oqskDn36kiWSjU594VSgBTgdqC8z0Z1SiQNoAgQKrUWrH1ihG/8G1uhwsK87A2gFzpIot0YNTQpYf6sUnH8j2CYSOc3m9SX0bcQagcnAeTomAs1AXUqiN9gkMoKNqiCrQ6qfFi7KbTq363dVCf1+a88V5mAchku/akJVqEpVYb8qz4GIPmpUcdqVz1OUz81yPsUwtTIBqYtUVYYpB62cfa9ju4j1xFiogzp+kpQ5WGqcqehO1ge0qlYbRvoInqL63KB8WiOb9ItIGdEwOlQiv0g6HNLbHSoGiFidSqDl8qZiBAPlpE2cS4E/PS+5T8ZionJ4qyrE6yUQdTii42dF9cpiBAdEbrwiclilr1tSFOh/p4bEnPNXyksrk08DC+RkTPj/0Pl4aCJWKm2aNFqNsm71yktz+T2+Ie5VqJv0vzXinm59aV/omgntR8CXwGWDiOJ/AlXhaYz1avKOfRHXbfLck4KYwxEfwSDmYRuyLk/7K8Bfg+d2Aj6CvjaUIzNDDroQLVmscXw5GNe5pcBr0rU50ssfJUtL5Yy8ZjQtwSQ4qFm9QLP3c02aZTIbqZGWoJOMXmnlPslEPqMlbGyelYpAxPIS3NT9pY2gw3AdI1Sq+lVjTbwfU75W6RwoMDmZDJtMd5aLYIVWg88BmyXce7R7MEk7CXsT9GOk7ygXwSbtTKzTtdFaoM9OSA5F0CrVtEKCWeRg2OROAH4FVnJCxCckcNbVqsNWlb4rbMyCYLgk1mibY7o84tfA+THP227FLuCNqLVN2iG2Gfu7vGCHCNnO1VGtbcw/bojpo1kR7IxqTEswL5v/jHYHNkoH2+W4tyQQbF+7180kJYhm4SH9r5evy0WsoRtLXKKmJuhwTIcT6HyBG6qWFNnO64eSoUTIimCDhLpBspMrKHXz5bpHyQSv1E5XLNLmYCAyXaoi5qJ/UCUZErqvRed+vXOsJsfumP4H0hLMSZjNXj2uoXW6WBu672jBR5HQTGRC0O0WRJFwGKpzvSKNDG8sfMvOJGsSPNsl4Qht03BuEskGmdtBE6RgiIrBJkaxPux5FyWrErY3bZrnouskqtiSwVDnWxe/qp0Fk43w8Ll2I2flzMxq1PNWV63KOJj7joKZXFsZunudstQCXf8AG6sVmNai1XoAAAAASUVORK5CYII="/></svg>
   </a>
 
   <h1 align="center">Ville de Cuisines</h1>
@@ -29,33 +30,41 @@ Unfortunatly, I was not able to implement all the features during the time of th
 
 [![ville-de-cuisines landingpage][product-screenshot]](#)
 
-[![ville-de-cuisines audio recording][example-screenshot-I]](#)
-<div align="center"> Caption </div>
-
 ### Current features
-- User signup and profile maintenance
-- Avatar and image upload
-- Public ingredient- and recipe-category creation
-- Global search for several content types
-- Private and public recipe creation
-- Markdown support for recipe preparation steps
-- User following
-- Recipe suggestions*
-- Recipe refinement*
-- Ingredient and energy calculation per recipe*
+
+<details>
+<summary> Toggle current features </summary>
+
+<li>User signup and profile maintenance</li>
+<li>Avatar and image upload</li>
+<li>Public ingredient- and recipe-category creation</li>
+<li>Global search for several content types</li>
+<li>Private and public recipe creation</li>
+<li>Markdown support for recipe preparation steps</li>
+<li>User following</li>
+<li>Recipe suggestions*</li>
+<li>Recipe refinement*</li>
+<li>Ingredient and energy calculation per recipe*</li>
+</details>
+
 
 ### Planned features
-- Improve recipe creation (e.g. add ingredients on the fly)
-- Search recipes based on several ingredients
-- Enhance recipe suggestions and search, e.g. by tag
-- Enhance ingredient data structure, e.g. nutrients, brand and retailer
-- Add a personal diet calender*
-- Add user actions and a user feed
-- SSR, Vue meta and social sharing (Facebook, Instagram, Pinterest)
-- Plugin to add recipe ingredients to your grocery list
-- Use edge functions to suggest ingredients from a 3rd party API (still looking for one)
-- Use edge functions to cleanup unnecessary images
-- Proper loading indicators (after finishing the app & the service refactoring)
+
+<details>
+<summary> Toggle current features </summary>
+
+<li>Improve recipe creation (e.g. add ingredients on the fly)</li>
+<li>Search recipes based on several ingredients</li>
+<li>Enhance recipe suggestions and search, e.g. by tag</li>
+<li>Enhance ingredient data structure, e.g. nutrients, brand and retailer</li>
+<li>Add a public / personal diet calender*</li>
+<li>Add user actions and a user feed</li>
+<li>SSR, Vue meta and social sharing (Facebook, Instagram, Pinterest)</li>
+<li>Plugin to add recipe ingredients to your grocery list</li>
+<li>Use edge functions to suggest ingredients from a 3rd party API (still looking for one)</li>
+<li>Use edge functions to cleanup unnecessary images</li>
+<li>Proper loading indicators (after finishing the app & the service refactoring)</li>
+</details>
 
 ### Built With
 
@@ -161,7 +170,7 @@ While developing, I fell in love with AppWrite's simplicity. If you're reading t
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg??style=social&logo=appveyor&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/tobias-quante-764aa1140/
 [product-logo]: assets/logo.gif
-[product-screenshot]: assets/ville-de-cuisines_landingpage.png
+[product-screenshot]: public/github-assets/twilight-vdc.png
 [example-screenshot-I]: assets/ville-de-cuisines_chat_I.png
 [example-screenshot-II]: assets/ville-de-cuisines_chat_II.png
 [onboarding-screenshot-I]: assets/ville-de-cuisines_signup.gif
