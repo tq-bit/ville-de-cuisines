@@ -5,7 +5,7 @@ import Logo from '/iCuisine-logo.png';
 import useSessionStore from '../../../store/sessionStore';
 const { isUserLoggedIn } = toRefs(useSessionStore());
 
-defineEmits(['toggleSidebar']);
+const emit = defineEmits(['toggle-sidebar']);
 </script>
 
 <template>
@@ -15,7 +15,7 @@ defineEmits(['toggleSidebar']);
     >
       <button
         class="my-3 block h-10 w-10 md:hidden"
-        @click="$emit('toggleSidebar')"
+        @click="emit('toggle-sidebar')"
       >
         <i-menu></i-menu>
       </button>
