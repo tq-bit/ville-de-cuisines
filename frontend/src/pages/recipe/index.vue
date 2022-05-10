@@ -216,7 +216,7 @@ const computeIngredientCountForPortion = (ingredient: Ingredient) => {
       </template>
 
       <template v-slot:default>
-        <h2 class="mt-5 text-xl">More recipes like this</h2>
+        <h2 class="mt-2 text-xl">More recipes like this</h2>
         <app-gallery
           class="mb-8"
           :items="localRecipeSuggestions"
