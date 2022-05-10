@@ -50,7 +50,7 @@ Unfortunatly, I was not able to implement all the features during the time of th
 ### Planned features
 
 <details>
-<summary> Toggle current features </summary>
+<summary> Toggle planned features </summary>
 
 <li>Improve recipe creation (e.g. add ingredients on the fly)</li>
 <li>Search recipes based on several ingredients</li>
