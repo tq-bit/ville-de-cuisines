@@ -138,6 +138,7 @@ Project Link: [https://github.com/tq-bit/ville-de-cuisines](https://github.com/t
 
 While developing, I fell in love with AppWrite's simplicity. If you're reading this: You guys did a fantastic job taking away the headache of API and DB maintenance.
 
+* [Tsvetomira Dichevska](https://www.linkedin.com/in/tsvetomira-dichevska/) thank you for creating my Logo and help me figure out this idea
 * [Vincent](https://dev.to/gewenyu99) - thank you for helping me to underand how to use indexes properly.
 * [Othneildrew's Best-README-Template](https://github.com/othneildrew/Best-README-Template) which was used to write this template
 * [Heroicons](https://heroicons.com/) which are used throughout the application
