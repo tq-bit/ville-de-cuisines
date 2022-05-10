@@ -1,7 +1,6 @@
-import { AppPublicUser, AppGalleryItemType } from '../@types/index';
-import PublicUserApi from '../api/resources/publicUser.api';
-
 import { defineStore } from 'pinia';
+import { AppPublicUser, AppGalleryItemType } from '@/@types';
+import PublicUserApi from '@/api/resources/publicUser.api';
 
 const publicUserApi = new PublicUserApi();
 

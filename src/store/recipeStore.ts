@@ -1,12 +1,12 @@
+import { defineStore } from 'pinia';
 import {
   AppGalleryItemType,
   Recipe,
   RecipeCategory,
   RecipeMap,
-} from '../@types/index';
-import { defineStore } from 'pinia';
-import RecipesApi from '../api/resources/recipes.api';
-import CategoriesApi from '../api/resources/recipeCategories.api';
+} from '@/@types/index';
+import RecipesApi from '@/api/resources/recipes.api';
+import CategoriesApi from '@/api/resources/recipeCategories.api';
 
 const recipesApi = new RecipesApi();
 const categoriesApi = new CategoriesApi();

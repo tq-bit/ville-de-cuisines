@@ -1,10 +1,6 @@
-import {
-  Ingredient,
-  AppGalleryItemType,
-} from '../@types/index';
-import IngredientsApi from '../api/resources/ingredients.api';
-
 import { defineStore } from 'pinia';
+import { Ingredient, AppGalleryItemType } from '@/@types/index';
+import IngredientsApi from '@/api/resources/ingredients.api';
 
 const api = new IngredientsApi();
 
@@ -26,7 +22,7 @@ const useIngredientsStore = defineStore('ingredients', {
     ingredients: (state) => state._ingredients,
     ingredientSearchResults: (state) => state._ingredientSearchResults,
 
-    ingredientsForGallery:(state) => {
+    ingredientsForGallery: (state) => {
       return state._ingredients.map((ingredient) => {
         return {
           $id: ingredient.$id,

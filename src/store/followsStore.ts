@@ -1,15 +1,6 @@
-import { AppFollowEntity, AppFollowEntityPayload } from '../@types/follows';
-import { FOLLOWES_COLLECTION_ID } from '../constants';
-import { Appwrite, AppwriteException, Models, Query } from 'appwrite';
-import { v4 as uuid } from 'uuid';
-
-import useActiveUserStore from './activeUserStore';
-import usePublicUserStore from './publicUserStore';
-
 import { defineStore } from 'pinia';
-import { appwriteClient } from '../api/appwrite';
-import { AppServerResponseOrError, AppGalleryItemType } from '../@types';
-
+import {AppGalleryItemType, AppFollowEntity } from '../@types';
+import useActiveUserStore from './activeUserStore';
 import FollowsApi from '../api/resources/follows.api';
 
 const followsApi = new FollowsApi();

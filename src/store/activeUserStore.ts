@@ -1,3 +1,6 @@
+import { v4 as uuid } from 'uuid';
+import { defineStore } from 'pinia';
+import { AppwriteException, Models } from 'appwrite';
 import {
   AppUserUpdateUsernamePayload,
   AppUserEmailUpdatePayload,
@@ -6,13 +9,9 @@ import {
   AppUserPreferences,
   AppPublicUserPayload,
   AppPublicUser,
-} from '../@types/index';
-import { USER_COLLECTION_ID, AVATAR_BUCKET_ID } from '../constants/index';
-import { AppwriteException, Models } from 'appwrite';
-import { v4 as uuid } from 'uuid';
-
-import { defineStore } from 'pinia';
-import { appwriteClient } from '../api/appwrite';
+} from '@/@types/index';
+import { USER_COLLECTION_ID, AVATAR_BUCKET_ID } from '@/constants/index';
+import { appwriteClient } from '@/api/appwrite';
 
 const useActiveUserStore = defineStore('user', {
   state: () => ({

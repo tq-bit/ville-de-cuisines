@@ -1,10 +1,10 @@
-import { AppUserLoginPayload, AppServerResponseOrError } from '../@types/index';
 import { defineStore } from 'pinia';
 import Cookie from 'js-cookie';
 import { AppwriteException, Models } from 'appwrite';
+import { AppUserLoginPayload, AppServerResponseOrError } from '@/@types/index';
 
-import { appwriteClient } from '../api/appwrite';
-import { SESSION_ID_KEY } from '../constants/index';
+import { appwriteClient } from '@/api/appwrite';
+import { SESSION_ID_KEY } from '@/constants/index';
 
 const useSessionStore = defineStore('session', {
   state: () => ({
