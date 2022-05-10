@@ -75,7 +75,12 @@ Unfortunatly, I was not able to implement all the features during the time of th
 
 There's a demo version of Ville de Cuisines hosted on Netlify. You're very much invited to check it out and fiddle around a bit. If you find a bug, [please do open an issue](https://github.com/tq-bit/ville-de-cuisines/issues)
 
+Since AppWrite's backend is hosted on a rather small VM, this demo comes with a few constraints:
 
+- Max. upload size is 1mb
+- Image loading can take a while
+- The frontend service layer is not yet optimized and has no caching.
+- Please be mindful when making http requests.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
