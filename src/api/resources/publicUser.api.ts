@@ -30,21 +30,7 @@ export default class PublicUserApi extends Api {
     });
   }
 
-  private async enrichPublicUserList(users: AppPublicUser[]) {
-    return Promise.all(users.map((user) => this.enrichPublicUser(user)));
-  }
-
-  private async enrichPublicUser(user: AppPublicUser) {
-    const [response, error] = await this.fetchPublicUserAvatar({
-      fileId: user.avatar_id,
-      username: user.name,
-    });
-
-    user.avatar_href = response as string;
-    return user;
-  }
-
-  private async fetchPublicUserAvatar({
+  public async fetchPublicUserAvatar({
     fileId,
     username,
   }: {
@@ -63,5 +49,19 @@ export default class PublicUserApi extends Api {
       const response = await this.getClient().avatars.getInitials('John Doe');
       return response.href;
     });
+  }
+
+  private async enrichPublicUserList(users: AppPublicUser[]) {
+    return Promise.all(users.map((user) => this.enrichPublicUser(user)));
+  }
+
+  private async enrichPublicUser(user: AppPublicUser) {
+    const [response, error] = await this.fetchPublicUserAvatar({
+      fileId: user.avatar_id,
+      username: user.name,
+    });
+
+    user.avatar_href = response as string;
+    return user;
   }
 }
