@@ -36,7 +36,6 @@ const emit = defineEmits<{
     <h2 class="mb-4 text-xl font-semibold">
       <svg-loader></svg-loader>
     </h2>
-    <app-button v-if="showCtaButton">{{ buttonText }}</app-button>
   </div>
 </template>
 

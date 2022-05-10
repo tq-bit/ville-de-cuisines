@@ -45,11 +45,11 @@ onMounted(
         <app-button @click="navToRecipeCreation" class="mb-4" block>
           Add new recipe</app-button
         >
-        <app-button @click="navToIngredientCreation" class="mb-4" block>
-          Add ingredients</app-button
-        >
         <app-button @click="navToRecipeCategoryCreation" class="mb-4" block>
           Add recipe category</app-button
+        >
+        <app-button @click="navToIngredientCreation" class="mb-4" block>
+          Manage ingredients</app-button
         >
       </app-card>
     </template>
