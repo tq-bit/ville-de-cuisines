@@ -60,16 +60,16 @@ onMounted(async () => {
             size="xsmall"
             :src="activeUserStore.avatar"
           ></app-image>
-          <h4 class="font-semibold">Name:</h4>
+          <h4 class="mb-0 font-semibold">Name:</h4>
           <p class="mb-2">{{ activeUserStore.account.name }}</p>
 
-          <h4 class="font-semibold">Email:</h4>
+          <h4 class="mb-0 font-semibold">Email:</h4>
           <p class="mb-2">{{ activeUserStore.account.email }}</p>
 
-          <h4 class="font-semibold">Location:</h4>
+          <h4 class="mb-0 font-semibold">Location:</h4>
           <p class="mb-2">{{ activeUserStore.location.country }}</p>
 
-          <h4 class="font-semibold">Bio:</h4>
+          <h4 class="mb-0 font-semibold">Bio:</h4>
           <p class="mb-2">{{ activeUserStore.user.bio }}</p>
 
           <app-button class="mb-4 mt-4" @click="openAccountModal" block

@@ -58,7 +58,7 @@ onMounted(async () => {
             size="xsmall"
             :src="(localIngredient?.primary_image_href as string)"
           ></app-image>
-          <h1>
+          <h1 class="text-lg">
             <span class="font-semibold">Ingredient: </span
             >{{ localIngredient?.name }}
           </h1>

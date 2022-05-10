@@ -70,6 +70,7 @@ sudo bin/dev deploy
 - SSR, Vue meta and social sharing (Facebook, Instagram, Pinterest)
 - Plugin to add recipe ingredients to your grocery list
 - Use edge functions to suggest ingredients from a 3rd party API (still looking for one)
+- Use edge functions to cleanup unnecessary images
 
 ### Built With
 

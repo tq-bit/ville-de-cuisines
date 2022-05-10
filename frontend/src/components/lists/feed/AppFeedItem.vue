@@ -47,7 +47,9 @@ withDefaults(
       }"
     >
       <h2
+        class="mb-2"
         :class="{
+          'text-base': size === 'small',
           'text-xl': size === 'medium',
           'text-2xl': size === 'large',
         }"

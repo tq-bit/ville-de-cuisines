@@ -7,7 +7,7 @@ const router = useRouter();
   <app-container>
     <app-hero
       class="mt-24 md:mt-36"
-      @clickGetStarted="router.push({ path: '/login' })"
+      @clickGetStarted="router.push({ path: '/signup' })"
       @click-learn-more="router.push({ path: '/about' })"
     ></app-hero>
   </app-container>

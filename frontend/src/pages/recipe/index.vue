@@ -123,7 +123,7 @@ const computeIngredientCountForPortion = (ingredient: Ingredient) => {
             cover="xlarge"
             :src="(localRecipe?.primary_image_href as string)"
           ></app-image>
-          <div class="flex justify-between">
+          <div class="mb-4 flex justify-between">
             <div>
               <span>
                 Category:
@@ -182,8 +182,8 @@ const computeIngredientCountForPortion = (ingredient: Ingredient) => {
           ></app-pill>
         </section>
 
-        <section class="my-8">
-          <h2 class="mb-4 text-2xl">Ingredients</h2>
+        <section class="mt-6">
+          <h2>Ingredients</h2>
 
           <div class="mb-2 flex">
             <span class="my-auto mr-2">I'm cooking for </span>
@@ -205,8 +205,8 @@ const computeIngredientCountForPortion = (ingredient: Ingredient) => {
           ></app-ingredient-list>
         </section>
 
-        <section class="mb-8">
-          <h2 class="my-4 text-2xl">Preparation steps</h2>
+        <section class="mt-4 mb-8">
+          <h2>Preparation steps</h2>
           <app-markdown :text="localRecipe?.description || ''"> </app-markdown>
         </section>
         <section class="mb-8">
@@ -216,7 +216,7 @@ const computeIngredientCountForPortion = (ingredient: Ingredient) => {
       </template>
 
       <template v-slot:default>
-        <h2 class="mb-4 text-xl">More recipes like this</h2>
+        <h2 class="mt-5 text-xl">More recipes like this</h2>
         <app-gallery
           class="mb-8"
           :items="localRecipeSuggestions"
