@@ -26,7 +26,6 @@ const {
   httpError,
   validationErrors,
   handleIngredientSubmit,
-  setIngredientToEditById,
 } = useIngredientForm();
 
 const onSubmitIngredient = async () => {
@@ -48,14 +47,6 @@ const onDropIngredientImage = async (filePayload: AppUploadPayload) => {
   primary_image_id.value = fileResponse?.$id as string;
 };
 
-// TODO: Remove this?
-onMounted(() => {
-  const params = router.currentRoute.value.params;
-  const ingredientId = params.ingredientId as string;
-  if (ingredientId) {
-    setIngredientToEditById(ingredientId);
-  }
-});
 
 // Search logic
 const ingredientsQuery = ref<string>('');
@@ -161,13 +152,15 @@ onMounted(async () => await ingredientsStore.syncIngredients());
     </h2>
 
     <app-search
-      size="medium"
+      size="small"
       v-model="ingredientsQuery"
       label-prefix="Start typing to  "
       label="Search for ingredients"
       :options="ingredientsStore.ingredientSearchResultsForGallery"
       :loading="loading"
     ></app-search>
+
+    <app-feed size="small" :items="ingredientsStore.ingredientsForGallery"></app-feed>
   </app-container>
 </template>
 

@@ -32,6 +32,20 @@ const useIngredientsStore = defineStore('ingredients', {
     ingredients: (state) => state._ingredients,
     ingredientSearchResults: (state) => state._ingredientSearchResults,
 
+    ingredientsForGallery:(state) => {
+      return state._ingredients.map((ingredient) => {
+        return {
+          $id: ingredient.$id,
+          src: ingredient.primary_image_href,
+          alt: ingredient.name,
+          title: ingredient.name,
+          text: `Adds ${(ingredient.calories / ingredient.quantity).toFixed(
+            2,
+          )} kcal / ${ingredient.quantity_unit}`,
+          type: 'ingredient',
+        } as AppGalleryItemType;
+      });
+    },
     ingredientSearchResultsForGallery: (state) => {
       return state._ingredientSearchResults.map((ingredient) => {
         return {
