@@ -4,7 +4,7 @@ import { AppServerResponseOrError } from '../@types';
 
 const appwriteClient = new Appwrite();
 appwriteClient
-  .setEndpoint('http://localhost/v1')
+  .setEndpoint('https://kitchen.q-bit.me/v1')
   .setProject('625ea6425efdf4cc9a46');
 export { appwriteClient };
 
