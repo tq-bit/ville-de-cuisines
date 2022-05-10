@@ -2,7 +2,7 @@ import {
   AppUserAuthForm,
   AppUserLoginPayload,
   AppServerErrorResponse,
-} from '../../@types/commons';
+} from '../../@types';
 import { ref } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField, FieldContext } from 'vee-validate';

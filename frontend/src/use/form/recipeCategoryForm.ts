@@ -1,8 +1,4 @@
-import {
-  AppServerErrorResponse,
-  Recipe,
-  RecipeCategory,
-} from '../../@types/commons';
+import { AppServerErrorResponse, Recipe, RecipeCategory } from '../../@types';
 import { ref } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField } from 'vee-validate';

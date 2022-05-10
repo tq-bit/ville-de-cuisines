@@ -7,7 +7,7 @@
     Logo
   </a>
 
-  <h1 align="center">Ville de Cuisines (VDC)</h1>
+  <h1 align="center">Ville de Cuisines (WIP)</h1>
 
   <p align="center">
     Share and refine your culinary masterpieces.
