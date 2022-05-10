@@ -1,4 +1,3 @@
-// TODO: Continue here
 import { Models, Query } from 'appwrite';
 import Api from '../appwrite';
 import {
