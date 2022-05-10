@@ -17,6 +17,7 @@
   },
   "include": [
     "./components.d.ts",
+    "src/@types/*.d.ts",
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",

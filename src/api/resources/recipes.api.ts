@@ -1,12 +1,14 @@
-import { Models, Query } from 'appwrite';
-import Api from '../appwrite';
-import { RECIPE_BUCKET_ID, RECIPES_COLLECTION_ID } from '../../constants';
-import { Recipe, Ingredient, SerializedRecipe } from '../../@types';
-import { removeDuplicates } from '../../util/array_util';
 import { v4 as uuid } from 'uuid';
+import { Models, Query } from 'appwrite';
+import { Recipe, Ingredient, SerializedRecipe } from '@/@types';
+import { RECIPE_BUCKET_ID, RECIPES_COLLECTION_ID } from '@/constants';
+import Api from '@/api/appwrite';
+import { removeDuplicates } from '@/util/array_util';
+
 import CategoriesApi from './recipeCategories.api';
 import PublicUserApi from './publicUser.api';
-import recipeFallbackUrl from '/recipe-fallback.webp'
+
+import recipeFallbackUrl from '/recipe-fallback.webp';
 
 const categoriesApi = new CategoriesApi();
 const publicUserApi = new PublicUserApi();

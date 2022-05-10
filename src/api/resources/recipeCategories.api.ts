@@ -1,11 +1,11 @@
+import { v4 as uuid } from 'uuid';
 import { Models, Query } from 'appwrite';
-import Api from '../appwrite';
+import Api from '@/api/appwrite';
 import {
   RECIPE_CATEGORY_BUCKET_ID,
   RECIPE_CATEGORY_COLLECTION_ID,
-} from '../../constants';
-import { RecipeCategory } from '../../@types';
-import { v4 as uuid } from 'uuid';
+} from '@/constants';
+import { RecipeCategory } from '@/@types';
 
 export default class IngredientsApi extends Api {
   constructor() {

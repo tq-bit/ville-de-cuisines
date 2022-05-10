@@ -1,12 +1,9 @@
-import { Query } from 'appwrite';
-import Api from '../appwrite';
-import { FOLLOWES_COLLECTION_ID } from '../../constants';
-import PublicUserApi from './publicUser.api';
-import {
-  AppFollowEntity,
-  AppFollowEntityPayload,
-} from '../../@types';
 import { v4 as uuid } from 'uuid';
+import { Query } from 'appwrite';
+import { AppFollowEntity, AppFollowEntityPayload } from '@/@types';
+import { FOLLOWES_COLLECTION_ID } from '@/constants';
+import Api from '@/api/appwrite';
+import PublicUserApi from './publicUser.api';
 
 const publicUserApi = new PublicUserApi();
 

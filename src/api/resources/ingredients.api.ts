@@ -1,12 +1,9 @@
-import { Models, Query } from 'appwrite';
-import Api from '../appwrite';
-import {
-  INGREDIENTS_BUCKET_ID,
-  INGREDIENTS_COLLECTION_ID,
-} from '../../constants';
-import ingredientsFallbackUrl from '/ingredients-fallback.webp';
-import { AppServerResponseOrError, Ingredient } from '../../@types';
 import { v4 as uuid } from 'uuid';
+import { Models, Query } from 'appwrite';
+import { AppServerResponseOrError, Ingredient } from '@/@types';
+import { INGREDIENTS_BUCKET_ID, INGREDIENTS_COLLECTION_ID } from '@/constants';
+import Api from '@/api/appwrite';
+import ingredientsFallbackUrl from '/ingredients-fallback.webp';
 
 export default class IngredientsApi extends Api {
   constructor() {

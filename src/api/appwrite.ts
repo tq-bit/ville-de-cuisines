@@ -1,7 +1,7 @@
 import { Appwrite, Models, AppwriteException } from 'appwrite';
 import { v4 as uuid } from 'uuid';
-import { AppServerResponseOrError } from '../@types';
-import { DEV_URL, PROD_URL } from '../constants';
+import { AppServerResponseOrError } from '@/@types';
+import { DEV_URL, PROD_URL } from '@/constants';
 
 const appwriteClient = new Appwrite();
 
