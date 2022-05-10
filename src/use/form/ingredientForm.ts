@@ -1,9 +1,9 @@
-import { AppServerErrorResponse, Ingredient } from '../../@types';
-import IngredientsApi from '../../api/resources/ingredients.api';
 import { ref } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField, FieldContext } from 'vee-validate';
-import useIngredientsStore from '../../store/ingredientsStore';
+import { AppServerErrorResponse, Ingredient } from '@/@types';
+import IngredientsApi from '@/api/resources/ingredients.api';
+import useIngredientsStore from '@/store/ingredientsStore';
 import useAppAlert from '../globalAlert';
 import { getFormErrors } from '../util/error';
 import useLogger from '../util/logger';

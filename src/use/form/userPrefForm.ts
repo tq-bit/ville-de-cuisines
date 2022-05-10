@@ -1,8 +1,8 @@
-import { AppServerErrorResponse, UserTheme } from '../../@types';
 import { ref } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField, FieldContext } from 'vee-validate';
-import useActiveUserStore from '../../store/activeUserStore';
+import { AppServerErrorResponse, UserTheme } from '@/@types';
+import useActiveUserStore from '@/store/activeUserStore';
 import { getFormErrors } from '../util/error';
 import useAppAlert from '../globalAlert';
 

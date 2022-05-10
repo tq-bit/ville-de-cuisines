@@ -1,14 +1,14 @@
-import {
-  AppUserAuthForm,
-  AppUserLoginPayload,
-  AppServerErrorResponse,
-} from '../../@types';
 import { ref } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField, FieldContext } from 'vee-validate';
 import { v4 as uuid } from 'uuid';
-import useSessionStore from '../../store/sessionStore';
-import useActiveUserStore from '../../store/activeUserStore';
+import {
+  AppUserAuthForm,
+  AppUserLoginPayload,
+  AppServerErrorResponse,
+} from '@/@types';
+import useSessionStore from '@/store/sessionStore';
+import useActiveUserStore from '@/store/activeUserStore';
 import useAppAlert from '../globalAlert';
 import { getFormErrors } from '../util/error';
 
@@ -20,8 +20,7 @@ const formValidationSchema = yup.object({
 
 export default function handleUserAuthForm(type: AppUserAuthForm) {
   const { login, signup } = useSessionStore();
-  const { syncActiveUserAccount, createInitialPublicUser } =
-    useActiveUserStore();
+  const { createInitialPublicUser } = useActiveUserStore();
   const { handleSubmit } = useForm({
     validationSchema: formValidationSchema,
   });

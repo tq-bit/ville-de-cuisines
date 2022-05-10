@@ -1,15 +1,13 @@
-import { AppServerErrorResponse, Recipe } from '../../@types';
 import { ref } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField, useFieldArray } from 'vee-validate';
-import useRecipeStore from '../../store/recipeStore';
-import useActiveUserStore from '../../store/activeUserStore';
+import { AppServerErrorResponse, Recipe } from '@/@types';
+import RecipesApi from '@/api/resources/recipes.api';
+import useActiveUserStore from '@/store/activeUserStore';
 import useAppAlert from '../globalAlert';
 import { getFormErrors } from '../util/error';
-import RecipesApi from '../../api/resources/recipes.api';
 
 const recipesApi = new RecipesApi();
-
 const activeUserStore = useActiveUserStore();
 
 const recipeSchema = yup.object({

@@ -1,10 +1,9 @@
-import { AppServerErrorResponse, Recipe, RecipeCategory } from '../../@types';
 import { ref } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField } from 'vee-validate';
+import { AppServerErrorResponse, Recipe, RecipeCategory } from '@/@types';
 import useAppAlert from '../globalAlert';
 import { getFormErrors } from '../util/error';
-
 import CategoiresApi from '../../api/resources/recipeCategories.api';
 
 const categoriesApi = new CategoiresApi();
