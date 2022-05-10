@@ -5,13 +5,9 @@ withDefaults(
   defineProps<{
     columns?: 1 | 2 | 3;
     items: AppGalleryItemType[];
-    buttonText: string;
-    showCtaButton: boolean;
   }>(),
   {
     columns: 2,
-    buttonText: 'Be the first to create something!',
-    showCtaButton: false,
   },
 );
 
@@ -38,7 +34,7 @@ const emit = defineEmits<{
   </ul>
   <div v-else class="text-center">
     <h2 class="mb-4 text-xl font-semibold">
-      Seems there's no content here yet.
+      <svg-loader></svg-loader>
     </h2>
     <app-button v-if="showCtaButton">{{ buttonText }}</app-button>
   </div>
