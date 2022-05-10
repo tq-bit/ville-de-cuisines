@@ -1,7 +1,7 @@
 #!/bin/zsh
 COMMAND=$1
 
-startAppwrite() {
+initAppwrite() {
   docker run --rm -it \
     --volume /var/run/docker.sock:/var/run/docker.sock \
     --volume "$(pwd)"/appwrite:/usr/src/code/appwrite:rw \
@@ -9,30 +9,26 @@ startAppwrite() {
     appwrite/appwrite:0.13.4
 }
 
+loginToAppwrite() {
+  echo "Logging in to API ..."
+  appwrite login
+  appwrite init --all
+}
+
 stopAppwrite() {
   docker-compose --file appwrite/docker-compose.yml down
 }
 
 startFrontend() {
-  docker-compose up --build
-}
-
-stopFrontend() {
-  docker-compose down
+  npm run dev
 }
 
 install() {
-
   echo "Installing node modules for frontend"
-  cd ./frontend && sudo npm install && cd ..
+  npm install
 
   echo "Installing appwrite cli ..."
   npm install -g appwrite-cli
-
-  echo "Logging in to API ..."
-  appwrite login
-
-  appwrite init --all
 }
 
 deploy() {
@@ -54,12 +50,6 @@ startServices() {
   startFrontend
 }
 
-stopServices() {
-  echo "Stopping services"
-  stopFrontend
-  stopAppwrite
-}
-
 deploySettings() {
   echo "Deploying settings"
   appwrite deploy
@@ -69,14 +59,16 @@ deploySettings() {
 case "$COMMAND" in
 
 up)
-  initServices
+  initAppwrite
   ;;
 down)
-  stopServices
+  stopAppwrite
   ;;
 [iI]*)
   install
   ;;
+login)
+  loginToAppwrite;;
 deploy)
   deploy
   ;;
