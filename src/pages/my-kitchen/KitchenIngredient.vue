@@ -2,6 +2,7 @@
 import { ref, onMounted, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { AppUploadPayload, AppGalleryItemType, Ingredient } from '../../@types';
+import IngredientsApi from '../../api/resources/ingredients.api';
 
 import useIngredientsStore from '../../store/ingredientsStore';
 import useIngredientForm from '../../use/form/ingredientForm';
@@ -11,6 +12,7 @@ import useLazyIngredientSearch from '../../use/search/useLazyIngredientSearch';
 const router = useRouter();
 
 // Ingredient (main resource)
+const ingredientsApi = new IngredientsApi();
 const ingredientsStore = useIngredientsStore();
 const {
   $id,
@@ -36,12 +38,13 @@ const onSubmitIngredient = async () => {
 
 const onDropIngredientImage = async (filePayload: AppUploadPayload) => {
   if (primary_image_id.value) {
-    await ingredientsStore.deleteIngredientImage(
+    await ingredientsApi.deleteIngredientImage(
       primary_image_id.value as string,
     );
   }
-  const [fileResponse, fileError] =
-    await ingredientsStore.uploadIngredientImage(filePayload.fileData);
+  const [fileResponse, fileError] = await ingredientsApi.uploadIngredientImage(
+    filePayload.fileData,
+  );
   primary_image_id.value = fileResponse?.$id as string;
 };
 

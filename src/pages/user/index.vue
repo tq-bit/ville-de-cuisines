@@ -2,16 +2,22 @@
 import { ref, onMounted, onUpdated } from 'vue';
 import { AppGalleryItemType, AppFollowEntityPayload } from '../../@types';
 
+import useActiveUserStore from '../../store/activeUserStore';
 import usePublicUserStore from '../../store/publicUserStore';
 import useRecipeStore from '../../store/recipeStore';
 import useFollowsStore from '../../store/followsStore';
 import { useRouter } from 'vue-router';
 import { computed } from '@vue/reactivity';
 
+import FollowsApi from '../../api/resources/follows.api';
+
+const activeUserStore = useActiveUserStore();
 const publicUserStore = usePublicUserStore();
 const recipeStore = useRecipeStore();
 const followsStore = useFollowsStore();
 const router = useRouter();
+
+const followsApi = new FollowsApi();
 
 const onGalleryItemClick = (payload: AppGalleryItemType) => {
   router.push({
@@ -36,16 +42,17 @@ const onClickFollowButton = async () => {
   const payload: AppFollowEntityPayload = {
     entity_id: publicUserStore._publicUserProfile.$id,
     entity_type: 'user',
+    followed_by: activeUserStore.account.$id,
   };
   if (activeUserIsFollowingThisUser.value) {
-    const [response, error] = await followsStore.deleteFollow(
+    const [response, error] = await followsApi.deleteFollowEntity(
       payload.entity_id,
     );
     if (error) {
       console.error(error);
     }
   } else {
-    const [response, error] = await followsStore.createFollow(payload);
+    const [response, error] = await followsApi.createFollowEntity(payload);
     if (error) {
       console.error(error);
     }

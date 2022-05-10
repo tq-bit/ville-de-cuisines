@@ -2,11 +2,12 @@ import { AppServerErrorResponse, Recipe, RecipeCategory } from '../../@types';
 import { ref } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField } from 'vee-validate';
-import useRecipeStore from '../../store/recipeStore';
 import useAppAlert from '../globalAlert';
 import { getFormErrors } from '../util/error';
 
-const { createRecipeCategory, updateRecipeCategory } = useRecipeStore();
+import CategoiresApi from '../../api/resources/recipeCategories.api';
+
+const categoriesApi = new CategoiresApi();
 
 const recipeCategorySchema = yup.object({
   $id: yup.string().optional().label('ID'),
@@ -41,7 +42,7 @@ export default function handleRecipeCategoryForm() {
 
   const handleRecipeCategoryCreate = async (payload: RecipeCategory) => {
     httpError.value = null;
-    const [response, error] = await createRecipeCategory(payload);
+    const [response, error] = await categoriesApi.createRecipeCategory(payload);
     if (error) {
       httpError.value = {
         message: error.message,
@@ -57,7 +58,7 @@ export default function handleRecipeCategoryForm() {
 
   const handleRecipeCategoryUpdate = async (payload: RecipeCategory) => {
     httpError.value = null;
-    const [response, error] = await updateRecipeCategory(payload);
+    const [response, error] = await categoriesApi.updateRecipeCategory(payload);
     if (error) {
       httpError.value = {
         message: error.message,

@@ -2,11 +2,11 @@
 import { ref, onMounted } from 'vue';
 import { AppGalleryItemType, Ingredient } from '../../@types';
 import useRecipeStore from '../../store/recipeStore';
-import useIngredientsStore from '../../store/ingredientsStore';
 import { useRouter } from 'vue-router';
+import IngredientsApi from '../../api/resources/ingredients.api';
 
 const recipeStore = useRecipeStore();
-const ingredientsStore = useIngredientsStore();
+const ingredientsApi = new IngredientsApi();
 
 const router = useRouter();
 const onClickGalleryItem = (recipe: AppGalleryItemType) => {
@@ -18,7 +18,7 @@ const localIngredient = ref<Ingredient>();
 const localRecipesByIngredient = ref<AppGalleryItemType[]>([]);
 
 const setLocalIngredient = async (categoryId: string) => {
-  const [response, error] = await ingredientsStore.fetchIngredientById(
+  const [response, error] = await ingredientsApi.fetchIngredientById(
     categoryId,
   );
   if (error) {

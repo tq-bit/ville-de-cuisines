@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, watch, onBeforeUnmount, onMounted } from 'vue';
+import RecipesApi from '../../api/resources/recipes.api';
 
 import useRecipeStore from '../../store/recipeStore';
 import useIngredientsStore from '../../store/ingredientsStore';
@@ -13,8 +14,9 @@ import {
   AppUploadPayload,
   Ingredient,
   Recipe,
-  RecipeCategory,
 } from '../../@types';
+
+const recipesApi = new RecipesApi();
 
 // Router
 const router = useRouter();
@@ -59,7 +61,7 @@ const onSubmitRecipe = async () => {
   }
 };
 const setActiveRecipeToUpdate = async (recipeId: string) => {
-  const [response, error] = await recipeStore.fetchRecipeById(recipeId);
+  const [response, error] = await recipesApi.fetchPublicRecipeById(recipeId);
   setRecipeValues({
     $id: response?.$id,
     name: response?.name,
@@ -80,14 +82,14 @@ const onDeleteRecipe = async () => {
     'Do you really want to delete this recipe?',
   );
   if (recipeId && confirmationResult) {
-    await recipeStore.handleRecipeDeletion(recipeId);
+    await recipesApi.deleteRecipe(recipeId);
     router.push({ path: '/my-kitchen' });
   }
 };
 
 // Recipe fork (Recipe sub - feature)
 const setRecipeForkToCreate = async (recipeId: string) => {
-  const [response, error] = await recipeStore.fetchRecipeById(recipeId);
+  const [response, error] = await recipesApi.fetchPublicRecipeById(recipeId);
   setRecipeValues({
     name: response?.name,
     description: response?.description,
@@ -132,9 +134,9 @@ watch(categoryQuery, handleCategorySearch);
 // Recipe Image
 const onDropRecipeImage = async (filePayload: AppUploadPayload) => {
   if (primary_image_id.value) {
-    await recipeStore.deleteRecipeImage(primary_image_id.value as string);
+    await recipesApi.deleteRecipeImage(primary_image_id.value as string);
   }
-  const [fileResponse, fileError] = await recipeStore.uploadRecipeImage(
+  const [fileResponse, fileError] = await recipesApi.uploadRecipeImage(
     filePayload.fileData,
   );
   primary_image_id.value = fileResponse?.$id as string;
@@ -143,7 +145,7 @@ const cleanUploadedImageIfExists = async () => {
   const isCreationFormAndHasUploadedImage = primary_image_id.value && !recipeId;
 
   if (isCreationFormAndHasUploadedImage) {
-    await recipeStore.deleteRecipeImage(primary_image_id.value as string);
+    await recipesApi.deleteRecipeImage(primary_image_id.value as string);
   }
 };
 onBeforeUnmount(async () => {

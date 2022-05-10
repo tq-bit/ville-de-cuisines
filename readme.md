@@ -62,6 +62,7 @@ sudo bin/dev deploy
 - Ingredient and energy calculation*
 
 ### Planned features
+- Improve recipe creation (e.g. add ingredients on the fly)
 - Search recipes based on several ingredients
 - Enhance recipe suggestions and search, e.g. by tag
 - Enhance ingredient data structure, e.g. nutrients, brand and retailer
@@ -71,6 +72,7 @@ sudo bin/dev deploy
 - Plugin to add recipe ingredients to your grocery list
 - Use edge functions to suggest ingredients from a 3rd party API (still looking for one)
 - Use edge functions to cleanup unnecessary images
+- Proper loading indicators (after finishing the app & the service refactoring)
 
 ### Built With
 

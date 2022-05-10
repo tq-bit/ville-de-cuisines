@@ -1,13 +1,9 @@
-import {
-  AppServerResponseOrError,
-  AppPublicUser,
-  AppGalleryItemType,
-} from '../@types/index';
-import { USER_COLLECTION_ID, AVATAR_BUCKET_ID } from '../constants';
-import { Appwrite, AppwriteException, Models, Query } from 'appwrite';
+import { AppPublicUser, AppGalleryItemType } from '../@types/index';
+import PublicUserApi from '../api/resources/publicUser.api';
 
 import { defineStore } from 'pinia';
-import appwriteClient from '../api/appwrite';
+
+const publicUserApi = new PublicUserApi();
 
 const usePublicUserStore = defineStore('public_user', {
   state: () => ({
@@ -46,102 +42,28 @@ const usePublicUserStore = defineStore('public_user', {
 
   actions: {
     async syncPublicUsers(): Promise<void> {
-      // TODO: refactor patching of href locations over public users and user by id
-      const response = await appwriteClient.database.listDocuments(
-        USER_COLLECTION_ID,
-      );
-      const documents = response.documents as AppPublicUser[];
-      const patchedUsers = await Promise.all(
-        documents.map(async (user) => {
-          const avatar_href = await this.fetchPublicUserAvatar(
-            user.avatar_id as string,
-          );
-          return {
-            ...user,
-            avatar_href,
-          };
-        }),
-      );
-      this._publicUsers = patchedUsers;
+      const [response, error] = await publicUserApi.fetchPublicUsers();
+      if (response) {
+        this._publicUsers = response;
+      }
     },
 
     async syncPublicUserById(userId: string): Promise<void> {
-      const [userResponse, userError] = await this.fetchPublicUserById(userId);
-      const user = userResponse as AppPublicUser;
-
-      const avatar_href = await this.fetchPublicUserAvatar(
-        user.avatar_id as string,
-      );
-      const patchedUser = {
-        ...user,
-        avatar_href,
-      };
-      this._publicUserProfile = patchedUser as AppPublicUser;
-    },
-
-    async fetchPublicUserById(
-      userId: string,
-    ): AppServerResponseOrError<AppPublicUser> {
-      try {
-        const response = await appwriteClient.database.getDocument(
-          USER_COLLECTION_ID,
-          userId,
-        );
-        const user: AppPublicUser = response as AppPublicUser;
-        return [user, null];
-      } catch (error) {
-        return [null, error as AppwriteException];
+      const [response, error] = await publicUserApi.fetchPublicUserById(userId);
+      if (response) {
+        this._publicUserProfile = response;
       }
     },
 
     async searchPublicUsers(query: string) {
-      const response = await appwriteClient.database.listDocuments(
-        USER_COLLECTION_ID,
-        [Query.search('name', query)],
-      );
-      const users = response.documents as AppPublicUser[];
-      const patchedUsers = await Promise.all(
-        users.map(async (user) => {
-          const avatar_href = await this.fetchPublicUserAvatar(
-            user.avatar_id as string,
-          );
-          return {
-            ...user,
-            avatar_href,
-          };
-        }),
-      );
-      this._publicUserSearchResults = patchedUsers;
+      const [response, error] = await publicUserApi.searchPublicUsers(query);
+      if (response) {
+        this._publicUserSearchResults = response;
+      }
     },
 
     resetPublicUserSearch() {
       this._publicUserSearchResults = [];
-    },
-
-    async fetchPublicUserAvatar(fileId: string) {
-      const fetchUploadedAvatarImage = async (
-        fileId: string,
-      ): Promise<string> => {
-        const response = await appwriteClient.storage.getFilePreview(
-          AVATAR_BUCKET_ID,
-          fileId,
-        );
-
-        return response.href;
-      };
-
-      const fetchDefaultAvatarImage = async (): Promise<string> => {
-        const response = appwriteClient.avatars.getInitials(
-          this._publicUserProfile.name,
-        );
-        return response.href;
-      };
-
-      if (fileId) {
-        return await fetchUploadedAvatarImage(fileId);
-      } else {
-        return await fetchDefaultAvatarImage();
-      }
     },
   },
 });
