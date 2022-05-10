@@ -6,7 +6,9 @@ import { useForm, useField, FieldContext } from 'vee-validate';
 import useIngredientsStore from '../../store/ingredientsStore';
 import useAppAlert from '../globalAlert';
 import { getFormErrors } from '../util/error';
+import useLogger from '../util/logger';
 
+const { log } = useLogger();
 const ingredientApi = new IngredientsApi();
 
 const { quantityOptionKeys } = useIngredientsStore();
@@ -65,24 +67,11 @@ export default function handleIngredientForm() {
     }
   };
 
-  const handleIngredientUpdate = async (payload: Ingredient) => {
-    httpError.value = null;
-    const [response, error] = await ingredientApi.updateIngredient(payload);
-    if (error) {
-      httpError.value = {
-        message: error.message,
-        code: error.code,
-      };
-    } else {
-      triggerGlobalAlert({ message: 'Ingredient updated', variant: 'success' });
-    }
-  };
-
   const onValidationSuccess = async (payload: Ingredient | any) => {
     loading.value = true;
     validationErrors.value = null;
     if (payload.$id) {
-      await handleIngredientUpdate(payload);
+      log('ERROR: Ingredient update not implemented', 'error');
     } else {
       await handleIngredientCreate(payload);
     }

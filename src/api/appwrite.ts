@@ -9,7 +9,6 @@ appwriteClient
   .setEndpoint(import.meta.env.DEV ? DEV_URL : PROD_URL)
   .setProject('625ea6425efdf4cc9a46');
 export { appwriteClient };
-
 export default class Api {
   private client: Appwrite;
   private collectionId: string;
