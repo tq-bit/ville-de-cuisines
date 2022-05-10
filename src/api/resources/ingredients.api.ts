@@ -4,7 +4,7 @@ import {
   INGREDIENTS_BUCKET_ID,
   INGREDIENTS_COLLECTION_ID,
 } from '../../constants';
-import ingredientsFallbackUrl from '../../../public/ingredients-fallback.png';
+import ingredientsFallbackUrl from '/ingredients-fallback.webp';
 import { AppServerResponseOrError, Ingredient } from '../../@types';
 import { v4 as uuid } from 'uuid';
 

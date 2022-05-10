@@ -6,6 +6,7 @@ import { removeDuplicates } from '../../util/array_util';
 import { v4 as uuid } from 'uuid';
 import CategoriesApi from './recipeCategories.api';
 import PublicUserApi from './publicUser.api';
+import recipeFallbackUrl from '/recipe-fallback.webp'
 
 const categoriesApi = new CategoriesApi();
 const publicUserApi = new PublicUserApi();
@@ -193,7 +194,7 @@ export default class RecipesApi extends Api {
       const response = await this.getFilePreview(fileId);
       return response.href;
     }
-    return '';
+    return recipeFallbackUrl;
   }
 
   // Serialization methods

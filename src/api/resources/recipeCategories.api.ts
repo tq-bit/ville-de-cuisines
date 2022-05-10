@@ -5,7 +5,6 @@ import {
   RECIPE_CATEGORY_COLLECTION_ID,
 } from '../../constants';
 // TODO: Add a separate image here
-import categoriesFallbackUrl from '../../../public/ingredients-fallback.png';
 import { RecipeCategory } from '../../@types';
 import { v4 as uuid } from 'uuid';
 

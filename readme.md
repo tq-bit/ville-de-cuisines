@@ -7,52 +7,34 @@
     Logo
   </a>
 
-  <h1 align="center">Ville de Cuisines (WIP)</h1>
+  <h1 align="center">Ville de Cuisines</h1>
 
   <p align="center">
-    Share and refine your culinary masterpieces.
+    🌟 Discover and share culinary masterpieces
   </p>
   <div align="center">
-    <a href=""></a>
     <img alt="GitHub" src="https://img.shields.io/github/license/tq-bit/ville-de-cuisines?style=plastic&logo=MIT"/>
+    <a href="https://ville-de-cuisines.netlify.app/">
+      <img alt="Netlify" src="https://img.shields.io/netlify/57fab78d-d46d-4c9b-b71a-2e1d17a375b4?style=plastic&logo=netlify">
+    </a>
     <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/tq-bit/ville-de-cuisines?style=plastic&logo=git"/>
   </div>
 </div>
 
-
-<!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Ville de Cuisines is my submission to the [dev.to Appwrite Hackathon](https://dev.to/devteam/announcing-the-appwrite-hackathon-on-dev-1oc0). I built it for my girlfriend and myself to make diet planning more fun. And I added a few social components to make it more fun.
+Ville de Cuisines is my submission to the [dev.to Appwrite Hackathon](https://dev.to/devteam/announcing-the-appwrite-hackathon-on-dev-1oc0). I built it for my girlfriend and myself to make diet planning fun. I also added a few social components to make it more engaging.
 
-> Unfortunatly, I was unable to implement all features I would have liked till the end of the hackathon. Everything that is yet to be added is listed under 'Planned features'
+Unfortunatly, I was not able to implement all the features during the time of the hackathon. I still hope you'll find it entertaining 🤠
 
 [![ville-de-cuisines landingpage][product-screenshot]](#)
 
 [![ville-de-cuisines audio recording][example-screenshot-I]](#)
 <div align="center"> Caption </div>
 
-## Quickstart
-
-Clone the repos and run the start script. It might take a few minutes for all AppWrite services to download.
-
-> Make sure to have docker, docker-compose and node.js installed!
-
-```bash
-git clone https://github.com/tq-bit/ville-de-cuisines.git
-cd ville-de-cuisines
-sudo bin/dev up
-sudo bin/dev deploy
-```
-
-* When prompted, confirm all the default settings.
-* After downloading the appwrite-cli, open your browser under `localhost` and create your admin account.
-* Login and sync the `appwrite.json` file with the backend services.
-* If you run into problems, please visit the [official docs](https://appwrite.io/docs/installation) and the docs on [appwrite-cli](https://appwrite.io/docs/command-line)
-
-
 ### Current features
 - User signup and profile maintenance
+- Avatar and image upload
 - Public ingredient- and recipe-category creation
 - Global search for several content types
 - Private and public recipe creation
@@ -76,53 +58,24 @@ sudo bin/dev deploy
 
 ### Built With
 
-#### Frontend
-
 * [Vue 3](https://vuejs.org/)
 * [Tailwind CSS](https://tailwindcss.com/)
-* [Nginx](https://www.nginx.com/) (planned: Traefic integration)
-
-#### Backend
-
 * [AppWrite](https://appwrite.io/)
+* [Github](https://github.com/)
+* [Netlify](https://www.netlify.com/)
+## Get started
 
-#### Development & deployment
-* [Docker](https://www.docker.com/) & [Docker Compose](https://docs.docker.com/compose/)
-* [Vite](https://vitejs.dev/) (development only)
+### Quickstart
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+1. This app is built on top of a running Appwrite instance. Head over to the official website to quickly get your instance up and running.
+2. Then install the [appwrite-cli](https://appwrite.io/docs/command-line) and deploy the `appwrite.json` - configuration.
+3. You can now start the frontend application using `npm run dev`. It will open on `localhost:3000`.
 
-<!-- GETTING STARTED -->
-## Getting Started
+### Demo
 
-Ville de Cuisines is still under development. That means, unfortunatly, I cannot yet provide a deployable version. You can still run it in development mode.
+There's a demo version of Ville de Cuisines hosted on Netlify. You're very much invited to check it out and fiddle around a bit. If you find a bug, [please do open an issue](https://github.com/tq-bit/ville-de-cuisines/issues)
 
-### Prerequisites
 
-At a bare minimum, you need to have a working version of Docker and docker-compose installed on your machine. Please follow the official docs to set these up:
-
-* [Install Docker](https://docs.docker.com/engine/install/)
-* [Install Docker Compose](https://docs.docker.com/compose/install/)
-
-For development, you will also need a working version of node & npm.
-
-* [Install Nodejs & NPM](https://nodejs.org/en/download/)
-* Install with apt (Linux Ubuntu):
-  ```sh
-  $ sudo apt update
-  $ sudo apt install nodejs
-  $ node -v # output: vX.Y.Z
-  ```
-
-### Installation
-
-Ville de Cuisines uses AppWrite as a backend. All its configuration can be found in the `appwrite.json` file.
-
-The frontend is a simple Vue.js app using Vite as a development server. You can run it standalone or with its `.dockerfile`.
-
-### Run the app
-
-To start AppWrite and the frontend, simply run `sudo bin/dev up` in the project's root directory. You can access the app under `http://localhost:3000`.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -180,6 +133,7 @@ While developing, I fell in love with AppWrite's simplicity. If you're reading t
 * [Othneildrew's Best-README-Template](https://github.com/othneildrew/Best-README-Template) which was used to write this template
 * [Heroicons](https://heroicons.com/) which are used throughout the application
 * [Grocery icons created by ultimatearm - Flaticon](https://www.flaticon.com/free-icons/grocery)
+* [Food icons created by justicon - Flaticon](https://www.flaticon.com/free-icons/food)
 * [Social media logos (Facebook, Instagram, Pinterest) from Simpleicons](https://simpleicons.org/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>

@@ -1,16 +1,10 @@
 import {
-  AppServerResponseOrError,
   Ingredient,
   AppGalleryItemType,
 } from '../@types/index';
-import ingredients_fallback_url from '/ingredients-fallback.png';
-import { INGREDIENTS_COLLECTION_ID, INGREDIENTS_BUCKET_ID } from '../constants';
-import { AppwriteException, Models, Query } from 'appwrite';
-import { v4 as uuid } from 'uuid';
 import IngredientsApi from '../api/resources/ingredients.api';
 
 import { defineStore } from 'pinia';
-import { appwriteClient } from '../api/appwrite';
 
 const api = new IngredientsApi();
 
