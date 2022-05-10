@@ -16,7 +16,7 @@ const emit = defineEmits(['clickGetStarted', 'clickLearnMore']);
       >
         <div>
           <h1 class="mb-2 text-center md:text-left">Ville de cuisines</h1>
-          <p class="mb-2 text-center  text-lg  md:text-left">Your kitchen's digital twin</p>
+          <p class="mb-2 text-center  text-md  md:text-left">The social network for gourmets</p>
 
           <hr class="mb-4 mx-auto md:mx-0 w-12 border border-green-600 md:block" />
           <ul class="mb-4">

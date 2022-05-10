@@ -41,7 +41,7 @@ Unfortunatly, I was not able to implement all the features during the time of th
 - User following
 - Recipe suggestions*
 - Recipe refinement*
-- Ingredient and energy calculation*
+- Ingredient and energy calculation per recipe*
 
 ### Planned features
 - Improve recipe creation (e.g. add ingredients on the fly)
@@ -121,7 +121,7 @@ Licensed under the MIT License. See `LICENSE` for more information.
 
 Please tell me how you liked the submission. You can reach me on Twitter or on [dev.to](https://dev.to/tqbit)
 
-If you've got any suggestions on new features, please
+If you've got any suggestions on new features, please do open a new issue.
 
 Mail: [tobi@q-bit.me](mailto:tobi@q-bit.me) - Twitter: [@qbitme](https://twitter.com/qbitme)
 
