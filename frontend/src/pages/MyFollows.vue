@@ -20,7 +20,7 @@ onMounted(async () => await followsStore.syncActiveUserFollows());
 
 <template>
   <app-container tag="main" class="mt-4">
-    <div v-if="followingUsers > 1">
+    <div v-if="followingUsers >= 1">
       <h1>
         You're following
         {{ followingUsers }} user{{ followingUsers > 1 ? 's' : '' }}
