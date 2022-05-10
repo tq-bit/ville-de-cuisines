@@ -3,7 +3,10 @@ import { ref, onMounted } from 'vue';
 import { AppGalleryItemType, RecipeCategory } from '../../@types';
 import useRecipeStore from '../../store/recipeStore';
 import { useRouter } from 'vue-router';
+import CategoryApi from '../../api/resources/recipeCategories.api';
+
 const recipeStore = useRecipeStore();
+const categoryApi = new CategoryApi();
 
 const router = useRouter();
 const onClickGalleryItem = (recipe: AppGalleryItemType) => {
@@ -15,7 +18,7 @@ const localRecipeCategory = ref<RecipeCategory>();
 const localRecipesByCategory = ref<AppGalleryItemType[]>([]);
 
 const setLocalRecipeCategory = async (categoryId: string) => {
-  const [response, error] = await recipeStore.fetchRecipeCategoryById(
+  const [response, error] = await categoryApi.fetchRecipeCategoryById(
     categoryId,
   );
   if (error) {

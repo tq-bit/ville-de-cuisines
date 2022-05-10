@@ -6,6 +6,10 @@ import handleRecipeCategoryForm from '../../use/form/recipeCategoryForm';
 import { useRouter } from 'vue-router';
 import { AppUploadPayload } from '../../@types/commons';
 
+import CategoriesApi from '../../api/resources/recipeCategories.api';
+
+const categoriesApi = new CategoriesApi();
+
 // Router
 const router = useRouter();
 const recipeCategoryId = router.currentRoute.value.params
@@ -22,7 +26,6 @@ const {
   handleRecipeCategoryReset,
   setRecipeCategoryValues,
 } = handleRecipeCategoryForm();
-const recipeStore = useRecipeStore();
 
 const onSubmitRecipeCategory = async () => {
   await handleRecipeCategorySubmit();
@@ -33,7 +36,7 @@ const onSubmitRecipeCategory = async () => {
 };
 
 const setActiveRecipeCategoryToUpdate = async (recipeCategoryId: string) => {
-  const [response, error] = await recipeStore.fetchRecipeCategoryById(
+  const [response, error] = await categoriesApi.fetchRecipeCategoryById(
     recipeCategoryId,
   );
   setRecipeCategoryValues({
@@ -52,13 +55,12 @@ onMounted(async () => {
 // Image methods
 const onDropRecipeCategoryImage = async (filePayload: AppUploadPayload) => {
   if (primary_image_id.value) {
-    await recipeStore.deleteRecipeCategoryImage(
+    await categoriesApi.deleteRecipeCategoryImage(
       primary_image_id.value as string,
     );
   }
-  const [fileResponse, fileError] = await recipeStore.uploadRecipeCategoryImage(
-    filePayload.fileData,
-  );
+  const [fileResponse, fileError] =
+    await categoriesApi.uploadRecipeCategoryImage(filePayload.fileData);
   primary_image_id.value = fileResponse?.$id as string;
 };
 const cleanUploadedImageIfExists = async () => {
@@ -66,7 +68,7 @@ const cleanUploadedImageIfExists = async () => {
     primary_image_id.value && !recipeCategoryId;
 
   if (isCreationFormAndHasUploadedImage) {
-    await recipeStore.deleteRecipeCategoryImage(
+    await categoriesApi.deleteRecipeCategoryImage(
       primary_image_id.value as string,
     );
   }

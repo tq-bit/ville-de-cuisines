@@ -1,15 +1,12 @@
 import { Models, Query } from 'appwrite';
 import Api from '../appwrite';
 import { RECIPE_BUCKET_ID, RECIPES_COLLECTION_ID } from '../../constants';
-import {
-  AppServerResponseOrError,
-  Recipe,
-  Ingredient,
-  SerializedRecipe,
-  RecipeCategory,
-} from '../../@types';
+import { Recipe, Ingredient, SerializedRecipe } from '../../@types';
 import { removeDuplicates } from '../../util/array_util';
 import { v4 as uuid } from 'uuid';
+import CategoriesApi from './recipeCategories.api';
+
+const categoriesApi = new CategoriesApi();
 export default class RecipesApi extends Api {
   constructor() {
     super(RECIPES_COLLECTION_ID, RECIPE_BUCKET_ID);
@@ -127,10 +124,6 @@ export default class RecipesApi extends Api {
     const uniqueIngredients = removeDuplicates(serializedIngredients);
     const uniqueTags = removeDuplicates(recipe?.tags);
 
-    console.log(recipe);
-    console.log(recipe.original_recipe_id);
-    console.log(id);
-
     return {
       ...recipe,
       original_recipe_id: recipe.original_recipe_id || id,
@@ -171,6 +164,10 @@ export default class RecipesApi extends Api {
       },
       0,
     );
+    const [category, error] = await categoriesApi.fetchRecipeCategoryById(
+      recipe.category_id || '',
+    );
+
     const primaryImageHref = await this.getRecipeImagePreview(
       deserlializedRecipe.primary_image_id,
     );
@@ -180,7 +177,8 @@ export default class RecipesApi extends Api {
       ...deserlializedRecipe,
       primary_image_href: primaryImageHref,
       total_calories: totalCalories,
-      category_name: 'MUST BE ADDED STILL',
+      category_name: category?.name,
+      username: 'TO BE ADDED',
     };
   }
 
