@@ -32,7 +32,7 @@ watch(userTheme, (newTheme) => setTheme(newTheme));
       <app-alert
         v-if="showGlobalAlert && message"
         :variant="variant"
-        class="absolute bottom-12 right-4 left-4 z-50 mx-auto block w-64 max-w-xs text-center"
+        class="fixed bottom-12 right-4 left-4 z-50 mx-auto block w-64 max-w-xs text-center"
       >
         {{ message }}
       </app-alert>
