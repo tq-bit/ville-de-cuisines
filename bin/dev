@@ -15,6 +15,10 @@ loginToAppwrite() {
   appwrite init --all
 }
 
+startAppwrite() {
+  docker-compose --file appwrite/docker-compose.yml up -ds
+}
+
 stopAppwrite() {
   docker-compose --file appwrite/docker-compose.yml down
 }
@@ -23,7 +27,7 @@ startFrontend() {
   npm run dev
 }
 
-install() {
+installNpmDepencencies() {
   echo "Installing node modules for frontend"
   npm install
 
@@ -36,20 +40,6 @@ deploy() {
   appwrite deploy --all
 }
 
-# Commando functions
-initServices() {
-  echo "Setting up appwrite for the first time"
-  startAppwrite
-  install
-  startFrontend
-}
-
-startServices() {
-  echo "Starting services ..."
-  startAppwrite
-  startFrontend
-}
-
 deploySettings() {
   echo "Deploying settings"
   appwrite deploy
@@ -60,6 +50,12 @@ case "$COMMAND" in
 
 up)
   initAppwrite
+  installNpmDepencencies
+  startFrontend
+  ;;
+start)
+  startAppwrite
+  startFrontend
   ;;
 down)
   stopAppwrite
