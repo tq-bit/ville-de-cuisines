@@ -62,17 +62,24 @@ export default class Api {
     orderAttributes?: string[] | undefined,
     orderTypes?: string[] | undefined,
   ) {
-    const response = await this.client.database.listDocuments(
-      this.collectionId,
-      queries,
-      limit,
-      offset,
-      cursor,
-      cursorDirection,
-      orderAttributes,
-      orderTypes,
-    );
-    return response;
+    const cacheId = this.generateCacheIdForDocumentList(queries);
+    const cachedResponse = this.cache.getValue(cacheId);
+    if (cachedResponse) {
+      return cachedResponse as Models.DocumentList<Models.Document>;
+    } else {
+      const response = await this.client.database.listDocuments(
+        this.collectionId,
+        queries,
+        limit,
+        offset,
+        cursor,
+        cursorDirection,
+        orderAttributes,
+        orderTypes,
+      );
+      this.cache.setValue(cacheId, response);
+      return response;
+    }
   }
 
   protected async updateDocument(
@@ -165,5 +172,13 @@ export default class Api {
 
   protected getClient() {
     return this.client;
+  }
+
+  private generateCacheIdForDocumentList(queries: string[] | undefined) {
+    const hasQueries = !!queries && queries.length > 0;
+    if (hasQueries) {
+      return queries?.join('-');
+    }
+    return 'default';
   }
 }
