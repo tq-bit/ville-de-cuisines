@@ -45,7 +45,8 @@ const onClickFollowButton = async () => {
     entity_type: 'user',
     followed_by: activeUserStore.account.$id,
   };
-  if (activeUserIsFollowingThisUser.value) {
+
+  async function handleEntityDeletion() {
     const [response, error] = await followsApi.deleteFollowEntity(
       payload.entity_id,
     );
@@ -57,7 +58,8 @@ const onClickFollowButton = async () => {
         variant: 'info',
       });
     }
-  } else {
+  }
+  async function handleEntityCreation() {
     const [response, error] = await followsApi.createFollowEntity(payload);
     if (error) {
       console.error(error);
@@ -67,6 +69,12 @@ const onClickFollowButton = async () => {
         variant: 'success',
       });
     }
+  }
+
+  if (activeUserIsFollowingThisUser.value) {
+    handleEntityDeletion();
+  } else {
+    handleEntityCreation();
   }
 
   await syncPublicUser();
