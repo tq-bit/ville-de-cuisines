@@ -7,7 +7,7 @@ import {
 } from '@/constants';
 import { RecipeCategory } from '@/@types';
 
-export default class IngredientsApi extends Api {
+class RecipeCategoriesApi extends Api {
   constructor() {
     super(RECIPE_CATEGORY_COLLECTION_ID, RECIPE_CATEGORY_BUCKET_ID);
   }
@@ -96,3 +96,5 @@ export default class IngredientsApi extends Api {
     };
   }
 }
+
+export default new RecipeCategoriesApi();

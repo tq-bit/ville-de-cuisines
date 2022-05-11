@@ -1,8 +1,6 @@
 import { defineStore } from 'pinia';
 import { Ingredient, AppGalleryItemType } from '@/@types/index';
-import IngredientsApi from '@/api/resources/ingredients.api';
-
-const api = new IngredientsApi();
+import ingredientsApi from '@/api/resources/ingredients.api';
 
 const useIngredientsStore = defineStore('ingredients', {
   state: () => ({
@@ -62,14 +60,16 @@ const useIngredientsStore = defineStore('ingredients', {
 
   actions: {
     async syncIngredients(): Promise<void> {
-      const [response, error] = await api.fetchIngredients();
+      const [response, error] = await ingredientsApi.fetchIngredients();
       if (response) {
         this._ingredients = response;
       }
     },
 
     async searchIngredients(query: string): Promise<void> {
-      const [response, error] = await api.searchIngredientsByName(query);
+      const [response, error] = await ingredientsApi.searchIngredientsByName(
+        query,
+      );
       if (response) {
         this._ingredientSearchResults = response;
       }

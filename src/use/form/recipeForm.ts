@@ -2,12 +2,11 @@ import { ref } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField, useFieldArray } from 'vee-validate';
 import { AppServerErrorResponse, Recipe } from '@/@types';
-import RecipesApi from '@/api/resources/recipes.api';
+import recipesApi from '@/api/resources/recipes.api';
 import useActiveUserStore from '@/store/activeUserStore';
 import useAppAlert from '../globalAlert';
 import { getFormErrors } from '../util/error';
 
-const recipesApi = new RecipesApi();
 const activeUserStore = useActiveUserStore();
 
 const recipeSchema = yup.object({

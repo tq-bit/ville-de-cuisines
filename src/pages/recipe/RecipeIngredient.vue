@@ -3,10 +3,9 @@ import { ref, onMounted } from 'vue';
 import { AppGalleryItemType, Ingredient } from '../../@types';
 import useRecipeStore from '../../store/recipeStore';
 import { useRouter } from 'vue-router';
-import IngredientsApi from '../../api/resources/ingredients.api';
+import ingredientsApi from '../../api/resources/ingredients.api';
 
 const recipeStore = useRecipeStore();
-const ingredientsApi = new IngredientsApi();
 
 const router = useRouter();
 const onClickGalleryItem = (recipe: AppGalleryItemType) => {

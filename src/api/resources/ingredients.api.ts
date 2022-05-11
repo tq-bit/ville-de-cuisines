@@ -5,7 +5,7 @@ import { INGREDIENTS_BUCKET_ID, INGREDIENTS_COLLECTION_ID } from '@/constants';
 import Api from '@/api/appwrite';
 import ingredientsFallbackUrl from '/ingredients-fallback.webp';
 
-export default class IngredientsApi extends Api {
+class IngredientsApi extends Api {
   constructor() {
     super(INGREDIENTS_COLLECTION_ID, INGREDIENTS_BUCKET_ID);
   }
@@ -98,3 +98,5 @@ export default class IngredientsApi extends Api {
     return ingredientsFallbackUrl;
   }
 }
+
+export default new IngredientsApi();

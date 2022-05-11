@@ -9,7 +9,7 @@ import useRecipeStore from '@/store/recipeStore';
 import useFollowsStore from '@/store/followsStore';
 
 import useGlobalAlert from '@/use/globalAlert';
-import FollowsApi from '@/api/resources/follows.api';
+import followsApi from '@/api/resources/follows.api';
 
 const activeUserStore = useActiveUserStore();
 const publicUserStore = usePublicUserStore();

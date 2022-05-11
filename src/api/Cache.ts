@@ -12,6 +12,7 @@ export default class AppCache {
   public setValue(key: string, value: any) {
     const timeoutKey = this.scheduleEntryDeletion(key);
     this.cacheMap[key] = { data: value, timeoutKey };
+    console.log(this.cacheMap);
   }
 
   public getValue(key: string): any {
@@ -31,5 +32,9 @@ export default class AppCache {
     return setTimeout(() => {
       this.deleteValue(key);
     }, this.lifetimeInMiliseconds);
+  }
+
+  public getCacheKey() {
+    return this.cacheKey;
   }
 }

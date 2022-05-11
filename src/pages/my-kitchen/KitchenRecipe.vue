@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, watch, onBeforeUnmount, onMounted } from 'vue';
-import RecipesApi from '@/api/resources/recipes.api';
+import recipesApi from '@/api/resources/recipes.api';
 
 import useRecipeStore from '@/store/recipeStore';
 import useIngredientsStore from '@/store/ingredientsStore';
@@ -16,8 +16,6 @@ import {
   Ingredient,
   Recipe,
 } from '@/@types';
-
-const recipesApi = new RecipesApi();
 
 // Busy indicator logic
 const busyIndicator = useBusy('kitchen-recipe');

@@ -5,11 +5,8 @@ import {
   RecipeCategory,
   RecipeMap,
 } from '@/@types/index';
-import RecipesApi from '@/api/resources/recipes.api';
-import CategoriesApi from '@/api/resources/recipeCategories.api';
-
-const recipesApi = new RecipesApi();
-const categoriesApi = new CategoriesApi();
+import recipesApi from '@/api/resources/recipes.api';
+import categoriesApi from '@/api/resources/recipeCategories.api';
 
 const useRecipeStore = defineStore('recipes', {
   state: () => ({

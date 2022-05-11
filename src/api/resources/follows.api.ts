@@ -3,11 +3,9 @@ import { Query } from 'appwrite';
 import { AppFollowEntity, AppFollowEntityPayload } from '@/@types';
 import { FOLLOWES_COLLECTION_ID } from '@/constants';
 import Api from '@/api/appwrite';
-import PublicUserApi from './publicUser.api';
+import publicUserApi from './publicUser.api';
 
-const publicUserApi = new PublicUserApi();
-
-export default class FollowsApi extends Api {
+class FollowsApi extends Api {
   constructor() {
     super(FOLLOWES_COLLECTION_ID, '');
   }
@@ -86,3 +84,5 @@ export default class FollowsApi extends Api {
     };
   }
 }
+
+export default new FollowsApi();

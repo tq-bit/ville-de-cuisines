@@ -5,15 +5,12 @@ import { RECIPE_BUCKET_ID, RECIPES_COLLECTION_ID } from '@/constants';
 import Api from '@/api/appwrite';
 import { removeDuplicates } from '@/util/array_util';
 
-import CategoriesApi from './recipeCategories.api';
-import PublicUserApi from './publicUser.api';
+import categoriesApi from './recipeCategories.api';
+import publicUserApi from './publicUser.api';
 
 import recipeFallbackUrl from '/recipe-fallback.webp';
 
-const categoriesApi = new CategoriesApi();
-const publicUserApi = new PublicUserApi();
-
-export default class RecipesApi extends Api {
+class RecipesApi extends Api {
   constructor() {
     super(RECIPES_COLLECTION_ID, RECIPE_BUCKET_ID);
   }
@@ -233,3 +230,4 @@ export default class RecipesApi extends Api {
     };
   }
 }
+export default new RecipesApi();

@@ -3,7 +3,7 @@ import { AppPublicUser } from '@/@types';
 import { USER_COLLECTION_ID, AVATAR_BUCKET_ID } from '@/constants';
 import Api from '../appwrite';
 
-export default class PublicUserApi extends Api {
+class PublicUserApi extends Api {
   constructor() {
     super(USER_COLLECTION_ID, AVATAR_BUCKET_ID);
   }
@@ -65,3 +65,5 @@ export default class PublicUserApi extends Api {
     return user;
   }
 }
+
+export default new PublicUserApi();

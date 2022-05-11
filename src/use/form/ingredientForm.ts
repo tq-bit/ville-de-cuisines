@@ -2,7 +2,7 @@ import { ref } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField, FieldContext } from 'vee-validate';
 import { AppServerErrorResponse, Ingredient } from '@/@types';
-import IngredientsApi from '@/api/resources/ingredients.api';
+import ingredientsApi from '@/api/resources/ingredients.api';
 import useIngredientsStore from '@/store/ingredientsStore';
 import useAppAlert from '../globalAlert';
 import { getFormErrors } from '../util/error';
