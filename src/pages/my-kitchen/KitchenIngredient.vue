@@ -7,6 +7,10 @@ import IngredientsApi from '../../api/resources/ingredients.api';
 import useIngredientsStore from '../../store/ingredientsStore';
 import useIngredientForm from '../../use/form/ingredientForm';
 import useLazyIngredientSearch from '../../use/search/useLazyIngredientSearch';
+import useBusy from '@/use/useBusy';
+
+// Busy indicator logic
+const busyIndicator = useBusy('kitchen-ingredient');
 
 // Router
 const router = useRouter();
@@ -29,13 +33,16 @@ const {
 } = useIngredientForm();
 
 const onSubmitIngredient = async () => {
+  busyIndicator.toggleLocalStatus();
   await handleIngredientSubmit();
   if (!hasFormErrors.value && !httpError.value) {
     router.go(-1);
   }
+  busyIndicator.toggleLocalStatus();
 };
 
 const onDropIngredientImage = async (filePayload: AppUploadPayload) => {
+  busyIndicator.toggleLocalStatus();
   if (primary_image_id.value) {
     await ingredientsApi.deleteIngredientImage(
       primary_image_id.value as string,
@@ -45,8 +52,8 @@ const onDropIngredientImage = async (filePayload: AppUploadPayload) => {
     filePayload.fileData,
   );
   primary_image_id.value = fileResponse?.$id as string;
+  busyIndicator.toggleLocalStatus();
 };
-
 
 // Search logic
 const ingredientsQuery = ref<string>('');
@@ -70,6 +77,7 @@ onMounted(async () => await ingredientsStore.syncIngredients());
   <app-container class="mt-4">
     <h1>
       <span> 🍲 Create a new ingredient</span>
+      <button @click="busyIndicator.toggleLocalStatus()">Toggle Loading</button>
     </h1>
     <app-alert class="mb-6" v-if="hasFormErrors" variant="error">
       <ul>
@@ -88,7 +96,11 @@ onMounted(async () => await ingredientsStore.syncIngredients());
             @drop="onDropIngredientImage"
           ></app-file-input>
 
-          <app-button class="hidden md:block" block type="submit"
+          <app-button
+            :loading="busyIndicator.localStatus.value"
+            class="hidden md:block"
+            block
+            type="submit"
             >Submit ingredient</app-button
           >
         </template>
@@ -140,7 +152,11 @@ onMounted(async () => await ingredientsStore.syncIngredients());
             label="Notes"
           ></app-text-area>
 
-          <app-button class="md:hidden" block type="submit"
+          <app-button
+            :loading="busyIndicator.localStatus.value"
+            class="md:hidden"
+            block
+            type="submit"
             >Submit ingredient</app-button
           >
         </template>
@@ -160,7 +176,10 @@ onMounted(async () => await ingredientsStore.syncIngredients());
       :loading="loading"
     ></app-search>
 
-    <app-feed size="small" :items="ingredientsStore.ingredientsForGallery"></app-feed>
+    <app-feed
+      size="small"
+      :items="ingredientsStore.ingredientsForGallery"
+    ></app-feed>
   </app-container>
 </template>
 

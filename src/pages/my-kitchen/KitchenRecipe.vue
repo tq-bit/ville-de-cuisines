@@ -9,6 +9,7 @@ import { useRouter } from 'vue-router';
 import useRecipeForm from '@/use/form/recipeForm';
 import useLazyIngredientSearch from '@/use/search/useLazyIngredientSearch';
 import useLazyCategorySearch from '@/use/search/useLazyCategorySearch';
+import useBusy from '@/use/useBusy';
 import {
   AppGalleryItemType,
   AppUploadPayload,
@@ -17,6 +18,9 @@ import {
 } from '@/@types';
 
 const recipesApi = new RecipesApi();
+
+// Busy indicator logic
+const busyIndicator = useBusy('kitchen-recipe');
 
 // Router
 const router = useRouter();
@@ -52,6 +56,7 @@ const {
 const recipeStore = useRecipeStore();
 
 const onSubmitRecipe = async () => {
+  busyIndicator.toggleLocalStatus();
   commitLocalTagState();
   commitLocalIngredientState();
   await handleRecipeSubmit();
@@ -59,8 +64,10 @@ const onSubmitRecipe = async () => {
     handleRecipeReset();
     router.push({ path: '/my-kitchen/' });
   }
+  busyIndicator.toggleLocalStatus();
 };
 const setActiveRecipeToUpdate = async (recipeId: string) => {
+  busyIndicator.toggleLocalStatus();
   const [response, error] = await recipesApi.fetchPublicRecipeById(recipeId);
   setRecipeValues({
     $id: response?.$id,
@@ -76,14 +83,19 @@ const setActiveRecipeToUpdate = async (recipeId: string) => {
   setLocalIngredientState(response as Recipe);
   setLocalTagState(response as Recipe);
   setLocalCategoryState(response as Recipe);
+  busyIndicator.toggleLocalStatus();
 };
 const onDeleteRecipe = async () => {
   const confirmationResult = window.confirm(
     'Do you really want to delete this recipe?',
   );
   if (recipeId && confirmationResult) {
+    busyIndicator.toggleLocalStatus();
+
     await recipesApi.deleteRecipe(recipeId);
     router.push({ path: '/my-kitchen' });
+
+    busyIndicator.toggleLocalStatus();
   }
 };
 
@@ -228,7 +240,11 @@ const commitLocalTagState = () => {
             v-model="isPublic"
             label="Make my recipe public"
           ></app-switch>
-          <app-button class="hidden md:block" block type="submit"
+          <app-button
+            :loading="busyIndicator.localStatus.value"
+            class="hidden md:block"
+            block
+            type="submit"
             >Submit Recipe</app-button
           >
 
@@ -294,7 +310,7 @@ const commitLocalTagState = () => {
             listKey="name"
           ></app-search>
           <app-ingredient-list
-          class="mb-4"
+            class="mb-4"
             :editable="true"
             :ingredients="localIngredientState"
             @remove-ingredient="onRemoveLocalIngredientItem"
@@ -308,7 +324,11 @@ const commitLocalTagState = () => {
             rows="10"
           ></app-text-area>
 
-          <app-button class="md:hidden" block type="submit"
+          <app-button
+            :loading="busyIndicator.localStatus.value"
+            class="md:hidden"
+            block
+            type="submit"
             >Submit Recipe</app-button
           >
 

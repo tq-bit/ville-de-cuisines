@@ -5,10 +5,14 @@ import useRecipeStore from '../../store/recipeStore';
 import handleRecipeCategoryForm from '../../use/form/recipeCategoryForm';
 import { useRouter } from 'vue-router';
 import { AppUploadPayload } from '../../@types/commons';
+import useBusy from '@/use/useBusy';
 
 import CategoriesApi from '../../api/resources/recipeCategories.api';
 
 const categoriesApi = new CategoriesApi();
+
+// Busy indicator logic
+const busyIndicator = useBusy('kitchen-recipe-category');
 
 // Router
 const router = useRouter();
@@ -103,7 +107,11 @@ onBeforeUnmount(async () => {
             @drop="onDropRecipeCategoryImage"
           ></app-file-input>
 
-          <app-button class="hidden md:block" block type="submit"
+          <app-button
+            :loading="busyIndicator.localStatus.value"
+            class="hidden md:block"
+            block
+            type="submit"
             >Submit Recipe Category</app-button
           >
         </template>
@@ -115,8 +123,12 @@ onBeforeUnmount(async () => {
             label="Category name"
           ></app-input>
 
-          <app-button class="md:hidden" block type="submit"
-            >Submit Recipe</app-button
+          <app-button
+            :loading="busyIndicator.localStatus.value"
+            class="md:hidden"
+            block
+            type="submit"
+            >Submit Recipe Category</app-button
           >
         </template>
       </app-grid>

@@ -20,3 +20,7 @@ export interface AppUploadPayload {
   fileBuffer: ArrayBuffer;
   fileUrl: string;
 }
+
+export interface BooleanMap {
+  [key: string]: boolean
+}
