@@ -41,7 +41,6 @@ export default class Api {
 
   protected async getDocument(documentId: string) {
     const cachedResponse = this.cache.getValue(documentId);
-    console.log(this.cache);
     if (cachedResponse) {
       return cachedResponse as Models.Document;
     } else {
