@@ -26,18 +26,24 @@ withDefaults(
       'border-2  border-orange-500 text-orange-500 hover:border-0 hover:bg-gradient-to-bl hover:from-orange-400 hover:to-orange-500 hover:text-gray-50 dark:border-orange-700 dark:text-orange-700 hover:dark:from-orange-600 hover:dark:to-orange-700 hover:dark:text-gray-50':
         variant === 'warning-outline',
       'w-full text-center': block,
+      'opacity-60': loading,
     }"
     :disabled="loading"
     :aria-disabled="loading"
     :aria-busy="loading"
   >
-    <slot />
+    <span v-if="loading">
+      <svg-loader width="100%" height="100%" color="white"></svg-loader>
+    </span>
+    <span v-else><slot /></span>
   </button>
 </template>
 
 <style scoped>
 /* Styles for the loader */
 .loader {
+  height: 20px;
+  width: 20px;
   display: block;
   margin: auto;
   padding: var(0.25rem);
