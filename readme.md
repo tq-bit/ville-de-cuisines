@@ -105,6 +105,14 @@ I tried to design the app in an intuitive way. Naturally, there's always somethi
 
 [![update-your-user-preferences][gif-update-preferences]](#)
 
+### Follow other users
+
+[![follow-other-users][gif-follow-user]](#)
+
+### Create public ingredients
+
+[![create-public-ingredients][gif-create-ingredients]](#)
+
 ### Refine a recipe and make it your own
 [![update-your-user-preferences][gif-refine-recipe]](#)
 
@@ -152,6 +160,8 @@ While developing, I fell in love with AppWrite's simplicity. If you're reading t
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [product-screenshot]: public/github-assets/twilight-vdc.png
-[gif-update-preferences]: public/github-assets/update-preferences.gif
 [gif-signup]: public/github-assets/signup.gif
+[gif-update-preferences]: public/github-assets/update-preferences.gif
+[gif-manage-ingredients]: public/github-assets/manage-ingredients.gif
+[gif-follow-user]: public/github-assets/refine-recipe.gif
 [gif-refine-recipe]: public/github-assets/refine-recipe.gif
