@@ -79,6 +79,15 @@ Sadly, I was not able to implement all the features during the time of the hacka
 2. Then install the [appwrite-cli](https://appwrite.io/docs/command-line) and deploy the `appwrite.json` - configuration.
 3. You can now start the frontend application using `npm run dev`. It will open on `localhost:3000`.
 
+Finally, create these four data buckets (unfortunatly, I couldn't figure how to properly sync them in my `appwrite.json` file):
+
+| Bucket ID            | Bucket name            |
+| -------------------- | ---------------------- |
+| 6274c5f72d3ef89c6faf | ingredient_images      |
+| 62736e275773d2bb8b86 | recipe_category_images |
+| 626a7f5764b4ab1de3b1 | recipe_images          |
+| 626a55bcf245803da8f4 | user_avatars           |
+
 ### Demo
 
 There's a demo version of Ville de Cuisines hosted on Netlify. You're very much invited to check it out and fiddle around a bit. If you find a bug, [please do open an issue](https://github.com/tq-bit/ville-de-cuisines/issues)
