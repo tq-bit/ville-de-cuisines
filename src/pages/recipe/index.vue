@@ -7,8 +7,6 @@ import recipesApi from '../../api/resources/recipes.api';
 import useRecipeStore from '../../store/recipeStore';
 import useActiveUserStore from '../../store/activeUserStore';
 
-const recipesApi = new RecipesApi();
-
 // Router logic
 const router = useRouter();
 

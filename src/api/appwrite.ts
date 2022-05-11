@@ -37,6 +37,7 @@ export default class Api {
       write,
     );
     this.cache.setValue(response.$id, response);
+    console.log(this.cache);
     return response;
   }
 

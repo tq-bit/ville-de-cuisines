@@ -18,8 +18,6 @@ const followsStore = useFollowsStore();
 const router = useRouter();
 const { triggerGlobalAlert } = useGlobalAlert();
 
-const followsApi = new FollowsApi();
-
 const onGalleryItemClick = (payload: AppGalleryItemType) => {
   router.push({
     path: `/recipe/${payload.$id}`,
