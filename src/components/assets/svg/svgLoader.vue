@@ -1,3 +1,18 @@
+<script setup lang="ts">
+withDefaults(
+  defineProps<{
+    width: string;
+    height: string;
+    color: 'green' | 'white';
+  }>(),
+  {
+    width: '50px',
+    height: '50px',
+    color: 'green',
+  },
+);
+</script>
+
 <template>
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -8,8 +23,8 @@
       display: block;
       shape-rendering: auto;
     "
-    width="50px"
-    height="50px"
+    :width="width"
+    :height="height"
     viewBox="0 0 100 100"
     preserveAspectRatio="xMidYMid"
   >
@@ -21,7 +36,10 @@
         ry="6"
         width="6"
         height="12"
-        class="fill-green-600"
+        :class="{
+          'fill-green-600': color === 'green',
+          'fill-gray-50': color === 'white',
+        }"
       >
         <animate
           attributeName="opacity"
@@ -41,7 +59,10 @@
         ry="6"
         width="6"
         height="12"
-        class="fill-green-600"
+        :class="{
+          'fill-green-600': color === 'green',
+          'fill-gray-50': color === 'white',
+        }"
       >
         <animate
           attributeName="opacity"
@@ -61,7 +82,10 @@
         ry="6"
         width="6"
         height="12"
-        class="fill-green-600"
+        :class="{
+          'fill-green-600': color === 'green',
+          'fill-gray-50': color === 'white',
+        }"
       >
         <animate
           attributeName="opacity"
@@ -81,7 +105,10 @@
         ry="6"
         width="6"
         height="12"
-        class="fill-green-600"
+        :class="{
+          'fill-green-600': color === 'green',
+          'fill-gray-50': color === 'white',
+        }"
       >
         <animate
           attributeName="opacity"
@@ -101,7 +128,10 @@
         ry="6"
         width="6"
         height="12"
-        class="fill-green-600"
+        :class="{
+          'fill-green-600': color === 'green',
+          'fill-gray-50': color === 'white',
+        }"
       >
         <animate
           attributeName="opacity"
@@ -121,7 +151,10 @@
         ry="6"
         width="6"
         height="12"
-        class="fill-green-600"
+        :class="{
+          'fill-green-600': color === 'green',
+          'fill-gray-50': color === 'white',
+        }"
       >
         <animate
           attributeName="opacity"
@@ -141,7 +174,10 @@
         ry="6"
         width="6"
         height="12"
-        class="fill-green-600"
+        :class="{
+          'fill-green-600': color === 'green',
+          'fill-gray-50': color === 'white',
+        }"
       >
         <animate
           attributeName="opacity"
@@ -161,7 +197,10 @@
         ry="6"
         width="6"
         height="12"
-        class="fill-green-600"
+        :class="{
+          'fill-green-600': color === 'green',
+          'fill-gray-50': color === 'white',
+        }"
       >
         <animate
           attributeName="opacity"
@@ -181,7 +220,10 @@
         ry="6"
         width="6"
         height="12"
-        class="fill-green-600"
+        :class="{
+          'fill-green-600': color === 'green',
+          'fill-gray-50': color === 'white',
+        }"
       >
         <animate
           attributeName="opacity"
@@ -201,7 +243,10 @@
         ry="6"
         width="6"
         height="12"
-        class="fill-green-600"
+        :class="{
+          'fill-green-600': color === 'green',
+          'fill-gray-50': color === 'white',
+        }"
       >
         <animate
           attributeName="opacity"
@@ -221,7 +266,10 @@
         ry="6"
         width="6"
         height="12"
-        class="fill-green-600"
+        :class="{
+          'fill-green-600': color === 'green',
+          'fill-gray-50': color === 'white',
+        }"
       >
         <animate
           attributeName="opacity"
@@ -241,7 +289,10 @@
         ry="6"
         width="6"
         height="12"
-        class="fill-green-600"
+        :class="{
+          'fill-green-600': color === 'green',
+          'fill-gray-50': color === 'white',
+        }"
       >
         <animate
           attributeName="opacity"
