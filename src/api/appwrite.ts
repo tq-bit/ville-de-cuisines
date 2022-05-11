@@ -36,6 +36,7 @@ export default class Api {
       read,
       write,
     );
+    this.cache.setValue(response.$id, response);
     return response;
   }
 
@@ -94,6 +95,7 @@ export default class Api {
       read,
       write,
     );
+    this.cache.setValue(response.$id, response);
     return response;
   }
 
@@ -177,8 +179,8 @@ export default class Api {
   private generateCacheIdForDocumentList(queries: string[] | undefined) {
     const hasQueries = !!queries && queries.length > 0;
     if (hasQueries) {
-      return queries?.join('-');
+      return this.cache.getCacheKey() + '-' + queries?.join('-');
     }
-    return 'default';
+    return this.cache.getCacheKey();
   }
 }
