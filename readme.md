@@ -109,7 +109,7 @@ I tried to design the app in an intuitive way. Naturally, there's always somethi
 
 [![follow-other-users][gif-follow-user]](#)
 
-### Create public ingredients
+### Manage public ingredients
 
 [![manage-public-ingredients][gif-manage-ingredients]](#)
 
