@@ -12,7 +12,7 @@ const props = withDefaults(
     modelValue?: any;
     options: any[];
     loading: boolean;
-    size: 'small' | 'medium' | 'large';
+    size?: 'small' | 'medium' | 'large';
   }>(),
   {
     hideLabel: false,
