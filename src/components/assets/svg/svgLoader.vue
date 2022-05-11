@@ -1,9 +1,9 @@
 <script setup lang="ts">
 withDefaults(
   defineProps<{
-    width: string;
-    height: string;
-    color: 'green' | 'white';
+    width?: string;
+    height?: string;
+    color?: 'green' | 'white';
   }>(),
   {
     width: '50px',

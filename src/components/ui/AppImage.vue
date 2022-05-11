@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineProps<{
-  src: string;
+  src?: string;
   alt?: string;
   rounded?: boolean;
   size?: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
