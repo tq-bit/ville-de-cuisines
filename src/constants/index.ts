@@ -15,4 +15,4 @@ export const RECIPE_CATEGORY_COLLECTION_ID = '62727e96c4da6df1071f';
 export const FOLLOWES_COLLECTION_ID = '625d5401d338cc0529e1';
 
 export const APP_DEBOUNCE_TIMEOUT = 500;
-export const APP_CACHE_LIFETIME_MS = 5000;
+export const APP_CACHE_LIFETIME_MS = 1000 * 60; // 1 minute
