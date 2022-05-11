@@ -1,21 +1,22 @@
 <script setup lang="ts">
-import { ref, onMounted, onUpdated } from 'vue';
-import { AppGalleryItemType, AppFollowEntityPayload } from '../../@types';
-
-import useActiveUserStore from '../../store/activeUserStore';
-import usePublicUserStore from '../../store/publicUserStore';
-import useRecipeStore from '../../store/recipeStore';
-import useFollowsStore from '../../store/followsStore';
+import { onMounted, onUpdated, computed } from 'vue';
+import { AppGalleryItemType, AppFollowEntityPayload } from '@/@types';
 import { useRouter } from 'vue-router';
-import { computed } from '@vue/reactivity';
 
-import FollowsApi from '../../api/resources/follows.api';
+import useActiveUserStore from '@/store/activeUserStore';
+import usePublicUserStore from '@/store/publicUserStore';
+import useRecipeStore from '@/store/recipeStore';
+import useFollowsStore from '@/store/followsStore';
+
+import useGlobalAlert from '@/use/globalAlert';
+import FollowsApi from '@/api/resources/follows.api';
 
 const activeUserStore = useActiveUserStore();
 const publicUserStore = usePublicUserStore();
 const recipeStore = useRecipeStore();
 const followsStore = useFollowsStore();
 const router = useRouter();
+const { triggerGlobalAlert } = useGlobalAlert();
 
 const followsApi = new FollowsApi();
 
@@ -50,11 +51,21 @@ const onClickFollowButton = async () => {
     );
     if (error) {
       console.error(error);
+    } else {
+      triggerGlobalAlert({
+        message: `You stopped following ${publicUserStore.publicUserProfile.name}`,
+        variant: 'info',
+      });
     }
   } else {
     const [response, error] = await followsApi.createFollowEntity(payload);
     if (error) {
       console.error(error);
+    } else {
+      triggerGlobalAlert({
+        message: `You're now following ${publicUserStore.publicUserProfile.name}`,
+        variant: 'success',
+      });
     }
   }
 
