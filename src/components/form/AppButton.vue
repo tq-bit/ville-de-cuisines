@@ -17,7 +17,7 @@ withDefaults(
 <template>
   <button
     v-bind="$attrs"
-    class="h-10 rounded border-transparent px-4 font-semibold"
+    class="h-10 w-full overflow-hidden text-ellipsis whitespace-nowrap rounded border-transparent px-4 font-semibold"
     :class="{
       'bg-gradient-to-bl from-green-400 to-green-500 text-gray-50  dark:from-green-600 dark:to-green-700':
         variant === 'default',
