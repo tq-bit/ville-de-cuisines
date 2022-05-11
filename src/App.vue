@@ -32,7 +32,7 @@ watch(userTheme, (newTheme) => setTheme(newTheme));
       <app-alert
         v-if="showGlobalAlert && message"
         :variant="variant"
-        class="fixed bottom-12 right-4 left-4 z-50 mx-auto block w-64 max-w-xs text-center"
+        class="fixed bottom-6 right-6 left-6 z-50 mx-auto block w-64 max-w-xs text-center md:top-36 md:bottom-auto md:mx-0 md:ml-auto"
       >
         {{ message }}
       </app-alert>
@@ -42,7 +42,8 @@ watch(userTheme, (newTheme) => setTheme(newTheme));
       @toggle-sidebar="onToggleSidebar"
     ></app-navbar>
 
-    <app-sidebar @click-navbar-item="onToggleSidebar" :show="showSidebar"> </app-sidebar>
+    <app-sidebar @click-navbar-item="onToggleSidebar" :show="showSidebar">
+    </app-sidebar>
     <router-view v-slot="{ Component }">
       <transition mode="out-in" name="fade">
         <component :is="Component" />
