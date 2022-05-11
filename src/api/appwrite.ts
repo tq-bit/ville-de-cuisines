@@ -1,7 +1,8 @@
 import { Appwrite, Models, AppwriteException } from 'appwrite';
 import { v4 as uuid } from 'uuid';
 import { AppServerResponseOrError } from '@/@types';
-import { DEV_URL, PROD_URL } from '@/constants';
+import { DEV_URL, PROD_URL, APP_CACHE_LIFETIME_MS } from '@/constants';
+import Cache from './Cache';
 
 const appwriteClient = new Appwrite();
 
@@ -13,11 +14,13 @@ export default class Api {
   private client: Appwrite;
   private collectionId: string;
   private bucketId: string;
+  private cache: Cache;
 
   constructor(collectionId: string, bucketId: string) {
     this.client = appwriteClient;
     this.collectionId = collectionId;
     this.bucketId = bucketId;
+    this.cache = new Cache(collectionId, APP_CACHE_LIFETIME_MS);
   }
 
   protected async createDocument(
@@ -37,11 +40,18 @@ export default class Api {
   }
 
   protected async getDocument(documentId: string) {
-    const response = await this.client.database.getDocument(
-      this.collectionId,
-      documentId,
-    );
-    return response;
+    const cachedResponse = this.cache.getValue(documentId);
+    console.log(this.cache);
+    if (cachedResponse) {
+      return cachedResponse as Models.Document;
+    } else {
+      const response = await this.client.database.getDocument(
+        this.collectionId,
+        documentId,
+      );
+      this.cache.setValue(documentId, response);
+      return response;
+    }
   }
 
   protected async listDocuments(
