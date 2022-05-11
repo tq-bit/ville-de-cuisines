@@ -4,7 +4,7 @@ import router from './router/router';
 
 import './css/styles.css';
 
-import '@fontsource/raleway';
+import '@fontsource/montserrat';
 import '@fontsource/nunito-sans';
 
 import { createPinia } from 'pinia';
