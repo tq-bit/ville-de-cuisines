@@ -22,5 +22,5 @@ export interface AppUploadPayload {
 }
 
 export interface BooleanMap {
-  [key: string]: boolean
+  [key: string]: boolean;
 }
