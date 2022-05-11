@@ -111,7 +111,7 @@ I tried to design the app in an intuitive way. Naturally, there's always somethi
 
 ### Create public ingredients
 
-[![create-public-ingredients][gif-create-ingredients]](#)
+[![create-public-ingredients][gif-manage-ingredients]](#)
 
 ### Refine a recipe and make it your own
 [![update-your-user-preferences][gif-refine-recipe]](#)
@@ -163,5 +163,5 @@ While developing, I fell in love with AppWrite's simplicity. If you're reading t
 [gif-signup]: public/github-assets/signup.gif
 [gif-update-preferences]: public/github-assets/update-preferences.gif
 [gif-manage-ingredients]: public/github-assets/manage-ingredients.gif
-[gif-follow-user]: public/github-assets/refine-recipe.gif
+[gif-follow-user]: public/github-assets/follow-user.gif
 [gif-refine-recipe]: public/github-assets/refine-recipe.gif
