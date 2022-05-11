@@ -20,7 +20,11 @@ export default class FollowsApi extends Api {
 
   public async deleteFollowEntity(followEntityId: string) {
     return this.stateful(async () => {
-      return this.deleteDocument(followEntityId);
+      const response = await this.listDocuments([
+        Query.equal('entity_id', followEntityId),
+      ]);
+      const follow = response.documents[0] as AppFollowEntity;
+      return this.deleteDocument(follow.$id);
     });
   }
 
