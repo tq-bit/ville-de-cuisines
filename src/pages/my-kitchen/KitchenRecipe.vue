@@ -1,20 +1,20 @@
 <script setup lang="ts">
 import { ref, computed, watch, onBeforeUnmount, onMounted } from 'vue';
-import RecipesApi from '../../api/resources/recipes.api';
+import RecipesApi from '@/api/resources/recipes.api';
 
-import useRecipeStore from '../../store/recipeStore';
-import useIngredientsStore from '../../store/ingredientsStore';
+import useRecipeStore from '@/store/recipeStore';
+import useIngredientsStore from '@/store/ingredientsStore';
 
 import { useRouter } from 'vue-router';
-import useRecipeForm from '../../use/form/recipeForm';
-import useLazyIngredientSearch from '../../use/search/useLazyIngredientSearch';
-import useLazyCategorySearch from '../../use/search/useLazyCategorySearch';
+import useRecipeForm from '@/use/form/recipeForm';
+import useLazyIngredientSearch from '@/use/search/useLazyIngredientSearch';
+import useLazyCategorySearch from '@/use/search/useLazyCategorySearch';
 import {
   AppGalleryItemType,
   AppUploadPayload,
   Ingredient,
   Recipe,
-} from '../../@types';
+} from '@/@types';
 
 const recipesApi = new RecipesApi();
 
