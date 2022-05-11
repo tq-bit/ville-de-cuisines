@@ -23,9 +23,9 @@
 
 ## About The Project
 
-Ville de Cuisines is my submission to the [dev.to Appwrite Hackathon](https://dev.to/devteam/announcing-the-appwrite-hackathon-on-dev-1oc0). I built it for my girlfriend and myself to make diet planning fun. I also added a few social components to make it more engaging.
+Ville de Cuisines translates to 'City of Kitchens' from french. It is my submission to the [dev.to Appwrite Hackathon](https://dev.to/devteam/announcing-the-appwrite-hackathon-on-dev-1oc0). I built it for my girlfriend and myself to make diet planning (more) fun. I also added a few social components to make it more engaging.
 
-Unfortunatly, I was not able to implement all the features during the time of the hackathon. I still hope you'll find it entertaining 🤠
+Sadly, I was not able to implement all the features during the time of the hackathon. I still hope you'll find it entertaining 🤠
 
 [![ville-de-cuisines landingpage][product-screenshot]](#)
 
@@ -37,13 +37,13 @@ Unfortunatly, I was not able to implement all the features during the time of th
 <li>User signup and profile maintenance</li>
 <li>Avatar and image upload</li>
 <li>Public ingredient- and recipe-category creation</li>
-<li>Global search for several content types</li>
+<li>Global search for several content types, like recipes, ingredients and users</li>
 <li>Private and public recipe creation</li>
 <li>Markdown support for recipe preparation steps</li>
 <li>User following</li>
-<li>Recipe suggestions*</li>
-<li>Recipe refinement*</li>
-<li>Ingredient and energy calculation per recipe*</li>
+<li>Recipe suggestions</li>
+<li>Recipe refinement (that's like forking a recipe)</li>
+<li>Ingredient and energy calculation per recipe</li>
 </details>
 
 
@@ -52,17 +52,16 @@ Unfortunatly, I was not able to implement all the features during the time of th
 <details>
 <summary> Toggle planned features </summary>
 
-<li>Improve recipe creation (e.g. add ingredients on the fly)</li>
-<li>Search recipes based on several ingredients</li>
-<li>Enhance recipe suggestions and search, e.g. by tag</li>
+<li>Add a public / personal diet calender</li>
+<li>Add proper loading indicators</li>
+<li>Improve recipe creation (browsing and adding ingredients on the fly)</li>
+<li>Enhance recipe suggestions and search, e.g. by tag or several ingredients</li>
 <li>Enhance ingredient data structure, e.g. nutrients, brand and retailer</li>
-<li>Add a public / personal diet calender*</li>
 <li>Add user actions and a user feed</li>
 <li>SSR, Vue meta and social sharing (Facebook, Instagram, Pinterest)</li>
 <li>Plugin to add recipe ingredients to your grocery list</li>
-<li>Use edge functions to suggest ingredients from a 3rd party API (still looking for one)</li>
-<li>Use edge functions to cleanup unnecessary images</li>
-<li>Proper loading indicators (after finishing the app & the service refactoring)</li>
+<li>Use a cloud function to suggest ingredients from a 3rd party API (still looking for a good one)</li>
+<li>Use a cloud function to cleanup unnecessary images</li>
 </details>
 
 ### Built With
