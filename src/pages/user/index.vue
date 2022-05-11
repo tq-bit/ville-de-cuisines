@@ -72,9 +72,9 @@ const onClickFollowButton = async () => {
   }
 
   if (activeUserIsFollowingThisUser.value) {
-    handleEntityDeletion();
+    await handleEntityDeletion();
   } else {
-    handleEntityCreation();
+    await handleEntityCreation();
   }
 
   await syncPublicUser();
