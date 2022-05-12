@@ -53,7 +53,10 @@
       </p>
 
       <h2 class="mb-2 text-2xl">Acknowledgements</h2>
-      You can find a <a href="https://github.com/tq-bit/ville-de-cuisines#acknowledgments"> list of acknowledgements on Github</a>
+      You can find a
+      <a href="https://github.com/tq-bit/ville-de-cuisines#acknowledgments">
+        list of acknowledgements on Github</a
+      >
     </div>
   </app-container>
 </template>
