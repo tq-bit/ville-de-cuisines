@@ -44,6 +44,7 @@ Sadly, I was not able to implement all the features during the time of the hacka
 <li>Recipe suggestions</li>
 <li>Recipe refinement (that's like forking a recipe)</li>
 <li>Ingredient and energy calculation per recipe</li>
+<li>Experimental clientside in-memory caching</li>
 </details>
 
 
