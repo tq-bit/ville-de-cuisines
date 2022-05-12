@@ -2,8 +2,8 @@
 import { computed } from '@vue/reactivity';
 import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { AppGalleryItemType } from '../@types';
-import useFollowsStore from '../store/followsStore';
+import { AppGalleryItemType } from '../../@types';
+import useFollowsStore from '../../store/followsStore';
 
 const router = useRouter();
 

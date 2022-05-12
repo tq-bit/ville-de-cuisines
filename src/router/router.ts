@@ -56,7 +56,7 @@ export const routes: RouterOptions['routes'] = [
 
   {
     path: '/my-follows',
-    component: () => import('../pages/MyFollows.vue'),
+    component: () => import('../pages/follows/index.vue'),
     beforeEnter: redirectToLoginIfUserIsLoggedOut,
   },
 
