@@ -38,7 +38,6 @@ export default class Api {
     );
     this.cache.setValue(response.$id, response);
     this.cache.updateRelatedCacheEntries(response.$id, response);
-    console.log(this.cache);
     return response;
   }
 
