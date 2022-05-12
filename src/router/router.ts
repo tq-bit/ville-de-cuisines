@@ -84,6 +84,11 @@ export const routes: RouterOptions['routes'] = [
     props: true,
   },
   {
+    path: '/my-kitchen/diet-planner',
+    component: () => import('../pages/my-kitchen/KitchenDietPlanner.vue'),
+    beforeEnter: redirectToLoginIfUserIsLoggedOut,
+  },
+  {
     path: '/my-kitchen/ingredient',
     component: () => import('../pages/my-kitchen/KitchenIngredient.vue'),
     beforeEnter: redirectToLoginIfUserIsLoggedOut,

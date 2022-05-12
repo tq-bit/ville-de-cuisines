@@ -28,6 +28,10 @@ const navToRecipeCategoryCreation = () => {
   router.push({ path: '/my-kitchen/recipe-category' });
 };
 
+const navToDietPlanner = () => {
+  router.push({ path: '/my-kitchen/diet-planner' });
+};
+
 onMounted(
   async () =>
     await recipeStore.syncActiveUserRecipes(activeUserStore.account.$id),
@@ -50,6 +54,9 @@ onMounted(
         >
         <app-button @click="navToIngredientCreation" class="mb-4" block>
           Manage ingredients</app-button
+        >
+        <app-button @click="navToDietPlanner" class="mb-4" block>
+          To diet planner</app-button
         >
       </app-card>
     </template>

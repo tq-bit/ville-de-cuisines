@@ -7,6 +7,9 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AppAlert: typeof import('./src/components/ui/AppAlert.vue')['default']
     AppButton: typeof import('./src/components/form/AppButton.vue')['default']
+    AppCalenderItem: typeof import('./src/components/calendar/AppCalenderItem.vue')['default']
+    AppCalenderWeek: typeof import('./src/components/calendar/AppCalenderWeek.vue')['default']
+    'AppCalenderWeek copy': typeof import('./src/components/calendar/AppCalenderWeek copy.vue')['default']
     AppCard: typeof import('./src/components/form/AppCard.vue')['default']
     AppContainer: typeof import('./src/components/layout/content/AppContainer.vue')['default']
     AppFeed: typeof import('./src/components/lists/feed/AppFeed.vue')['default']
