@@ -1,15 +1,12 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted } from 'vue';
 
-import useRecipeStore from '../../store/recipeStore';
 import handleRecipeCategoryForm from '../../use/form/recipeCategoryForm';
 import { useRouter } from 'vue-router';
 import { AppUploadPayload } from '../../@types/commons';
 import useBusy from '@/use/useBusy';
 
-import CategoriesApi from '../../api/resources/recipeCategories.api';
-
-const categoriesApi = new CategoriesApi();
+import categoriesApi from '../../api/resources/recipeCategories.api';
 
 // Busy indicator logic
 const busyIndicator = useBusy('kitchen-recipe-category');

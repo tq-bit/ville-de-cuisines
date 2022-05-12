@@ -9,7 +9,6 @@ import { getFormErrors } from '../util/error';
 import useLogger from '../util/logger';
 
 const { log } = useLogger();
-const ingredientApi = new IngredientsApi();
 
 const { quantityOptionKeys } = useIngredientsStore();
 
@@ -56,7 +55,7 @@ export default function handleIngredientForm() {
 
   const handleIngredientCreate = async (payload: Ingredient) => {
     httpError.value = null;
-    const [response, error] = await ingredientApi.createIngredient(payload);
+    const [response, error] = await ingredientsApi.createIngredient(payload);
     if (error) {
       httpError.value = {
         message: error.message,

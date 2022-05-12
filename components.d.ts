@@ -45,7 +45,6 @@ declare module '@vue/runtime-core' {
     IUser: typeof import('./src/components/assets/icons/iUser.vue')['default']
     IVdcLogo: typeof import('./src/components/assets/icons/brands/iVdcLogo.vue')['default']
     IVdcLogoDark: typeof import('./src/components/assets/icons/brands/iVdcLogoDark.vue')['default']
-    Navbar: typeof import('./src/components/layout/navbar/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SvgCookingHero: typeof import('./src/components/assets/svg/svgCookingHero.vue')['default']
