@@ -37,6 +37,7 @@ export default class Api {
       write,
     );
     this.cache.setValue(response.$id, response);
+    this.cache.updateRelatedCacheEntries(response.$id, response);
     console.log(this.cache);
     return response;
   }
@@ -97,6 +98,7 @@ export default class Api {
       write,
     );
     this.cache.setValue(response.$id, response);
+    this.cache.updateRelatedCacheEntries(response.$id, response);
     return response;
   }
 
@@ -105,6 +107,8 @@ export default class Api {
       this.collectionId,
       documentId,
     );
+    this.cache.deleteValue(documentId);
+    this.cache.updateRelatedCacheEntries(documentId, null);
     return response;
   }
 

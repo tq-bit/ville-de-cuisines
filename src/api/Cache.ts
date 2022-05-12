@@ -1,14 +1,8 @@
 import { Models } from 'appwrite';
+import { CacheMap, CacheMapEntry } from '@/@types';
+import useLogger from '@/use/util/logger';
 
-export type CacheMapEntry =
-  | Models.Document
-  | Models.DocumentList<Models.Document>;
-export interface CacheMap {
-  [key: string]: {
-    data: CacheMapEntry;
-    timeoutKey: number;
-  };
-}
+const { log } = useLogger();
 
 export default class AppCache {
   cacheKey: string;
@@ -21,46 +15,55 @@ export default class AppCache {
     this.cacheMap = {};
   }
 
-  public setValue(key: string, value: any) {
+  public setValue(key: string, value: CacheMapEntry) {
     const timeoutKey = this.scheduleEntryDeletion(key);
-    this.updateEntryInListItems(key, value, timeoutKey);
+    log(`Cache SET: ${key}`, 'warn');
+    return (this.cacheMap[key] = { data: value, timeoutKey });
   }
 
-  public getValue(key: string): any {
+  public getValue(key: string): CacheMapEntry | null {
     if (this.cacheMap[key]) {
       return this.cacheMap[key]?.data;
     }
     return null;
   }
 
-  private deleteValue(key: string) {
+  public deleteValue(key: string) {
     const { [key]: value, ...rest } = this.cacheMap;
     this.cacheMap = rest;
     return value;
   }
 
-  private updateEntryInListItems(key: string, value: any, timeoutKey: number) {
-    if (!this.cacheMap[key]) {
-      return (this.cacheMap[key] = { data: value, timeoutKey });
-    } else {
-      for (const cacheMapKey in this.cacheMap) {
-        const cachedEntryIsArray = Array.isArray(
-          // @ts-ignore
-          this.cacheMap[cacheMapKey].data?.documents,
-        );
+  public updateRelatedCacheEntries(key: string, value: Models.Document | null) {
+    for (const cacheMapKey in this.cacheMap) {
+      const entryData = this.cacheMap[cacheMapKey].data;
+      const cachedEntryIsArray = entryData?.hasOwnProperty('documents');
 
-        if (!cachedEntryIsArray) {
-          this.cacheMap[cacheMapKey].data = value;
+      if (cachedEntryIsArray) {
+        const entries = entryData as Models.DocumentList<Models.Document>;
+        const indexOfRelevantElement = entries.documents?.findIndex((entry) => {
+          return entry.$id === key;
+        });
+
+        // Add, delete or update the entry in the cache
+        if (!value) {
+          log(`Cache DELETE: ${key}`, 'warn');
+          entries.documents.splice(indexOfRelevantElement, 1);
+        } else if (indexOfRelevantElement !== -1) {
+          log(
+            `Cache UPDATE: ${key} at position ${indexOfRelevantElement}`,
+            'warn',
+          );
+          entries.documents[indexOfRelevantElement] = value;
         } else {
-          const filteredEntries = this.cacheMap[
-            cacheMapKey
-            // @ts-ignore
-          ].data?.documents?.filter((entry: Models.Document) => {
-            return entry.$id !== key;
-          });
-          const newEntry = { data: value, timeoutKey };
-          this.cacheMap[cacheMapKey] = { ...filteredEntries, newEntry };
+          log(`Cache ADD: ${key}`, 'warn');
+          entries.documents.push(value);
         }
+
+        this.cacheMap[cacheMapKey] = {
+          ...this.cacheMap[cacheMapKey],
+          data: entries,
+        };
       }
     }
   }
