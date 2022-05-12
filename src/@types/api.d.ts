@@ -12,6 +12,7 @@ export interface AppServerErrorResponse {
 export type CacheMapEntry =
   | Models.Document
   | Models.DocumentList<Models.Document>;
+
 export interface CacheMap {
   [key: string]: {
     data: CacheMapEntry;

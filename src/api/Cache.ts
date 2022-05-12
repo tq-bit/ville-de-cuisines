@@ -4,6 +4,12 @@ import useLogger from '@/use/util/logger';
 
 const { log } = useLogger();
 
+/**
+ * @description Create a key-value store for AppWrite HTTP responses.
+ *
+ * @see {@link CacheMap}
+ * @see {@link CacheMapEntry}
+ */
 export default class AppCache {
   cacheKey: string;
   lifetimeInMiliseconds: number;
