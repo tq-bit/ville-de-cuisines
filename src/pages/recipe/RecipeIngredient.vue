@@ -3,7 +3,7 @@ import { ref, onMounted } from 'vue';
 import { AppGalleryItemType, Ingredient } from '../../@types';
 import useRecipeStore from '../../store/recipeStore';
 import { useRouter } from 'vue-router';
-import ingredientsApi from '../../api/resources/ingredients.api';
+import ingredientsApi from '../../api/ingredients.api';
 
 const recipeStore = useRecipeStore();
 

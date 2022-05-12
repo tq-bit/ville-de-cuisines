@@ -1,6 +1,6 @@
 import { RouteLocationNormalized } from 'vue-router';
 import Cookies from 'js-cookie';
-import { appwriteClient } from '../api/appwrite';
+import { appwriteClient } from '@/classes/AppWrite';
 
 import { SESSION_ID_KEY } from '../constants/index';
 

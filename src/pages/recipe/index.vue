@@ -2,7 +2,7 @@
 import { ref, computed, onMounted, onUpdated } from 'vue';
 import { useRouter } from 'vue-router';
 import { AppGalleryItemType, Ingredient, Recipe } from '../../@types';
-import recipesApi from '../../api/resources/recipes.api';
+import recipesApi from '../../api/recipes.api';
 
 import useRecipeStore from '../../store/recipeStore';
 import useActiveUserStore from '../../store/activeUserStore';

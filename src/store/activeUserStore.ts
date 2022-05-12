@@ -11,7 +11,7 @@ import {
   AppPublicUser,
 } from '@/@types/index';
 import { USER_COLLECTION_ID, AVATAR_BUCKET_ID } from '@/constants/index';
-import { appwriteClient } from '@/api/appwrite';
+import { appwriteClient } from '@/classes/AppWrite';
 
 const useActiveUserStore = defineStore('user', {
   state: () => ({

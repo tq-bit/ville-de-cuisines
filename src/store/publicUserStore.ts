@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { AppPublicUser, AppGalleryItemType } from '@/@types';
-import publicUserApi from '@/api/resources/publicUser.api';
+import publicUserApi from '@/api/publicUser.api';
 
 const usePublicUserStore = defineStore('public_user', {
   state: () => ({

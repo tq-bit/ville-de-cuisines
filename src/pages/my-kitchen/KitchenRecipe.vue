@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, watch, onBeforeUnmount, onMounted } from 'vue';
-import recipesApi from '@/api/resources/recipes.api';
+import recipesApi from '@/api/recipes.api';
 
 import useRecipeStore from '@/store/recipeStore';
 import useIngredientsStore from '@/store/ingredientsStore';

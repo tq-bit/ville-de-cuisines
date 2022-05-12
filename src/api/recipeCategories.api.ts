@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 import { Models, Query } from 'appwrite';
-import Api from '@/api/appwrite';
+import Api from '@/classes/AppWrite';
 import {
   RECIPE_CATEGORY_BUCKET_ID,
   RECIPE_CATEGORY_COLLECTION_ID,

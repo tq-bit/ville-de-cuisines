@@ -6,7 +6,7 @@ import { useRouter } from 'vue-router';
 import { AppUploadPayload } from '../../@types/commons';
 import useBusy from '@/use/useBusy';
 
-import categoriesApi from '../../api/resources/recipeCategories.api';
+import categoriesApi from '../../api/recipeCategories.api';
 
 // Busy indicator logic
 const busyIndicator = useBusy('kitchen-recipe-category');

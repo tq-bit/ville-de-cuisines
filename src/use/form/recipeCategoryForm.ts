@@ -4,7 +4,7 @@ import { useForm, useField } from 'vee-validate';
 import { AppServerErrorResponse, Recipe, RecipeCategory } from '@/@types';
 import useAppAlert from '../globalAlert';
 import { getFormErrors } from '../util/error';
-import categoriesApi from '../../api/resources/recipeCategories.api';
+import categoriesApi from '../../api/recipeCategories.api';
 
 const recipeCategorySchema = yup.object({
   $id: yup.string().optional().label('ID'),

@@ -2,7 +2,7 @@ import { v4 as uuid } from 'uuid';
 import { Query } from 'appwrite';
 import { AppFollowEntity, AppFollowEntityPayload } from '@/@types';
 import { FOLLOWES_COLLECTION_ID } from '@/constants';
-import Api from '@/api/appwrite';
+import Api from '@/classes/AppWrite';
 import publicUserApi from './publicUser.api';
 
 class FollowsApi extends Api {

@@ -3,7 +3,7 @@ import Cookie from 'js-cookie';
 import { AppwriteException, Models } from 'appwrite';
 import { AppUserLoginPayload, AppServerResponseOrError } from '@/@types/index';
 
-import { appwriteClient } from '@/api/appwrite';
+import { appwriteClient } from '@/classes/AppWrite';
 import { SESSION_ID_KEY } from '@/constants/index';
 
 const useSessionStore = defineStore('session', {

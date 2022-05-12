@@ -2,7 +2,7 @@
 import { ref, onMounted, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import { AppUploadPayload, AppGalleryItemType, Ingredient } from '../../@types';
-import ingredientsApi from '../../api/resources/ingredients.api';
+import ingredientsApi from '../../api/ingredients.api';
 
 import useIngredientsStore from '../../store/ingredientsStore';
 import useIngredientForm from '../../use/form/ingredientForm';

@@ -1,7 +1,7 @@
 import { Models, Query } from 'appwrite';
 import { AppPublicUser } from '@/@types';
 import { USER_COLLECTION_ID, AVATAR_BUCKET_ID } from '@/constants';
-import Api from '../appwrite';
+import Api from '@/classes/AppWrite';
 
 class PublicUserApi extends Api {
   constructor() {

@@ -2,7 +2,7 @@ import { v4 as uuid } from 'uuid';
 import { Models, Query } from 'appwrite';
 import { AppServerResponseOrError, Ingredient } from '@/@types';
 import { INGREDIENTS_BUCKET_ID, INGREDIENTS_COLLECTION_ID } from '@/constants';
-import Api from '@/api/appwrite';
+import Api from '@/classes/AppWrite';
 import ingredientsFallbackUrl from '/ingredients-fallback.webp';
 
 class IngredientsApi extends Api {

@@ -2,7 +2,7 @@ import { v4 as uuid } from 'uuid';
 import { Models, Query } from 'appwrite';
 import { Recipe, Ingredient, SerializedRecipe } from '@/@types';
 import { RECIPE_BUCKET_ID, RECIPES_COLLECTION_ID } from '@/constants';
-import Api from '@/api/appwrite';
+import Api from '@/classes/AppWrite';
 import { removeDuplicates } from '@/util/array_util';
 
 import categoriesApi from './recipeCategories.api';

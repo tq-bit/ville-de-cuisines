@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { Ingredient, AppGalleryItemType } from '@/@types/index';
-import ingredientsApi from '@/api/resources/ingredients.api';
+import ingredientsApi from '@/api/ingredients.api';
 
 const useIngredientsStore = defineStore('ingredients', {
   state: () => ({

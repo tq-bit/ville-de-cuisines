@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { AppGalleryItemType, AppFollowEntity } from '../@types';
 import useActiveUserStore from './activeUserStore';
-import followsApi from '../api/resources/follows.api';
+import followsApi from '../api/follows.api';
 
 const useFollowsStore = defineStore('follows', {
   state: () => ({
