@@ -8,6 +8,21 @@ import {
 import recipesApi from '@/api/recipes.api';
 import categoriesApi from '@/api/recipeCategories.api';
 
+const generateRecipeText = (recipe: Recipe) => {
+  const textCalories = `${recipe.calories_per_portion} calories per portion`;
+  const textTime = `Total cooking time: ${recipe.total_cooking_time} minutes`;
+  const generateText = () => {
+    let localText = '';
+    if (recipe.calories_per_portion) {
+      localText += textCalories;
+    }
+    if (recipe.total_cooking_time) {
+      localText += `\n${textTime}`;
+    }
+    return localText;
+  };
+};
+
 const useRecipeStore = defineStore('recipes', {
   state: () => ({
     _count: 0,
@@ -61,11 +76,13 @@ const useRecipeStore = defineStore('recipes', {
     publicRecipesByCategoryForGallery: (state) => {
       return (categoryId: string) => {
         return state._publicRecipesByCategory[categoryId].map((recipe) => {
+          const text = generateRecipeText(recipe);
           return {
             $id: recipe.$id,
             src: recipe.primary_image_href,
             alt: recipe.name,
             title: recipe.name,
+            text,
           } as AppGalleryItemType;
         });
       };
@@ -74,11 +91,13 @@ const useRecipeStore = defineStore('recipes', {
     publicRecipesByUserForGallery: (state) => {
       return (userId: string) => {
         return state._publicRecipesByUser[userId].map((recipe) => {
+          const text = generateRecipeText(recipe);
           return {
             $id: recipe.$id,
             src: recipe.primary_image_href,
             alt: recipe.name,
             title: recipe.name,
+            text,
           } as AppGalleryItemType;
         });
       };
@@ -86,26 +105,28 @@ const useRecipeStore = defineStore('recipes', {
 
     publicRecipesByIngredientForGallery: (state) => {
       return (ingredientId: string) => {
-        return state._publicRecipesByIngredient[ingredientId].map(
-          (ingredient) => {
-            return {
-              $id: ingredient.$id,
-              src: ingredient.primary_image_href,
-              alt: ingredient.name,
-              title: ingredient.name,
-            } as AppGalleryItemType;
-          },
-        );
+        return state._publicRecipesByIngredient[ingredientId].map((recipe) => {
+          const text = generateRecipeText(recipe);
+          return {
+            $id: recipe.$id,
+            src: recipe.primary_image_href,
+            alt: recipe.name,
+            title: recipe.name,
+            text,
+          } as AppGalleryItemType;
+        });
       };
     },
 
     publicUserRecipesForGallery: (state) => {
       return state._publicUserRecipes.map((recipe) => {
+        const text = generateRecipeText(recipe);
         return {
           $id: recipe.$id,
           src: recipe.primary_image_href,
           alt: recipe.name,
           title: recipe.name,
+          text,
         } as AppGalleryItemType;
       });
     },
@@ -123,11 +144,13 @@ const useRecipeStore = defineStore('recipes', {
 
     publicRecipeSearchResultsForGallery: (state) => {
       return state._publicRecipeSearchResults.map((recipe) => {
+        const text = generateRecipeText(recipe);
         return {
           $id: recipe.$id,
           src: recipe.primary_image_href,
           alt: recipe.name,
           title: recipe.name,
+          text,
           type: 'recipe',
         } as AppGalleryItemType;
       });
