@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { DietEntry } from '@/@types';
-const mockPayload = ref<DietEntry[]>([
+import { AppDietEntity } from '@/@types';
+const mockPayload = ref<AppDietEntity[]>([
   {
     $id: '1',
     $collection: 'dietEntries',

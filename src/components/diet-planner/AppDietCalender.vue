@@ -1,25 +1,25 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue';
-import { DietEntry } from '@/@types';
+import { AppDietEntity } from '@/@types';
 import Week from '@/classes/calender/Week';
 
 const props = defineProps<{
-  items: DietEntry[];
+  items: AppDietEntity[];
 }>();
 
 const week = ref(new Week({ diets: props.items }));
 const dietLength = computed(() => props.items.length);
 const currentWeek = computed(() => week.value.daysWithDiet);
 
-const getBreakfasts = (dietEntries: DietEntry[]) => {
+const getBreakfasts = (dietEntries: AppDietEntity[]) => {
   return dietEntries.filter((d) => d.diet_time === 'breakfast');
 };
 
-const getLunches = (dietEntries: DietEntry[]) => {
+const getLunches = (dietEntries: AppDietEntity[]) => {
   return dietEntries.filter((d) => d.diet_time === 'lunch');
 };
 
-const getDinners = (dietEntries: DietEntry[]) => {
+const getDinners = (dietEntries: AppDietEntity[]) => {
   return dietEntries.filter((d) => d.diet_time === 'dinner');
 };
 
