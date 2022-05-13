@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch, onMounted } from 'vue';
 import { AppDietEntity, AppGalleryItemType } from '@/@types';
 import useDietStore from '@/store/dietStore';
 import useDietForm from '@/use/form/dietForm';
@@ -27,9 +27,9 @@ const onSubmit = async () => {
   date_unix.value = localDateUnix.value;
   await handleDietSubmit();
   busyIndicator.toggleLocalStatus();
+  dietStore.syncActiveUserDiets();
 };
-// 1653429600000
-// 9999999999
+onMounted(() => dietStore.syncActiveUserDiets());
 // Local Date logic
 const localDate = ref('');
 const localDateUnix = computed(() => {
@@ -41,7 +41,7 @@ const localDateUnix = computed(() => {
 // Local recipe logic
 const recipeStore = useRecipeStore();
 const query = ref('');
-const localRecipe = ref(null as AppGalleryItemType | null);
+const localRecipe = ref<AppGalleryItemType | null>(null);
 const { handleSearch, loading } = useLazyRecipeSearch(query);
 const onClickSearchItem = (clickedItem: AppGalleryItemType) => {
   localRecipe.value = clickedItem;
@@ -90,6 +90,6 @@ watch(query, (value) => {
       ></app-select>
       <app-button type="submit">Submit</app-button>
     </form>
-    <app-diet-calender :items="[]"></app-diet-calender>
+    <app-diet-calender :items="dietStore.activeUserDiets"></app-diet-calender>
   </app-container>
 </template>
