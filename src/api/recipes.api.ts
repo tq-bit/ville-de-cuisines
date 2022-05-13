@@ -178,7 +178,6 @@ class RecipesApi extends Api {
       recipe.user_id,
     );
 
-    // TODO: Add recipe category here
     return {
       ...deserlializedRecipe,
       primary_image_href: primaryImageHref,
