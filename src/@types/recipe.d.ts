@@ -6,7 +6,6 @@ export interface Ingredient extends Models.Document {
   quantity: number;
   quantity_unit: string;
   calories: number;
-  nutrients: string;
   primary_image_id?: string;
   primary_image_href?: string;
 }
