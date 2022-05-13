@@ -15,6 +15,10 @@ export default class Day {
     this.isToday = this.getIsToday(date);
   }
 
+  public getMidnight() {
+    return this.localTimeMidnightUnix;
+  }
+
   private getDayName(day: number) {
     if (!!day || day === 0) {
       return [

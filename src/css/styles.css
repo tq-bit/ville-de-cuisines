@@ -7,6 +7,10 @@ body {
 	font-family: "Nunito-Sans", sans-serif;
 }
 
+html.dark input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(85%);
+}
+
 h1, h2, h3, h4, h5, h6 {
 	@apply md:font-semibold;
 	font-family: "Montserrat", serif;

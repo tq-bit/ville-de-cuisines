@@ -1,6 +1,6 @@
 import { ref } from 'vue';
 import * as yup from 'yup';
-import { useForm, useField } from 'vee-validate';
+import { useForm, useField, FieldContext } from 'vee-validate';
 import { AppServerErrorResponse, AppDietEntity } from '@/@types';
 import useAppAlert from '../globalAlert';
 import { getFormErrors } from '../util/error';
@@ -11,7 +11,7 @@ import dietApi from '@/api/diet.api';
 const dietSchema = yup.object({
   $id: yup.string().optional().label('ID'),
   recipe_id: yup.string().required().label('Recipe ID'),
-  date_unix: yup.number().required().label('Date of diet'),
+  date_unix: yup.string().required().label('Date of diet'),
   diet_time: yup
     .string()
     .oneOf(useDietStore().dietTimeOptions)
@@ -28,9 +28,9 @@ export default function handleDietForm() {
   const { triggerGlobalAlert } = useAppAlert();
 
   const { value: $id } = useField('$id');
-  const { value: recipe_id } = useField('recipe_id');
-  const { value: date_unix } = useField('date_unix');
-  const { value: diet_time } = useField('diet_time');
+  const { value: recipe_id } = useField('recipe_id') as FieldContext<string>;
+  const { value: date_unix } = useField('date_unix') as FieldContext<number>;
+  const { value: diet_time } = useField('diet_time') as FieldContext<string>;
 
   const validationErrors = ref<any>(null);
   const httpError = ref<AppServerErrorResponse | null>(null);
@@ -66,10 +66,7 @@ export default function handleDietForm() {
     validationErrors.value = errors;
   };
 
-  const handleRecipeCategorySubmit = handleSubmit(
-    onValidationSuccess,
-    onValidationError,
-  );
+  const handleDietSubmit = handleSubmit(onValidationSuccess, onValidationError);
 
   return {
     $id,
@@ -79,6 +76,6 @@ export default function handleDietForm() {
     hasFormErrors,
     httpError,
     validationErrors,
-    handleRecipeCategorySubmit,
+    handleDietSubmit,
   };
 }

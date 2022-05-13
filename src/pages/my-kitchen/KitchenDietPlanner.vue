@@ -1,128 +1,56 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { AppDietEntity } from '@/@types';
-const mockPayload = ref<AppDietEntity[]>([
-  {
-    $id: '1',
-    $collection: 'dietEntries',
-    $read: ['true'],
-    $write: ['true'],
-    date_unix: 1652392800000,
-    diet_time: 'breakfast',
-    recipe_id: '1',
-    user_id: '1',
-    recipe: {
-      $id: '1',
-      $collection: 'recipes',
-      $read: ['true'],
-      $write: ['true'],
-      name: 'Eggs Benedic',
-      description: 'A delicious breakfast',
-      original_recipe_id: '2',
-      username: 'Tobi',
-      portions_count: 100,
-      user_id: '2',
-      is_public: true,
+import useDietStore from '@/store/dietStore';
+import useDietForm from '@/use/form/dietForm';
 
-      ingredients: [
-        {
-          $id: '1',
-          $collection: 'ingredients',
-          $read: ['true'],
-          $write: ['true'],
-          name: 'Eggs',
-          quantity: 2,
-          quantity_unit: 'piece',
-          calories: 12,
-          description: 'A delicious breakfast',
-        },
-      ],
-    },
-  },
-  {
-    $id: '1',
-    $collection: 'dietEntries',
-    $read: ['true'],
-    $write: ['true'],
-    date_unix: 1652392800000,
-    diet_time: 'lunch',
-    recipe_id: '1',
-    user_id: '1',
-    recipe: {
-      $id: '1',
-      $collection: 'recipes',
-      $read: ['true'],
-      $write: ['true'],
-      name: 'Eggs Benedict',
-      description: 'A delicious breakfast',
-      original_recipe_id: '2',
-      username: 'Tobi',
-      portions_count: 100,
-      user_id: '2',
-      is_public: true,
+// Diet logic
+const dietStore = useDietStore();
+const {
+  $id,
+  date_unix,
+  diet_time,
+  recipe_id,
+  handleDietSubmit,
+  hasFormErrors,
+  httpError,
+  validationErrors,
+} = useDietForm();
 
-      ingredients: [
-        {
-          $id: '1',
-          $collection: 'ingredients',
-          $read: ['true'],
-          $write: ['true'],
-          name: 'Eggs',
-          quantity: 2,
-          quantity_unit: 'piece',
-          calories: 12,
-          description: 'A delicious breakfast',
-        },
-      ],
-    },
-  },
-]);
+// Local Date logic
+const localDate = ref('');
+const localDateUnix = computed(() => {
+  const date = new Date(localDate.value);
+  date.setHours(0, 0, 0, 0);
+  return date.getTime();
+});
 
-function addItem() {
-  mockPayload.value.push({
-    $id: '1',
-    $collection: 'dietEntries',
-    $read: ['true'],
-    $write: ['true'],
-    date_unix: 1652392800000,
-    diet_time: 'dinner',
-    recipe_id: '1',
-    user_id: '1',
-    recipe: {
-      $id: '1',
-      $collection: 'recipes',
-      $read: ['true'],
-      $write: ['true'],
-      name: 'Eggs Benedict',
-      description: 'A delicious breakfast',
-      original_recipe_id: '2',
-      username: 'Tobi',
-      portions_count: 100,
-      user_id: '2',
-      is_public: true,
+// Local recipe logic
 
-      ingredients: [
-        {
-          $id: '1',
-          $collection: 'ingredients',
-          $read: ['true'],
-          $write: ['true'],
-          name: 'Eggs',
-          quantity: 2,
-          quantity_unit: 'piece',
-          calories: 12,
-          description: 'A delicious breakfast',
-        },
-      ],
-    },
-  });
-}
+const onSubmit = () => {
+  date_unix.value = localDateUnix.value;
+  console.log(date_unix);
+};
 </script>
 
 <template>
   <app-container>
-    <button @click="addItem">Add Item</button>
-    <app-diet-calender :items="mockPayload"></app-diet-calender>
+    <form @submit.prevent="onSubmit">
+      {{ diet_time }}
+      <app-input
+        v-model="localDate"
+        type="date"
+        label="Plan diet for"
+      ></app-input>
+
+      <app-select
+        label="Select a dining time"
+        v-model="diet_time"
+        :options="dietStore.dietTimeOptions"
+      ></app-select>
+      <app-button type="submit">Submit</app-button>
+    </form>
+    <app-diet-calender :items="[]"></app-diet-calender>
   </app-container>
 </template>
 
