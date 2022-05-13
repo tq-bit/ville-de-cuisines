@@ -1,8 +1,14 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
-import { AppDietEntity } from '@/@types';
+import { ref, computed, watch } from 'vue';
+import { AppDietEntity, AppGalleryItemType } from '@/@types';
 import useDietStore from '@/store/dietStore';
 import useDietForm from '@/use/form/dietForm';
+import useRecipeStore from '@/store/recipeStore';
+import useLazyRecipeSearch from '@/use/search/useLazyRecipeSearch';
+import useBusy from '@/use/useBusy';
+
+// Busy logic
+const busyIndicator = useBusy('diet-planner');
 
 // Diet logic
 const dietStore = useDietStore();
@@ -16,7 +22,14 @@ const {
   httpError,
   validationErrors,
 } = useDietForm();
-
+const onSubmit = async () => {
+  busyIndicator.toggleLocalStatus();
+  date_unix.value = localDateUnix.value;
+  await handleDietSubmit();
+  busyIndicator.toggleLocalStatus();
+};
+// 1653429600000
+// 9999999999
 // Local Date logic
 const localDate = ref('');
 const localDateUnix = computed(() => {
@@ -26,17 +39,44 @@ const localDateUnix = computed(() => {
 });
 
 // Local recipe logic
-
-const onSubmit = () => {
-  date_unix.value = localDateUnix.value;
-  console.log(date_unix);
+const recipeStore = useRecipeStore();
+const query = ref('');
+const localRecipe = ref(null as AppGalleryItemType | null);
+const { handleSearch, loading } = useLazyRecipeSearch(query);
+const onClickSearchItem = (clickedItem: AppGalleryItemType) => {
+  localRecipe.value = clickedItem;
+  recipe_id.value = clickedItem.$id;
 };
+
+watch(query, (value) => {
+  handleSearch(value);
+});
 </script>
 
 <template>
   <app-container>
+    <app-alert class="mb-6" v-if="hasFormErrors" variant="error">
+      <ul>
+        <li>{{ httpError?.message }}</li>
+        <li v-for="(error, idx) in validationErrors" :key="idx">
+          {{ error }}
+        </li>
+      </ul>
+    </app-alert>
     <form @submit.prevent="onSubmit">
-      {{ diet_time }}
+      <app-search
+        @click-item="onClickSearchItem"
+        :loading="loading"
+        size="small"
+        v-model="query"
+        :options="recipeStore.publicRecipeSearchResultsForGallery"
+        label="Search for recipes"
+      ></app-search>
+
+      <transition name="grow-top">
+        <app-feed-item v-if="localRecipe" :item="localRecipe"></app-feed-item>
+      </transition>
+
       <app-input
         v-model="localDate"
         type="date"
@@ -53,5 +93,3 @@ const onSubmit = () => {
     <app-diet-calender :items="[]"></app-diet-calender>
   </app-container>
 </template>
-
-<style scoped></style>

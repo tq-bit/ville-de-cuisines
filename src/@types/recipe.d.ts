@@ -37,6 +37,8 @@ export interface Recipe extends Models.Document {
   total_calories?: number;
   preparation_time_minutes?: number;
   cooking_time_minutes?: number;
+  total_cooking_time?: number;
+  calories_per_portion?: number;
 }
 
 export interface RecipeMap {
@@ -62,4 +64,6 @@ export interface SerializedRecipe extends Models.Document {
   total_calories?: number;
   preparation_time_minutes?: number;
   cooking_time_minutes?: number;
+  total_cooking_time?: number;
+  calories_per_portion?: number;
 }
