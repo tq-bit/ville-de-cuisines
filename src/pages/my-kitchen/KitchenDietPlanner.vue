@@ -90,6 +90,6 @@ watch(query, (value) => {
       ></app-select>
       <app-button type="submit">Submit</app-button>
     </form>
-    <app-diet-calender :items="dietStore.activeUserDiets"></app-diet-calender>
+    <app-diet-week :items="dietStore.activeUserDiets"></app-diet-week>
   </app-container>
 </template>

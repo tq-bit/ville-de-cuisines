@@ -10,3 +10,7 @@ export interface AppDietEntity extends Models.Document {
   diet_time: DietTime;
   recipe?: Recipe;
 }
+
+export interface AppDietMap {
+  [key: string]: AppDietEntity;
+}
