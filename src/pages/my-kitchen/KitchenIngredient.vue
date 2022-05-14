@@ -76,7 +76,6 @@ onMounted(async () => await ingredientsStore.syncIngredients());
   <app-container class="mt-4">
     <h1>
       <span> 🍲 Create a new ingredient</span>
-      <button @click="busyIndicator.toggleLocalStatus()">Toggle Loading</button>
     </h1>
     <app-alert class="mb-6" v-if="hasFormErrors" variant="error">
       <ul>
