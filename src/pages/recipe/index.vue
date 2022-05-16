@@ -74,9 +74,12 @@ onMounted(async () => {
 });
 
 onUpdated(async () => {
-  await setLocalRecipe(router.currentRoute.value.params.recipeId as string);
-  await setLocalRecipeSuggestions(suggestionCount.value);
-  await setLocalRecipeByUser();
+  window.scroll({ top: 0, behavior: 'smooth' });
+  await Promise.all([
+    setLocalRecipe(router.currentRoute.value.params.recipeId as string),
+    setLocalRecipeSuggestions(suggestionCount.value),
+    setLocalRecipeByUser(),
+  ]);
 });
 
 // Ingredients & nutrients logic
@@ -154,10 +157,10 @@ const computeIngredientCountForPortion = (ingredient: Ingredient) => {
               </span>
             </div>
 
-            <div class="max-w-xs">
+            <div class="w-1/2 text-right">
               <app-button
+                variant="link"
                 size="small"
-                block
                 v-if="activeUserIsSubmitter"
                 @click="
                   router.push({ path: `/my-kitchen/recipe/${router.currentRoute.value.params.recipeId as string}/edit` })
@@ -166,9 +169,9 @@ const computeIngredientCountForPortion = (ingredient: Ingredient) => {
               >
 
               <app-button
+                variant="link"
                 size="small"
                 v-else
-                block
                 @click="
                   router.push({ path: `/my-kitchen/recipe/${router.currentRoute.value.params.recipeId as string}/refine` })
                 "
@@ -179,8 +182,7 @@ const computeIngredientCountForPortion = (ingredient: Ingredient) => {
               <app-button
                 variant="link"
                 size="small"
-                block
-                class="mt-2"
+                class="ml-2"
                 @click="
                   router.push({
                     path: '/my-kitchen/diet/create',
