@@ -1,7 +1,7 @@
 <script setup lang="ts">
 withDefaults(
   defineProps<{
-    variant?: 'default' | 'warning' | 'warning-outline' | 'ghost';
+    variant?: 'default' | 'warning' | 'warning-outline' | 'link';
     block?: boolean;
     loading?: boolean;
     link?: string;
@@ -31,6 +31,7 @@ withDefaults(
       'opacity-60': loading,
       'h-10': size === 'medium',
       'text-sm': size === 'small',
+      'text-green-500 dark:text-green-700': variant === 'link',
     }"
     :disabled="loading"
     :aria-disabled="loading"
