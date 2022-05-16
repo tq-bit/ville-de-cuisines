@@ -173,14 +173,18 @@ const computeIngredientCountForPortion = (ingredient: Ingredient) => {
               </app-button>
             </div>
           </div>
-          <app-pill
-            v-if="localRecipe?.preparation_time_minutes"
-            :text="`Preparation: ${localRecipe?.preparation_time_minutes} min.`"
-          ></app-pill>
-          <app-pill
-            v-if="localRecipe?.cooking_time_minutes"
-            :text="`Cooking: ${localRecipe?.cooking_time_minutes} min.`"
-          ></app-pill>
+          <app-tag class="mr-2" v-if="localRecipe?.cooking_time_minutes">
+            <i-clock></i-clock>
+            <span class="ml-1"
+              >{{ localRecipe.cooking_time_minutes }} min.</span
+            >
+          </app-tag>
+          <app-tag v-if="localRecipe?.calories_per_portion">
+            <i-fire></i-fire>
+            <span class="ml-1"
+              >{{ localRecipe.calories_per_portion }} kcal</span
+            >
+          </app-tag>
         </section>
 
         <section class="mt-6">
@@ -200,7 +204,6 @@ const computeIngredientCountForPortion = (ingredient: Ingredient) => {
           </div>
 
           <app-ingredient-list
-            :show-calories="true"
             :editable="false"
             :ingredients="computedIngredients"
           ></app-ingredient-list>
