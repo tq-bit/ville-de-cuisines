@@ -63,7 +63,7 @@ onMounted(
 <template>
   <app-grid class="mt-4" variant="sidebar-left">
     <template v-slot:left>
-      <app-card block>
+      <app-card class="hidden md:block" block>
         <svg-cooking-management
           class="mx-auto mb-4 w-10/12"
         ></svg-cooking-management>
@@ -103,6 +103,18 @@ onMounted(
         @click="onGalleryItemClick"
         @click-create="router.push({ path: '/my-kitchen/recipe' })"
       ></app-gallery>
+
+      <app-toolbar class="md:hidden">
+        <app-button size="small" @click="navToRecipeCreation">
+          New recipe</app-button
+        >
+        <app-button size="small" @click="navToRecipeCategoryCreation">
+          New category</app-button
+        >
+        <app-button size="small" @click="navToIngredientCreation">
+          Ingredients</app-button
+        >
+      </app-toolbar>
     </template>
   </app-grid>
 </template>

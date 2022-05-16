@@ -45,6 +45,7 @@ declare module '@vue/runtime-core' {
     AppSwitch: typeof import('./src/components/form/AppSwitch.vue')['default']
     AppTag: typeof import('./src/components/lists/pills/AppTag.vue')['default']
     AppTextArea: typeof import('./src/components/form/AppTextArea.vue')['default']
+    AppToolbar: typeof import('./src/components/layout/toolbar/AppToolbar.vue')['default']
     DietPlanner: typeof import('./src/components/diet-planner/index.vue')['default']
     IClock: typeof import('./src/components/assets/icons/iClock.vue')['default']
     IClose: typeof import('./src/components/assets/icons/iClose.vue')['default']
