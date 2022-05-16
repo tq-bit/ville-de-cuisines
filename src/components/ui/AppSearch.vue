@@ -81,7 +81,7 @@ const onBlur = () =>
     <transition name="grow-top">
       <div
         v-if="isLoadingOrHasResults"
-        class="w-full py-1 px-2"
+        class="max-h-96 w-full overflow-y-scroll py-1 px-2"
         :class="{
           'absolute top-11 border-b-2 border-green-600 bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200':
             size === 'small',

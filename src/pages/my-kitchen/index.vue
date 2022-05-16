@@ -87,7 +87,7 @@ onMounted(
         </transition>
       </router-view>
 
-      <h2>My week</h2>
+      <h2>This week's diet plan</h2>
       <app-diet-week
         @click-day="onClickDay"
         @click-delete="onClickDelete"
@@ -95,7 +95,7 @@ onMounted(
         :items="dietStore.activeUserDiets"
       ></app-diet-week>
 
-      <h2>My recipes</h2>
+      <h2>Your recipes</h2>
       <app-gallery
         variant="recipe"
         :columns="3"

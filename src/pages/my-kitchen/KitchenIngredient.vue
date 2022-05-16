@@ -168,9 +168,9 @@ onMounted(async () => await ingredientsStore.syncIngredients());
 
     <app-search
       size="small"
-      v-model="ingredientsQuery"
       label-prefix="Start typing to  "
       label="Search for ingredients"
+      v-model="ingredientsQuery"
       :options="ingredientsStore.ingredientSearchResultsForGallery"
       :loading="loading"
     ></app-search>
