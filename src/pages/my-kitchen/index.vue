@@ -3,12 +3,14 @@ import { onMounted } from 'vue';
 import { AppGalleryItemType } from '../../@types';
 import useRecipeStore from '../../store/recipeStore';
 import useActiveUserStore from '../../store/activeUserStore';
+import useDietStore from '@/store/dietStore';
 
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const recipeStore = useRecipeStore();
 const activeUserStore = useActiveUserStore();
+const dietStore = useDietStore();
 
 const onGalleryItemClick = (payload: AppGalleryItemType) => {
   router.push({
@@ -34,7 +36,10 @@ const navToDietPlanner = () => {
 
 onMounted(
   async () =>
-    await recipeStore.syncActiveUserRecipes(activeUserStore.account.$id),
+    await Promise.all([
+      recipeStore.syncActiveUserRecipes(activeUserStore.account.$id),
+      dietStore.syncActiveUserDiets(),
+    ]),
 );
 </script>
 
@@ -67,7 +72,14 @@ onMounted(
           <component :is="Component" />
         </transition>
       </router-view>
-      <h1>My recipes</h1>
+
+      <h2>My week</h2>
+      <app-diet-week
+        class="mb-4"
+        :items="dietStore.activeUserDiets"
+      ></app-diet-week>
+
+      <h2>My recipes</h2>
       <app-gallery
         variant="recipe"
         :columns="3"
