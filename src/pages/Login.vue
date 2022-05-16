@@ -36,7 +36,7 @@ const togglePasswordInputType = () => {
 
 <template>
   <app-container page>
-    <app-card title="Login to iCuisine" class="mt-12">
+    <app-card title="Login" class="mt-12">
       <app-alert class="mb-6" v-if="hasFormErrors" :variant="alertVariant">
         <ul>
           <li>{{ httpError?.message }} {{ httpError?.code }}</li>
@@ -69,12 +69,15 @@ const togglePasswordInputType = () => {
           </template>
         </app-input>
 
-        <app-button block outline type="submit">Log in!</app-button>
-
-        <router-link
-          to="/signup"
-          class="mx-auto mt-2 block w-full text-center text-green-600"
-          >Not registered yet? Sign up</router-link
+        <app-button class="mb-2" block outline type="submit"
+          >Log in!</app-button
+        >
+        <app-button
+          block
+          type="button"
+          variant="link"
+          @click="router.push({ path: '/signup' })"
+          >Not registered yet? Sign up</app-button
         >
       </form>
     </app-card>
