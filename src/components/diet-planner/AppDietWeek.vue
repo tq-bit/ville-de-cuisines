@@ -20,12 +20,13 @@ watch(dietLength, () => {
 </script>
 
 <template>
-  <div class="table-shade max-w-full overflow-x-scroll rounded">
-    <table class="whitespace-nowrap">
+  <div class="max-w-full overflow-x-auto rounded">
+    <table class="min-w-full whitespace-nowrap">
       <thead
         class="bg-gradient-to-b from-green-400 to-green-600 text-center align-text-top font-semibold text-gray-50 dark:from-green-500 dark:to-green-800"
       >
         <tr>
+          <td>Day time</td>
           <td v-for="day in currentWeek" :key="day.localTimeMidnightUnix">
             {{ day.dayName }}
           </td>

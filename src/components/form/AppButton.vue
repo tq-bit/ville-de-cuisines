@@ -21,9 +21,9 @@ withDefaults(
     :class="{
       'bg-gradient-to-bl from-green-400 to-green-500 text-gray-50  dark:from-green-600 dark:to-green-700':
         variant === 'default',
-      'bg-gradient-to-bl from-orange-400 to-orange-500 text-gray-50  dark:from-orange-600 dark:to-orange-700':
+      'bg-gradient-to-bl from-amber-400 to-amber-500 text-gray-50  dark:from-amber-600 dark:to-amber-700':
         variant === 'warning',
-      'border-2  border-orange-500 text-orange-500 hover:border-0 hover:bg-gradient-to-bl hover:from-orange-400 hover:to-orange-500 hover:text-gray-50 dark:border-orange-700 dark:text-orange-700 hover:dark:from-orange-600 hover:dark:to-orange-700 hover:dark:text-gray-50':
+      'border-2  border-amber-500 text-amber-500 hover:border-0 hover:bg-gradient-to-bl hover:from-amber-400 hover:to-amber-500 hover:text-gray-50 dark:border-amber-700 dark:text-amber-700 hover:dark:from-amber-600 hover:dark:to-amber-700 hover:dark:text-gray-50':
         variant === 'warning-outline',
       'w-full text-center': block,
       'opacity-60': loading,

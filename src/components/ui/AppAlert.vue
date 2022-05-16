@@ -14,7 +14,7 @@ withDefaults(defineProps<AlertProps>(), {
     class="w-full rounded border p-2 text-gray-100"
     :class="{
       'border-blue-300 bg-blue-500': variant === 'info',
-      'border-orange-300 bg-orange-500': variant === 'error',
+      'border-amber-300 bg-amber-500': variant === 'error',
       'border-green-300 bg-green-500': variant === 'success',
     }"
   >

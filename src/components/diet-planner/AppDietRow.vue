@@ -29,6 +29,10 @@ const localDietTimeText = computed(() => {
 
 <template>
   <tr>
+    <td class="border-b border-gray-300 p-2 text-center dark:border-gray-700">
+      <b>{{ localDietTimeText }}</b>
+    </td>
+
     <td
       v-for="day in currentWeek"
       class="border-b border-gray-300 p-2 text-center dark:border-gray-700"
@@ -37,16 +41,18 @@ const localDietTimeText = computed(() => {
         'bg-gray-300 dark:bg-gray-700': day.isToday,
       }"
     >
-      <!-- TODO: Abstract this link into a separate component -->
       <div v-if="getDiets(day.diets).length > 0">
         <span
           v-for="diet in getDiets(day.diets)"
           :key="diet.$id"
-          class="mx-1 rounded border-b p-2 text-xs text-gray-50"
+          class="mx-1 rounded border-b p-2 text-sm text-gray-50"
           :class="{
-            'border-blue-800 bg-blue-600': dietDayTime === 'breakfast',
-            'border-fuchsia-800 bg-fuchsia-600': dietDayTime === 'lunch',
-            'border-red-800 bg-red-600': dietDayTime === 'dinner',
+            ' border-sky-600 bg-sky-400 dark:border-sky-800 dark:bg-sky-600':
+              dietDayTime === 'breakfast',
+            ' border-amber-600 bg-amber-400 dark:border-amber-800 dark:bg-amber-600':
+              dietDayTime === 'lunch',
+            ' border-rose-600 bg-rose-400 dark:border-rose-800 dark:bg-rose-600':
+              dietDayTime === 'dinner',
           }"
         >
           <router-link :to="`/recipe/${diet.recipe?.$id}`">
@@ -54,21 +60,29 @@ const localDietTimeText = computed(() => {
           </router-link>
           <i-close
             @click="emit('click-delete', diet.$id)"
-            class="inline"
+            class="inline cursor-pointer"
           ></i-close>
         </span>
       </div>
 
-      <h4
+      <button
+        class="rounded border px-4 py-1 text-sm font-semibold text-gray-50"
+        :class="{
+          'border-sky-400 text-sky-400 dark:border-sky-800 dark:text-sky-600':
+            dietDayTime === 'breakfast',
+          'border-amber-400 text-amber-400 dark:border-amber-800  dark:text-amber-600':
+            dietDayTime === 'lunch',
+          'border-rose-400 text-rose-400 dark:border-rose-800 dark:text-rose-600':
+            dietDayTime === 'dinner',
+        }"
         v-else
         @click="
           emit('click-day', { time: dietDayTime, date: day.localDateString })
         "
-        class="mb-0 block cursor-pointer p-2 text-sm"
         :title="`Plan your ${localDietTimeText} on ${day.localDateString}`"
       >
-        Add {{ localDietTimeText }}
-      </h4>
+        Add
+      </button>
     </td>
   </tr>
 </template>

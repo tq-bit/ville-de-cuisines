@@ -30,8 +30,13 @@ const onClickDay = (payload: DietDayQuery) => {
 };
 
 const onClickDelete = async (id: string) => {
-  await dietApi.deleteDiet(id);
-  await dietStore.syncActiveUserDiets();
+  const deletionConfirmed = window.confirm(
+    'Are you sure you want to delete this diet?',
+  );
+  if (deletionConfirmed) {
+    await dietApi.deleteDiet(id);
+    await dietStore.syncActiveUserDiets();
+  }
 };
 
 const navToRecipeCreation = () => {
