@@ -10,7 +10,10 @@ import dietApi from '@/api/diet.api';
 
 const dietSchema = yup.object({
   $id: yup.string().optional().label('ID'),
-  recipe_id: yup.string().required().label('Recipe ID'),
+  recipe_id: yup
+    .string()
+    .required('Please choose a recipe for this day')
+    .label('Recipe ID'),
   date_unix: yup.string().required().label('Date of diet'),
   diet_time: yup
     .string()

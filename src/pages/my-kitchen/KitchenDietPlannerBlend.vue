@@ -29,9 +29,11 @@ const onSubmit = async () => {
   busyIndicator.toggleLocalStatus();
   date_unix.value = localDateUnix.value;
   await handleDietSubmit();
+  if (!hasFormErrors.value && !httpError.value) {
+    dietStore.syncActiveUserDiets();
+    router.go(-1);
+  }
   busyIndicator.toggleLocalStatus();
-  dietStore.syncActiveUserDiets();
-  router.go(-1);
 };
 onMounted(() => dietStore.syncActiveUserDiets());
 
