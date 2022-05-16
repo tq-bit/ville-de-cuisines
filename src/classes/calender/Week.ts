@@ -1,11 +1,11 @@
-import { AppDietEntity, DayWithDiet } from '@/@types';
+import { DietEntry, DayWithDiet } from '@/@types';
 import Day from './Day';
 
 const oneHour = 24 * 60 * 60 * 1000;
 
 interface WeekConstructor {
   timestamp?: number;
-  diets?: AppDietEntity[];
+  diets?: DietEntry[];
 }
 
 export default class Week {
@@ -19,7 +19,7 @@ export default class Week {
     this.daysWithDiet = this.mapDietToWeekdays(options?.diets || []);
   }
 
-  public mapDietToWeekdays(payload: AppDietEntity[]) {
+  public mapDietToWeekdays(payload: DietEntry[]) {
     return this.days.map((day) => {
       const localDay = { ...day };
       localDay.diets = payload.filter(

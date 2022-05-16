@@ -3,7 +3,7 @@ import { Recipe } from './recipe';
 
 export type DietDayTime = 'breakfast' | 'lunch' | 'dinner' | 'snacks';
 
-export interface AppDietEntity extends Models.Document {
+export interface DietEntry extends Models.Document {
   user_id: string;
   recipe_id: string;
   date_unix: number;
@@ -12,7 +12,7 @@ export interface AppDietEntity extends Models.Document {
 }
 
 export interface AppDietMap {
-  [key: string]: AppDietEntity;
+  [key: string]: DietEntry;
 }
 
 export interface DayWithDiet {
@@ -21,7 +21,7 @@ export interface DayWithDiet {
   localTimeMidnightUnix?: number;
   timezoneOffsetSeconds?: number;
   isToday?: boolean;
-  diets: AppDietEntity[];
+  diets: DietEntry[];
 }
 
 export interface DietDayQuery {

@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia';
 import useActiveUserStore from './activeUserStore';
 import dietApi from '@/api/diet.api';
-import { AppDietEntity } from '@/@types';
+import { DietEntry } from '@/@types';
 
 const useDietStore = defineStore('diet', {
   state: () => ({
-    _activeUserDiets: [] as AppDietEntity[],
+    _activeUserDiets: [] as DietEntry[],
     _dietDayTimeOptions: ['breakfast', 'lunch', 'dinner', 'snacks'],
   }),
 
@@ -19,7 +19,7 @@ const useDietStore = defineStore('diet', {
       const activeUserStore = useActiveUserStore();
       const userId = activeUserStore.account.$id;
       const [diets, error] = await dietApi.fetchDietsByUserId(userId);
-      this._activeUserDiets = diets as AppDietEntity[];
+      this._activeUserDiets = diets as DietEntry[];
     },
   },
 });

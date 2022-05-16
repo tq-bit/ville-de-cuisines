@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue';
-import { AppDietEntity, DietDayQuery } from '@/@types';
+import { DietEntry, DietDayQuery, DietDayTime } from '@/@types';
 import Week from '@/classes/calender/Week';
 
-const props = defineProps<{ items: AppDietEntity[] }>();
+const props = defineProps<{ items: DietEntry[] }>();
 const emit = defineEmits<{
   (event: 'click-day', payload: DietDayQuery): void;
+  (event: 'click-delete', payload: string): void;
 }>();
 
+const dietDayTimes: DietDayTime[] = ['breakfast', 'lunch', 'dinner'];
 const week = ref(new Week({ diets: props.items }));
 const dietLength = computed(() => props.items.length);
 const currentWeek = computed(() => week.value.daysWithDiet);
@@ -21,7 +23,7 @@ watch(dietLength, () => {
   <div class="table-shade max-w-full overflow-x-scroll rounded">
     <table class="whitespace-nowrap">
       <thead
-        class="bg-gradient-to-bl from-green-400 to-green-500 align-text-top font-semibold text-gray-50 dark:bg-green-600 dark:from-green-600 dark:to-green-700"
+        class="bg-gradient-to-b from-green-400 to-green-600 text-center align-text-top font-semibold text-gray-50 dark:from-green-500 dark:to-green-800"
       >
         <tr>
           <td v-for="day in currentWeek" :key="day.localTimeMidnightUnix">
@@ -31,21 +33,12 @@ watch(dietLength, () => {
       </thead>
       <tbody>
         <app-diet-row
-          diet-day-time="breakfast"
+          v-for="dietDayTime in dietDayTimes"
+          :key="dietDayTime"
+          :diet-day-time="dietDayTime"
+          :currentWeek="currentWeek"
           @click-day="(payload) => emit('click-day', payload)"
-          :current-week="currentWeek"
-        ></app-diet-row>
-
-        <app-diet-row
-          diet-day-time="lunch"
-          @click-day="(payload) => emit('click-day', payload)"
-          :current-week="currentWeek"
-        ></app-diet-row>
-
-        <app-diet-row
-          diet-day-time="dinner"
-          @click-day="(payload) => emit('click-day', payload)"
-          :current-week="currentWeek"
+          @click-delete="(id) => emit('click-delete', id)"
         ></app-diet-row>
       </tbody>
     </table>
@@ -57,6 +50,6 @@ td {
   @apply p-2 align-baseline;
 }
 .table-shade {
-  box-shadow: inset 0 0 12px 12px rgba(200, 200, 200, 0.25);
+  box-shadow: inset -10px 12px 12px 2px rgba(125, 125, 125, 0.25);
 }
 </style>

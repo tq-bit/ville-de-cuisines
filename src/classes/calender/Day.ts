@@ -1,11 +1,11 @@
-import { AppDietEntity } from '@/@types';
+import { DietEntry } from '@/@types';
 
 export default class Day {
   dayName?: string;
   localTimeMidnightUnix: number;
   timezoneOffsetSeconds?: number;
   isToday?: boolean;
-  diets: AppDietEntity[] = [];
+  diets: DietEntry[] = [];
   localDateString: string;
 
   constructor(timestamp: number) {

@@ -1,10 +1,5 @@
 <script setup lang="ts">
-import {
-  DietDayTime,
-  DayWithDiet,
-  AppDietEntity,
-  DietDayQuery,
-} from '@/@types';
+import { DietDayTime, DayWithDiet, DietEntry, DietDayQuery } from '@/@types';
 import { computed } from 'vue';
 
 const props = defineProps<{
@@ -14,9 +9,10 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   (event: 'click-day', payload: DietDayQuery): void;
+  (event: 'click-delete', payload: string): void;
 }>();
 
-const getDiets = (dietEntries: AppDietEntity[]) => {
+const getDiets = (dietEntries: DietEntry[]) => {
   return dietEntries.filter((d) => d.diet_time === props.dietDayTime);
 };
 
@@ -35,28 +31,32 @@ const localDietTimeText = computed(() => {
   <tr>
     <td
       v-for="day in currentWeek"
-      class="border-b border-gray-300 p-2 align-top dark:border-gray-700"
+      class="border-b border-gray-300 p-2 text-center dark:border-gray-700"
       :key="day.localTimeMidnightUnix"
       :class="{
-        'bg-green-300 dark:bg-gray-700': day.isToday,
+        'bg-gray-300 dark:bg-gray-700': day.isToday,
       }"
     >
       <!-- TODO: Abstract this link into a separate component -->
       <div v-if="getDiets(day.diets).length > 0">
-        <router-link
-          class="rounded border-b p-2 text-xs"
+        <span
+          v-for="diet in getDiets(day.diets)"
+          :key="diet.$id"
+          class="mx-1 rounded border-b p-2 text-xs text-gray-50"
           :class="{
             'border-blue-800 bg-blue-600': dietDayTime === 'breakfast',
             'border-fuchsia-800 bg-fuchsia-600': dietDayTime === 'lunch',
             'border-red-800 bg-red-600': dietDayTime === 'dinner',
           }"
-          v-for="diet in getDiets(day.diets)"
-          :key="diet.$id"
-          :to="`/recipe/${diet.recipe?.$id}`"
         >
-          {{ diet.recipe?.name }}
-          <i-close class="mb-1 inline h-4 w-4"></i-close>
-        </router-link>
+          <router-link :to="`/recipe/${diet.recipe?.$id}`">
+            {{ diet.recipe?.name }}
+          </router-link>
+          <i-close
+            @click="emit('click-delete', diet.$id)"
+            class="inline"
+          ></i-close>
+        </span>
       </div>
 
       <h4
@@ -64,7 +64,7 @@ const localDietTimeText = computed(() => {
         @click="
           emit('click-day', { time: dietDayTime, date: day.localDateString })
         "
-        class="mb-2 cursor-pointer text-sm"
+        class="mb-0 block cursor-pointer p-2 text-sm"
         :title="`Plan your ${localDietTimeText} on ${day.localDateString}`"
       >
         Add {{ localDietTimeText }}

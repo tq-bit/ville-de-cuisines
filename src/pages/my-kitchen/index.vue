@@ -4,6 +4,7 @@ import { AppGalleryItemType, DietDayQuery } from '../../@types';
 import useRecipeStore from '../../store/recipeStore';
 import useActiveUserStore from '../../store/activeUserStore';
 import useDietStore from '@/store/dietStore';
+import dietApi from '@/api/diet.api';
 
 import { useRouter } from 'vue-router';
 
@@ -26,6 +27,11 @@ const onClickDay = (payload: DietDayQuery) => {
       time: payload.time,
     },
   });
+};
+
+const onClickDelete = async (id: string) => {
+  await dietApi.deleteDiet(id);
+  await dietStore.syncActiveUserDiets();
 };
 
 const navToRecipeCreation = () => {
@@ -79,6 +85,7 @@ onMounted(
       <h2>My week</h2>
       <app-diet-week
         @click-day="onClickDay"
+        @click-delete="onClickDelete"
         class="mb-4"
         :items="dietStore.activeUserDiets"
       ></app-diet-week>

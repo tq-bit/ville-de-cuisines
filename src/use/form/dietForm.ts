@@ -1,7 +1,7 @@
 import { ref } from 'vue';
 import * as yup from 'yup';
 import { useForm, useField, FieldContext } from 'vee-validate';
-import { AppServerErrorResponse, AppDietEntity } from '@/@types';
+import { AppServerErrorResponse, DietEntry } from '@/@types';
 import useAppAlert from '../globalAlert';
 import { getFormErrors } from '../util/error';
 import useActiveUserStore from '@/store/activeUserStore';
@@ -38,7 +38,7 @@ export default function handleDietForm() {
 
   const hasFormErrors = getFormErrors(validationErrors, httpError);
 
-  const handleDietCreate = async (payload: AppDietEntity) => {
+  const handleDietCreate = async (payload: DietEntry) => {
     httpError.value = null;
     payload.user_id = activeUserStore.account.$id;
     const [response, error] = await dietApi.createDiet(payload);
@@ -55,7 +55,7 @@ export default function handleDietForm() {
     }
   };
 
-  const onValidationSuccess = async (payload: AppDietEntity | any) => {
+  const onValidationSuccess = async (payload: DietEntry | any) => {
     loading.value = true;
     validationErrors.value = null;
     await handleDietCreate(payload);
