@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue';
 import { useRouter } from 'vue-router';
-import { getSearchPathFromGalleryItem } from '../../../router/globalSearchPathMap';
-import useIngredientsStore from '../../../store/ingredientsStore';
-import useRecipeStore from '../../../store/recipeStore';
-import usePublicUserStore from '../../../store/publicUserStore';
+import { AppGalleryItemType } from '@/@types';
 
-import useLazyRecipeSearch from '../../../use/search/useLazyRecipeSearch';
-import useLazyIngredientSearch from '../../../use/search/useLazyIngredientSearch';
-import useLazyCategorySearch from '../../../use/search/useLazyCategorySearch';
-import useLazyPublicUserSearch from '../../../use/search/useLazyPublicUserSearch';
+import { getSearchPathFromGalleryItem } from '@/router/globalSearchPathMap';
+import useIngredientsStore from '@/store/ingredientsStore';
+import useRecipeStore from '@/store/recipeStore';
+import usePublicUserStore from '@/store/publicUserStore';
 
-import { AppGalleryItemType } from '../../../@types';
+import useLazyRecipeSearch from '@/use/search/useLazyRecipeSearch';
+import useLazyIngredientSearch from '@/use/search/useLazyIngredientSearch';
+import useLazyCategorySearch from '@/use/search/useLazyCategorySearch';
+import useLazyPublicUserSearch from '@/use/search/useLazyPublicUserSearch';
 
 const ingredientsStore = useIngredientsStore();
 const recipeStore = useRecipeStore();
@@ -61,13 +61,14 @@ watch(query, (value) => {
 
 <template>
   <app-search
-    @click-item="onClickSearchItem"
-    :loading="loading"
     size="small"
     v-model="query"
-    :options="results"
     label="Find recipes, ingredients or chefs"
+    :loading="loading"
+    :options="results"
     :hide-label="true"
+    :hide-text="true"
+    @click-item="onClickSearchItem"
   ></app-search>
 </template>
 
