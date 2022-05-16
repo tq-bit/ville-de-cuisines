@@ -85,13 +85,18 @@ onMounted(() => {
 
       <form @submit.prevent="onSubmit">
         <app-search
-          @click-item="onClickSearchItem"
-          :loading="loading"
+          label="Search for recipes"
           size="small"
           v-model="query"
+          @click-item="onClickSearchItem"
+          :hide-text="true"
+          :loading="loading"
           :options="recipeStore.publicRecipeSearchResultsForGallery"
-          label="Search for recipes"
         ></app-search>
+
+        <transition name="grow-top">
+          <app-feed-item v-if="localRecipe" :item="localRecipe"></app-feed-item>
+        </transition>
 
         <app-input
           v-model="localDate"
@@ -104,12 +109,17 @@ onMounted(() => {
           v-model="diet_time"
           :options="dietStore.dietDayTimeOptions"
         ></app-select>
-        <app-button type="submit">Submit</app-button>
-      </form>
 
-      <transition name="grow-top">
-        <app-feed-item v-if="localRecipe" :item="localRecipe"></app-feed-item>
-      </transition>
+        <app-button block type="submit">Add {{ diet_time }} </app-button>
+        <app-button
+          block
+          class="mt-2"
+          variant="warning"
+          type="button"
+          @click="router.go(-1)"
+          >Cancel
+        </app-button>
+      </form>
     </app-card>
   </app-screen-modal>
 </template>
