@@ -5,6 +5,7 @@ import AppFeedItem from './AppFeedItem.vue';
 defineProps<{
   items: AppGalleryItemType[];
   size?: 'small' | 'medium' | 'large';
+  hideText?: boolean;
 }>();
 
 const emit = defineEmits<{
@@ -24,6 +25,7 @@ const onClick = (item: AppGalleryItemType) => {
       :key="item.title"
       :item="item"
       :size="size"
+      :hideText="hideText"
     ></app-feed-item>
   </ul>
 </template>

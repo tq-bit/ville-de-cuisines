@@ -49,7 +49,7 @@ watch(dietLength, () => {
           <h4 class="mb-2 text-sm">Breakfast:</h4>
           <!-- TODO: Abstract this link into a separate component -->
           <router-link
-            class="rounded border-blue-200 bg-blue-500 p-2 text-white"
+            class="rounded border-blue-200 bg-blue-500 p-2 text-sm text-white"
             v-for="breakfast in getBreakfasts(day.diets)"
             :key="breakfast.$id"
             :to="`/recipe/${breakfast.recipe?.$id}`"
@@ -71,7 +71,7 @@ watch(dietLength, () => {
 
           <router-link
             v-for="lunch in getLunches(day.diets)"
-            class="border-fuchsia-200-200 rounded bg-fuchsia-500 p-2 text-white"
+            class="border-fuchsia-200-200 rounded bg-fuchsia-500 p-2 text-sm text-white"
             :to="`/recipe/${lunch.recipe?.$id}`"
             :key="lunch.$id"
           >
@@ -92,7 +92,7 @@ watch(dietLength, () => {
 
           <router-link
             v-for="dinner in getDinners(day.diets)"
-            class="rounded border-orange-200 bg-orange-500 p-2 text-white"
+            class="rounded border-orange-200 bg-orange-500 p-2 text-sm text-white"
             :to="`/recipe/${dinner.recipe?.$id}`"
             :key="dinner.$id"
           >
