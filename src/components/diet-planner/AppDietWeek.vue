@@ -50,7 +50,4 @@ watch(dietLength, () => {
 td {
   @apply p-2 align-baseline;
 }
-.table-shade {
-  box-shadow: inset -10px 12px 12px 2px rgba(125, 125, 125, 0.25);
-}
 </style>

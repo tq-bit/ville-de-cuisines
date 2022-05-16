@@ -35,14 +35,14 @@ const localDietTimeText = computed(() => {
 
     <td
       v-for="day in currentWeek"
-      class="border-b border-gray-300 p-2 text-center dark:border-gray-700"
+      class="border-b border-gray-300 py-4 px-6 text-center dark:border-gray-700"
       :key="day.localTimeMidnightUnix"
     >
       <div v-if="getDiets(day.diets).length > 0">
         <span
           v-for="diet in getDiets(day.diets)"
           :key="diet.$id"
-          class="mx-1 rounded border-b p-2 text-sm text-gray-50"
+          class="rounded border-b p-2 text-sm text-gray-50"
           :class="{
             ' border-sky-600 bg-sky-400 dark:border-sky-800 dark:bg-sky-600':
               dietDayTime === 'breakfast',
@@ -83,5 +83,3 @@ const localDietTimeText = computed(() => {
     </td>
   </tr>
 </template>
-
-<style scoped></style>
