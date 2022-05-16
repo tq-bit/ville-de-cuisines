@@ -10,23 +10,26 @@ const emit = defineEmits(['toggle-sidebar']);
 <template>
   <header class="pb-16 md:pb-32">
     <nav
-      class="absolute top-0 left-0 z-50 h-16 w-full border-b-2 bg-gray-50 px-4 dark:border-gray-600 dark:bg-gray-800 md:h-32 md:pb-32"
+      class="fixed top-0 left-0 z-50 h-16 w-full border-b-2 bg-gray-50 px-4 dark:border-gray-600 dark:bg-gray-800 md:h-32 md:pb-32"
     >
-      <button
-        class="my-3 block h-10 w-10 md:hidden"
-        @click="emit('toggle-sidebar')"
+      <section
+        class="mx-auto flex w-full max-w-screen-xl justify-between md:block"
       >
-        <i-menu></i-menu>
-      </button>
-
-      <section class="mx-auto w-full max-w-screen-xl">
         <!-- Icon or its placeholder -->
-        <div class="mt-4 hidden h-16 w-3/12 md:inline-block xl:w-2/12">
+        <div class="mt-2 inline-block h-16 w-3/12 md:mt-4 xl:w-2/12">
           <router-link to="/">
             <i-vdc-logo class="inline-block dark:hidden"></i-vdc-logo>
             <i-vdc-logo-dark class="hidden dark:inline-block"></i-vdc-logo-dark>
           </router-link>
         </div>
+
+        <!-- Menu button -->
+        <button
+          class="my-3 block h-10 w-10 md:hidden"
+          @click="emit('toggle-sidebar')"
+        >
+          <i-menu></i-menu>
+        </button>
 
         <!-- Applicationwide search -->
         <div class="mt-4 hidden h-16 w-6/12 md:inline-block xl:w-8/12">
