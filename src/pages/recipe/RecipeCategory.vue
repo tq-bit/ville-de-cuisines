@@ -73,6 +73,7 @@ onMounted(async () => {
 
       <template v-slot:default>
         <app-gallery
+          variant="recipe"
           :items="localRecipesByCategory"
           :cols="2"
           @click="onClickGalleryItem"

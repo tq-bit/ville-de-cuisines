@@ -74,6 +74,7 @@ onMounted(async () => {
       <template v-slot:default>
         <h1>Recipes where "{{ localIngredient?.name }}" is used:</h1>
         <app-gallery
+          variant="recipe"
           :items="localRecipesByIngredient"
           :cols="2"
           @click="onClickGalleryItem"

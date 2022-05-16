@@ -149,6 +149,7 @@ onUpdated(async () => {
         <h1>{{ publicUserStore.publicUserProfileFirstName }}'s Recipes</h1>
 
         <app-gallery
+          variant="recipe"
           :columns="3"
           :items="recipeStore.publicUserRecipesForGallery"
           @click="onGalleryItemClick"
