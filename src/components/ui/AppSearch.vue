@@ -14,8 +14,10 @@ const props = withDefaults(
     loading: boolean;
     size?: 'small' | 'medium' | 'large';
     hideText?: boolean;
+    focus?: boolean;
   }>(),
   {
+    focus: false,
     hideLabel: false,
     required: false,
     loading: false,
@@ -63,6 +65,7 @@ const onBlur = () =>
       <i-search></i-search>
     </span>
     <input
+      v-focus="focus"
       ref="searchField"
       class="input h-12 pl-14"
       :class="{

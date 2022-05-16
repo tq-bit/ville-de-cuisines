@@ -7,6 +7,7 @@ import useDietForm from '@/use/form/dietForm';
 import useRecipeStore from '@/store/recipeStore';
 import useLazyRecipeSearch from '@/use/search/useLazyRecipeSearch';
 import useBusy from '@/use/useBusy';
+import recipesApi from '@/api/recipes.api';
 
 // Busy logic
 const busyIndicator = useBusy('diet-planner');
@@ -60,9 +61,10 @@ watch(query, (value) => {
 });
 
 onMounted(() => {
-  const { query } = router.currentRoute.value;
-  diet_time.value = query.time as string;
-  localDate.value = query.date as string;
+  const { query: routerQuery } = router.currentRoute.value;
+  diet_time.value = routerQuery.time as string;
+  localDate.value = routerQuery.date as string;
+  query.value = routerQuery.name as string;
 });
 </script>
 
@@ -85,6 +87,7 @@ onMounted(() => {
 
       <form @submit.prevent="onSubmit">
         <app-search
+          focus
           label="Search for recipes"
           size="small"
           v-model="query"

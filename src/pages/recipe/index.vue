@@ -156,6 +156,8 @@ const computeIngredientCountForPortion = (ingredient: Ingredient) => {
 
             <div class="max-w-xs">
               <app-button
+                size="small"
+                block
                 v-if="activeUserIsSubmitter"
                 @click="
                   router.push({ path: `/my-kitchen/recipe/${router.currentRoute.value.params.recipeId as string}/edit` })
@@ -164,12 +166,29 @@ const computeIngredientCountForPortion = (ingredient: Ingredient) => {
               >
 
               <app-button
+                size="small"
                 v-else
+                block
                 @click="
                   router.push({ path: `/my-kitchen/recipe/${router.currentRoute.value.params.recipeId as string}/refine` })
                 "
               >
-                Refine {{ localRecipe?.name }}
+                Refine recipe
+              </app-button>
+
+              <app-button
+                variant="link"
+                size="small"
+                block
+                class="mt-2"
+                @click="
+                  router.push({
+                    path: '/my-kitchen/diet/create',
+                    query: { name: localRecipe?.name },
+                  })
+                "
+              >
+                Add to diet plan
               </app-button>
             </div>
           </div>
