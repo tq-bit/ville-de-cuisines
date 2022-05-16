@@ -5,11 +5,13 @@ withDefaults(
     block?: boolean;
     loading?: boolean;
     link?: string;
+    size?: 'small' | 'medium' | 'large';
   }>(),
   {
     variant: 'default',
     block: false,
     loading: false,
+    size: 'medium',
   },
 );
 </script>
@@ -17,7 +19,7 @@ withDefaults(
 <template>
   <button
     v-bind="$attrs"
-    class="h-10 max-w-full overflow-hidden text-ellipsis whitespace-nowrap rounded border-transparent px-4 font-semibold"
+    class="max-w-full overflow-hidden text-ellipsis whitespace-nowrap rounded border-transparent p-2 px-4 font-semibold"
     :class="{
       'bg-gradient-to-bl from-green-400 to-green-500 text-gray-50  dark:from-green-600 dark:to-green-700':
         variant === 'default',
@@ -27,6 +29,8 @@ withDefaults(
         variant === 'warning-outline',
       'w-full text-center': block,
       'opacity-60': loading,
+      'h-10': size === 'medium',
+      'text-sm': size === 'small',
     }"
     :disabled="loading"
     :aria-disabled="loading"
