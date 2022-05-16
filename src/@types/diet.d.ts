@@ -17,8 +17,14 @@ export interface AppDietMap {
 
 export interface DayWithDiet {
   dayName?: string;
+  localDateString: string;
   localTimeMidnightUnix?: number;
   timezoneOffsetSeconds?: number;
   isToday?: boolean;
   diets: AppDietEntity[];
+}
+
+export interface DietDayQuery {
+  time: DietDayTime;
+  date: string;
 }

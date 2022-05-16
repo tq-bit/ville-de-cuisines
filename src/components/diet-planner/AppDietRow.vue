@@ -1,5 +1,10 @@
 <script setup lang="ts">
-import { DietDayTime, DayWithDiet, AppDietEntity } from '@/@types';
+import {
+  DietDayTime,
+  DayWithDiet,
+  AppDietEntity,
+  DietDayQuery,
+} from '@/@types';
 import { computed } from 'vue';
 
 const props = defineProps<{
@@ -7,11 +12,15 @@ const props = defineProps<{
   currentWeek: DayWithDiet[];
 }>();
 
+const emit = defineEmits<{
+  (event: 'click-day', payload: DietDayQuery): void;
+}>();
+
 const getDiets = (dietEntries: AppDietEntity[]) => {
   return dietEntries.filter((d) => d.diet_time === props.dietDayTime);
 };
 
-const dietTime = computed(() => {
+const localDietTimeText = computed(() => {
   return props.dietDayTime === 'breakfast'
     ? 'Breakfast'
     : props.dietDayTime === 'lunch'
@@ -39,7 +48,7 @@ const dietTime = computed(() => {
           :class="{
             'border-blue-800 bg-blue-600': dietDayTime === 'breakfast',
             'border-fuchsia-800 bg-fuchsia-600': dietDayTime === 'lunch',
-            'border-red-800 bg-red-600': dietDayTime === 'lunch',
+            'border-red-800 bg-red-600': dietDayTime === 'dinner',
           }"
           v-for="diet in getDiets(day.diets)"
           :key="diet.$id"
@@ -50,7 +59,16 @@ const dietTime = computed(() => {
         </router-link>
       </div>
 
-      <h4 v-else class="mb-2 text-sm">{{ dietTime }}</h4>
+      <h4
+        v-else
+        @click="
+          emit('click-day', { time: dietDayTime, date: day.localDateString })
+        "
+        class="mb-2 cursor-pointer text-sm"
+        :title="`Plan your ${localDietTimeText} on ${day.localDateString}`"
+      >
+        Add {{ localDietTimeText }}
+      </h4>
     </td>
   </tr>
 </template>

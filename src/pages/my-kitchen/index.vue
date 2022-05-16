@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
-import { AppGalleryItemType } from '../../@types';
+import { AppGalleryItemType, DietDayQuery } from '../../@types';
 import useRecipeStore from '../../store/recipeStore';
 import useActiveUserStore from '../../store/activeUserStore';
 import useDietStore from '@/store/dietStore';
@@ -18,6 +18,16 @@ const onGalleryItemClick = (payload: AppGalleryItemType) => {
   });
 };
 
+const onClickDay = (payload: DietDayQuery) => {
+  router.push({
+    path: '/my-kitchen/diet/create',
+    query: {
+      date: payload.date,
+      time: payload.time,
+    },
+  });
+};
+
 const navToRecipeCreation = () => {
   router.push({ path: '/my-kitchen/recipe' });
 };
@@ -28,10 +38,6 @@ const navToIngredientCreation = () => {
 
 const navToRecipeCategoryCreation = () => {
   router.push({ path: '/my-kitchen/recipe-category' });
-};
-
-const navToDietPlanner = () => {
-  router.push({ path: '/my-kitchen/diet-planner' });
 };
 
 onMounted(
@@ -60,9 +66,6 @@ onMounted(
         <app-button @click="navToIngredientCreation" class="mb-4" block>
           Manage ingredients</app-button
         >
-        <app-button @click="navToDietPlanner" class="mb-4" block>
-          To diet planner</app-button
-        >
       </app-card>
     </template>
 
@@ -75,6 +78,7 @@ onMounted(
 
       <h2>My week</h2>
       <app-diet-week
+        @click-day="onClickDay"
         class="mb-4"
         :items="dietStore.activeUserDiets"
       ></app-diet-week>

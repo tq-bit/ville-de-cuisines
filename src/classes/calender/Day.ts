@@ -6,6 +6,7 @@ export default class Day {
   timezoneOffsetSeconds?: number;
   isToday?: boolean;
   diets: AppDietEntity[] = [];
+  localDateString: string;
 
   constructor(timestamp: number) {
     const date = new Date(timestamp);
@@ -13,6 +14,7 @@ export default class Day {
     this.localTimeMidnightUnix = this.setToMidnight(date).getTime();
     this.timezoneOffsetSeconds = date.getTimezoneOffset() * 60;
     this.isToday = this.getIsToday(date);
+    this.localDateString = this.getLocalDateString(date);
   }
 
   public getMidnight() {
@@ -31,6 +33,21 @@ export default class Day {
         'Saturday',
       ][day];
     }
+  }
+
+  private getLocalDateString(date: Date) {
+    const year = date.getFullYear();
+    let month = '' + (date.getMonth() + 1);
+    let day = '' + date.getDate();
+
+    if (month.length < 2) {
+      month = '0' + month;
+    }
+    if (day.length < 2) {
+      day = '0' + day;
+    }
+
+    return [year, month, day].join('-');
   }
 
   private getIsToday(then: Date) {
