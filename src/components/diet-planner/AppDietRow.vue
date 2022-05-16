@@ -37,9 +37,6 @@ const localDietTimeText = computed(() => {
       v-for="day in currentWeek"
       class="border-b border-gray-300 p-2 text-center dark:border-gray-700"
       :key="day.localTimeMidnightUnix"
-      :class="{
-        'bg-gray-300 dark:bg-gray-700': day.isToday,
-      }"
     >
       <div v-if="getDiets(day.diets).length > 0">
         <span

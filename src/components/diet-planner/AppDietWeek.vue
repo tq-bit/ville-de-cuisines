@@ -28,7 +28,7 @@ watch(dietLength, () => {
         <tr>
           <td>Day time</td>
           <td v-for="day in currentWeek" :key="day.localTimeMidnightUnix">
-            {{ day.dayName }}
+            {{ day.dayName }} <span v-if="day.isToday">(today)</span>
           </td>
         </tr>
       </thead>
