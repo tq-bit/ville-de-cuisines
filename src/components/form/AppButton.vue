@@ -31,7 +31,7 @@ withDefaults(
       'opacity-60': loading,
       'h-10': size === 'medium',
       'text-sm': size === 'small',
-      'text-green-500 dark:text-green-700': variant === 'link',
+      'text-green-400 dark:text-green-600': variant === 'link',
     }"
     :disabled="loading"
     :aria-disabled="loading"
