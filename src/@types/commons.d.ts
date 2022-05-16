@@ -15,6 +15,14 @@ export interface AppGalleryItemType {
   count?: number;
   type: AppGalleryItemEntity;
 }
+
+export interface AppGalleryRecipeItem extends AppGalleryItemType {
+  tags?: string[];
+  total_calories?: number;
+  total_cooking_time?: number;
+  calories_per_portion?: number;
+}
+
 export interface AppUploadPayload {
   fileData: File;
   fileBuffer: ArrayBuffer;

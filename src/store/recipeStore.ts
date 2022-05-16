@@ -4,7 +4,8 @@ import {
   Recipe,
   RecipeCategory,
   RecipeMap,
-} from '@/@types/index';
+  AppGalleryRecipeItem,
+} from '@/@types/';
 import recipesApi from '@/api/recipes.api';
 import categoriesApi from '@/api/recipeCategories.api';
 
@@ -21,6 +22,7 @@ const generateRecipeText = (recipe: Recipe) => {
     }
     return localText;
   };
+  return generateText();
 };
 
 const useRecipeStore = defineStore('recipes', {
@@ -53,11 +55,13 @@ const useRecipeStore = defineStore('recipes', {
 
     publicRecipesForGallery: (state) => {
       return state._publicRecipes.map((recipe) => {
+        const text = generateRecipeText(recipe);
         return {
           $id: recipe.$id,
           src: recipe.primary_image_href,
           alt: recipe.name,
           title: recipe.name,
+          text,
         } as AppGalleryItemType;
       });
     },
@@ -69,7 +73,9 @@ const useRecipeStore = defineStore('recipes', {
           src: recipe.primary_image_href,
           alt: recipe.name,
           title: recipe.name,
-        } as AppGalleryItemType;
+          calories_per_portion: recipe.calories_per_portion,
+          total_cooking_time: recipe.total_cooking_time,
+        } as AppGalleryRecipeItem;
       });
     },
 
@@ -91,14 +97,14 @@ const useRecipeStore = defineStore('recipes', {
     publicRecipesByUserForGallery: (state) => {
       return (userId: string) => {
         return state._publicRecipesByUser[userId].map((recipe) => {
-          const text = generateRecipeText(recipe);
           return {
             $id: recipe.$id,
             src: recipe.primary_image_href,
             alt: recipe.name,
             title: recipe.name,
-            text,
-          } as AppGalleryItemType;
+            calories_per_portion: recipe.calories_per_portion,
+            total_cooking_time: recipe.total_cooking_time,
+          } as AppGalleryRecipeItem;
         });
       };
     },

@@ -1,25 +1,34 @@
 <script setup lang="ts">
-import { AppGalleryItemType } from '../../../@types/commons';
+import { computed } from '@vue/reactivity';
+import { AppGalleryRecipeItem } from '../../../@types/commons';
 import AppGalleryItem from './AppGalleryItem.vue';
-withDefaults(
+import AppGalleryRecipeCard from './AppGalleryRecipeCard.vue';
+const props = withDefaults(
   defineProps<{
     columns?: 1 | 2 | 3;
-    items: AppGalleryItemType[];
+    items: AppGalleryRecipeItem[];
+    variant?: 'item' | 'recipe';
   }>(),
   {
     columns: 2,
+    variant: 'item',
   },
 );
 
 const emit = defineEmits<{
-  (event: 'click', item: AppGalleryItemType): void;
+  (event: 'click', item: AppGalleryRecipeItem): void;
   (event: 'click-create'): void;
 }>();
+
+const activeComponent = computed(() => {
+  return props.variant === 'item' ? AppGalleryItem : AppGalleryRecipeCard;
+});
 </script>
 
 <template>
   <ul v-if="items.length > 0" class="grid grid-cols-12 gap-8">
-    <app-gallery-item
+    <component
+      :is="activeComponent"
       @click="emit('click', item)"
       class="col-span-12 sm:col-span-12"
       :class="{
@@ -30,7 +39,7 @@ const emit = defineEmits<{
       v-for="item in items"
       :key="item.title"
       :item="item"
-    ></app-gallery-item>
+    ></component>
   </ul>
   <div v-else class="text-center">
     <h2 class="mb-4 text-xl font-semibold">

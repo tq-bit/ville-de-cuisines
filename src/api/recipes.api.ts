@@ -185,8 +185,8 @@ class RecipesApi extends Api {
       category_name: category?.name,
       username: user?.name || '',
       total_cooking_time:
-        (recipe.preparation_time_minutes || 0) +
-        (recipe.cooking_time_minutes || 0),
+        +(recipe.preparation_time_minutes || 0) +
+        +(recipe.cooking_time_minutes || 0),
       calories_per_portion: +(totalCalories / recipe.portions_count).toFixed(2),
     };
   }

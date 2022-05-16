@@ -69,6 +69,7 @@ onMounted(
       </router-view>
       <h1>My recipes</h1>
       <app-gallery
+        variant="recipe"
         :columns="3"
         :items="recipeStore.activeUserPublicRecipesForGallery"
         @click="onGalleryItemClick"
