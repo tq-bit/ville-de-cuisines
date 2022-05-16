@@ -81,7 +81,7 @@ watch(query, (value) => {
     <app-select
       label="Select a dining time"
       v-model="diet_time"
-      :options="dietStore.dietTimeOptions"
+      :options="dietStore.dietDayTimeOptions"
     ></app-select>
     <app-button type="submit">Submit</app-button>
   </form>

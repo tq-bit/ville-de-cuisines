@@ -14,7 +14,7 @@ const dietSchema = yup.object({
   date_unix: yup.string().required().label('Date of diet'),
   diet_time: yup
     .string()
-    .oneOf(useDietStore().dietTimeOptions)
+    .oneOf(useDietStore().dietDayTimeOptions)
     .required()
     .label('Diet time'),
 });

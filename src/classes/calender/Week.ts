@@ -1,14 +1,7 @@
-import { AppDietEntity } from '@/@types';
+import { AppDietEntity, DayWithDiet } from '@/@types';
 import Day from './Day';
 
 const oneHour = 24 * 60 * 60 * 1000;
-
-interface DayWithDiet {
-  dayName?: string;
-  localTimeMidnightUnix?: number;
-  timezoneOffsetSeconds?: number;
-  isToday?: boolean;
-}
 
 interface WeekConstructor {
   timestamp?: number;
@@ -17,7 +10,7 @@ interface WeekConstructor {
 
 export default class Week {
   days: Day[];
-  daysWithDiet: any[] = [];
+  daysWithDiet: DayWithDiet[] = [];
 
   constructor(options: WeekConstructor) {
     this.days = this.constructWeekDays(

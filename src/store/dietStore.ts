@@ -6,12 +6,12 @@ import { AppDietEntity } from '@/@types';
 const useDietStore = defineStore('diet', {
   state: () => ({
     _activeUserDiets: [] as AppDietEntity[],
-    _dietTimeOptions: ['breakfast', 'lunch', 'dinner', 'snacks'],
+    _dietDayTimeOptions: ['breakfast', 'lunch', 'dinner', 'snacks'],
   }),
 
   getters: {
     activeUserDiets: (state) => state._activeUserDiets,
-    dietTimeOptions: (state) => state._dietTimeOptions,
+    dietDayTimeOptions: (state) => state._dietDayTimeOptions,
   },
 
   actions: {
