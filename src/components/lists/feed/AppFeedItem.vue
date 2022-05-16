@@ -60,7 +60,7 @@ withDefaults(
       </h2>
       <p
         v-if="item.text && !hideText"
-        class="overflow-hidden overflow-ellipsis"
+        class="mb-0 overflow-hidden overflow-ellipsis"
         :class="{
           'max-w-xs whitespace-nowrap text-gray-500 dark:text-gray-400':
             size === 'small',
