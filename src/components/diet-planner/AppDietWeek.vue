@@ -18,7 +18,7 @@ watch(dietLength, () => {
 </script>
 
 <template>
-  <div class="max-w-full overflow-x-scroll">
+  <div class="table-shade max-w-full overflow-x-scroll rounded">
     <table class="whitespace-nowrap">
       <thead
         class="bg-gradient-to-bl from-green-400 to-green-500 align-text-top font-semibold text-gray-50 dark:bg-green-600 dark:from-green-600 dark:to-green-700"
@@ -55,5 +55,8 @@ watch(dietLength, () => {
 <style scoped>
 td {
   @apply p-2 align-baseline;
+}
+.table-shade {
+  box-shadow: inset 0 0 12px 12px rgba(200, 200, 200, 0.25);
 }
 </style>
