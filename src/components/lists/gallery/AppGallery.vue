@@ -26,7 +26,7 @@ const activeComponent = computed(() => {
 </script>
 
 <template>
-  <ul v-if="items.length > 0" class="grid grid-cols-12 gap-8">
+  <ul v-if="items.length > 0" class="grid grid-cols-12 gap-4">
     <component
       :is="activeComponent"
       @click="emit('click', item)"
