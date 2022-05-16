@@ -9,15 +9,15 @@ defineProps<{
 </script>
 
 <template>
-  <div class="rounded-md bg-gradient-to-bl from-gray-50 to-gray-500">
+  <div class="w-full rounded-md bg-gradient-to-bl from-gray-50 to-gray-500">
     <img
       :src="src"
       :alt="alt"
       class="mx-auto h-auto w-full rounded border dark:border-gray-600"
       :class="{
-        'h-48 w-full object-cover': cover === 'medium',
-        'h-64 w-full object-cover': cover === 'large',
-        'h-96 w-full object-cover': cover === 'xlarge',
+        'h-48 object-cover': cover === 'medium',
+        'h-64 object-cover': cover === 'large',
+        'h-96 object-cover': cover === 'xlarge',
         'max-w-xs': size === 'xsmall',
         'max-w-sm': size === 'small',
         'max-w-md': size === 'medium',
