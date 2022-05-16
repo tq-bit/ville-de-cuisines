@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue';
-import { AppDietEntity, AppGalleryItemType } from '@/@types';
+import { AppGalleryItemType } from '@/@types';
 import useDietStore from '@/store/dietStore';
 import useDietForm from '@/use/form/dietForm';
 import useRecipeStore from '@/store/recipeStore';
@@ -13,7 +13,6 @@ const busyIndicator = useBusy('diet-planner');
 // Diet logic
 const dietStore = useDietStore();
 const {
-  $id,
   date_unix,
   diet_time,
   recipe_id,
@@ -54,7 +53,40 @@ watch(query, (value) => {
 </script>
 
 <template>
-  <app-container>
-    <app-diet-planner></app-diet-planner>
-  </app-container>
+  <app-alert class="mb-6" v-if="hasFormErrors" variant="error">
+    <ul>
+      <li>{{ httpError?.message }}</li>
+      <li v-for="(error, idx) in validationErrors" :key="idx">
+        {{ error }}
+      </li>
+    </ul>
+  </app-alert>
+
+  <form @submit.prevent="onSubmit">
+    <app-search
+      @click-item="onClickSearchItem"
+      :loading="loading"
+      size="small"
+      v-model="query"
+      :options="recipeStore.publicRecipeSearchResultsForGallery"
+      label="Search for recipes"
+    ></app-search>
+
+    <app-input
+      v-model="localDate"
+      type="date"
+      label="Plan diet for"
+    ></app-input>
+
+    <app-select
+      label="Select a dining time"
+      v-model="diet_time"
+      :options="dietStore.dietTimeOptions"
+    ></app-select>
+    <app-button type="submit">Submit</app-button>
+  </form>
+
+  <transition name="grow-top">
+    <app-feed-item v-if="localRecipe" :item="localRecipe"></app-feed-item>
+  </transition>
 </template>

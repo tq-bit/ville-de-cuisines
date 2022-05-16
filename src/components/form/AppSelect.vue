@@ -26,7 +26,7 @@ const onChange = (ev: Event) => {
     {{ label }}
   </label>
   <select
-    class="input h-12"
+    class="input mb-4 h-12"
     v-bind="{
       ...$attrs,
       onChange,
