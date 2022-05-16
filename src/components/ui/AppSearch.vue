@@ -13,11 +13,13 @@ const props = withDefaults(
     options: any[];
     loading: boolean;
     size?: 'small' | 'medium' | 'large';
+    hideText?: boolean;
   }>(),
   {
     hideLabel: false,
     required: false,
     loading: false,
+    hideText: false,
     size: 'small',
   },
 );
@@ -89,6 +91,7 @@ const onBlur = () =>
           @click="(option) => onClickItem(option)"
           :size="size"
           :items="options"
+          :hideText="hideText"
         ></app-feed>
       </div>
     </transition>
