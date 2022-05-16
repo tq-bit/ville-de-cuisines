@@ -31,7 +31,7 @@ const onClickDay = (payload: DietDayQuery) => {
 
 const onClickDelete = async (id: string) => {
   const deletionConfirmed = window.confirm(
-    'Are you sure you want to delete this diet?',
+    'Are you sure you want to delete this entry?',
   );
   if (deletionConfirmed) {
     await dietApi.deleteDiet(id);
