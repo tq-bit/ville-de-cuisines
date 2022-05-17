@@ -215,7 +215,7 @@ const commitLocalTagState = () => {
       <span :title="`RecipeID: ${recipeId}`" v-else-if="isForkMode">
         Create your own recipe for {{ name }}</span
       >
-      <span v-else> 🍲 Create a new masterpiece</span>
+      <span v-else> Create a new recipe</span>
     </h1>
     <app-alert class="mb-6" v-if="hasFormErrors" variant="error">
       <ul>

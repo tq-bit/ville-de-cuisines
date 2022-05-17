@@ -19,11 +19,9 @@ const activeUserStore = useActiveUserStore();
           <app-navbar-item to="/my-cuisine/diet">
             Diet calender</app-navbar-item
           >
-          <app-navbar-item to="/my-cuisine/recipe">
-            Create new recipe</app-navbar-item
-          >
+          <app-navbar-item to="/my-cuisine/recipe"> New recipe</app-navbar-item>
           <app-navbar-item to="/my-cuisine/recipe-category">
-            Create new category</app-navbar-item
+            New category</app-navbar-item
           >
           <app-navbar-item to="/my-cuisine/ingredient">
             Manage ingredients</app-navbar-item
