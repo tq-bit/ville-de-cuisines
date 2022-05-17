@@ -22,8 +22,8 @@ const emit = defineEmits(['click-navbar-item']);
         @click="emit('click-navbar-item')"
         v-if="isUserLoggedIn"
         direction="vertical"
-        to="/my-kitchen"
-        >My kitchen</app-navbar-item
+        to="/my-cuisine"
+        >My Cuisine</app-navbar-item
       >
       <app-navbar-item
         @click="emit('click-navbar-item')"

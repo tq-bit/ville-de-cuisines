@@ -26,7 +26,7 @@ onMounted(async () => {
       {{ recipeStore.recipeCategoriesForGallery.length }} categories
     </h1>
     <app-gallery
-      @click-create="router.push({ path: 'my-kitchen/recipe-category' })"
+      @click-create="router.push({ path: '/my-cuisine/recipe-category' })"
       @click="onClickGalleryCategoryItem"
       :columns="3"
       :items="recipeStore.recipeCategoriesForGallery"
@@ -37,7 +37,7 @@ onMounted(async () => {
         Didn't find the category you're looking for?
       </h3>
 
-      <app-button @click="router.push('/my-kitchen/recipe-category')"
+      <app-button @click="router.push('/my-cuisine/recipe-category')"
         >Create your own</app-button
       >
     </section>

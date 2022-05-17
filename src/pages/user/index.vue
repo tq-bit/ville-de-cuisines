@@ -106,11 +106,11 @@ onUpdated(async () => {
             :src="publicUserStore.publicUserProfile.avatar_href || ''"
           ></app-image>
 
-          <h3 class="font-semibold">About me:</h3>
+          <h4 class="mb-2 font-semibold">About me:</h4>
           <p class="mb-4">{{ publicUserStore._publicUserProfile.bio }}</p>
 
           <div class="mb-4" v-if="hasSocialMediaUrls">
-            <h3 class="mb-2 font-semibold">Find me on other platforms:</h3>
+            <h4 class="mb-2 font-semibold">Find me on other platforms:</h4>
             <a
               v-if="publicUserStore._publicUserProfile.facebook_url"
               :href="publicUserStore._publicUserProfile.facebook_url"

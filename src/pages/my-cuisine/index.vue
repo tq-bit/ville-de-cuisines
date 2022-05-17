@@ -21,7 +21,7 @@ const onGalleryItemClick = (payload: AppGalleryItemType) => {
 
 const onClickDay = (payload: DietDayQuery) => {
   router.push({
-    path: '/my-kitchen/diet/create',
+    path: '/my-cuisine/diet/create',
     query: {
       date: payload.date,
       time: payload.time,
@@ -40,15 +40,15 @@ const onClickDelete = async (id: string) => {
 };
 
 const navToRecipeCreation = () => {
-  router.push({ path: '/my-kitchen/recipe' });
+  router.push({ path: '/my-cuisine/recipe' });
 };
 
 const navToIngredientCreation = () => {
-  router.push({ path: '/my-kitchen/ingredient' });
+  router.push({ path: '/my-cuisine/ingredient' });
 };
 
 const navToRecipeCategoryCreation = () => {
-  router.push({ path: '/my-kitchen/recipe-category' });
+  router.push({ path: '/my-cuisine/recipe-category' });
 };
 
 onMounted(
@@ -68,13 +68,28 @@ onMounted(
           class="mx-auto mb-4 w-10/12"
         ></svg-cooking-management>
         <hr class="mb-4" />
-        <app-button @click="navToRecipeCreation" class="mb-4" block>
+        <app-button
+          size="small"
+          class="mb-4"
+          block
+          @click="navToRecipeCreation"
+        >
           Add new recipe</app-button
         >
-        <app-button @click="navToRecipeCategoryCreation" class="mb-4" block>
+        <app-button
+          size="small"
+          class="mb-4"
+          block
+          @click="navToRecipeCategoryCreation"
+        >
           Add recipe category</app-button
         >
-        <app-button @click="navToIngredientCreation" class="mb-4" block>
+        <app-button
+          size="small"
+          class="mb-4"
+          block
+          @click="navToIngredientCreation"
+        >
           Manage ingredients</app-button
         >
       </app-card>
@@ -101,7 +116,7 @@ onMounted(
         :columns="3"
         :items="recipeStore.activeUserPublicRecipesForGallery"
         @click="onGalleryItemClick"
-        @click-create="router.push({ path: '/my-kitchen/recipe' })"
+        @click-create="router.push({ path: '/my-cuisine/recipe' })"
       ></app-gallery>
 
       <app-toolbar class="md:hidden">

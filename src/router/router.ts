@@ -71,43 +71,43 @@ export const routes: RouterOptions['routes'] = [
   },
 
   {
-    path: '/my-kitchen/recipe/:recipeId/refine',
-    component: () => import('../pages/my-kitchen/KitchenRecipe.vue'),
+    path: '/my-cuisine/recipe/:recipeId/refine',
+    component: () => import('../pages/my-cuisine/KitchenRecipe.vue'),
     beforeEnter: redirectToLoginIfUserIsLoggedOut,
     props: true,
   },
 
   {
-    path: '/my-kitchen/recipe/:recipeId/edit',
-    component: () => import('../pages/my-kitchen/KitchenRecipe.vue'),
+    path: '/my-cuisine/recipe/:recipeId/edit',
+    component: () => import('../pages/my-cuisine/KitchenRecipe.vue'),
     beforeEnter: redirectToLoginIfUserIsLoggedOut,
     props: true,
   },
   {
-    path: '/my-kitchen/ingredient',
-    component: () => import('../pages/my-kitchen/KitchenIngredient.vue'),
+    path: '/my-cuisine/ingredient',
+    component: () => import('../pages/my-cuisine/KitchenIngredient.vue'),
     beforeEnter: redirectToLoginIfUserIsLoggedOut,
   },
 
   {
-    path: '/my-kitchen/recipe',
-    component: () => import('../pages/my-kitchen/KitchenRecipe.vue'),
+    path: '/my-cuisine/recipe',
+    component: () => import('../pages/my-cuisine/KitchenRecipe.vue'),
     beforeEnter: redirectToLoginIfUserIsLoggedOut,
   },
   {
-    path: '/my-kitchen/recipe-category',
-    component: () => import('../pages/my-kitchen/KitchenRecipeCategory.vue'),
+    path: '/my-cuisine/recipe-category',
+    component: () => import('../pages/my-cuisine/KitchenRecipeCategory.vue'),
     beforeEnter: redirectToLoginIfUserIsLoggedOut,
   },
   {
-    path: '/my-kitchen',
-    component: () => import('../pages/my-kitchen/index.vue'),
+    path: '/my-cuisine',
+    component: () => import('../pages/my-cuisine/index.vue'),
     beforeEnter: redirectToLoginIfUserIsLoggedOut,
     children: [
       {
-        path: '/my-kitchen/diet/create',
+        path: '/my-cuisine/diet/create',
         component: () =>
-          import('../pages/my-kitchen/KitchenDietPlannerBlend.vue'),
+          import('../pages/my-cuisine/KitchenDietPlannerBlend.vue'),
         beforeEnter: redirectToLoginIfUserIsLoggedOut,
       },
     ],

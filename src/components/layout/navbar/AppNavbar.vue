@@ -56,8 +56,8 @@ const emit = defineEmits(['toggle-sidebar']);
         <div
           class="hidden h-10 w-full items-center justify-center text-center md:flex"
         >
-          <app-navbar-item v-if="isUserLoggedIn" to="/my-kitchen">
-            My kitchen</app-navbar-item
+          <app-navbar-item v-if="isUserLoggedIn" to="/my-cuisine">
+            My Cuisine</app-navbar-item
           >
           <app-navbar-item v-if="isUserLoggedIn" to="/my-follows"
             >Following</app-navbar-item

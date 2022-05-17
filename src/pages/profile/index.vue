@@ -101,16 +101,26 @@ onMounted(async () => {
           <h4 class="mb-0 font-semibold">Bio:</h4>
           <p class="mb-2">{{ activeUserStore.user.bio }}</p>
 
-          <app-button class="mb-4 mt-4" @click="openAccountModal" block
+          <app-button
+            size="small"
+            class="mb-4 mt-4"
+            @click="openAccountModal"
+            block
             >Edit account settings</app-button
           >
 
-          <app-button class="mb-4" @click="openPreferencesModal" block
+          <app-button
+            size="small"
+            class="mb-4"
+            @click="openPreferencesModal"
+            block
             >Edit preferences</app-button
           >
 
           <hr class="mb-4" />
-          <app-button class="mb-4" @click="logout" block>Log out</app-button>
+          <app-button size="small" class="mb-4" @click="logout" block
+            >Log out</app-button
+          >
         </app-card>
       </template>
 

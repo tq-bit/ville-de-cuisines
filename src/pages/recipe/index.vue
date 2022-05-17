@@ -163,7 +163,7 @@ const computeIngredientCountForPortion = (ingredient: Ingredient) => {
                 size="small"
                 v-if="activeUserIsSubmitter"
                 @click="
-                  router.push({ path: `/my-kitchen/recipe/${router.currentRoute.value.params.recipeId as string}/edit` })
+                  router.push({ path: `/my-cuisine/recipe/${router.currentRoute.value.params.recipeId as string}/edit` })
                 "
                 >Edit recipe</app-button
               >
@@ -173,7 +173,7 @@ const computeIngredientCountForPortion = (ingredient: Ingredient) => {
                 size="small"
                 v-else
                 @click="
-                  router.push({ path: `/my-kitchen/recipe/${router.currentRoute.value.params.recipeId as string}/refine` })
+                  router.push({ path: `/my-cuisine/recipe/${router.currentRoute.value.params.recipeId as string}/refine` })
                 "
               >
                 Refine recipe
@@ -185,7 +185,7 @@ const computeIngredientCountForPortion = (ingredient: Ingredient) => {
                 class="ml-2"
                 @click="
                   router.push({
-                    path: '/my-kitchen/diet/create',
+                    path: '/my-cuisine/diet/create',
                     query: { name: localRecipe?.name },
                   })
                 "

@@ -60,7 +60,7 @@ const onSubmitRecipe = async () => {
   await handleRecipeSubmit();
   if (!hasFormErrors.value && !httpError.value) {
     handleRecipeReset();
-    router.push({ path: '/my-kitchen/' });
+    router.push({ path: '/my-cuisine/' });
   }
   busyIndicator.toggleLocalStatus();
 };
@@ -91,7 +91,7 @@ const onDeleteRecipe = async () => {
     busyIndicator.toggleLocalStatus();
 
     await recipesApi.deleteRecipe(recipeId);
-    router.push({ path: '/my-kitchen' });
+    router.push({ path: '/my-cuisine' });
 
     busyIndicator.toggleLocalStatus();
   }
