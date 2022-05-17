@@ -31,8 +31,8 @@ onMounted(
 </script>
 
 <template>
-  <div class="mb-4">
-    <section class="grid grid-cols-12 gap-4">
+  <div>
+    <section class="mb-4 grid grid-cols-12 gap-4">
       <div class="col-span-12 md:col-span-4">
         <app-tile
           title="Recipes collected"
