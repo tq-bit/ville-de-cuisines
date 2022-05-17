@@ -35,14 +35,17 @@ onMounted(
         <section
           class="overflow-x-auto whitespace-nowrap py-4 text-center md:text-left"
         >
-          <app-router-link to="/my-cuisine/recipe">
-            Create new recipe</app-router-link
+          <app-navbar-item to="/my-cuisine/diet">
+            Diet calender</app-navbar-item
           >
-          <app-router-link to="/my-cuisine/recipe-category">
-            Create new category</app-router-link
+          <app-navbar-item to="/my-cuisine/recipe">
+            Create new recipe</app-navbar-item
           >
-          <app-router-link to="/my-cuisine/ingredient">
-            Manage ingredients</app-router-link
+          <app-navbar-item to="/my-cuisine/recipe-category">
+            Create new category</app-navbar-item
+          >
+          <app-navbar-item to="/my-cuisine/ingredient">
+            Manage ingredients</app-navbar-item
           >
         </section>
       </app-container>
