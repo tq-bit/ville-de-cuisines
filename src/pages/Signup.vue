@@ -25,7 +25,7 @@ const onSubmit = async (): Promise<void> => {
   await handleUserSubmit();
   if (!hasFormErrors.value && !httpError.value) {
     signupForm.value?.reset();
-    router.push({ path: '/profile' });
+    router.push({ path: '/my-cuisine' });
   }
 };
 

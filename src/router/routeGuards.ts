@@ -28,7 +28,7 @@ export const redirectToProfileIfUserIsLoggedIn = async (
     await appwriteClient.account.getSession(
       Cookies.get(SESSION_ID_KEY) as string,
     );
-    next('/profile');
+    next('/my-cuisine');
   } catch (error) {
     next();
   }

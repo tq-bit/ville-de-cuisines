@@ -51,13 +51,6 @@ const emit = defineEmits(['click-navbar-item']);
       <!-- Secondary navigation -->
       <app-navbar-item
         @click="emit('click-navbar-item')"
-        v-if="isUserLoggedIn"
-        direction="vertical"
-        to="/profile"
-        >Profile</app-navbar-item
-      >
-      <app-navbar-item
-        @click="emit('click-navbar-item')"
         v-if="!isUserLoggedIn"
         direction="vertical"
         to="/login"
