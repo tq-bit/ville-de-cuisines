@@ -33,7 +33,6 @@ const activeUserStore = useActiveUserStore();
     </div>
 
     <app-container class="mt-4">
-      <app-tile color="sky" size="medium"> Test</app-tile>
       <router-view v-slot="{ Component }">
         <transition name="fade" mode="out-in">
           <component :is="Component" />
