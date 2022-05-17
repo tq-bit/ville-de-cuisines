@@ -60,6 +60,7 @@ const useActiveUserStore = defineStore('user', {
       );
 
       this._user = user as AppPublicUser;
+      this.fetchActiveUserAvatar();
     },
 
     async fetchActiveUserAvatar(): Promise<void> {
@@ -72,13 +73,16 @@ const useActiveUserStore = defineStore('user', {
           AVATAR_BUCKET_ID,
           fileId,
         );
-
+        // TODO: remove this._avatar_url from this type
+        // TODO: Equalize this user type with public user
         this._avatar_url = response.href;
+        this._user.avatar_href = response.href;
       };
 
       const fetchDefaultAvatarImage = async (): Promise<void> => {
         const response = appwriteClient.avatars.getInitials();
         this._avatar_url = response.href;
+        this._user.avatar_href = response.href;
       };
 
       if (avatarFileId) {
