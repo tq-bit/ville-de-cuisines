@@ -193,6 +193,7 @@ const useActiveUserStore = defineStore('user', {
             payload,
           );
         this._user = response;
+        this.fetchActiveUserAvatar();
         return [response, null];
       } catch (error) {
         return [null, error as AppwriteException];
