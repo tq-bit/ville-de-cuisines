@@ -1,6 +1,5 @@
 import { BooleanMap } from '@/@types';
-import { computed } from '@vue/reactivity';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 export default function useBusy(key: string) {
   const _localStatus = ref<BooleanMap>({ [key]: false });

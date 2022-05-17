@@ -1,6 +1,6 @@
-import { UserTheme } from '../@types/index';
 import { computed } from 'vue';
-import useActiveUserStore from '../store/activeUserStore';
+import { UserTheme } from '@/@types/index';
+import useActiveUserStore from '@/store/activeUserStore';
 
 export default function useAppTheme() {
   const activeUserStore = useActiveUserStore();
