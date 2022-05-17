@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { computed } from '@vue/reactivity';
-import { AppGalleryRecipeItem } from '../../../@types/commons';
+import { computed } from 'vue';
+import { AppGalleryRecipeItem } from '@/@types/commons';
 import AppGalleryItem from './AppGalleryItem.vue';
 import AppGalleryRecipeCard from './AppGalleryRecipeCard.vue';
 const props = withDefaults(
