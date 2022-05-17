@@ -39,18 +39,6 @@ const onClickDelete = async (id: string) => {
   }
 };
 
-const navToRecipeCreation = () => {
-  router.push({ path: '/my-cuisine/recipe' });
-};
-
-const navToIngredientCreation = () => {
-  router.push({ path: '/my-cuisine/ingredient' });
-};
-
-const navToRecipeCategoryCreation = () => {
-  router.push({ path: '/my-cuisine/recipe-category' });
-};
-
 onMounted(
   async () =>
     await Promise.all([
@@ -61,41 +49,30 @@ onMounted(
 </script>
 
 <template>
-  <app-grid class="mt-4" variant="sidebar-left">
-    <template v-slot:left>
-      <app-card class="hidden md:block" block>
-        <svg-cooking-management
-          class="mx-auto mb-4 w-10/12"
-        ></svg-cooking-management>
-        <hr class="mb-4" />
-        <app-button
-          size="small"
-          class="mb-4"
-          block
-          @click="navToRecipeCreation"
+  <div>
+    <div class="bg-gray-800 pt-6">
+      <app-container>
+        <app-profile-header
+          :editable="true"
+          :public-user="activeUserStore.user"
+        ></app-profile-header>
+        <section
+          class="overflow-x-auto whitespace-nowrap py-4 text-center md:text-left"
         >
-          Add new recipe</app-button
-        >
-        <app-button
-          size="small"
-          class="mb-4"
-          block
-          @click="navToRecipeCategoryCreation"
-        >
-          Add recipe category</app-button
-        >
-        <app-button
-          size="small"
-          class="mb-4"
-          block
-          @click="navToIngredientCreation"
-        >
-          Manage ingredients</app-button
-        >
-      </app-card>
-    </template>
+          <app-router-link to="/my-cuisine/recipe">
+            Create new recipe</app-router-link
+          >
+          <app-router-link to="/my-cuisine/recipe-category">
+            Create new category</app-router-link
+          >
+          <app-router-link to="/my-cuisine/ingredient">
+            Manage ingredients</app-router-link
+          >
+        </section>
+      </app-container>
+    </div>
 
-    <template v-slot:default>
+    <app-container class="mt-4">
       <router-view v-slot="{ Component }">
         <transition name="fade">
           <component :is="Component" />
@@ -118,20 +95,8 @@ onMounted(
         @click="onGalleryItemClick"
         @click-create="router.push({ path: '/my-cuisine/recipe' })"
       ></app-gallery>
-
-      <app-toolbar class="md:hidden">
-        <app-button size="small" @click="navToRecipeCreation">
-          New recipe</app-button
-        >
-        <app-button size="small" @click="navToRecipeCategoryCreation">
-          New category</app-button
-        >
-        <app-button size="small" @click="navToIngredientCreation">
-          Ingredients</app-button
-        >
-      </app-toolbar>
-    </template>
-  </app-grid>
+    </app-container>
+  </div>
 </template>
 
 <style scoped></style>

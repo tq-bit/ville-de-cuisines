@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
-import usePrefForm from '../../use/form/userPrefForm';
+import usePrefForm from '@/use/form/userPrefForm';
 
 // Router
 const router = useRouter();
-const closePreferencesModal = () => router.push({ path: '/profile' });
+const closePreferencesModal = () => router.go(-1);
 
 const {
   bio,

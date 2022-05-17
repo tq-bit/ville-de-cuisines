@@ -37,16 +37,6 @@ export const routes: RouterOptions['routes'] = [
     path: '/profile',
     component: () => import('../pages/profile/index.vue'),
     beforeEnter: redirectToLoginIfUserIsLoggedOut,
-    children: [
-      {
-        path: '/profile/account',
-        component: () => import('../pages/profile/AccountBlend.vue'),
-      },
-      {
-        path: '/profile/preferences',
-        component: () => import('../pages/profile/PreferencesBlend.vue'),
-      },
-    ],
   },
 
   {
@@ -109,6 +99,21 @@ export const routes: RouterOptions['routes'] = [
         component: () =>
           import('../pages/my-cuisine/KitchenDietPlannerBlend.vue'),
         beforeEnter: redirectToLoginIfUserIsLoggedOut,
+      },
+      {
+        path: '/my-cuisine/diet/create',
+        component: () =>
+          import('../pages/my-cuisine/KitchenDietPlannerBlend.vue'),
+        beforeEnter: redirectToLoginIfUserIsLoggedOut,
+      },
+      {
+        path: '/my-cuisine/account',
+        component: () => import('../pages/my-cuisine/profile/AccountBlend.vue'),
+      },
+      {
+        path: '/my-cuisine/preferences',
+        component: () =>
+          import('../pages/my-cuisine/profile/PreferencesBlend.vue'),
       },
     ],
   },

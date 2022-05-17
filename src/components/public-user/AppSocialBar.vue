@@ -6,7 +6,7 @@ defineProps<{
 </script>
 
 <template>
-  <div>
+  <div class="block">
     <a
       v-if="publicUser.facebook_url"
       :href="publicUser.facebook_url"

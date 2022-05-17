@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
-import useUserProfileForm from '../../use/form/userProfileForm';
+import useUserProfileForm from '@/use/form/userProfileForm';
 
 const router = useRouter();
-const closeAccountModal = () => router.push({ path: '/profile' });
+const closeAccountModal = () => router.go(-1);
 
 const {
   username,
