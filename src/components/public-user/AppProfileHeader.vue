@@ -95,7 +95,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <section class="grid min-h-full grid-cols-12 gap-x-8">
+  <section class="grid min-h-full grid-cols-12 gap-x-4">
     <!-- Display section -->
     <div class="col-span-12 md:col-span-3 lg:col-span-2">
       <app-file-input v-if="editAvatar && editable" @drop="onDrop">
