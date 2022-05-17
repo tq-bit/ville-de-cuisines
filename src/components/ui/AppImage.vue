@@ -4,27 +4,36 @@ defineProps<{
   alt?: string;
   rounded?: boolean;
   size?: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
-  cover?: 'medium' | 'large' | 'xlarge';
+  cover?: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
 }>();
 </script>
 
 <template>
   <div
-    class="mx-auto w-fit rounded-md bg-gradient-to-bl from-gray-50 to-gray-500"
+    class="mx-auto w-full rounded-md bg-gradient-to-bl from-gray-50 to-gray-500"
+    :class="{
+      'w-24': size === 'xsmall',
+      'w-36': size === 'small',
+      'w-48': size === 'medium',
+      'w-64': size === 'large',
+      'w-96': size === 'xlarge',
+    }"
   >
     <img
       :src="src"
       :alt="alt"
-      class="mx-auto h-auto w-full rounded border dark:border-gray-600"
+      class="mx-auto h-auto w-full rounded object-cover"
       :class="{
-        'h-48 object-cover': cover === 'medium',
-        'h-64 object-cover': cover === 'large',
-        'h-96 object-cover': cover === 'xlarge',
-        'max-w-xs': size === 'xsmall',
-        'max-w-sm': size === 'small',
-        'max-w-md': size === 'medium',
-        'max-w-lg': size === 'large',
-        'max-w-xl': size === 'xlarge',
+        'h-24 ': cover === 'xsmall',
+        'h-36 ': cover === 'small',
+        'h-48 ': cover === 'medium',
+        'h-64': cover === 'large',
+        'h-96': cover === 'xlarge',
+        'w-24': size === 'xsmall',
+        'w-36': size === 'small',
+        'w-48': size === 'medium',
+        'w-64': size === 'large',
+        'w-96': size === 'xlarge',
       }"
     />
   </div>
