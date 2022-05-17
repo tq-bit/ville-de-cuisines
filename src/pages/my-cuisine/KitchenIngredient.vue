@@ -56,18 +56,7 @@ const onDropIngredientImage = async (filePayload: AppUploadPayload) => {
 
 // Search logic
 const ingredientsQuery = ref<string>('');
-let localIngredientState = ref<Ingredient[]>([]);
 const { handleSearch, loading } = useLazyIngredientSearch(ingredientsQuery);
-const onClickIngredientSearchItem = (ingredient: AppGalleryItemType) => {
-  const ingredientToPush: Ingredient | undefined =
-    ingredientsStore.ingredientSearchResults.find(
-      (item) => item.$id === ingredient.$id,
-    );
-  if (ingredientToPush) {
-    localIngredientState.value.push(ingredientToPush);
-    ingredientsQuery.value = '';
-  }
-};
 watch(ingredientsQuery, handleSearch);
 onMounted(async () => await ingredientsStore.syncIngredients());
 </script>
@@ -75,8 +64,7 @@ onMounted(async () => await ingredientsStore.syncIngredients());
 <template>
   <app-container class="mt-4">
     <h1>
-      <span> 🍲 Create a new ingredient</span>
-      <button @click="busyIndicator.toggleLocalStatus()">Toggle Loading</button>
+      <span> Create a new ingredient</span>
     </h1>
     <app-alert class="mb-6" v-if="hasFormErrors" variant="error">
       <ul>
