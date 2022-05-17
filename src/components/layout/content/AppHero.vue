@@ -6,7 +6,7 @@ const emit = defineEmits(['clickGetStarted', 'clickLearnMore']);
   <app-grid variant="equal">
     <template v-slot:left>
       <section>
-        <svg-cooking-hero class="md:w-full w-8/12 mx-auto"></svg-cooking-hero>
+        <svg-cooking-hero class="mx-auto w-8/12 md:w-full"></svg-cooking-hero>
       </section>
     </template>
 
@@ -16,9 +16,13 @@ const emit = defineEmits(['clickGetStarted', 'clickLearnMore']);
       >
         <div>
           <h1 class="mb-2 text-center md:text-left">Ville de cuisines</h1>
-          <p class="mb-2 text-center  text-md  md:text-left">The social network for gourmets</p>
+          <p class="text-md mb-2 text-center md:text-left">
+            The social network for gourmets
+          </p>
 
-          <hr class="mb-4 mx-auto md:mx-0 w-12 border border-green-600 md:block" />
+          <hr
+            class="mx-auto mb-4 w-12 border border-green-600 md:mx-0 md:block"
+          />
           <ul class="mb-4">
             <li class="mb-2 text-center md:text-left">
               🧑 Create your profile
@@ -34,13 +38,14 @@ const emit = defineEmits(['clickGetStarted', 'clickLearnMore']);
             </li>
           </ul>
           <div class="text-center">
-
-          <app-button class="mx-1 md:mx-0" @click="emit('clickGetStarted')"
-            >Signup now</app-button
-          >
-          <app-button class="mx-1 md:ml-4 md:mx-0" @click="emit('clickLearnMore')"
-            >Learn more</app-button
-          >
+            <app-button class="mx-1 md:mx-0" @click="emit('clickGetStarted')"
+              >Signup now</app-button
+            >
+            <app-button
+              class="mx-1 md:mx-0 md:ml-4"
+              @click="emit('clickLearnMore')"
+              >Learn more</app-button
+            >
           </div>
         </div>
       </section>
