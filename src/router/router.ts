@@ -34,12 +34,6 @@ export const routes: RouterOptions['routes'] = [
   },
 
   {
-    path: '/profile',
-    component: () => import('../pages/profile/index.vue'),
-    beforeEnter: redirectToLoginIfUserIsLoggedOut,
-  },
-
-  {
     path: '/user/:userId',
     component: () => import('../pages/user/index.vue'),
   },
