@@ -136,8 +136,9 @@ const useRecipeStore = defineStore('recipes', {
           src: recipe.primary_image_href,
           alt: recipe.name,
           title: recipe.name,
-          text,
-        } as AppGalleryItemType;
+          calories_per_portion: recipe.calories_per_portion,
+          total_cooking_time: recipe.total_cooking_time,
+        } as AppGalleryRecipeItem;
       });
     },
 
