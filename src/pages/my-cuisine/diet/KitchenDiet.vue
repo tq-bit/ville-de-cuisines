@@ -1,20 +1,3 @@
-<template>
-  <div>
-    <router-view v-slot="{ Component }">
-      <transition name="fade">
-        <component :is="Component" />
-      </transition>
-    </router-view>
-    <h2>This week's diet plan</h2>
-    <app-diet-week
-      @click-day="onClickDay"
-      @click-delete="onClickDelete"
-      class="mb-4"
-      :items="dietStore.activeUserDiets"
-    ></app-diet-week>
-  </div>
-</template>
-
 <script setup lang="ts">
 import useDietStore from '@/store/dietStore';
 import dietApi from '@/api/diet.api';
@@ -48,4 +31,19 @@ const onClickDelete = async (id: string) => {
 onMounted(() => dietStore.syncActiveUserDiets());
 </script>
 
-<style scoped></style>
+<template>
+  <div>
+    <router-view v-slot="{ Component }">
+      <transition name="fade">
+        <component :is="Component" />
+      </transition>
+    </router-view>
+    <h2>Your weekly diet plan</h2>
+    <app-diet-week
+      @click-day="onClickDay"
+      @click-delete="onClickDelete"
+      class="mb-4"
+      :items="dietStore.activeUserDiets"
+    ></app-diet-week>
+  </div>
+</template>
