@@ -37,8 +37,10 @@ onMounted(async () => {
         ></app-profile-header>
       </app-container>
     </div>
-
     <app-container class="mt-4">
+      <h2>
+        Check out {{ publicUserStore.publicUserProfileFirstName }}'s recipes
+      </h2>
       <app-gallery
         variant="recipe"
         :columns="3"
