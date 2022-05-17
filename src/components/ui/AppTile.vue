@@ -9,7 +9,7 @@ defineProps<{
 
 <template>
   <div
-    class="mx-auto h-auto w-full max-w-sm rounded-md border bg-gradient-to-bl p-4"
+    class="mx-auto h-auto w-full max-w-sm rounded-md border bg-gradient-to-bl p-4 text-white"
     :class="{
       'border-sky-200 from-sky-300 to-sky-400 dark:border-sky-900  dark:from-sky-600 dark:to-sky-800':
         color === 'sky',
