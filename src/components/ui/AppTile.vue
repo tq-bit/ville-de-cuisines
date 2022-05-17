@@ -1,5 +1,7 @@
 <script setup lang="ts">
 defineProps<{
+  count: number;
+  unit: string;
   title: string;
   color: 'sky' | 'amber' | 'rose';
 }>();
@@ -20,9 +22,12 @@ defineProps<{
     <h3>{{ title }}</h3>
     <main class="flex">
       <div class="w-5/6">
+        <p class="text-4xl font-semibold">
+          {{ count }} <span class="text-lg">{{ unit }}</span>
+        </p>
         <slot />
       </div>
-      <div class="w-1/6">
+      <div class="mt-auto w-1/6">
         <slot name="icon" />
       </div>
     </main>
