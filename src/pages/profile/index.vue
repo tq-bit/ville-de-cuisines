@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// TODO: Deprecated
 import { AppUploadPayload, AppGalleryItemType } from '../../@types';
 import ingredientsFallback from '/ingredients-fallback.webp';
 import recipeFallback from '/recipe-fallback.webp';
