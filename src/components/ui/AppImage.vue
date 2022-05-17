@@ -9,7 +9,9 @@ defineProps<{
 </script>
 
 <template>
-  <div class="w-full rounded-md bg-gradient-to-bl from-gray-50 to-gray-500">
+  <div
+    class="mx-auto w-fit rounded-md bg-gradient-to-bl from-gray-50 to-gray-500"
+  >
     <img
       :src="src"
       :alt="alt"
