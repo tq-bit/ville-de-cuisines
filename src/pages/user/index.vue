@@ -29,7 +29,7 @@ onMounted(async () => {
 
 <template>
   <div>
-    <div class="bg-gray-800 py-6">
+    <div class="bg-gray-50 py-6 dark:bg-gray-800">
       <app-container>
         <app-profile-header
           :public-user="publicUserStore.publicUserProfile"

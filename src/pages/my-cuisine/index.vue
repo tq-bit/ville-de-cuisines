@@ -6,7 +6,7 @@ const activeUserStore = useActiveUserStore();
 
 <template>
   <div>
-    <div class="bg-gray-800 pt-6">
+    <div class="bg-gray-50 pt-6 dark:bg-gray-800">
       <app-container>
         <app-profile-header
           :editable="true"
@@ -33,6 +33,7 @@ const activeUserStore = useActiveUserStore();
     </div>
 
     <app-container class="mt-4">
+      <app-tile color="sky" size="medium"> Test</app-tile>
       <router-view v-slot="{ Component }">
         <transition name="fade" mode="out-in">
           <component :is="Component" />
