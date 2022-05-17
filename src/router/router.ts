@@ -61,51 +61,57 @@ export const routes: RouterOptions['routes'] = [
   },
 
   {
-    path: '/my-cuisine/recipe/:recipeId/refine',
-    component: () => import('../pages/my-cuisine/KitchenRecipe.vue'),
-    beforeEnter: redirectToLoginIfUserIsLoggedOut,
-    props: true,
-  },
-
-  {
-    path: '/my-cuisine/recipe/:recipeId/edit',
-    component: () => import('../pages/my-cuisine/KitchenRecipe.vue'),
-    beforeEnter: redirectToLoginIfUserIsLoggedOut,
-    props: true,
-  },
-  {
-    path: '/my-cuisine/ingredient',
-    component: () => import('../pages/my-cuisine/KitchenIngredient.vue'),
-    beforeEnter: redirectToLoginIfUserIsLoggedOut,
-  },
-
-  {
-    path: '/my-cuisine/recipe',
-    component: () => import('../pages/my-cuisine/KitchenRecipe.vue'),
-    beforeEnter: redirectToLoginIfUserIsLoggedOut,
-  },
-  {
-    path: '/my-cuisine/recipe-category',
-    component: () => import('../pages/my-cuisine/KitchenRecipeCategory.vue'),
-    beforeEnter: redirectToLoginIfUserIsLoggedOut,
-  },
-  {
     path: '/my-cuisine',
     component: () => import('../pages/my-cuisine/index.vue'),
     beforeEnter: redirectToLoginIfUserIsLoggedOut,
     children: [
+      //  Recipes and ingredients
       {
-        path: '/my-cuisine/diet/create',
-        component: () =>
-          import('../pages/my-cuisine/KitchenDietPlannerBlend.vue'),
+        path: '/my-cuisine/recipe',
+        component: () => import('../pages/my-cuisine/KitchenRecipe.vue'),
         beforeEnter: redirectToLoginIfUserIsLoggedOut,
       },
       {
-        path: '/my-cuisine/diet/create',
+        path: '/my-cuisine/recipe-category',
         component: () =>
-          import('../pages/my-cuisine/KitchenDietPlannerBlend.vue'),
+          import('../pages/my-cuisine/KitchenRecipeCategory.vue'),
         beforeEnter: redirectToLoginIfUserIsLoggedOut,
       },
+      {
+        path: '/my-cuisine/ingredient',
+        component: () => import('../pages/my-cuisine/KitchenIngredient.vue'),
+        beforeEnter: redirectToLoginIfUserIsLoggedOut,
+      },
+      {
+        path: '/my-cuisine/recipe/:recipeId/refine',
+        component: () => import('../pages/my-cuisine/KitchenRecipe.vue'),
+        beforeEnter: redirectToLoginIfUserIsLoggedOut,
+        props: true,
+      },
+
+      {
+        path: '/my-cuisine/recipe/:recipeId/edit',
+        component: () => import('../pages/my-cuisine/KitchenRecipe.vue'),
+        beforeEnter: redirectToLoginIfUserIsLoggedOut,
+        props: true,
+      },
+
+      // Diet
+      {
+        path: '/my-cuisine/diet',
+        component: () => import('../pages/my-cuisine/diet/KitchenDiet.vue'),
+        beforeEnter: redirectToLoginIfUserIsLoggedOut,
+        children: [
+          {
+            path: '/my-cuisine/diet/create',
+            component: () =>
+              import('../pages/my-cuisine/diet/KitchenDietPlannerBlend.vue'),
+            beforeEnter: redirectToLoginIfUserIsLoggedOut,
+          },
+        ],
+      },
+
+      // Account settings
       {
         path: '/my-cuisine/account',
         component: () => import('../pages/my-cuisine/profile/AccountBlend.vue'),

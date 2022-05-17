@@ -3,15 +3,12 @@ import { onMounted } from 'vue';
 import { AppGalleryItemType, DietDayQuery } from '../../@types';
 import useRecipeStore from '../../store/recipeStore';
 import useActiveUserStore from '../../store/activeUserStore';
-import useDietStore from '@/store/dietStore';
-import dietApi from '@/api/diet.api';
 
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const recipeStore = useRecipeStore();
 const activeUserStore = useActiveUserStore();
-const dietStore = useDietStore();
 
 const onGalleryItemClick = (payload: AppGalleryItemType) => {
   router.push({
@@ -19,31 +16,10 @@ const onGalleryItemClick = (payload: AppGalleryItemType) => {
   });
 };
 
-const onClickDay = (payload: DietDayQuery) => {
-  router.push({
-    path: '/my-cuisine/diet/create',
-    query: {
-      date: payload.date,
-      time: payload.time,
-    },
-  });
-};
-
-const onClickDelete = async (id: string) => {
-  const deletionConfirmed = window.confirm(
-    'Are you sure you want to delete this entry?',
-  );
-  if (deletionConfirmed) {
-    await dietApi.deleteDiet(id);
-    await dietStore.syncActiveUserDiets();
-  }
-};
-
 onMounted(
   async () =>
     await Promise.all([
       recipeStore.syncActiveUserRecipes(activeUserStore.account.$id),
-      dietStore.syncActiveUserDiets(),
     ]),
 );
 </script>
@@ -78,14 +54,6 @@ onMounted(
           <component :is="Component" />
         </transition>
       </router-view>
-
-      <h2>This week's diet plan</h2>
-      <app-diet-week
-        @click-day="onClickDay"
-        @click-delete="onClickDelete"
-        class="mb-4"
-        :items="dietStore.activeUserDiets"
-      ></app-diet-week>
 
       <h2>Your recipes</h2>
       <app-gallery
