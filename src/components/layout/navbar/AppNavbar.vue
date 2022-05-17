@@ -40,8 +40,7 @@ const emit = defineEmits(['toggle-sidebar']);
         <div
           class="mt-4 hidden h-16 w-3/12 text-right md:inline-block xl:w-2/12"
         >
-          <app-navbar-item v-if="isUserLoggedIn" to="/profile">
-          </app-navbar-item>
+          <app-navbar-item v-if="isUserLoggedIn" to="/login"> </app-navbar-item>
 
           <app-navbar-item v-if="!isUserLoggedIn" to="/login">
             <i-login class="mb-1 mr-1 inline h-4 w-4"></i-login>Login
