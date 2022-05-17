@@ -15,12 +15,16 @@ defineProps<{
         <h3 class="mt-4 text-xl font-bold">{{ item.title }}</h3>
 
         <app-tag class="mr-2" v-if="item.total_cooking_time">
-          <i-clock></i-clock>
+          <div class="inline-block h-4 w-4">
+            <i-clock></i-clock>
+          </div>
           <span class="ml-1">{{ item.total_cooking_time }} min.</span>
         </app-tag>
 
         <app-tag v-if="item.calories_per_portion">
-          <i-fire></i-fire>
+          <div class="inline-block h-4 w-4">
+            <i-fire></i-fire>
+          </div>
           <span class="ml-1">{{ item.calories_per_portion }} kcal</span>
         </app-tag>
       </section>

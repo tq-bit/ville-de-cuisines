@@ -195,14 +195,18 @@ const computeIngredientCountForPortion = (ingredient: Ingredient) => {
             </div>
           </div>
           <app-tag class="mr-2" v-if="localRecipe?.cooking_time_minutes">
-            <i-clock></i-clock>
+            <div class="inline-block h-4 w-4">
+              <i-clock></i-clock>
+            </div>
             <span class="ml-1"
               >{{ localRecipe.cooking_time_minutes }} min.</span
             >
           </app-tag>
           <app-tag v-if="localRecipe?.calories_per_portion">
-            <i-fire></i-fire>
-            <span class="ml-1"
+            <div class="inline-block h-4 w-4">
+              <i-fire></i-fire>
+            </div>
+            <span class="ml-1 inline-block whitespace-nowrap"
               >{{ localRecipe.calories_per_portion }} kcal</span
             >
           </app-tag>
