@@ -37,7 +37,6 @@ const publicUserStore = usePublicUserStore();
 
 const editAvatar = ref(false);
 const onDrop = async (filePayload: AppUploadPayload) => {
-  const activeUserStore = useActiveUserStore();
   await activeUserStore.handleAvatarUpload(filePayload.fileData);
   await activeUserStore.fetchActiveUserAvatar();
   editAvatar.value = false;
@@ -105,7 +104,6 @@ onMounted(async () => {
         class="cursor-pointer bg-white transition-opacity hover:opacity-75"
         title="Upload a new avatar"
         size="small"
-        :scale="false"
         :src="publicUser.avatar_href"
         @click="editAvatar = !editAvatar"
       ></app-image>
@@ -113,7 +111,6 @@ onMounted(async () => {
       <app-image
         v-if="!editable"
         size="small"
-        :scale="false"
         :src="publicUser.avatar_href"
       ></app-image>
     </div>
@@ -124,10 +121,7 @@ onMounted(async () => {
     >
       <h1>{{ publicUser.name }}</h1>
       <p>{{ publicUser.bio }}</p>
-      <app-social-bar
-        class="md:absolute md:bottom-0 md:left-0 md:right-0"
-        :public-user="publicUser"
-      ></app-social-bar>
+      <app-social-bar :public-user="publicUser"></app-social-bar>
 
       <app-button
         block
