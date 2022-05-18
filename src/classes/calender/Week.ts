@@ -12,11 +12,19 @@ export default class Week {
   days: Day[];
   daysWithDiet: DayWithDiet[] = [];
 
-  constructor(options: WeekConstructor) {
+  constructor(options?: WeekConstructor) {
     this.days = this.constructWeekDays(
       options?.timestamp || new Date().getTime(),
     );
     this.daysWithDiet = this.mapDietToWeekdays(options?.diets || []);
+  }
+
+  public getFirstDay() {
+    return this.days[0];
+  }
+
+  public getLastDay() {
+    return this.days[this.days.length - 1];
   }
 
   public mapDietToWeekdays(payload: DietEntry[]) {

@@ -3,7 +3,7 @@ defineProps<{
   count: number;
   unit: string;
   title: string;
-  color: 'sky' | 'amber' | 'rose';
+  color: 'emerald' | 'sky' | 'amber' | 'rose';
 }>();
 </script>
 
@@ -11,6 +11,8 @@ defineProps<{
   <div
     class="mx-auto h-auto w-full max-w-sm rounded-md border bg-gradient-to-bl p-4 text-white"
     :class="{
+      'border-emerald-200 from-emerald-300 to-emerald-400  dark:border-emerald-900  dark:from-emerald-600 dark:to-emerald-800':
+        color === 'emerald',
       'border-sky-200 from-sky-300 to-sky-400 dark:border-sky-900  dark:from-sky-600 dark:to-sky-800':
         color === 'sky',
       'border-amber-200 from-amber-300 to-amber-400  dark:border-amber-900  dark:from-amber-600 dark:to-amber-800':

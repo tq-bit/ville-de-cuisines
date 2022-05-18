@@ -31,12 +31,12 @@ const onSubmit = async () => {
   date_unix.value = localDateUnix.value;
   await handleDietSubmit();
   if (!hasFormErrors.value && !httpError.value) {
-    dietStore.syncActiveUserDiets();
+    dietStore.syncActiveUserDietsThisWeek();
     router.go(-1);
   }
   busyIndicator.toggleLocalStatus();
 };
-onMounted(() => dietStore.syncActiveUserDiets());
+onMounted(() => dietStore.syncActiveUserDietsThisWeek());
 
 // Local Date logic
 const localDate = ref('');

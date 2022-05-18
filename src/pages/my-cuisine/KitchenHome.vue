@@ -25,7 +25,7 @@ onMounted(
     await Promise.all([
       recipeStore.syncActiveUserRecipes(activeUserStore.account.$id),
       ingredientsStore.syncIngredients(),
-      dietStore.syncActiveUserDiets(),
+      dietStore.syncActiveUserDietsThisWeek(),
     ]),
 );
 </script>
@@ -61,10 +61,12 @@ onMounted(
       </div>
       <div class="col-span-12 md:col-span-4">
         <app-tile
-          title="Diets planned"
-          :count="+(dietStore.activeUserDiets.length / 3).toFixed(0)"
-          unit="days"
-          color="rose"
+          title="This week's diet"
+          :count="dietStore.activeUserDietsThisWeekPlanned || 0"
+          unit="of 21 meals planned"
+          :color="
+            dietStore.activeUserDietsThisWeekPlanned >= 14 ? 'emerald' : 'rose'
+          "
           size="medium"
         >
           <template v-slot:icon>

@@ -24,11 +24,11 @@ const onClickDelete = async (id: string) => {
   );
   if (deletionConfirmed) {
     await dietApi.deleteDiet(id);
-    await dietStore.syncActiveUserDiets();
+    await dietStore.syncActiveUserDietsThisWeek();
   }
 };
 
-onMounted(() => dietStore.syncActiveUserDiets());
+onMounted(() => dietStore.syncActiveUserDietsThisWeek());
 </script>
 
 <template>
@@ -43,7 +43,7 @@ onMounted(() => dietStore.syncActiveUserDiets());
       @click-day="onClickDay"
       @click-delete="onClickDelete"
       class="mb-4"
-      :items="dietStore.activeUserDiets"
+      :items="dietStore.activeUserDietsThisWeek"
     ></app-diet-week>
   </app-container>
 </template>
