@@ -23,7 +23,7 @@ export default class AppCache {
 
   public setValue(key: string, value: CacheMapEntry) {
     const timeoutKey = this.scheduleEntryDeletion(key);
-    log(`Cache SET: ${key}`, 'warn');
+    log(`${this.cacheKey} Cache SET: ${key}`, 'warn');
     return (this.cacheMap[key] = { data: value, timeoutKey });
   }
 
