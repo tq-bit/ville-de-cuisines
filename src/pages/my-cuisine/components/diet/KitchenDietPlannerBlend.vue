@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
+
 import { AppGalleryItemType } from '@/@types';
 import useDietStore from '@/store/dietStore';
 import useDietForm from '@/use/form/dietForm';
 import useRecipeStore from '@/store/recipeStore';
 import useLazyRecipeSearch from '@/use/search/useLazyRecipeSearch';
 import useBusy from '@/use/useBusy';
-import recipesApi from '@/api/recipes.api';
 
 // Busy logic
 const busyIndicator = useBusy('diet-planner');

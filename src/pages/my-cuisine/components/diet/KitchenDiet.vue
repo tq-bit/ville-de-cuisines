@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
+import { onMounted } from 'vue';
+
 import useDietStore from '@/store/dietStore';
 import dietApi from '@/api/diet.api';
 import { DietDayQuery } from '@/@types';
 
-import { useRouter } from 'vue-router';
-import { onMounted } from 'vue';
 const router = useRouter();
 
 const dietStore = useDietStore();

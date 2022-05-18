@@ -99,13 +99,16 @@ export const routes: RouterOptions['routes'] = [
       // Diet
       {
         path: '/my-cuisine/diet',
-        component: () => import('../pages/my-cuisine/diet/KitchenDiet.vue'),
+        component: () =>
+          import('../pages/my-cuisine/components/diet/KitchenDiet.vue'),
         beforeEnter: redirectToLoginIfUserIsLoggedOut,
         children: [
           {
             path: '/my-cuisine/diet/create',
             component: () =>
-              import('../pages/my-cuisine/diet/KitchenDietPlannerBlend.vue'),
+              import(
+                '../pages/my-cuisine/components/diet/KitchenDietPlannerBlend.vue'
+              ),
             beforeEnter: redirectToLoginIfUserIsLoggedOut,
           },
         ],
@@ -114,12 +117,13 @@ export const routes: RouterOptions['routes'] = [
       // Account settings
       {
         path: '/my-cuisine/account',
-        component: () => import('../pages/my-cuisine/profile/AccountBlend.vue'),
+        component: () =>
+          import('../pages/my-cuisine/components/profile/AccountBlend.vue'),
       },
       {
         path: '/my-cuisine/preferences',
         component: () =>
-          import('../pages/my-cuisine/profile/PreferencesBlend.vue'),
+          import('../pages/my-cuisine/components/profile/PreferencesBlend.vue'),
       },
     ],
   },

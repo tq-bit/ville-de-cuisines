@@ -7,23 +7,23 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AppAlert: typeof import('./src/components/widgets/AppAlert.vue')['default']
     AppButton: typeof import('./src/components/form/AppButton.vue')['default']
-    AppCalenderItem: typeof import('./src/components/calendar/AppCalenderItem.vue')['default']
-    AppCalenderWeek: typeof import('./src/components/diet-planner/AppCalenderWeek.vue')['default']
-    'AppCalenderWeek copy': typeof import('./src/components/calendar/AppCalenderWeek copy.vue')['default']
+    AppCalenderItem: typeof import('./src/components/calendar/AppCalenderItem.vue')['default'];
+    AppCalenderWeek: typeof import('./src/components/diet-planner/AppCalenderWeek.vue')['default'];
+    'AppCalenderWeek copy': typeof import('./src/components/calendar/AppCalenderWeek copy.vue')['default'];
     AppCard: typeof import('./src/components/form/AppCard.vue')['default']
     AppContainer: typeof import('./src/components/layout/content/AppContainer.vue')['default']
-    AppDietCalender: typeof import('./src/components/diet-planner/AppDietCalender.vue')['default']
-    AppDietDay: typeof import('./src/components/diet-planner/AppDietDay.vue')['default']
-    AppDietForm: typeof import('./src/components/diet-planner/AppDietForm.vue')['default']
-    AppDietLegend: typeof import('./src/components/diet-planner/AppDietLegend.vue')['default']
-    AppDietPlanner: typeof import('./src/components/diet-planner/AppDietPlanner.vue')['default']
+    AppDietCalender: typeof import('./src/components/diet-planner/AppDietCalender.vue')['default'];
+    AppDietDay: typeof import('./src/components/diet-planner/AppDietDay.vue')['default'];
+    AppDietForm: typeof import('./src/components/diet-planner/AppDietForm.vue')['default'];
+    AppDietLegend: typeof import('./src/components/diet-planner/AppDietLegend.vue')['default'];
+    AppDietPlanner: typeof import('./src/components/diet-planner/AppDietPlanner.vue')['default'];
     AppDietRow: typeof import('./src/components/widgets/diet-planner/AppDietRow.vue')['default']
     AppDietWeek: typeof import('./src/components/widgets/diet-planner/AppDietWeek.vue')['default']
     AppFeed: typeof import('./src/components/lists/feed/AppFeed.vue')['default']
     AppFeedItem: typeof import('./src/components/lists/feed/AppFeedItem.vue')['default']
     AppFileInput: typeof import('./src/components/form/AppFileInput.vue')['default']
     AppGallery: typeof import('./src/components/lists/gallery/AppGallery.vue')['default']
-    AppGalleryCard: typeof import('./src/components/lists/gallery/AppGalleryCard.vue')['default']
+    AppGalleryCard: typeof import('./src/components/lists/gallery/AppGalleryCard.vue')['default'];
     AppGalleryItem: typeof import('./src/components/lists/gallery/AppGalleryItem.vue')['default']
     AppGalleryRecipeCard: typeof import('./src/components/lists/gallery/AppGalleryRecipeCard.vue')['default']
     AppGrid: typeof import('./src/components/layout/content/AppGrid.vue')['default']
@@ -39,7 +39,7 @@ declare module '@vue/runtime-core' {
     AppPill: typeof import('./src/components/lists/pills/AppPill.vue')['default']
     AppPillList: typeof import('./src/components/lists/pills/AppPillList.vue')['default']
     AppProfileHeader: typeof import('./src/components/public-user/AppProfileHeader.vue')['default']
-    AppRecipeTile: typeof import('./src/components/widgets/tiles/AppRecipeTile.vue')['default']
+    AppRecipeTile: typeof import('./src/components/widgets/tiles/AppRecipeTile.vue')['default'];
     AppRouterLink: typeof import('./src/components/layout/navbar/AppRouterLink.vue')['default']
     AppScreenModal: typeof import('./src/components/ui/AppScreenModal.vue')['default']
     AppSearch: typeof import('./src/components/widgets/AppSearch.vue')['default']
@@ -50,9 +50,9 @@ declare module '@vue/runtime-core' {
     AppTag: typeof import('./src/components/lists/pills/AppTag.vue')['default']
     AppTextArea: typeof import('./src/components/form/AppTextArea.vue')['default']
     AppTile: typeof import('./src/components/ui/AppTile.vue')['default']
-    AppTiles: typeof import('./src/components/widgets/AppTiles.vue')['default']
+    AppTiles: typeof import('./src/components/widgets/AppTiles.vue')['default'];
     AppToolbar: typeof import('./src/components/layout/toolbar/AppToolbar.vue')['default']
-    DietPlanner: typeof import('./src/components/diet-planner/index.vue')['default']
+    DietPlanner: typeof import('./src/components/diet-planner/index.vue')['default'];
     IChart: typeof import('./src/components/icons/iChart.vue')['default']
     IClock: typeof import('./src/components/icons/iClock.vue')['default']
     IClose: typeof import('./src/components/icons/iClose.vue')['default']
@@ -70,6 +70,7 @@ declare module '@vue/runtime-core' {
     IUser: typeof import('./src/components/icons/iUser.vue')['default']
     IVdcLogo: typeof import('./src/components/icons/brands/iVdcLogo.vue')['default']
     IVdcLogoDark: typeof import('./src/components/icons/brands/iVdcLogoDark.vue')['default']
+    KitchenTiles: typeof import('./src/components/widgets/KitchenTiles.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SvgCookingHero: typeof import('./src/components/icons/svg/svgCookingHero.vue')['default']
