@@ -22,6 +22,7 @@ export interface DayWithDiet {
   timezoneOffsetSeconds?: number;
   isToday?: boolean;
   diets: DietEntry[];
+  dayOfMonth: number;
 }
 
 export interface DietDayQuery {

@@ -7,6 +7,7 @@ export default class Day {
   isToday?: boolean;
   diets: DietEntry[] = [];
   localDateString: string;
+  dayOfMonth: number;
 
   constructor(timestamp: number) {
     const date = new Date(timestamp);
@@ -15,6 +16,7 @@ export default class Day {
     this.timezoneOffsetSeconds = date.getTimezoneOffset() * 60;
     this.isToday = this.getIsToday(date);
     this.localDateString = this.getLocalDateString(date);
+    this.dayOfMonth = date.getDate();
   }
 
   public getMidnight() {

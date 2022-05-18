@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
-import { ref, onMounted } from 'vue';
-import Month from '@/classes/calender/Month';
+import { onMounted } from 'vue';
 
 import useDietStore from '@/store/dietStore';
 import dietApi from '@/api/diet.api';
@@ -45,14 +44,16 @@ onMounted(async () => {
         <component :is="Component" />
       </transition>
     </router-view>
-    <app-diet-month
-      :items="dietStore.activeUserDietsThisMonth"
-    ></app-diet-month>
+
     <app-diet-week
       class="mb-4"
       @click-day="onClickDay"
       @click-delete="onClickDelete"
       :items="dietStore.activeUserDietsThisWeek"
     ></app-diet-week>
+
+    <app-diet-month
+      :items="dietStore.activeUserDietsThisMonth"
+    ></app-diet-month>
   </app-container>
 </template>

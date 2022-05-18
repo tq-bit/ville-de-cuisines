@@ -48,7 +48,7 @@ const useDietStore = defineStore('diet', {
     async syncActiveUserDietsThisMonth(): Promise<void> {
       const activeUserStore = useActiveUserStore();
       const month = new Month();
-      const from = month.getMonthsWeek(0).getFirstDay().localTimeMidnightUnix;
+      const from = month.getMonthsWeek(0).getFirstDay().getMidnight();
       const to = month
         .getMonthsWeek(month.weeks.length - 1)
         .getLastDay().localTimeMidnightUnix;
@@ -58,6 +58,7 @@ const useDietStore = defineStore('diet', {
         from,
         to,
       );
+      console.log(diets);
       this._activeUserDietsThisMonth = diets as DietEntry[];
     },
   },

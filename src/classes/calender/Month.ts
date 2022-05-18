@@ -41,6 +41,10 @@ export default class Month {
     return this.weeks[index];
   }
 
+  public getDayNames() {
+    return this.weeks[0].days.map((day) => day.dayName);
+  }
+
   private constructMonthWeeks(timestamp: number, payload: DietEntry[]) {
     const weeks: Week[] = [];
     const date = new Date(timestamp);
