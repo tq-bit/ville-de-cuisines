@@ -13,7 +13,7 @@ export default function useLazySearch(
       clearTimeout(timeoutHandler.value);
     }
 
-    if (query !== '') {
+    if (!!query && query !== '') {
       loading.value = true;
       timeoutHandler.value = setTimeout(() => {
         handler(query).finally(() => {
