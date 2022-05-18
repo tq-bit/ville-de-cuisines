@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import Cookie from 'js-cookie';
 import { AppwriteException, Models } from 'appwrite';
 import { AppUserLoginPayload, AppServerResponseOrError } from '@/@types/index';
+import { v4 as uuid } from 'uuid';
 
 import { appwriteClient } from '@/classes/AppWrite';
 import { SESSION_ID_KEY } from '@/constants/index';
@@ -29,7 +30,7 @@ const useSessionStore = defineStore('session', {
     > {
       try {
         const response = await appwriteClient.account.create(
-          id || 'unique()',
+          id || uuid(),
           email,
           password,
           username,
