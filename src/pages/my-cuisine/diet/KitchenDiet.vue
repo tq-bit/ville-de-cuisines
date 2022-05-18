@@ -32,7 +32,7 @@ onMounted(() => dietStore.syncActiveUserDiets());
 </script>
 
 <template>
-  <div>
+  <app-container class="mt-4">
     <router-view v-slot="{ Component }">
       <transition name="fade">
         <component :is="Component" />
@@ -45,5 +45,5 @@ onMounted(() => dietStore.syncActiveUserDiets());
       class="mb-4"
       :items="dietStore.activeUserDiets"
     ></app-diet-week>
-  </div>
+  </app-container>
 </template>
