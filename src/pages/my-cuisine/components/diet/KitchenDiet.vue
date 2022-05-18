@@ -41,9 +41,9 @@ onMounted(() => dietStore.syncActiveUserDietsThisWeek());
     </router-view>
     <h2>Your weekly diet plan</h2>
     <app-diet-week
+      class="mb-4"
       @click-day="onClickDay"
       @click-delete="onClickDelete"
-      class="mb-4"
       :items="dietStore.activeUserDietsThisWeek"
     ></app-diet-week>
   </app-container>

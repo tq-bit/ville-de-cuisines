@@ -219,10 +219,10 @@ const computeIngredientCountForPortion = (ingredient: Ingredient) => {
             <span class="my-auto mr-2">I'm cooking for </span>
             <div class="w-16">
               <app-input
+                v-model="userPortionsCount"
                 class="text-center"
                 variant="small"
                 type="number"
-                v-model="userPortionsCount"
               ></app-input>
             </div>
             <span class="my-auto ml-2"> people </span>

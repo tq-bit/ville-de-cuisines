@@ -53,8 +53,8 @@ onMounted(async () => {
         <app-card block>
           <app-image
             class="mb-4"
-            :rounded="true"
             size="xsmall"
+            :rounded="true"
             :src="(localRecipeCategory?.primary_image_href as string)"
           ></app-image>
           <h4 class="mb-4">

@@ -20,9 +20,6 @@ const setLocalIngredient = async (categoryId: string) => {
   const [response, error] = await ingredientsApi.fetchIngredientById(
     categoryId,
   );
-  if (error) {
-    console.error(error);
-  }
   localIngredient.value = response as Ingredient;
 };
 const setLocalRecipeSuggestions = async (count: number) => {
@@ -53,8 +50,8 @@ onMounted(async () => {
         <app-card block>
           <app-image
             class="mb-4"
-            :rounded="true"
             size="xsmall"
+            :rounded="true"
             :src="(localIngredient?.primary_image_href as string)"
           ></app-image>
           <h1 class="text-lg">

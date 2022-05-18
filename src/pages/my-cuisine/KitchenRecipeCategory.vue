@@ -121,10 +121,10 @@ onBeforeUnmount(async () => {
           ></app-input>
 
           <app-button
-            :loading="busyIndicator.localStatus.value"
             class="md:hidden"
             block
             type="submit"
+            :loading="busyIndicator.localStatus.value"
             >Submit Recipe Category</app-button
           >
         </template>

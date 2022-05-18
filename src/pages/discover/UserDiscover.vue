@@ -25,8 +25,8 @@ onMounted(async () => {
     </h1>
     <app-feed
       size="medium"
-      @click="onClickUserItem"
       :items="publicUserStore.publicUserFeedItems"
+      @click="onClickUserItem"
     ></app-feed>
   </app-container>
 </template>

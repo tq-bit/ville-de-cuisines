@@ -114,11 +114,11 @@ onMounted(async () => await ingredientsStore.syncIngredients());
 
             <app-select
               v-model="quantity_unit"
-              :options="ingredientsStore.quantityOptions"
               class="mb-2"
               name="quantity_unit"
               label-prefix="Choose a "
               label="Quantity unit"
+              :options="ingredientsStore.quantityOptions"
             ></app-select>
           </app-grid>
 
@@ -140,10 +140,10 @@ onMounted(async () => await ingredientsStore.syncIngredients());
           ></app-text-area>
 
           <app-button
-            :loading="busyIndicator.localStatus.value"
             class="md:hidden"
             block
             type="submit"
+            :loading="busyIndicator.localStatus.value"
             >Submit ingredient</app-button
           >
         </template>

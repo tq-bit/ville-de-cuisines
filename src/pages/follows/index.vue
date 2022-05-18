@@ -26,8 +26,8 @@ onMounted(async () => await followsStore.syncActiveUserFollows());
         {{ followingUsers }} user{{ followingUsers > 1 ? 's' : '' }}
       </h1>
       <app-feed
-        @click="onClickUserItem"
         size="large"
+        @click="onClickUserItem"
         :items="followsStore.activeUserFollowsUserEntitiesFeedItems"
       ></app-feed>
     </div>

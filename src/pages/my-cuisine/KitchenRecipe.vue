@@ -239,20 +239,20 @@ const commitLocalTagState = () => {
             label="Make my recipe public"
           ></app-switch>
           <app-button
-            :loading="busyIndicator.localStatus.value"
             class="hidden md:block"
             block
             type="submit"
+            :loading="busyIndicator.localStatus.value"
             >Submit Recipe</app-button
           >
 
           <app-button
             v-if="isEditMode"
-            variant="warning-outline"
-            @click="onDeleteRecipe"
             class="mt-4 hidden md:block"
+            variant="warning-outline"
             block
             type="button"
+            @click="onDeleteRecipe"
             >Delete Recipe</app-button
           >
         </template>
@@ -323,19 +323,19 @@ const commitLocalTagState = () => {
           ></app-text-area>
 
           <app-button
-            :loading="busyIndicator.localStatus.value"
             class="md:hidden"
             block
             type="submit"
+            :loading="busyIndicator.localStatus.value"
             >Submit Recipe</app-button
           >
 
           <app-button
             v-if="isEditMode"
-            @click="onDeleteRecipe"
             class="md:hidden"
             block
             type="button"
+            @click="onDeleteRecipe"
             >Delete Recipe</app-button
           >
         </template>

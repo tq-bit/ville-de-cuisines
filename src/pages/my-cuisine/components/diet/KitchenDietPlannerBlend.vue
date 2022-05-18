@@ -72,9 +72,9 @@ onMounted(() => {
   <app-screen-modal @keydown.esc="router.go(-1)" @click-blend="router.go(-1)">
     <app-card
       block
+      title="Create a diet entry"
       :closable="true"
       @close="router.go(-1)"
-      title="Create a diet entry"
     >
       <app-alert class="mb-6" v-if="hasFormErrors" variant="error">
         <ul>

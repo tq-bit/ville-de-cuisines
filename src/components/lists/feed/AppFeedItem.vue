@@ -22,14 +22,14 @@ withDefaults(
 
 <template>
   <li
-    @mouseenter="setIsHovered(true)"
-    @mouseleave="setIsHovered(false)"
     class="my-4 flex cursor-pointer"
     :class="{
       'h-12': size === 'small',
       'h-24': size === 'medium',
       'h-32': size === 'large',
     }"
+    @mouseenter="setIsHovered(true)"
+    @mouseleave="setIsHovered(false)"
   >
     <img
       class="rounded object-cover"

@@ -20,12 +20,12 @@ const onClick = (item: AppGalleryItemType) => {
 <template>
   <ul>
     <app-feed-item
-      @click="() => onClick(item)"
       v-for="item in items"
       :key="item.title"
       :item="item"
       :size="size"
       :hideText="hideText"
+      @click="() => onClick(item)"
     ></app-feed-item>
   </ul>
 </template>

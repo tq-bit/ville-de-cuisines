@@ -26,10 +26,10 @@ onMounted(async () => {
       {{ recipeStore.recipeCategoriesForGallery.length }} categories
     </h1>
     <app-gallery
-      @click-create="router.push({ path: '/my-cuisine/recipe-category' })"
-      @click="onClickGalleryCategoryItem"
       :columns="3"
       :items="recipeStore.recipeCategoriesForGallery"
+      @click-create="router.push({ path: '/my-cuisine/recipe-category' })"
+      @click="onClickGalleryCategoryItem"
     ></app-gallery>
 
     <section class="text-center">

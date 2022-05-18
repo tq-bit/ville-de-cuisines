@@ -47,10 +47,10 @@ const onSubmitPassword = async () => {
     @click-blend="closeAccountModal"
   >
     <app-card
+      title="Account settings"
       block
       :closable="true"
       @close="closeAccountModal"
-      title="Account settings"
     >
       <app-alert class="mb-6" v-if="hasFormErrors" variant="error">
         <ul>
