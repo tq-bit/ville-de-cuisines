@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
-import { onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
+import Month from '@/classes/calender/Month';
 
 import useDietStore from '@/store/dietStore';
 import dietApi from '@/api/diet.api';
@@ -29,7 +30,12 @@ const onClickDelete = async (id: string) => {
   }
 };
 
-onMounted(() => dietStore.syncActiveUserDietsThisWeek());
+onMounted(async () => {
+  await Promise.all([
+    dietStore.syncActiveUserDietsThisWeek(),
+    dietStore.syncActiveUserDietsThisMonth(),
+  ]);
+});
 </script>
 
 <template>
@@ -40,6 +46,9 @@ onMounted(() => dietStore.syncActiveUserDietsThisWeek());
       </transition>
     </router-view>
     <h2>Your weekly diet plan</h2>
+    <app-diet-month
+      :items="dietStore.activeUserDietsThisMonth"
+    ></app-diet-month>
     <app-diet-week
       class="mb-4"
       @click-day="onClickDay"

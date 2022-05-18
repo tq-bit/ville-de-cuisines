@@ -16,6 +16,7 @@ declare module '@vue/runtime-core' {
     AppDietDay: typeof import('./src/components/diet-planner/AppDietDay.vue')['default'];
     AppDietForm: typeof import('./src/components/diet-planner/AppDietForm.vue')['default'];
     AppDietLegend: typeof import('./src/components/diet-planner/AppDietLegend.vue')['default'];
+    AppDietMonth: typeof import('./src/components/widgets/diet-planner/AppDietMonth.vue')['default']
     AppDietPlanner: typeof import('./src/components/diet-planner/AppDietPlanner.vue')['default'];
     AppDietRow: typeof import('./src/components/widgets/diet-planner/AppDietRow.vue')['default']
     AppDietWeek: typeof import('./src/components/widgets/diet-planner/AppDietWeek.vue')['default']
