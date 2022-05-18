@@ -15,7 +15,6 @@ watch(dietLength, () => {
 <template>
   <div class="max-w-full overflow-x-auto rounded">
     <h1>Months</h1>
-    {{ month }}
   </div>
 </template>
 
