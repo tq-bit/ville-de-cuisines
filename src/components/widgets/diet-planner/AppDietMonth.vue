@@ -4,6 +4,9 @@ import { DietEntry } from '@/@types';
 import Month from '@/classes/calender/Month';
 
 const props = defineProps<{ items: DietEntry[] }>();
+const emit = defineEmits<{
+  (event: 'click-week', calenderWeek: number): void;
+}>();
 const dietLength = computed(() => props.items.length);
 
 const month = ref(new Month({ diets: props.items }));
@@ -21,7 +24,7 @@ watch(dietLength, () => {
       <table class="min-w-full whitespace-nowrap">
         <thead class="border-b-2 border-green-800 text-center font-semibold">
           <tr>
-            <td></td>
+            <td>#</td>
             <td v-for="day in month.getDayNames()" :key="day">
               {{ day }}
             </td>
@@ -32,8 +35,11 @@ watch(dietLength, () => {
             class="cursor-pointer transition-colors hover:bg-gray-50 hover:dark:bg-gray-800"
             v-for="week in month.weeks"
             :key="week.calenderWeek"
+            @click="emit('click-week', week.calenderWeek)"
           >
-            <td class="bg-gray-50 text-center align-middle dark:bg-gray-800">
+            <td
+              class="border-r-green-800 bg-gray-50 text-center align-middle dark:bg-gray-800"
+            >
               <b> # {{ week.calenderWeek }}</b>
             </td>
             <td
