@@ -1,8 +1,6 @@
 import { DietEntry, DayWithDiet } from '@/@types';
-import { string } from 'yup';
+import { ONE_WEEK } from '@/constants/calender';
 import Week from './Week';
-
-const oneWeek = 7 * 24 * 60 * 60 * 1000;
 
 interface MonthConstructor {
   timestamp?: number;
@@ -48,7 +46,7 @@ export default class Month {
     const date = new Date(timestamp);
     const startDate = new Date(date.getFullYear(), date.getMonth(), 1);
     const endDate = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-    for (let i = startDate.getTime(); i <= endDate.getTime(); i += oneWeek) {
+    for (let i = startDate.getTime(); i <= endDate.getTime(); i += ONE_WEEK) {
       weeks.push(new Week({ timestamp: i, diets: payload }));
     }
     return weeks;

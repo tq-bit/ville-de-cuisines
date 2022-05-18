@@ -1,7 +1,7 @@
 import { DietEntry, DayWithDiet } from '@/@types';
 import Day from './Day';
 
-const oneDay = 24 * 60 * 60 * 1000;
+import { ONE_DAY } from '@/constants/calender';
 
 interface WeekConstructor {
   timestamp?: number;
@@ -37,7 +37,7 @@ export default class Week {
       localDay.diets = payload.filter(
         (diet) =>
           diet.date_unix >= day.localTimeMidnightUnix &&
-          diet.date_unix < day.localTimeMidnightUnix + oneDay,
+          diet.date_unix < day.localTimeMidnightUnix + ONE_DAY,
       );
       return localDay;
     });
@@ -47,9 +47,9 @@ export default class Week {
     const days: Day[] = [];
     const date = new Date(timestamp);
     const day = date.getDay();
-    const startDate = new Date(date.getTime() - day * oneDay);
-    const endDate = new Date(date.getTime() + (6 - day) * oneDay);
-    for (let i = startDate.getTime(); i <= endDate.getTime(); i += oneDay) {
+    const startDate = new Date(date.getTime() - day * ONE_DAY);
+    const endDate = new Date(date.getTime() + (6 - day) * ONE_DAY);
+    for (let i = startDate.getTime(); i <= endDate.getTime(); i += ONE_DAY) {
       days.push(new Day(i));
     }
     return days;
@@ -58,7 +58,8 @@ export default class Week {
   private constructCalenderWeek(timestamp: number) {
     const date = new Date(timestamp);
     const firstDayOfYear = new Date(date.getFullYear(), 0, 1);
-    const pastDaysOfYear = (date.getTime() - firstDayOfYear.getTime()) / oneDay;
+    const pastDaysOfYear =
+      (date.getTime() - firstDayOfYear.getTime()) / ONE_DAY;
     return Math.ceil(pastDaysOfYear / 7);
   }
 }
