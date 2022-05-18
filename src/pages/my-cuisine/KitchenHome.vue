@@ -31,7 +31,7 @@ onMounted(
 </script>
 
 <template>
-  <div>
+  <app-container class="mt-4">
     <section class="mb-4 grid grid-cols-12 gap-4">
       <div class="col-span-12 md:col-span-4">
         <app-tile
@@ -82,5 +82,5 @@ onMounted(
       @click="onGalleryItemClick"
       @click-create="router.push({ path: '/my-cuisine/recipe' })"
     ></app-gallery>
-  </div>
+  </app-container>
 </template>
