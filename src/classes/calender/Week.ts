@@ -1,7 +1,7 @@
 import { DietEntry, DayWithDiet } from '@/@types';
 import Day from './Day';
 
-const oneHour = 24 * 60 * 60 * 1000;
+const oneDay = 24 * 60 * 60 * 1000;
 
 interface WeekConstructor {
   timestamp?: number;
@@ -25,7 +25,7 @@ export default class Week {
       localDay.diets = payload.filter(
         (diet) =>
           diet.date_unix >= day.localTimeMidnightUnix &&
-          diet.date_unix < day.localTimeMidnightUnix + oneHour,
+          diet.date_unix < day.localTimeMidnightUnix + oneDay,
       );
       return localDay;
     });
@@ -35,9 +35,9 @@ export default class Week {
     const days: Day[] = [];
     const date = new Date(timestamp);
     const day = date.getDay();
-    const startDate = new Date(date.getTime() - day * oneHour);
-    const endDate = new Date(date.getTime() + (6 - day) * oneHour);
-    for (let i = startDate.getTime(); i <= endDate.getTime(); i += oneHour) {
+    const startDate = new Date(date.getTime() - day * oneDay);
+    const endDate = new Date(date.getTime() + (6 - day) * oneDay);
+    for (let i = startDate.getTime(); i <= endDate.getTime(); i += oneDay) {
       days.push(new Day(i));
     }
     return days;
