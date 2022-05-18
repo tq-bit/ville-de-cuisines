@@ -11,12 +11,16 @@ interface WeekConstructor {
 export default class Week {
   days: Day[];
   daysWithDiet: DayWithDiet[] = [];
+  calenderWeek: number;
 
   constructor(options?: WeekConstructor) {
     this.days = this.constructWeekDays(
       options?.timestamp || new Date().getTime(),
     );
     this.daysWithDiet = this.mapDietToWeekdays(options?.diets || []);
+    this.calenderWeek = this.constructCalenderWeek(
+      options?.timestamp || new Date().getTime(),
+    );
   }
 
   public getFirstDay() {
@@ -49,5 +53,12 @@ export default class Week {
       days.push(new Day(i));
     }
     return days;
+  }
+
+  private constructCalenderWeek(timestamp: number) {
+    const date = new Date(timestamp);
+    const firstDayOfYear = new Date(date.getFullYear(), 0, 1);
+    const pastDaysOfYear = (date.getTime() - firstDayOfYear.getTime()) / oneDay;
+    return Math.ceil(pastDaysOfYear / 7);
   }
 }
