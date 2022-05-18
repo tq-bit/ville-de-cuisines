@@ -45,7 +45,6 @@ onMounted(async () => {
         <component :is="Component" />
       </transition>
     </router-view>
-    <h2>Your weekly diet plan</h2>
     <app-diet-month
       :items="dietStore.activeUserDietsThisMonth"
     ></app-diet-month>
