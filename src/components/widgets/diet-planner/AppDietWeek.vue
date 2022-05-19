@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, Ref, computed, watch } from 'vue';
-import { DietEntry, DietDayQuery, DietDayTime } from '@/@types';
+import { computed } from 'vue';
+import { DietDayQuery, DietDayTime } from '@/@types';
 import Week from '@/classes/calender/Week';
 
 const props = defineProps<{ week: Week }>();
