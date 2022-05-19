@@ -44,6 +44,7 @@ Sadly, I was not able to implement all the features during the time of the hacka
 <li>Recipe suggestions</li>
 <li>Recipe refinement (that's like forking a recipe)</li>
 <li>Ingredient and energy calculation per recipe</li>
+<li>A personal diet calender</li>
 <li>Experimental clientside in-memory caching</li>
 </details>
 
@@ -52,9 +53,6 @@ Sadly, I was not able to implement all the features during the time of the hacka
 
 <details>
 <summary> Toggle planned features </summary>
-
-<li>Add a public / personal diet calender</li>
-<li>Add proper loading indicators</li>
 <li>Improve recipe creation (browsing and adding ingredients on the fly)</li>
 <li>Enhance recipe suggestions and search, e.g. by tag or several ingredients</li>
 <li>Enhance ingredient data structure, e.g. nutrients, brand and retailer</li>
@@ -126,6 +124,10 @@ I tried to design the app in an intuitive way. Naturally, there's always somethi
 ### Refine a recipe and make it your own
 [![update-your-user-preferences][gif-refine-recipe]](#)
 
+### Manage your diets
+
+[![manage-your-diets][gif-manage-diets]](#)
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- LICENSE -->
@@ -175,3 +177,4 @@ While developing, I fell in love with AppWrite's simplicity. If you're reading t
 [gif-manage-ingredients]: public/github-assets/manage-ingredents.gif
 [gif-follow-user]: public/github-assets/follow-user.gif
 [gif-refine-recipe]: public/github-assets/refine-recipe.gif
+[gif-manage-diets]: public/github-assets/manage-diets.gif
