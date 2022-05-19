@@ -1,16 +1,14 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue';
 import { DietEntry } from '@/@types';
 import Week from '@/classes/calender/Week';
 import Month from '@/classes/calender/Month';
 
-const props = defineProps<{ items: DietEntry[] }>();
+defineProps<{ month: Month }>();
 const emit = defineEmits<{
   (event: 'click-week', calenderWeek: Week): void;
 }>();
 
 // Diet logic
-const dietLength = computed(() => props.items.length);
 
 const hasBreakfast = (diets: DietEntry[]): boolean =>
   !!diets.find((diet) => diet.diet_time === 'breakfast');
@@ -18,12 +16,6 @@ const hasLunch = (diets: DietEntry[]): boolean =>
   !!diets.find((diet) => diet.diet_time === 'lunch');
 const hasDinner = (diets: DietEntry[]): boolean =>
   !!diets.find((diet) => diet.diet_time === 'breakfast');
-
-// Time logic
-const month = ref(new Month({ diets: props.items }));
-watch(dietLength, () => {
-  month.value = new Month({ diets: props.items });
-});
 </script>
 
 <template>

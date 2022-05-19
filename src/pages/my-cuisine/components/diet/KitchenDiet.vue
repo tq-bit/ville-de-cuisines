@@ -7,11 +7,17 @@ import useDietStore from '@/store/dietStore';
 import dietApi from '@/api/diet.api';
 import { DietDayQuery } from '@/@types';
 import Week from '@/classes/calender/Week';
+import Month from '@/classes/calender/Month';
 
 const router = useRouter();
 
 const dietStore = useDietStore();
-const dietLength = computed(() => dietStore.activeUserDietsThisWeek.length);
+const dietCountThisWeek = computed(
+  () => dietStore.activeUserDietsThisWeek.length,
+);
+const dietCountThisMonth = computed(
+  () => dietStore.activeUserDietsThisMonth.length,
+);
 const onClickDay = (payload: DietDayQuery) => {
   router.push({
     path: '/my-cuisine/diet/create',
@@ -65,12 +71,32 @@ const setToCurrentWeek = () => {
   });
   setWeek(currentWeek);
 };
-watch(dietLength, () => {
-  week.value = new Week({
-    diets: dietStore.activeUserDietsThisWeek,
-    timestamp: weekTimestamp.value,
-  });
+watch(dietCountThisWeek, () => {
+  syncCalenderReferences();
 });
+
+// Calender logic month
+const month = ref(new Month({ diets: dietStore.activeUserDietsThisMonth }));
+const setMonth = (payload: Month) => (month.value = payload);
+
+watch(dietCountThisMonth, () => {
+  syncCalenderReferences();
+});
+
+// Calender logic commons
+const syncCalenderReferences = () => {
+  setWeek(
+    new Week({
+      diets: dietStore.activeUserDietsThisWeek,
+      timestamp: weekTimestamp.value,
+    }),
+  );
+  setMonth(
+    new Month({
+      diets: dietStore.activeUserDietsThisMonth,
+    }),
+  );
+};
 </script>
 
 <template>
@@ -93,7 +119,7 @@ watch(dietLength, () => {
 
     <app-diet-month
       @click-week="setWeek"
-      :items="dietStore.activeUserDietsThisMonth"
+      :month="(month as Month)"
     ></app-diet-month>
   </app-container>
 </template>
