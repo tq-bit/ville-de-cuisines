@@ -15,7 +15,7 @@ const hasBreakfast = (diets: DietEntry[]): boolean =>
 const hasLunch = (diets: DietEntry[]): boolean =>
   !!diets.find((diet) => diet.diet_time === 'lunch');
 const hasDinner = (diets: DietEntry[]): boolean =>
-  !!diets.find((diet) => diet.diet_time === 'breakfast');
+  !!diets.find((diet) => diet.diet_time === 'dinner');
 </script>
 
 <template>
