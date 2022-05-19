@@ -7,19 +7,19 @@ const props = defineProps<{ items: DietEntry[] }>();
 const emit = defineEmits<{
   (event: 'click-week', calenderWeek: number): void;
 }>();
-const dietLength = computed(() => props.items.length);
 
-const month = ref(new Month({ diets: props.items }));
+// Diet logic
+const dietLength = computed(() => props.items.length);
 
 const hasBreakfast = (diets: DietEntry[]): boolean =>
   !!diets.find((diet) => diet.diet_time === 'breakfast');
-
 const hasLunch = (diets: DietEntry[]): boolean =>
   !!diets.find((diet) => diet.diet_time === 'lunch');
-
 const hasDinner = (diets: DietEntry[]): boolean =>
   !!diets.find((diet) => diet.diet_time === 'breakfast');
 
+// Time logic
+const month = ref(new Month({ diets: props.items }));
 watch(dietLength, () => {
   month.value = new Month({ diets: props.items });
 });
