@@ -11,6 +11,15 @@ const dietLength = computed(() => props.items.length);
 
 const month = ref(new Month({ diets: props.items }));
 
+const hasBreakfast = (diets: DietEntry[]): boolean =>
+  !!diets.find((diet) => diet.diet_time === 'breakfast');
+
+const hasLunch = (diets: DietEntry[]): boolean =>
+  !!diets.find((diet) => diet.diet_time === 'lunch');
+
+const hasDinner = (diets: DietEntry[]): boolean =>
+  !!diets.find((diet) => diet.diet_time === 'breakfast');
+
 watch(dietLength, () => {
   month.value = new Month({ diets: props.items });
 });
@@ -38,7 +47,7 @@ watch(dietLength, () => {
             @click="emit('click-week', week.calenderWeek)"
           >
             <td
-              class="border-r-green-800 bg-gray-50 text-center align-middle dark:bg-gray-800"
+              class="border-r-green-800 bg-gray-50 text-center dark:bg-gray-800"
             >
               <b> # {{ week.calenderWeek }}</b>
             </td>
@@ -51,7 +60,20 @@ watch(dietLength, () => {
               }"
             >
               <b> {{ day.dayOfMonth }}. </b>
-              <p class="mt-2">{{ day.diets.length }} / 3 diets</p>
+              <section>
+                <i
+                  v-if="hasBreakfast(day.diets)"
+                  class="mr-1 inline-block h-3 w-3 rounded border-b border-sky-600 bg-sky-400 dark:border-sky-800 dark:bg-sky-600"
+                ></i>
+                <i
+                  v-if="hasLunch(day.diets)"
+                  class="mr-1 inline-block h-3 w-3 rounded border-b border-amber-600 bg-amber-400 dark:border-amber-800 dark:bg-amber-600"
+                ></i>
+                <i
+                  v-if="hasDinner(day.diets)"
+                  class="mr-1 inline-block h-3 w-3 rounded border-b border-rose-600 bg-rose-400 dark:border-rose-800 dark:bg-rose-600"
+                ></i>
+              </section>
             </td>
           </tr>
         </tbody>
@@ -64,6 +86,6 @@ watch(dietLength, () => {
 
 <style scoped>
 td {
-  @apply p-2;
+  @apply p-2 align-baseline;
 }
 </style>

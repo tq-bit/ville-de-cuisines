@@ -3,10 +3,9 @@ import App from './App.vue';
 import router from './router/router';
 import vFocus from './directives/vFocus';
 
-import './css/styles.css';
-
 import '@fontsource/montserrat';
 import '@fontsource/nunito-sans';
+import './css/styles.css';
 
 import { createPinia } from 'pinia';
 
