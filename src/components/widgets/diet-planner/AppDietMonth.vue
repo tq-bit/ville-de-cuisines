@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue';
 import { DietEntry } from '@/@types';
+import Week from '@/classes/calender/Week';
 import Month from '@/classes/calender/Month';
 
 const props = defineProps<{ items: DietEntry[] }>();
 const emit = defineEmits<{
-  (event: 'click-week', calenderWeek: number): void;
+  (event: 'click-week', calenderWeek: Week): void;
 }>();
 
 // Diet logic
@@ -44,7 +45,7 @@ watch(dietLength, () => {
             class="cursor-pointer transition-colors hover:bg-gray-50 hover:dark:bg-gray-800"
             v-for="week in month.weeks"
             :key="week.calenderWeek"
-            @click="emit('click-week', week.calenderWeek)"
+            @click="emit('click-week', week as Week)"
           >
             <td
               class="border-r-green-800 bg-gray-50 text-center dark:bg-gray-800"
