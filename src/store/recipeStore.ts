@@ -130,7 +130,6 @@ const useRecipeStore = defineStore('recipes', {
 
     publicUserRecipesForGallery: (state) => {
       return state._publicUserRecipes.map((recipe) => {
-        const text = generateRecipeText(recipe);
         return {
           $id: recipe.$id,
           src: recipe.primary_image_href,
