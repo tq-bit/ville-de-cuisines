@@ -19,6 +19,13 @@ const ingredientSchema = yup.object({
   quantity: yup.number().required().label('Quantity'),
   quantity_unit: yup.string().oneOf(quantityOptionKeys).label('Quantity unit'),
   calories: yup.number().required().label('Calories'),
+  fat: yup.number().required().label('Fat'),
+  saturated_fat: yup.number().required().label('Saturated fat'),
+  carbohydrate: yup.number().required().label('Carbohydrate'),
+  sugar: yup.number().required().label('Sugar'),
+  fiber: yup.number().required().label('Fiber'),
+  protein: yup.number().required().label('Protein'),
+  salt: yup.number().required().label('Salt'),
   primary_image_id: yup
     .string()
     .optional()
@@ -46,6 +53,17 @@ export default function handleIngredientForm() {
     'quantity_unit',
   ) as FieldContext<string>;
   const { value: calories } = useField('calories') as FieldContext<number>;
+  const { value: fat } = useField('fat') as FieldContext<number>;
+  const { value: saturated_fat } = useField(
+    'saturated_fat',
+  ) as FieldContext<number>;
+  const { value: carbohydrate } = useField(
+    'carbohydrate',
+  ) as FieldContext<number>;
+  const { value: sugar } = useField('sugar') as FieldContext<number>;
+  const { value: fiber } = useField('fiber') as FieldContext<number>;
+  const { value: protein } = useField('protein') as FieldContext<number>;
+  const { value: salt } = useField('salt') as FieldContext<number>;
 
   const validationErrors = ref<any>(null);
   const httpError = ref<AppServerErrorResponse | null>(null);
@@ -93,6 +111,13 @@ export default function handleIngredientForm() {
     quantity,
     quantity_unit,
     calories,
+    fat,
+    saturated_fat,
+    carbohydrate,
+    sugar,
+    fiber,
+    protein,
+    salt,
     primary_image_id,
     hasFormErrors,
     httpError,
