@@ -21,18 +21,29 @@ const currentWeekDays = computed(() => props.week.daysWithDiet);
   <div>
     <h2>My diet plan for week #{{ week.calenderWeek }}</h2>
     <div class="mb-2 flex w-full justify-between">
-      <app-button size="small" @click="emit('click-decrement')"
-        >Previous week</app-button
-      >
       <app-button
+        title="Previous week"
         variant="link"
         size="small"
-        @click="emit('click-current-week')"
-        >This week</app-button
+        @click="emit('click-decrement')"
       >
-      <app-button size="small" @click="emit('click-increment')"
-        >Next week</app-button
+        <span class="inline-block h-6 w-6 rotate-180">
+          <i-chevron></i-chevron>
+        </span>
+      </app-button>
+      <app-button variant="link" @click="emit('click-current-week')"
+        >Current week</app-button
       >
+      <app-button
+        title="Next week"
+        variant="link"
+        size="small"
+        @click="emit('click-increment')"
+      >
+        <span class="inline-block h-6 w-6">
+          <i-chevron></i-chevron>
+        </span>
+      </app-button>
     </div>
     <div class="max-w-full overflow-x-auto rounded">
       <table class="min-w-full whitespace-nowrap">

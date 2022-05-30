@@ -55,6 +55,8 @@ declare module '@vue/runtime-core' {
     AppToolbar: typeof import('./src/components/layout/toolbar/AppToolbar.vue')['default']
     DietPlanner: typeof import('./src/components/diet-planner/index.vue')['default'];
     IChart: typeof import('./src/components/icons/iChart.vue')['default']
+    IChevron: typeof import('./src/components/icons/iChevron.vue')['default']
+    IChevronRight: typeof import('./src/components/icons/iChevronRight.vue')['default']
     IClock: typeof import('./src/components/icons/iClock.vue')['default']
     IClose: typeof import('./src/components/icons/iClose.vue')['default']
     IFacebook: typeof import('./src/components/icons/brands/iFacebook.vue')['default']
