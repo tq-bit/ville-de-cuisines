@@ -6,6 +6,13 @@ export interface Ingredient extends Models.Document {
   quantity: number;
   quantity_unit: string;
   calories: number;
+  fat: number;
+  saturated_fat: number;
+  carbohydrate: number;
+  sugar: number;
+  fiber: number;
+  protein: number;
+  salt: number;
   primary_image_id?: string;
   primary_image_href?: string;
 }

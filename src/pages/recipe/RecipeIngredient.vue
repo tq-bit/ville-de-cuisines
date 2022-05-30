@@ -54,10 +54,57 @@ onMounted(async () => {
             :rounded="true"
             :src="(localIngredient?.primary_image_href as string)"
           ></app-image>
-          <h1 class="text-lg">
-            <span class="font-semibold">Ingredient: </span
-            >{{ localIngredient?.name }}
-          </h1>
+
+          <h1 class="text-xl">{{ localIngredient?.name }}</h1>
+
+          <h2 class="text-base font-semibold">
+            {{ localIngredient?.quantity }}
+            {{ localIngredient?.quantity_unit }} of
+            {{ localIngredient?.name }} add:
+          </h2>
+
+          <ul>
+            <li v-if="localIngredient?.fat">Fat: {{ localIngredient.fat }}g</li>
+            <li v-if="localIngredient?.saturated_fat">
+              Saturated fat: {{ localIngredient.saturated_fat }}g
+              <span
+                v-if="localIngredient?.fat && localIngredient?.saturated_fat"
+                >({{
+                  (
+                    (localIngredient?.saturated_fat / localIngredient?.fat) *
+                    100
+                  ).toFixed(2)
+                }}
+                %)</span
+              >
+            </li>
+            <hr class="my-2" />
+            <li v-if="localIngredient?.carbohydrate">
+              Carbohydrate: {{ localIngredient.carbohydrate }}g
+            </li>
+            <li v-if="localIngredient?.sugar">
+              Sugar: {{ localIngredient.sugar }}g
+              <span
+                v-if="localIngredient?.sugar && localIngredient?.carbohydrate"
+                >({{
+                  (
+                    (localIngredient?.sugar / localIngredient?.carbohydrate) *
+                    100
+                  ).toFixed(2)
+                }}
+                %)</span
+              >
+            </li>
+            <hr class="my-2" />
+            <li v-if="localIngredient?.protein">
+              Protein: {{ localIngredient.protein }}g
+            </li>
+            <li v-if="localIngredient?.salt">
+              Salt: {{ localIngredient.salt }}g
+            </li>
+          </ul>
+          <hr class="mt-2 mb-6" />
+
           <form @submit.prevent="setLocalRecipeSuggestions(suggestionCount)">
             <app-input
               v-model="suggestionCount"
