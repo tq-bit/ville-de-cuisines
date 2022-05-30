@@ -24,6 +24,13 @@ const {
   calories,
   quantity,
   quantity_unit,
+  fat,
+  saturated_fat,
+  carbohydrate,
+  sugar,
+  fiber,
+  protein,
+  salt,
   primary_image_id,
   hasFormErrors,
   httpError,
@@ -63,9 +70,7 @@ onMounted(async () => await ingredientsStore.syncIngredients());
 
 <template>
   <app-container class="mt-4">
-    <h1>
-      <span> Create a new ingredient</span>
-    </h1>
+    <h1>Create a new ingredient</h1>
     <app-alert class="mb-6" v-if="hasFormErrors" variant="error">
       <ul>
         <li>{{ httpError?.message }}</li>
@@ -103,7 +108,6 @@ onMounted(async () => await ingredientsStore.syncIngredients());
           <app-grid variant="equal">
             <template v-slot:left>
               <app-input
-                type="number"
                 min="0"
                 v-model="quantity"
                 class="mb-2"
@@ -122,14 +126,95 @@ onMounted(async () => await ingredientsStore.syncIngredients());
             ></app-select>
           </app-grid>
 
-          <app-input
-            type="number"
-            min="0"
-            v-model="calories"
-            class="mb-2"
-            name="calories"
-            label="Calories"
-          ></app-input>
+          <app-fieldset legend="Nutrients:">
+            <app-grid class="mb-2" variant="equal">
+              <template v-slot:left>
+                <app-input
+                  variant="small"
+                  min="0"
+                  v-model="calories"
+                  class="mb-2"
+                  name="calories"
+                  label="Calories (kcal)"
+                ></app-input>
+              </template>
+
+              <app-input
+                variant="small"
+                min="0"
+                v-model="protein"
+                class="mb-2"
+                name="protein"
+                label="Protein (g)"
+              ></app-input>
+            </app-grid>
+
+            <app-grid class="mb-2" variant="equal">
+              <template v-slot:left>
+                <app-input
+                  variant="small"
+                  min="0"
+                  v-model="fat"
+                  class="mb-2"
+                  name="fat"
+                  label="Fat (g)"
+                ></app-input>
+              </template>
+
+              <app-input
+                variant="small"
+                min="0"
+                v-model="saturated_fat"
+                class="mb-2"
+                name="saturated_fat"
+                label="Of it: Saturated fat (g)"
+              ></app-input>
+            </app-grid>
+
+            <app-grid class="mb-2" variant="equal">
+              <template v-slot:left>
+                <app-input
+                  variant="small"
+                  min="0"
+                  v-model="carbohydrate"
+                  class="mb-2"
+                  name="carbohydrate"
+                  label="Carbohydrate (g)"
+                ></app-input>
+              </template>
+
+              <app-input
+                variant="small"
+                min="0"
+                v-model="sugar"
+                class="mb-2"
+                name="sugar"
+                label="Of it: Sugar (g)"
+              ></app-input>
+            </app-grid>
+
+            <app-grid class="mb-2" variant="equal">
+              <template v-slot:left>
+                <app-input
+                  variant="small"
+                  min="0"
+                  v-model="fiber"
+                  class="mb-2"
+                  name="fiber"
+                  label="Fiber (g)"
+                ></app-input>
+              </template>
+
+              <app-input
+                variant="small"
+                min="0"
+                v-model="salt"
+                class="mb-2"
+                name="salt"
+                label="Salt (g)"
+              ></app-input>
+            </app-grid>
+          </app-fieldset>
 
           <app-text-area
             rows="3"

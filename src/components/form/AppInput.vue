@@ -41,6 +41,7 @@ const onEnter = (ev: Event) =>
   <label
     v-if="label && !hideLabel"
     class="mb-1 block font-semibold text-green-600"
+    :class="{ 'text-sm': variant === 'small' }"
   >
     {{ label }}
   </label>

@@ -19,13 +19,13 @@ const ingredientSchema = yup.object({
   quantity: yup.number().required().label('Quantity'),
   quantity_unit: yup.string().oneOf(quantityOptionKeys).label('Quantity unit'),
   calories: yup.number().required().label('Calories'),
-  fat: yup.number().required().label('Fat'),
-  saturated_fat: yup.number().required().label('Saturated fat'),
-  carbohydrate: yup.number().required().label('Carbohydrate'),
-  sugar: yup.number().required().label('Sugar'),
-  fiber: yup.number().required().label('Fiber'),
-  protein: yup.number().required().label('Protein'),
-  salt: yup.number().required().label('Salt'),
+  fat: yup.number().optional().nullable().label('Fat'),
+  saturated_fat: yup.number().optional().nullable().label('Saturated fat'),
+  carbohydrate: yup.number().optional().nullable().label('Carbohydrate'),
+  sugar: yup.number().optional().nullable().label('Sugar'),
+  fiber: yup.number().optional().nullable().label('Fiber'),
+  protein: yup.number().optional().nullable().label('Protein'),
+  salt: yup.number().optional().nullable().label('Salt'),
   primary_image_id: yup
     .string()
     .optional()

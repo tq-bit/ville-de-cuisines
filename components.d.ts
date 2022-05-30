@@ -22,6 +22,7 @@ declare module '@vue/runtime-core' {
     AppDietWeek: typeof import('./src/components/widgets/diet/AppDietWeek.vue')['default']
     AppFeed: typeof import('./src/components/lists/feed/AppFeed.vue')['default']
     AppFeedItem: typeof import('./src/components/lists/feed/AppFeedItem.vue')['default']
+    AppFieldset: typeof import('./src/components/form/AppFieldset.vue')['default']
     AppFileInput: typeof import('./src/components/form/AppFileInput.vue')['default']
     AppGallery: typeof import('./src/components/lists/gallery/AppGallery.vue')['default']
     AppGalleryCard: typeof import('./src/components/lists/gallery/AppGalleryCard.vue')['default'];
